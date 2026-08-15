@@ -102,10 +102,16 @@
                   <!-- Transactions rendered here -->
                 </tbody>
               </table>
-            </div>
-            <div id="no-results" class="no-results hidden">
-              <i class="fa-regular fa-folder-open"></i>
-              <p>No transactions found.</p>
+              <div id="no-results" class="no-results hidden">
+                <i class="fa-regular fa-folder-open"></i>
+                <p>No transactions found.</p>
+              </div>
+              
+              <div id="pagination-controls" class="pagination-controls hidden">
+                <button id="prev-page" class="pagination-btn"><i class="fa-solid fa-chevron-left"></i> Prev</button>
+                <span id="page-info">Page 1 of 1</span>
+                <button id="next-page" class="pagination-btn">Next <i class="fa-solid fa-chevron-right"></i></button>
+              </div>
             </div>
           </div>
         </div>
