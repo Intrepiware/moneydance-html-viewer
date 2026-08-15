@@ -187,45 +187,63 @@ class App {
 
   renderAccountTree() {
     this.accountTreeEl.innerHTML = "";
-    this.buildAccountNode(this.data, this.accountTreeEl, true);
+    const ul = document.createElement("ul");
+    ul.className = "account-item";
+    this.buildAccountNode(this.data, ul, true);
+    this.accountTreeEl.appendChild(ul);
   }
 
   buildAccountNode(node, container, isOpen = false) {
     const hasChildren = node.children && node.children.length > 0;
 
-    const template = document.getElementById("tpl-account-node").content;
-    const clone = document.importNode(template, true);
-
-    const itemWrapper = clone.querySelector(".account-item");
-    const header = clone.querySelector(".account-header");
-    const toggle = clone.querySelector(".account-toggle");
-    const icon = clone.querySelector(".account-icon i");
-    const name = clone.querySelector(".account-name");
-    const balance = clone.querySelector(".account-balance");
-    const subContainer = clone.querySelector(".sub-accounts");
-
+    const header = document.createElement("div");
+    header.className = "account-header";
     header.dataset.id = node.id;
 
-    if (!hasChildren) toggle.classList.add("empty");
-    if (isOpen) toggle.classList.add("open");
+    const toggle = document.createElement("div");
+    toggle.className = `account-toggle ${hasChildren ? "" : "empty"} ${isOpen ? "open" : ""}`;
+    toggle.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
 
-    icon.className = `fa-solid ${getAccountIcon(node.type)}`;
+    const icon = document.createElement("div");
+    icon.className = "account-icon";
+    icon.innerHTML = `<i class="fa-solid ${getAccountIcon(node.type)}"></i>`;
+
+    const name = document.createElement("div");
+    name.className = "account-name";
     name.textContent = node.name;
 
+    const balance = document.createElement("div");
+    balance.className = "account-balance";
     const nodeBalance = this.calculateTotalBalance(node);
     balance.textContent = formatCurrency(nodeBalance);
     if (nodeBalance < 0) balance.style.color = "var(--text-main)";
     else if (nodeBalance > 0) balance.style.color = "var(--positive)";
 
+    header.appendChild(toggle);
+    header.appendChild(icon);
+    header.appendChild(name);
+    header.appendChild(balance);
+
+    container.appendChild(header);
+
+    let subContainer = null;
     if (hasChildren) {
-      if (isOpen) subContainer.classList.add("open");
+      subContainer = document.createElement("div");
+      subContainer.className = `sub-accounts ${isOpen ? "open" : ""}`;
+
       node.children.forEach((child) => {
-        this.buildAccountNode(child, subContainer);
+        const childWrapper = document.createElement("div");
+        childWrapper.className = "account-item";
+        this.buildAccountNode(child, childWrapper);
+        subContainer.appendChild(childWrapper);
       });
+
+      container.appendChild(subContainer);
     }
 
     // Event Listeners
     header.addEventListener("click", (e) => {
+      // If clicked on toggle and has children, just toggle
       if (
         hasChildren &&
         (e.target.closest(".account-toggle") ||
@@ -236,10 +254,9 @@ class App {
         e.stopPropagation();
         return;
       }
+
       this.selectAccount(node, header);
     });
-
-    container.appendChild(itemWrapper);
   }
 
   selectAccount(node, headerEl = null) {
@@ -330,51 +347,43 @@ class App {
         startIndex + this.itemsPerPage,
       );
 
-      this.transactionsBodyEl.innerHTML = "";
-      const fragment = document.createDocumentFragment();
-      const rowTemplate = document.getElementById(
-        "tpl-transaction-row",
-      ).content;
-      const yearTemplate = document.getElementById("tpl-year-divider").content;
-
       let currentYear = null;
+      let rowsHtml = "";
 
       paginatedTransactions.forEach((t) => {
         const amountClass = t.amount >= 0 ? "positive" : "negative";
+        const descDisplay =
+          this.currentAccount.id === "root"
+            ? `<div>${t.description}</div><div style="font-size: 0.8rem; color: var(--text-muted);">${t.accountName}</div>`
+            : t.description;
+
         const [year, month, day] = t.date.split("-");
 
         if (year !== currentYear) {
-          const yearClone = document.importNode(yearTemplate, true);
-          yearClone.querySelector(".sticky-year").textContent = year;
-          fragment.appendChild(yearClone);
+          rowsHtml += `
+                        <tr class="year-divider">
+                            <th colspan="5" class="sticky-year">
+                                ${year}
+                            </th>
+                        </tr>
+                    `;
           currentYear = year;
         }
 
-        const clone = document.importNode(rowTemplate, true);
-        clone.querySelector(".desktop-date").textContent = t.date;
-        clone.querySelector(".mobile-date").textContent = `${month}/${day}`;
-
-        const descCol = clone.querySelector(".desc-col");
-        if (this.currentAccount.id === "root") {
-          descCol.innerHTML = `<div>${t.description}</div><div style="font-size: 0.8rem; color: var(--text-muted);">${t.accountName}</div>`;
-        } else {
-          descCol.textContent = t.description;
-        }
-
-        clone.querySelector(".category-tag").textContent = t.category;
-
-        const amountEl = clone.querySelector(".amount-col.amount");
-        amountEl.textContent = formatCurrency(t.amount);
-        amountEl.classList.add(amountClass);
-
-        clone.querySelector(".amount-col.balance").textContent = formatCurrency(
-          t.balance,
-        );
-
-        fragment.appendChild(clone);
+        rowsHtml += `
+                    <tr>
+                        <td>
+                            <span class="desktop-date">${t.date}</span>
+                            <span class="mobile-date">${month}/${day}</span>
+                        </td>
+                        <td>${descDisplay}</td>
+                        <td><span style="background: var(--tag-bg); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${t.category}</span></td>
+                        <td class="amount-col amount ${amountClass}">${formatCurrency(t.amount)}</td>
+                        <td class="amount-col">${formatCurrency(t.balance)}</td>
+                    </tr>
+                `;
       });
-
-      this.transactionsBodyEl.appendChild(fragment);
+      this.transactionsBodyEl.innerHTML = rowsHtml;
     }
   }
 }
