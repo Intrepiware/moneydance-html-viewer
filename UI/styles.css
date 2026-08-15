@@ -395,6 +395,13 @@ tbody tr:hover {
     color: var(--text-main);
 }
 
+.category-tag {
+    background: var(--tag-bg);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
 .no-results {
     display: flex;
     flex-direction: column;

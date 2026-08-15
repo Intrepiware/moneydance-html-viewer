@@ -1,2502 +1,408 @@
 // Mock Data Generation
 const generateMockData = () => {
-  return {
-    id: "root",
-    name: "Root",
-    type: "ROOT",
-    children: [
-      {
-        id: "assets",
-        name: "Assets",
-        type: "ASSET",
-        balance: 15420.5,
+    return {
+        id: "root",
+        name: "Root",
+        type: "ROOT",
         children: [
-          {
-            id: "checking",
-            name: "Main Checking",
-            type: "BANK",
-            balance: 5420.5,
-            children: [],
-            transactions: [
-              {
-                id: "t1",
-                date: "2026-08-15",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -115.4,
-                balance: 4820.1,
-              },
-              {
-                id: "t2",
-                date: "2026-08-14",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -48.2,
-                balance: 4935.5,
-              },
-              {
-                id: "t3",
-                date: "2026-08-14",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.75,
-                balance: 4983.7,
-              },
-              {
-                id: "t4",
-                date: "2026-08-13",
-                description: "Electric Bill",
-                category: "Utilities",
-                amount: -142.1,
-                balance: 4990.45,
-              },
-              {
-                id: "t5",
-                date: "2026-08-12",
-                description: "Streaming Service",
-                category: "Entertainment",
-                amount: -15.99,
-                balance: 5132.55,
-              },
-              {
-                id: "t6",
-                date: "2026-08-11",
-                description: "Restaurant",
-                category: "Food",
-                amount: -64.3,
-                balance: 5148.54,
-              },
-              {
-                id: "t7",
-                date: "2026-08-10",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: 5212.84,
-              },
-              {
-                id: "t8",
-                date: "2026-08-09",
-                description: "Hardware Store",
-                category: "Home",
-                amount: -34.8,
-                balance: 2362.84,
-              },
-              {
-                id: "t9",
-                date: "2026-08-08",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -89.15,
-                balance: 2397.64,
-              },
-              {
-                id: "t10",
-                date: "2026-08-07",
-                description: "Mobile Phone Bill",
-                category: "Utilities",
-                amount: -85.0,
-                balance: 2486.79,
-              },
-              {
-                id: "t11",
-                date: "2026-08-06",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -52.4,
-                balance: 2571.79,
-              },
-              {
-                id: "t12",
-                date: "2026-08-05",
-                description: "Bookstore",
-                category: "Shopping",
-                amount: -28.5,
-                balance: 2624.19,
-              },
-              {
-                id: "t13",
-                date: "2026-08-04",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.5,
-                balance: 2652.69,
-              },
-              {
-                id: "t14",
-                date: "2026-08-03",
-                description: "Internet Service",
-                category: "Utilities",
-                amount: -75.0,
-                balance: 2658.19,
-              },
-              {
-                id: "t15",
-                date: "2026-08-02",
-                description: "Gym Membership",
-                category: "Health",
-                amount: -50.0,
-                balance: 2733.19,
-              },
-              {
-                id: "t16",
-                date: "2026-08-01",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -132.6,
-                balance: 2783.19,
-              },
-              {
-                id: "t17",
-                date: "2026-07-31",
-                description: "Restaurant",
-                category: "Food",
-                amount: -78.2,
-                balance: 2915.79,
-              },
-              {
-                id: "t18",
-                date: "2026-07-30",
-                description: "Pharmacy",
-                category: "Health",
-                amount: -22.4,
-                balance: 2993.99,
-              },
-              {
-                id: "t19",
-                date: "2026-07-29",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -45.1,
-                balance: 3016.39,
-              },
-              {
-                id: "t20",
-                date: "2026-07-28",
-                description: "Online Marketplace",
-                category: "Shopping",
-                amount: -65.99,
-                balance: 3061.49,
-              },
-              {
-                id: "t21",
-                date: "2026-07-27",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.2,
-                balance: 3127.48,
-              },
-              {
-                id: "t22",
-                date: "2026-07-26",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -94.3,
-                balance: 3133.68,
-              },
-              {
-                id: "t23",
-                date: "2026-07-25",
-                description: "Movie Theater",
-                category: "Entertainment",
-                amount: -32.0,
-                balance: 3227.98,
-              },
-              {
-                id: "t24",
-                date: "2026-07-24",
-                description: "Water Bill",
-                category: "Utilities",
-                amount: -54.1,
-                balance: 3259.98,
-              },
-              {
-                id: "t25",
-                date: "2026-07-23",
-                description: "Bakery",
-                category: "Food",
-                amount: -14.5,
-                balance: 3314.08,
-              },
-              {
-                id: "t26",
-                date: "2026-07-22",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -49.8,
-                balance: 3328.58,
-              },
-              {
-                id: "t27",
-                date: "2026-07-21",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: 3378.38,
-              },
-              {
-                id: "t28",
-                date: "2026-07-20",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -110.25,
-                balance: 528.38,
-              },
-              {
-                id: "t29",
-                date: "2026-07-19",
-                description: "Clothing Store",
-                category: "Shopping",
-                amount: -89.0,
-                balance: 638.63,
-              },
-              {
-                id: "t30",
-                date: "2026-07-18",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.75,
-                balance: 727.63,
-              },
-              {
-                id: "t31",
-                date: "2026-07-17",
-                description: "Restaurant",
-                category: "Food",
-                amount: -55.4,
-                balance: 733.38,
-              },
-              {
-                id: "t32",
-                date: "2026-07-16",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -44.1,
-                balance: 788.78,
-              },
-              {
-                id: "t33",
-                date: "2026-07-15",
-                description: "Hardware Store",
-                category: "Home",
-                amount: -18.9,
-                balance: 832.88,
-              },
-              {
-                id: "t34",
-                date: "2026-07-14",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -76.8,
-                balance: 851.78,
-              },
-              {
-                id: "t35",
-                date: "2026-07-13",
-                description: "Electric Bill",
-                category: "Utilities",
-                amount: -125.4,
-                balance: 928.58,
-              },
-              {
-                id: "t36",
-                date: "2026-07-12",
-                description: "Bookstore",
-                category: "Shopping",
-                amount: -24.1,
-                balance: 1053.98,
-              },
-              {
-                id: "t37",
-                date: "2026-07-11",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.5,
-                balance: 1078.08,
-              },
-              {
-                id: "t38",
-                date: "2026-07-10",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: 1084.58,
-              },
-              {
-                id: "t39",
-                date: "2026-07-09",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -47.5,
-                balance: -1765.42,
-              },
-              {
-                id: "t40",
-                date: "2026-07-08",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -98.2,
-                balance: -1717.92,
-              },
-              {
-                id: "t41",
-                date: "2026-07-07",
-                description: "Mobile Phone Bill",
-                category: "Utilities",
-                amount: -85.0,
-                balance: -1619.72,
-              },
-              {
-                id: "t42",
-                date: "2026-07-06",
-                description: "Restaurant",
-                category: "Food",
-                amount: -42.1,
-                balance: -1534.72,
-              },
-              {
-                id: "t43",
-                date: "2026-07-05",
-                description: "Internet Service",
-                category: "Utilities",
-                amount: -75.0,
-                balance: -1492.62,
-              },
-              {
-                id: "t44",
-                date: "2026-07-04",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -145.8,
-                balance: -1417.62,
-              },
-              {
-                id: "t45",
-                date: "2026-07-03",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.2,
-                balance: -1271.82,
-              },
-              {
-                id: "t46",
-                date: "2026-07-02",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -50.1,
-                balance: -1266.62,
-              },
-              {
-                id: "t47",
-                date: "2026-07-01",
-                description: "Gym Membership",
-                category: "Health",
-                amount: -50.0,
-                balance: -1216.52,
-              },
-              {
-                id: "t48",
-                date: "2026-06-30",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -88.4,
-                balance: -1166.52,
-              },
-              {
-                id: "t49",
-                date: "2026-06-29",
-                description: "Pharmacy",
-                category: "Health",
-                amount: -19.3,
-                balance: -1078.12,
-              },
-              {
-                id: "t50",
-                date: "2026-06-28",
-                description: "Restaurant",
-                category: "Food",
-                amount: -63.5,
-                balance: -1058.82,
-              },
-              {
-                id: "t51",
-                date: "2026-06-27",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -46.2,
-                balance: -995.32,
-              },
-              {
-                id: "t52",
-                date: "2026-06-26",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.8,
-                balance: -949.12,
-              },
-              {
-                id: "t53",
-                date: "2026-06-25",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -102.1,
-                balance: -942.32,
-              },
-              {
-                id: "t54",
-                date: "2026-06-24",
-                description: "Water Bill",
-                category: "Utilities",
-                amount: -48.9,
-                balance: -840.22,
-              },
-              {
-                id: "t55",
-                date: "2026-06-23",
-                description: "Online Marketplace",
-                category: "Shopping",
-                amount: -35.4,
-                balance: -791.32,
-              },
-              {
-                id: "t56",
-                date: "2026-06-22",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -51.3,
-                balance: -755.92,
-              },
-              {
-                id: "t57",
-                date: "2026-06-21",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -704.62,
-              },
-              {
-                id: "t58",
-                date: "2026-06-20",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -79.4,
-                balance: 2145.38,
-              },
-              {
-                id: "t59",
-                date: "2026-06-19",
-                description: "Restaurant",
-                category: "Food",
-                amount: -54.2,
-                balance: 2224.78,
-              },
-              {
-                id: "t60",
-                date: "2026-06-18",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.9,
-                balance: 2278.98,
-              },
-              {
-                id: "t61",
-                date: "2026-06-17",
-                description: "Hardware Store",
-                category: "Home",
-                amount: -22.1,
-                balance: 2284.88,
-              },
-              {
-                id: "t62",
-                date: "2026-06-16",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -43.8,
-                balance: 2306.98,
-              },
-              {
-                id: "t63",
-                date: "2026-06-15",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -118.5,
-                balance: 2350.78,
-              },
-              {
-                id: "t64",
-                date: "2026-06-14",
-                description: "Electric Bill",
-                category: "Utilities",
-                amount: -112.3,
-                balance: 2469.28,
-              },
-              {
-                id: "t65",
-                date: "2026-06-13",
-                description: "Bookstore",
-                category: "Shopping",
-                amount: -31.2,
-                balance: 2581.58,
-              },
-              {
-                id: "t66",
-                date: "2026-06-12",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.4,
-                balance: 2612.78,
-              },
-              {
-                id: "t67",
-                date: "2026-06-11",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -49.1,
-                balance: 2619.18,
-              },
-              {
-                id: "t68",
-                date: "2026-06-10",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: 2668.28,
-              },
-              {
-                id: "t69",
-                date: "2026-06-09",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -95.6,
-                balance: -181.72,
-              },
-              {
-                id: "t70",
-                date: "2026-06-08",
-                description: "Mobile Phone Bill",
-                category: "Utilities",
-                amount: -85.0,
-                balance: -86.12,
-              },
-              {
-                id: "t71",
-                date: "2026-06-07",
-                description: "Restaurant",
-                category: "Food",
-                amount: -48.9,
-                balance: -1.12,
-              },
-              {
-                id: "t72",
-                date: "2026-06-06",
-                description: "Internet Service",
-                category: "Utilities",
-                amount: -75.0,
-                balance: 47.78,
-              },
-              {
-                id: "t73",
-                date: "2026-06-05",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.75,
-                balance: 122.78,
-              },
-              {
-                id: "t74",
-                date: "2026-06-04",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -52.1,
-                balance: 128.53,
-              },
-              {
-                id: "t75",
-                date: "2026-06-03",
-                description: "Gym Membership",
-                category: "Health",
-                amount: -50.0,
-                balance: 180.63,
-              },
-              {
-                id: "t76",
-                date: "2026-06-02",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -108.3,
-                balance: 230.63,
-              },
-              {
-                id: "t77",
-                date: "2026-06-01",
-                description: "Pharmacy",
-                category: "Health",
-                amount: -24.5,
-                balance: 338.93,
-              },
-              {
-                id: "t78",
-                date: "2026-05-31",
-                description: "Restaurant",
-                category: "Food",
-                amount: -67.2,
-                balance: 363.43,
-              },
-              {
-                id: "t79",
-                date: "2026-05-30",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -45.6,
-                balance: 430.63,
-              },
-              {
-                id: "t80",
-                date: "2026-05-29",
-                description: "Online Marketplace",
-                category: "Shopping",
-                amount: -42.8,
-                balance: 476.23,
-              },
-              {
-                id: "t81",
-                date: "2026-05-28",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.1,
-                balance: 519.03,
-              },
-              {
-                id: "t82",
-                date: "2026-05-27",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -84.9,
-                balance: 525.13,
-              },
-              {
-                id: "t83",
-                date: "2026-05-26",
-                description: "Water Bill",
-                category: "Utilities",
-                amount: -51.2,
-                balance: 610.03,
-              },
-              {
-                id: "t84",
-                date: "2026-05-25",
-                description: "Hardware Store",
-                category: "Home",
-                amount: -19.5,
-                balance: 661.23,
-              },
-              {
-                id: "t85",
-                date: "2026-05-24",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -49.3,
-                balance: 680.73,
-              },
-              {
-                id: "t86",
-                date: "2026-05-23",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: 730.03,
-              },
-              {
-                id: "t87",
-                date: "2026-05-22",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -112.4,
-                balance: -2119.97,
-              },
-              {
-                id: "t88",
-                date: "2026-05-21",
-                description: "Restaurant",
-                category: "Food",
-                amount: -59.1,
-                balance: -2007.57,
-              },
-              {
-                id: "t89",
-                date: "2026-05-20",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.5,
-                balance: -1948.47,
-              },
-              {
-                id: "t90",
-                date: "2026-05-19",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -44.7,
-                balance: -1942.97,
-              },
-              {
-                id: "t91",
-                date: "2026-05-18",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -91.2,
-                balance: -1898.27,
-              },
-              {
-                id: "t92",
-                date: "2026-05-17",
-                description: "Electric Bill",
-                category: "Utilities",
-                amount: -98.4,
-                balance: -1807.07,
-              },
-              {
-                id: "t93",
-                date: "2026-05-16",
-                description: "Bookstore",
-                category: "Shopping",
-                amount: -27.6,
-                balance: -1708.67,
-              },
-              {
-                id: "t94",
-                date: "2026-05-15",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.2,
-                balance: -1681.07,
-              },
-              {
-                id: "t95",
-                date: "2026-05-14",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -51.8,
-                balance: -1674.87,
-              },
-              {
-                id: "t96",
-                date: "2026-05-13",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -1623.07,
-              },
-              {
-                id: "t97",
-                date: "2026-05-12",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -83.5,
-                balance: -4473.07,
-              },
-              {
-                id: "t98",
-                date: "2026-05-11",
-                description: "Mobile Phone Bill",
-                category: "Utilities",
-                amount: -85.0,
-                balance: -4389.57,
-              },
-              {
-                id: "t99",
-                date: "2026-05-10",
-                description: "Restaurant",
-                category: "Food",
-                amount: -52.3,
-                balance: -4304.57,
-              },
-              {
-                id: "t100",
-                date: "2026-05-09",
-                description: "Internet Service",
-                category: "Utilities",
-                amount: -75.0,
-                balance: -4252.27,
-              },
-              {
-                id: "t101",
-                date: "2026-05-08",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.8,
-                balance: -4177.27,
-              },
-              {
-                id: "t102",
-                date: "2026-05-07",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -46.5,
-                balance: -4171.47,
-              },
-              {
-                id: "t103",
-                date: "2026-05-06",
-                description: "Gym Membership",
-                category: "Health",
-                amount: -50.0,
-                balance: -4124.97,
-              },
-              {
-                id: "t104",
-                date: "2026-05-05",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -125.1,
-                balance: -4074.97,
-              },
-              {
-                id: "t105",
-                date: "2026-05-04",
-                description: "Pharmacy",
-                category: "Health",
-                amount: -18.2,
-                balance: -3949.87,
-              },
-              {
-                id: "t106",
-                date: "2026-05-03",
-                description: "Restaurant",
-                category: "Food",
-                amount: -61.4,
-                balance: -3931.67,
-              },
-              {
-                id: "t107",
-                date: "2026-05-02",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -48.9,
-                balance: -3870.27,
-              },
-              {
-                id: "t108",
-                date: "2026-05-01",
-                description: "Online Marketplace",
-                category: "Shopping",
-                amount: -55.2,
-                balance: -3821.37,
-              },
-              {
-                id: "t109",
-                date: "2026-04-30",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.4,
-                balance: -3766.17,
-              },
-              {
-                id: "t110",
-                date: "2026-04-29",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -97.8,
-                balance: -3759.77,
-              },
-              {
-                id: "t111",
-                date: "2026-04-28",
-                description: "Water Bill",
-                category: "Utilities",
-                amount: -49.5,
-                balance: -3661.97,
-              },
-              {
-                id: "t112",
-                date: "2026-04-27",
-                description: "Hardware Store",
-                category: "Home",
-                amount: -21.3,
-                balance: -3612.47,
-              },
-              {
-                id: "t113",
-                date: "2026-04-26",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -52.0,
-                balance: -3591.17,
-              },
-              {
-                id: "t114",
-                date: "2026-04-25",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -3539.17,
-              },
-              {
-                id: "t115",
-                date: "2026-04-24",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -88.9,
-                balance: -6389.17,
-              },
-              {
-                id: "t116",
-                date: "2026-04-23",
-                description: "Restaurant",
-                category: "Food",
-                amount: -45.6,
-                balance: -6300.27,
-              },
-              {
-                id: "t117",
-                date: "2026-04-22",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.9,
-                balance: -6254.67,
-              },
-              {
-                id: "t118",
-                date: "2026-04-21",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -44.2,
-                balance: -6248.77,
-              },
-              {
-                id: "t119",
-                date: "2026-04-20",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -104.3,
-                balance: -6204.57,
-              },
-              {
-                id: "t120",
-                date: "2026-04-19",
-                description: "Electric Bill",
-                category: "Utilities",
-                amount: -105.2,
-                balance: -6100.27,
-              },
-              {
-                id: "t121",
-                date: "2026-04-18",
-                description: "Bookstore",
-                category: "Shopping",
-                amount: -29.4,
-                balance: -5995.07,
-              },
-              {
-                id: "t122",
-                date: "2026-04-17",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.1,
-                balance: -5965.67,
-              },
-              {
-                id: "t123",
-                date: "2026-04-16",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -48.5,
-                balance: -5959.57,
-              },
-              {
-                id: "t124",
-                date: "2026-04-15",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -5911.07,
-              },
-              {
-                id: "t125",
-                date: "2026-04-14",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -91.5,
-                balance: -8761.07,
-              },
-              {
-                id: "t126",
-                date: "2026-04-13",
-                description: "Mobile Phone Bill",
-                category: "Utilities",
-                amount: -85.0,
-                balance: -8669.57,
-              },
-              {
-                id: "t127",
-                date: "2026-04-12",
-                description: "Restaurant",
-                category: "Food",
-                amount: -53.8,
-                balance: -8584.57,
-              },
-              {
-                id: "t128",
-                date: "2026-04-11",
-                description: "Internet Service",
-                category: "Utilities",
-                amount: -75.0,
-                balance: -8530.77,
-              },
-              {
-                id: "t129",
-                date: "2026-04-10",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.6,
-                balance: -8455.77,
-              },
-              {
-                id: "t130",
-                date: "2026-04-09",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -47.1,
-                balance: -8450.17,
-              },
-              {
-                id: "t131",
-                date: "2026-04-08",
-                description: "Gym Membership",
-                category: "Health",
-                amount: -50.0,
-                balance: -8403.07,
-              },
-              {
-                id: "t132",
-                date: "2026-04-07",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -116.4,
-                balance: -8353.07,
-              },
-              {
-                id: "t133",
-                date: "2026-04-06",
-                description: "Pharmacy",
-                category: "Health",
-                amount: -21.5,
-                balance: -8236.67,
-              },
-              {
-                id: "t134",
-                date: "2026-04-05",
-                description: "Restaurant",
-                category: "Food",
-                amount: -65.2,
-                balance: -8215.17,
-              },
-              {
-                id: "t135",
-                date: "2026-04-04",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -50.3,
-                balance: -8149.97,
-              },
-              {
-                id: "t136",
-                date: "2026-04-03",
-                description: "Online Marketplace",
-                category: "Shopping",
-                amount: -38.4,
-                balance: -8099.67,
-              },
-              {
-                id: "t137",
-                date: "2026-04-02",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.2,
-                balance: -8061.27,
-              },
-              {
-                id: "t138",
-                date: "2026-04-01",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -82.9,
-                balance: -8055.07,
-              },
-              {
-                id: "t139",
-                date: "2026-03-31",
-                description: "Water Bill",
-                category: "Utilities",
-                amount: -47.8,
-                balance: -7972.17,
-              },
-              {
-                id: "t140",
-                date: "2026-03-30",
-                description: "Hardware Store",
-                category: "Home",
-                amount: -25.1,
-                balance: -7924.37,
-              },
-              {
-                id: "t141",
-                date: "2026-03-29",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -46.4,
-                balance: -7899.27,
-              },
-              {
-                id: "t142",
-                date: "2026-03-28",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -7852.87,
-              },
-              {
-                id: "t143",
-                date: "2026-03-27",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -99.1,
-                balance: -10702.87,
-              },
-              {
-                id: "t144",
-                date: "2026-03-26",
-                description: "Restaurant",
-                category: "Food",
-                amount: -51.4,
-                balance: -10603.77,
-              },
-              {
-                id: "t145",
-                date: "2026-03-25",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.5,
-                balance: -10552.37,
-              },
-              {
-                id: "t146",
-                date: "2026-03-24",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -49.2,
-                balance: -10546.87,
-              },
-              {
-                id: "t147",
-                date: "2026-03-23",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -111.8,
-                balance: -10497.67,
-              },
-              {
-                id: "t148",
-                date: "2026-03-22",
-                description: "Electric Bill",
-                category: "Utilities",
-                amount: -118.3,
-                balance: -10385.87,
-              },
-              {
-                id: "t149",
-                date: "2026-03-21",
-                description: "Bookstore",
-                category: "Shopping",
-                amount: -32.5,
-                balance: -10267.57,
-              },
-              {
-                id: "t150",
-                date: "2026-03-20",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.3,
-                balance: -10235.07,
-              },
-              {
-                id: "t151",
-                date: "2026-03-19",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -44.9,
-                balance: -10228.77,
-              },
-              {
-                id: "t152",
-                date: "2026-03-18",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -10183.87,
-              },
-              {
-                id: "t153",
-                date: "2026-03-17",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -78.6,
-                balance: -13033.87,
-              },
-              {
-                id: "t154",
-                date: "2026-03-16",
-                description: "Mobile Phone Bill",
-                category: "Utilities",
-                amount: -85.0,
-                balance: -12955.27,
-              },
-              {
-                id: "t155",
-                date: "2026-03-15",
-                description: "Restaurant",
-                category: "Food",
-                amount: -46.2,
-                balance: -12870.27,
-              },
-              {
-                id: "t156",
-                date: "2026-03-14",
-                description: "Internet Service",
-                category: "Utilities",
-                amount: -75.0,
-                balance: -12824.07,
-              },
-              {
-                id: "t157",
-                date: "2026-03-13",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.75,
-                balance: -12749.07,
-              },
-              {
-                id: "t158",
-                date: "2026-03-12",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -51.4,
-                balance: -12743.32,
-              },
-              {
-                id: "t159",
-                date: "2026-03-11",
-                description: "Gym Membership",
-                category: "Health",
-                amount: -50.0,
-                balance: -12691.92,
-              },
-              {
-                id: "t160",
-                date: "2026-03-10",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -103.5,
-                balance: -12641.92,
-              },
-              {
-                id: "t161",
-                date: "2026-03-09",
-                description: "Pharmacy",
-                category: "Health",
-                amount: -19.8,
-                balance: -12538.42,
-              },
-              {
-                id: "t162",
-                date: "2026-03-08",
-                description: "Restaurant",
-                category: "Food",
-                amount: -58.9,
-                balance: -12518.62,
-              },
-              {
-                id: "t163",
-                date: "2026-03-07",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -47.6,
-                balance: -12459.72,
-              },
-              {
-                id: "t164",
-                date: "2026-03-06",
-                description: "Online Marketplace",
-                category: "Shopping",
-                amount: -45.1,
-                balance: -12412.12,
-              },
-              {
-                id: "t165",
-                date: "2026-03-05",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.0,
-                balance: -12367.02,
-              },
-              {
-                id: "t166",
-                date: "2026-03-04",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -92.4,
-                balance: -12361.02,
-              },
-              {
-                id: "t167",
-                date: "2026-03-03",
-                description: "Water Bill",
-                category: "Utilities",
-                amount: -46.5,
-                balance: -12268.62,
-              },
-              {
-                id: "t168",
-                date: "2026-03-02",
-                description: "Hardware Store",
-                category: "Home",
-                amount: -20.8,
-                balance: -12222.12,
-              },
-              {
-                id: "t169",
-                date: "2026-03-01",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -50.9,
-                balance: -12201.32,
-              },
-              {
-                id: "t170",
-                date: "2026-02-28",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -12150.42,
-              },
-              {
-                id: "t171",
-                date: "2026-02-27",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -87.3,
-                balance: -15000.42,
-              },
-              {
-                id: "t172",
-                date: "2026-02-26",
-                description: "Restaurant",
-                category: "Food",
-                amount: -52.1,
-                balance: -14913.12,
-              },
-              {
-                id: "t173",
-                date: "2026-02-25",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.8,
-                balance: -14861.02,
-              },
-              {
-                id: "t174",
-                date: "2026-02-24",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -43.5,
-                balance: -14855.22,
-              },
-              {
-                id: "t175",
-                date: "2026-02-23",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -109.6,
-                balance: -14811.72,
-              },
-              {
-                id: "t176",
-                date: "2026-02-22",
-                description: "Electric Bill",
-                category: "Utilities",
-                amount: -124.5,
-                balance: -14702.12,
-              },
-              {
-                id: "t177",
-                date: "2026-02-21",
-                description: "Bookstore",
-                category: "Shopping",
-                amount: -28.9,
-                balance: -14577.62,
-              },
-              {
-                id: "t178",
-                date: "2026-02-20",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.4,
-                balance: -14548.72,
-              },
-              {
-                id: "t179",
-                date: "2026-02-19",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -48.1,
-                balance: -14542.32,
-              },
-              {
-                id: "t180",
-                date: "2026-02-18",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -14494.22,
-              },
-              {
-                id: "t181",
-                date: "2026-02-17",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -95.2,
-                balance: -17344.22,
-              },
-              {
-                id: "t182",
-                date: "2026-02-16",
-                description: "Mobile Phone Bill",
-                category: "Utilities",
-                amount: -85.0,
-                balance: -17249.02,
-              },
-              {
-                id: "t183",
-                date: "2026-02-15",
-                description: "Restaurant",
-                category: "Food",
-                amount: -49.7,
-                balance: -17164.02,
-              },
-              {
-                id: "t184",
-                date: "2026-02-14",
-                description: "Internet Service",
-                category: "Utilities",
-                amount: -75.0,
-                balance: -17114.32,
-              },
-              {
-                id: "t185",
-                date: "2026-02-13",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.5,
-                balance: -17039.32,
-              },
-              {
-                id: "t186",
-                date: "2026-02-12",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -52.6,
-                balance: -17033.82,
-              },
-              {
-                id: "t187",
-                date: "2026-02-11",
-                description: "Gym Membership",
-                category: "Health",
-                amount: -50.0,
-                balance: -16981.22,
-              },
-              {
-                id: "t188",
-                date: "2026-02-10",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -114.3,
-                balance: -16931.22,
-              },
-              {
-                id: "t189",
-                date: "2026-02-09",
-                description: "Pharmacy",
-                category: "Health",
-                amount: -22.1,
-                balance: -16816.92,
-              },
-              {
-                id: "t190",
-                date: "2026-02-08",
-                description: "Restaurant",
-                category: "Food",
-                amount: -62.4,
-                balance: -16794.82,
-              },
-              {
-                id: "t191",
-                date: "2026-02-07",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -46.8,
-                balance: -16732.42,
-              },
-              {
-                id: "t192",
-                date: "2026-02-06",
-                description: "Online Marketplace",
-                category: "Shopping",
-                amount: -41.5,
-                balance: -16685.62,
-              },
-              {
-                id: "t193",
-                date: "2026-02-05",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.1,
-                balance: -16644.12,
-              },
-              {
-                id: "t194",
-                date: "2026-02-04",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -89.4,
-                balance: -16638.02,
-              },
-              {
-                id: "t195",
-                date: "2026-02-03",
-                description: "Water Bill",
-                category: "Utilities",
-                amount: -48.2,
-                balance: -16548.62,
-              },
-              {
-                id: "t196",
-                date: "2026-02-02",
-                description: "Hardware Store",
-                category: "Home",
-                amount: -23.4,
-                balance: -16500.42,
-              },
-              {
-                id: "t197",
-                date: "2026-02-01",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -49.5,
-                balance: -16477.02,
-              },
-              {
-                id: "t198",
-                date: "2026-01-31",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -16427.52,
-              },
-              {
-                id: "t199",
-                date: "2026-01-30",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -93.8,
-                balance: -19277.52,
-              },
-              {
-                id: "t200",
-                date: "2026-01-29",
-                description: "Restaurant",
-                category: "Food",
-                amount: -55.2,
-                balance: -19183.72,
-              },
-              {
-                id: "t201",
-                date: "2026-01-28",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.9,
-                balance: -19128.52,
-              },
-              {
-                id: "t202",
-                date: "2026-01-27",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -44.3,
-                balance: -19122.62,
-              },
-              {
-                id: "t203",
-                date: "2026-01-26",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -101.4,
-                balance: -19078.32,
-              },
-              {
-                id: "t204",
-                date: "2026-01-25",
-                description: "Electric Bill",
-                category: "Utilities",
-                amount: -130.1,
-                balance: -18976.92,
-              },
-              {
-                id: "t205",
-                date: "2026-01-24",
-                description: "Bookstore",
-                category: "Shopping",
-                amount: -30.5,
-                balance: -18846.82,
-              },
-              {
-                id: "t206",
-                date: "2026-01-23",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.2,
-                balance: -18816.32,
-              },
-              {
-                id: "t207",
-                date: "2026-01-22",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -50.8,
-                balance: -18810.12,
-              },
-              {
-                id: "t208",
-                date: "2026-01-21",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -18759.32,
-              },
-              {
-                id: "t209",
-                date: "2026-01-20",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -86.7,
-                balance: -21609.32,
-              },
-              {
-                id: "t210",
-                date: "2026-01-19",
-                description: "Mobile Phone Bill",
-                category: "Utilities",
-                amount: -85.0,
-                balance: -21522.62,
-              },
-              {
-                id: "t211",
-                date: "2026-01-18",
-                description: "Restaurant",
-                category: "Food",
-                amount: -47.9,
-                balance: -21437.62,
-              },
-              {
-                id: "t212",
-                date: "2026-01-17",
-                description: "Internet Service",
-                category: "Utilities",
-                amount: -75.0,
-                balance: -21389.72,
-              },
-              {
-                id: "t213",
-                date: "2026-01-16",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.6,
-                balance: -21314.72,
-              },
-              {
-                id: "t214",
-                date: "2026-01-15",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -48.4,
-                balance: -21309.12,
-              },
-              {
-                id: "t215",
-                date: "2026-01-14",
-                description: "Gym Membership",
-                category: "Health",
-                amount: -50.0,
-                balance: -21260.72,
-              },
-              {
-                id: "t216",
-                date: "2026-01-13",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -119.2,
-                balance: -21210.72,
-              },
-              {
-                id: "t217",
-                date: "2026-01-12",
-                description: "Pharmacy",
-                category: "Health",
-                amount: -20.4,
-                balance: -21091.52,
-              },
-              {
-                id: "t218",
-                date: "2026-01-11",
-                description: "Restaurant",
-                category: "Food",
-                amount: -64.1,
-                balance: -21071.12,
-              },
-              {
-                id: "t219",
-                date: "2026-01-10",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -45.9,
-                balance: -21007.02,
-              },
-              {
-                id: "t220",
-                date: "2026-01-09",
-                description: "Online Marketplace",
-                category: "Shopping",
-                amount: -49.3,
-                balance: -20961.12,
-              },
-              {
-                id: "t221",
-                date: "2026-01-08",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.0,
-                balance: -20911.82,
-              },
-              {
-                id: "t222",
-                date: "2026-01-07",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -91.5,
-                balance: -20905.82,
-              },
-              {
-                id: "t223",
-                date: "2026-01-06",
-                description: "Water Bill",
-                category: "Utilities",
-                amount: -52.4,
-                balance: -20814.32,
-              },
-              {
-                id: "t224",
-                date: "2026-01-05",
-                description: "Hardware Store",
-                category: "Home",
-                amount: -26.9,
-                balance: -20761.92,
-              },
-              {
-                id: "t225",
-                date: "2026-01-04",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -51.2,
-                balance: -20735.02,
-              },
-              {
-                id: "t226",
-                date: "2026-01-03",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -20683.82,
-              },
-              {
-                id: "t227",
-                date: "2026-01-02",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -84.6,
-                balance: -23533.82,
-              },
-              {
-                id: "t228",
-                date: "2026-01-01",
-                description: "Restaurant",
-                category: "Food",
-                amount: -71.5,
-                balance: -23449.22,
-              },
-              {
-                id: "t229",
-                date: "2025-12-31",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.5,
-                balance: -23377.72,
-              },
-              {
-                id: "t230",
-                date: "2025-12-30",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -46.1,
-                balance: -23371.22,
-              },
-              {
-                id: "t231",
-                date: "2025-12-29",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -108.4,
-                balance: -23325.12,
-              },
-              {
-                id: "t232",
-                date: "2025-12-28",
-                description: "Electric Bill",
-                category: "Utilities",
-                amount: -135.2,
-                balance: -23216.72,
-              },
-              {
-                id: "t233",
-                date: "2025-12-27",
-                description: "Bookstore",
-                category: "Shopping",
-                amount: -34.1,
-                balance: -23081.52,
-              },
-              {
-                id: "t234",
-                date: "2025-12-26",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.8,
-                balance: -23047.42,
-              },
-              {
-                id: "t235",
-                date: "2025-12-25",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -49.9,
-                balance: -23041.62,
-              },
-              {
-                id: "t236",
-                date: "2025-12-24",
-                description: "Paycheck",
-                category: "Income",
-                amount: 2850.0,
-                balance: -22991.72,
-              },
-              {
-                id: "t237",
-                date: "2025-12-23",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -96.3,
-                balance: -25841.72,
-              },
-              {
-                id: "t238",
-                date: "2025-12-22",
-                description: "Mobile Phone Bill",
-                category: "Utilities",
-                amount: -85.0,
-                balance: -25745.42,
-              },
-              {
-                id: "t239",
-                date: "2025-12-21",
-                description: "Restaurant",
-                category: "Food",
-                amount: -53.4,
-                balance: -25660.42,
-              },
-              {
-                id: "t240",
-                date: "2025-12-20",
-                description: "Internet Service",
-                category: "Utilities",
-                amount: -75.0,
-                balance: -25607.02,
-              },
-              {
-                id: "t241",
-                date: "2025-12-19",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -5.75,
-                balance: -25532.02,
-              },
-              {
-                id: "t242",
-                date: "2025-12-18",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -47.2,
-                balance: -25526.27,
-              },
-              {
-                id: "t243",
-                date: "2025-12-17",
-                description: "Gym Membership",
-                category: "Health",
-                amount: -50.0,
-                balance: -25479.07,
-              },
-              {
-                id: "t244",
-                date: "2025-12-16",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -111.5,
-                balance: -25429.07,
-              },
-              {
-                id: "t245",
-                date: "2025-12-15",
-                description: "Pharmacy",
-                category: "Health",
-                amount: -21.8,
-                balance: -25317.57,
-              },
-              {
-                id: "t246",
-                date: "2025-12-14",
-                description: "Restaurant",
-                category: "Food",
-                amount: -60.3,
-                balance: -25295.77,
-              },
-              {
-                id: "t247",
-                date: "2025-12-13",
-                description: "Gas Station",
-                category: "Auto",
-                amount: -45.4,
-                balance: -25235.47,
-              },
-              {
-                id: "t248",
-                date: "2025-12-12",
-                description: "Online Marketplace",
-                category: "Shopping",
-                amount: -52.1,
-                balance: -25190.07,
-              },
-              {
-                id: "t249",
-                date: "2025-12-11",
-                description: "Coffee Shop",
-                category: "Food",
-                amount: -6.1,
-                balance: -25137.97,
-              },
-              {
-                id: "t250",
-                date: "2025-12-10",
-                description: "Grocery Store",
-                category: "Food",
-                amount: -88.9,
-                balance: -25131.87,
-              },
-            ],
-          },
-          {
-            id: "savings",
-            name: "High Yield Savings",
-            type: "BANK",
-            balance: 10000.0,
-            children: [],
-            transactions: [
-              {
-                id: "t5",
-                date: "2026-08-01",
-                description: "Interest Payment",
-                category: "Interest",
-                amount: 45.2,
-                balance: 10000.0,
-              },
-              {
-                id: "t6",
-                date: "2025-12-15",
-                description: "Transfer from Checking",
-                category: "Transfer",
-                amount: 500.0,
-                balance: 9954.8,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "liabilities",
-        name: "Liabilities",
-        type: "LIABILITY",
-        balance: -42500.0,
-        children: [
-          {
-            id: "credit_card",
-            name: "Rewards Card",
-            type: "CREDIT_CARD",
-            balance: -1500.0,
-            children: [],
-            transactions: [
-              {
-                id: "t7",
-                date: "2026-08-13",
-                description: "Online Shopping",
-                category: "Shopping",
-                amount: -150.0,
-                balance: -1500.0,
-              },
-              {
-                id: "t8",
-                date: "2026-08-11",
-                description: "Restaurant",
-                category: "Food",
-                amount: -65.3,
-                balance: -1350.0,
-              },
-              {
-                id: "t9",
-                date: "2026-08-01",
-                description: "Card Payment",
-                category: "Transfer",
-                amount: 1000.0,
-                balance: -1284.7,
-              },
-            ],
-          },
-          {
-            id: "loan_auto",
-            name: "Auto Loan",
-            type: "LOAN",
-            balance: -16000.0,
-            children: [],
-            transactions: [
-              {
-                id: "t10",
-                date: "2026-08-01",
-                description: "Monthly Payment",
-                category: "Auto Loan",
-                amount: 450.0,
-                balance: -16000.0,
-              },
-            ],
-          },
-          {
-            id: "loan_student",
-            name: "Student Loan",
-            type: "LOAN",
-            balance: -25000.0,
-            children: [],
-            transactions: [
-              {
-                id: "t11",
-                date: "2026-08-05",
-                description: "Monthly Payment",
-                category: "Education",
-                amount: 300.0,
-                balance: -25000.0,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  };
+            {
+                id: "assets",
+                name: "Assets",
+                type: "ASSET",
+                balance: 15420.50,
+                children: [
+                    {
+                        id: "checking",
+                        name: "Main Checking",
+                        type: "BANK",
+                        balance: 5420.50,
+                        children: [],
+                        transactions: [
+                            { id: "t1", date: "2026-08-14", description: "Grocery Store", category: "Food", amount: -120.50, balance: 5420.50 },
+                            { id: "t2", date: "2026-08-12", description: "Paycheck", category: "Income", amount: 3000.00, balance: 5541.00 },
+                            { id: "t3", date: "2026-08-10", description: "Electric Bill", category: "Utilities", amount: -95.20, balance: 2541.00 },
+                            { id: "t4", date: "2025-11-05", description: "Gas Station", category: "Auto", amount: -45.00, balance: 2636.20 }
+                        ]
+                    },
+                    {
+                        id: "savings",
+                        name: "High Yield Savings",
+                        type: "BANK",
+                        balance: 10000.00,
+                        children: [],
+                        transactions: [
+                            { id: "t5", date: "2026-08-01", description: "Interest Payment", category: "Interest", amount: 45.20, balance: 10000.00 },
+                            { id: "t6", date: "2025-12-15", description: "Transfer from Checking", category: "Transfer", amount: 500.00, balance: 9954.80 }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: "liabilities",
+                name: "Liabilities",
+                type: "LIABILITY",
+                balance: -42500.00,
+                children: [
+                    {
+                        id: "credit_card",
+                        name: "Rewards Card",
+                        type: "CREDIT_CARD",
+                        balance: -1500.00,
+                        children: [],
+                        transactions: [
+                            { id: "t7", date: "2026-08-13", description: "Online Shopping", category: "Shopping", amount: -150.00, balance: -1500.00 },
+                            { id: "t8", date: "2026-08-11", description: "Restaurant", category: "Food", amount: -65.30, balance: -1350.00 },
+                            { id: "t9", date: "2026-08-01", description: "Card Payment", category: "Transfer", amount: 1000.00, balance: -1284.70 }
+                        ]
+                    },
+                    {
+                        id: "loan_auto",
+                        name: "Auto Loan",
+                        type: "LOAN",
+                        balance: -16000.00,
+                        children: [],
+                        transactions: [
+                            { id: "t10", date: "2026-08-01", description: "Monthly Payment", category: "Auto Loan", amount: 450.00, balance: -16000.00 }
+                        ]
+                    },
+                    {
+                        id: "loan_student",
+                        name: "Student Loan",
+                        type: "LOAN",
+                        balance: -25000.00,
+                        children: [],
+                        transactions: [
+                            { id: "t11", date: "2026-08-05", description: "Monthly Payment", category: "Education", amount: 300.00, balance: -25000.00 }
+                        ]
+                    }
+                ]
+            }
+        ]
+    };
 };
 
 const formatCurrency = (amount) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount);
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
 };
 
 const getAccountIcon = (type) => {
-  switch (type) {
-    case "BANK":
-      return "fa-building-columns";
-    case "CREDIT_CARD":
-      return "fa-credit-card";
-    case "LOAN":
-      return "fa-hand-holding-dollar";
-    case "ASSET":
-      return "fa-sack-dollar";
-    case "LIABILITY":
-      return "fa-file-invoice-dollar";
-    default:
-      return "fa-wallet";
-  }
+    switch(type) {
+        case 'BANK': return 'fa-building-columns';
+        case 'CREDIT_CARD': return 'fa-credit-card';
+        case 'LOAN': return 'fa-hand-holding-dollar';
+        case 'ASSET': return 'fa-sack-dollar';
+        case 'LIABILITY': return 'fa-file-invoice-dollar';
+        default: return 'fa-wallet';
+    }
 };
 
 class App {
-  constructor() {
-    this.data = generateMockData();
-    this.currentAccount = null;
-    this.allTransactions = [];
-    this.searchQuery = "";
-    this.currentPage = 1;
-    this.itemsPerPage = 100;
-
-    this.init();
-  }
-
-  init() {
-    this.cacheDOM();
-    this.bindEvents();
-
-    if (localStorage.getItem("theme") === "light") {
-      this.toggleTheme(true);
+    constructor() {
+        this.data = generateMockData();
+        this.currentAccount = null;
+        this.allTransactions = [];
+        this.searchQuery = '';
+        this.currentPage = 1;
+        this.itemsPerPage = 100;
+        
+        this.init();
     }
 
-    this.extractAllTransactions();
-    this.renderAccountTree();
-    this.selectAccount(this.data); // Select root by default
-  }
-
-  cacheDOM() {
-    this.accountTreeEl = document.getElementById("account-tree");
-    this.transactionsBodyEl = document.getElementById("transactions-body");
-    this.currentAccountNameEl = document.getElementById("current-account-name");
-    this.totalBalanceEl = document.getElementById("total-balance");
-    this.mobileTotalBalanceEl = document.getElementById("mobile-total-balance");
-    this.totalTransactionsEl = document.getElementById("total-transactions");
-    this.searchInputEl = document.getElementById("search-input");
-    this.noResultsEl = document.getElementById("no-results");
-    this.transactionsTableEl = document.getElementById("transactions-table");
-
-    this.paginationControlsEl = document.getElementById("pagination-controls");
-    this.prevPageBtn = document.getElementById("prev-page");
-    this.nextPageBtn = document.getElementById("next-page");
-    this.pageInfoEl = document.getElementById("page-info");
-
-    // Mobile sidebar
-    this.sidebarEl = document.getElementById("sidebar");
-    this.overlayEl = document.getElementById("sidebar-overlay");
-    this.openSidebarBtn = document.getElementById("open-sidebar");
-    this.closeSidebarBtn = document.getElementById("close-sidebar");
-
-    this.themeToggleBtn = document.getElementById("theme-toggle");
-  }
-
-  bindEvents() {
-    this.searchInputEl.addEventListener("input", (e) => {
-      this.searchQuery = e.target.value.toLowerCase();
-      this.currentPage = 1;
-      this.renderTransactions();
-    });
-
-    this.openSidebarBtn.addEventListener("click", () =>
-      this.toggleSidebar(true),
-    );
-    this.closeSidebarBtn.addEventListener("click", () =>
-      this.toggleSidebar(false),
-    );
-    this.overlayEl.addEventListener("click", () => this.toggleSidebar(false));
-
-    this.themeToggleBtn.addEventListener("click", () => this.toggleTheme());
-
-    this.prevPageBtn.addEventListener("click", () => {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-        this.renderTransactions();
-        this.scrollToTop();
-      }
-    });
-
-    this.nextPageBtn.addEventListener("click", () => {
-      this.currentPage++;
-      this.renderTransactions();
-      this.scrollToTop();
-    });
-  }
-
-  scrollToTop() {
-    const contentBody = document.querySelector(".content-body");
-    if (contentBody) contentBody.scrollTop = 0;
-  }
-
-  toggleTheme(forceLight = null) {
-    if (forceLight !== null) {
-      document.body.classList.toggle("light-mode", forceLight);
-    } else {
-      document.body.classList.toggle("light-mode");
+    init() {
+        this.cacheDOM();
+        this.bindEvents();
+        
+        if (localStorage.getItem('theme') === 'light') {
+            this.toggleTheme(true);
+        }
+        
+        this.extractAllTransactions();
+        this.renderAccountTree();
+        this.selectAccount(this.data); // Select root by default
     }
 
-    const isLight = document.body.classList.contains("light-mode");
-    this.themeToggleBtn.innerHTML = isLight
-      ? '<i class="fa-solid fa-moon"></i>'
-      : '<i class="fa-solid fa-sun"></i>';
-    localStorage.setItem("theme", isLight ? "light" : "dark");
-  }
-
-  toggleSidebar(show) {
-    if (show) {
-      this.sidebarEl.classList.add("open");
-      this.overlayEl.classList.remove("hidden");
-      setTimeout(() => this.overlayEl.classList.add("show"), 10);
-    } else {
-      this.sidebarEl.classList.remove("open");
-      this.overlayEl.classList.remove("show");
-      setTimeout(() => this.overlayEl.classList.add("hidden"), 300);
-    }
-  }
-
-  extractAllTransactions(node = this.data, acc = []) {
-    if (node.transactions) {
-      node.transactions.forEach((t) => {
-        acc.push({ ...t, accountName: node.name });
-      });
-    }
-    if (node.children) {
-      node.children.forEach((child) => this.extractAllTransactions(child, acc));
-    }
-    this.allTransactions = acc.sort(
-      (a, b) => new Date(b.date) - new Date(a.date),
-    );
-    return acc;
-  }
-
-  getAccountTransactions(node) {
-    let txs = [];
-    this.extractAllTransactions(node, txs);
-    return txs;
-  }
-
-  calculateTotalBalance(node) {
-    if (node.balance !== undefined) return node.balance;
-    if (!node.children || node.children.length === 0) return 0;
-    return node.children.reduce(
-      (sum, child) => sum + this.calculateTotalBalance(child),
-      0,
-    );
-  }
-
-  renderAccountTree() {
-    this.accountTreeEl.innerHTML = "";
-    const ul = document.createElement("ul");
-    ul.className = "account-item";
-    this.buildAccountNode(this.data, ul, true);
-    this.accountTreeEl.appendChild(ul);
-  }
-
-  buildAccountNode(node, container, isOpen = false) {
-    const hasChildren = node.children && node.children.length > 0;
-
-    const header = document.createElement("div");
-    header.className = "account-header";
-    header.dataset.id = node.id;
-
-    const toggle = document.createElement("div");
-    toggle.className = `account-toggle ${hasChildren ? "" : "empty"} ${isOpen ? "open" : ""}`;
-    toggle.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
-
-    const icon = document.createElement("div");
-    icon.className = "account-icon";
-    icon.innerHTML = `<i class="fa-solid ${getAccountIcon(node.type)}"></i>`;
-
-    const name = document.createElement("div");
-    name.className = "account-name";
-    name.textContent = node.name;
-
-    const balance = document.createElement("div");
-    balance.className = "account-balance";
-    const nodeBalance = this.calculateTotalBalance(node);
-    balance.textContent = formatCurrency(nodeBalance);
-    if (nodeBalance < 0) balance.style.color = "var(--text-main)";
-    else if (nodeBalance > 0) balance.style.color = "var(--positive)";
-
-    header.appendChild(toggle);
-    header.appendChild(icon);
-    header.appendChild(name);
-    header.appendChild(balance);
-
-    container.appendChild(header);
-
-    let subContainer = null;
-    if (hasChildren) {
-      subContainer = document.createElement("div");
-      subContainer.className = `sub-accounts ${isOpen ? "open" : ""}`;
-
-      node.children.forEach((child) => {
-        const childWrapper = document.createElement("div");
-        childWrapper.className = "account-item";
-        this.buildAccountNode(child, childWrapper);
-        subContainer.appendChild(childWrapper);
-      });
-
-      container.appendChild(subContainer);
+    cacheDOM() {
+        this.accountTreeEl = document.getElementById('account-tree');
+        this.transactionsBodyEl = document.getElementById('transactions-body');
+        this.currentAccountNameEl = document.getElementById('current-account-name');
+        this.totalBalanceEl = document.getElementById('total-balance');
+        this.mobileTotalBalanceEl = document.getElementById('mobile-total-balance');
+        this.totalTransactionsEl = document.getElementById('total-transactions');
+        this.searchInputEl = document.getElementById('search-input');
+        this.noResultsEl = document.getElementById('no-results');
+        this.transactionsTableEl = document.getElementById('transactions-table');
+        
+        this.paginationControlsEl = document.getElementById('pagination-controls');
+        this.prevPageBtn = document.getElementById('prev-page');
+        this.nextPageBtn = document.getElementById('next-page');
+        this.pageInfoEl = document.getElementById('page-info');
+        
+        // Mobile sidebar
+        this.sidebarEl = document.getElementById('sidebar');
+        this.overlayEl = document.getElementById('sidebar-overlay');
+        this.openSidebarBtn = document.getElementById('open-sidebar');
+        this.closeSidebarBtn = document.getElementById('close-sidebar');
+        
+        this.themeToggleBtn = document.getElementById('theme-toggle');
     }
 
-    // Event Listeners
-    header.addEventListener("click", (e) => {
-      // If clicked on toggle and has children, just toggle
-      if (
-        hasChildren &&
-        (e.target.closest(".account-toggle") ||
-          e.target.classList.contains("account-toggle"))
-      ) {
-        toggle.classList.toggle("open");
-        subContainer.classList.toggle("open");
-        e.stopPropagation();
-        return;
-      }
+    bindEvents() {
+        this.searchInputEl.addEventListener('input', (e) => {
+            this.searchQuery = e.target.value.toLowerCase();
+            this.currentPage = 1;
+            this.renderTransactions();
+        });
 
-      this.selectAccount(node, header);
-    });
-  }
-
-  selectAccount(node, headerEl = null) {
-    this.currentAccount = node;
-
-    // Update active class
-    document
-      .querySelectorAll(".account-header")
-      .forEach((el) => el.classList.remove("active"));
-    if (headerEl) {
-      headerEl.classList.add("active");
-    } else {
-      // Find root header
-      const rootHeader = document.querySelector(
-        `.account-header[data-id="${node.id}"]`,
-      );
-      if (rootHeader) rootHeader.classList.add("active");
+        this.openSidebarBtn.addEventListener('click', () => this.toggleSidebar(true));
+        this.closeSidebarBtn.addEventListener('click', () => this.toggleSidebar(false));
+        this.overlayEl.addEventListener('click', () => this.toggleSidebar(false));
+        
+        this.themeToggleBtn.addEventListener('click', () => this.toggleTheme());
+        
+        this.prevPageBtn.addEventListener('click', () => {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+                this.renderTransactions();
+                this.scrollToTop();
+            }
+        });
+        
+        this.nextPageBtn.addEventListener('click', () => {
+            this.currentPage++;
+            this.renderTransactions();
+            this.scrollToTop();
+        });
     }
 
-    this.currentAccountNameEl.textContent =
-      node.id === "root" ? "All Accounts" : node.name;
-
-    const balance = this.calculateTotalBalance(node);
-    this.totalBalanceEl.textContent = formatCurrency(balance);
-    this.totalBalanceEl.className = `amount ${balance >= 0 ? "positive" : "negative"}`;
-
-    if (this.mobileTotalBalanceEl) {
-      this.mobileTotalBalanceEl.textContent = formatCurrency(balance);
-      this.mobileTotalBalanceEl.className = `amount ${balance >= 0 ? "positive" : "negative"}`;
+    scrollToTop() {
+        const contentBody = document.querySelector('.content-body');
+        if (contentBody) contentBody.scrollTop = 0;
     }
 
-    // Reset search and pagination
-    this.searchInputEl.value = "";
-    this.searchQuery = "";
-    this.currentPage = 1;
-
-    this.renderTransactions();
-
-    // Close sidebar on mobile after selection
-    if (window.innerWidth <= 768) {
-      this.toggleSidebar(false);
-    }
-  }
-
-  renderTransactions() {
-    let transactions =
-      this.currentAccount.id === "root"
-        ? this.allTransactions
-        : this.getAccountTransactions(this.currentAccount);
-
-    if (this.searchQuery) {
-      transactions = transactions.filter(
-        (t) =>
-          t.description.toLowerCase().includes(this.searchQuery) ||
-          t.category.toLowerCase().includes(this.searchQuery) ||
-          (t.accountName &&
-            t.accountName.toLowerCase().includes(this.searchQuery)) ||
-          t.amount.toString().includes(this.searchQuery),
-      );
+    toggleTheme(forceLight = null) {
+        if (forceLight !== null) {
+            document.body.classList.toggle('light-mode', forceLight);
+        } else {
+            document.body.classList.toggle('light-mode');
+        }
+        
+        const isLight = document.body.classList.contains('light-mode');
+        this.themeToggleBtn.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
     }
 
-    this.totalTransactionsEl.textContent = transactions.length;
+    toggleSidebar(show) {
+        if (show) {
+            this.sidebarEl.classList.add('open');
+            this.overlayEl.classList.remove('hidden');
+            setTimeout(() => this.overlayEl.classList.add('show'), 10);
+        } else {
+            this.sidebarEl.classList.remove('open');
+            this.overlayEl.classList.remove('show');
+            setTimeout(() => this.overlayEl.classList.add('hidden'), 300);
+        }
+    }
 
-    if (transactions.length === 0) {
-      this.transactionsTableEl.classList.add("hidden");
-      this.noResultsEl.classList.remove("hidden");
-      this.paginationControlsEl.classList.add("hidden");
-    } else {
-      this.transactionsTableEl.classList.remove("hidden");
-      this.noResultsEl.classList.add("hidden");
+    extractAllTransactions(node = this.data, acc = []) {
+        if (node.transactions) {
+            node.transactions.forEach(t => {
+                acc.push({ ...t, accountName: node.name });
+            });
+        }
+        if (node.children) {
+            node.children.forEach(child => this.extractAllTransactions(child, acc));
+        }
+        this.allTransactions = acc.sort((a, b) => new Date(b.date) - new Date(a.date));
+        return acc;
+    }
 
-      const totalPages = Math.ceil(transactions.length / this.itemsPerPage);
-      if (this.currentPage > totalPages && totalPages > 0)
-        this.currentPage = totalPages;
+    getAccountTransactions(node) {
+        let txs = [];
+        this.extractAllTransactions(node, txs);
+        return txs;
+    }
 
-      if (totalPages > 1) {
-        this.paginationControlsEl.classList.remove("hidden");
-        this.pageInfoEl.textContent = `Page ${this.currentPage} of ${totalPages}`;
-        this.prevPageBtn.disabled = this.currentPage === 1;
-        this.nextPageBtn.disabled = this.currentPage === totalPages;
-      } else {
-        this.paginationControlsEl.classList.add("hidden");
-      }
+    calculateTotalBalance(node) {
+        if (node.balance !== undefined) return node.balance;
+        if (!node.children || node.children.length === 0) return 0;
+        return node.children.reduce((sum, child) => sum + this.calculateTotalBalance(child), 0);
+    }
 
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const paginatedTransactions = transactions.slice(
-        startIndex,
-        startIndex + this.itemsPerPage,
-      );
+    renderAccountTree() {
+        this.accountTreeEl.innerHTML = '';
+        this.buildAccountNode(this.data, this.accountTreeEl, true);
+    }
 
-      let currentYear = null;
-      let rowsHtml = "";
+    buildAccountNode(node, container, isOpen = false) {
+        const hasChildren = node.children && node.children.length > 0;
+        
+        const template = document.getElementById('tpl-account-node').content;
+        const clone = document.importNode(template, true);
+        
+        const itemWrapper = clone.querySelector('.account-item');
+        const header = clone.querySelector('.account-header');
+        const toggle = clone.querySelector('.account-toggle');
+        const icon = clone.querySelector('.account-icon i');
+        const name = clone.querySelector('.account-name');
+        const balance = clone.querySelector('.account-balance');
+        const subContainer = clone.querySelector('.sub-accounts');
+        
+        header.dataset.id = node.id;
+        
+        if (!hasChildren) toggle.classList.add('empty');
+        if (isOpen) toggle.classList.add('open');
+        
+        icon.className = `fa-solid ${getAccountIcon(node.type)}`;
+        name.textContent = node.name;
+        
+        const nodeBalance = this.calculateTotalBalance(node);
+        balance.textContent = formatCurrency(nodeBalance);
+        if (nodeBalance < 0) balance.style.color = 'var(--text-main)';
+        else if (nodeBalance > 0) balance.style.color = 'var(--positive)';
+        
+        if (hasChildren) {
+            if (isOpen) subContainer.classList.add('open');
+            node.children.forEach(child => {
+                this.buildAccountNode(child, subContainer);
+            });
+        }
+        
+        // Event Listeners
+        header.addEventListener('click', (e) => {
+            if (hasChildren && (e.target.closest('.account-toggle') || e.target.classList.contains('account-toggle'))) {
+                toggle.classList.toggle('open');
+                subContainer.classList.toggle('open');
+                e.stopPropagation();
+                return;
+            }
+            this.selectAccount(node, header);
+        });
+        
+        container.appendChild(itemWrapper);
+    }
 
-      paginatedTransactions.forEach((t) => {
-        const amountClass = t.amount >= 0 ? "positive" : "negative";
-        const descDisplay =
-          this.currentAccount.id === "root"
-            ? `<div>${t.description}</div><div style="font-size: 0.8rem; color: var(--text-muted);">${t.accountName}</div>`
-            : t.description;
-
-        const [year, month, day] = t.date.split("-");
-
-        if (year !== currentYear) {
-          rowsHtml += `
-                        <tr class="year-divider">
-                            <th colspan="5" class="sticky-year">
-                                ${year}
-                            </th>
-                        </tr>
-                    `;
-          currentYear = year;
+    selectAccount(node, headerEl = null) {
+        this.currentAccount = node;
+        
+        // Update active class
+        document.querySelectorAll('.account-header').forEach(el => el.classList.remove('active'));
+        if (headerEl) {
+            headerEl.classList.add('active');
+        } else {
+            // Find root header
+            const rootHeader = document.querySelector(`.account-header[data-id="${node.id}"]`);
+            if (rootHeader) rootHeader.classList.add('active');
         }
 
-        rowsHtml += `
-                    <tr>
-                        <td>
-                            <span class="desktop-date">${t.date}</span>
-                            <span class="mobile-date">${month}/${day}</span>
-                        </td>
-                        <td>${descDisplay}</td>
-                        <td><span style="background: var(--tag-bg); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${t.category}</span></td>
-                        <td class="amount-col amount ${amountClass}">${formatCurrency(t.amount)}</td>
-                        <td class="amount-col">${formatCurrency(t.balance)}</td>
-                    </tr>
-                `;
-      });
-      this.transactionsBodyEl.innerHTML = rowsHtml;
+        this.currentAccountNameEl.textContent = node.id === 'root' ? 'All Accounts' : node.name;
+        
+        const balance = this.calculateTotalBalance(node);
+        this.totalBalanceEl.textContent = formatCurrency(balance);
+        this.totalBalanceEl.className = `amount ${balance >= 0 ? 'positive' : 'negative'}`;
+        
+        if (this.mobileTotalBalanceEl) {
+            this.mobileTotalBalanceEl.textContent = formatCurrency(balance);
+            this.mobileTotalBalanceEl.className = `amount ${balance >= 0 ? 'positive' : 'negative'}`;
+        }
+        
+        // Reset search and pagination
+        this.searchInputEl.value = '';
+        this.searchQuery = '';
+        this.currentPage = 1;
+        
+        this.renderTransactions();
+        
+        // Close sidebar on mobile after selection
+        if (window.innerWidth <= 768) {
+            this.toggleSidebar(false);
+        }
     }
-  }
+
+    renderTransactions() {
+        let transactions = this.currentAccount.id === 'root' 
+            ? this.allTransactions 
+            : this.getAccountTransactions(this.currentAccount);
+
+        if (this.searchQuery) {
+            transactions = transactions.filter(t => 
+                t.description.toLowerCase().includes(this.searchQuery) ||
+                t.category.toLowerCase().includes(this.searchQuery) ||
+                (t.accountName && t.accountName.toLowerCase().includes(this.searchQuery)) ||
+                t.amount.toString().includes(this.searchQuery)
+            );
+        }
+
+        this.totalTransactionsEl.textContent = transactions.length;
+
+        if (transactions.length === 0) {
+            this.transactionsTableEl.classList.add('hidden');
+            this.noResultsEl.classList.remove('hidden');
+            this.paginationControlsEl.classList.add('hidden');
+        } else {
+            this.transactionsTableEl.classList.remove('hidden');
+            this.noResultsEl.classList.add('hidden');
+            
+            const totalPages = Math.ceil(transactions.length / this.itemsPerPage);
+            if (this.currentPage > totalPages && totalPages > 0) this.currentPage = totalPages;
+            
+            if (totalPages > 1) {
+                this.paginationControlsEl.classList.remove('hidden');
+                this.pageInfoEl.textContent = `Page ${this.currentPage} of ${totalPages}`;
+                this.prevPageBtn.disabled = this.currentPage === 1;
+                this.nextPageBtn.disabled = this.currentPage === totalPages;
+            } else {
+                this.paginationControlsEl.classList.add('hidden');
+            }
+            
+            const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+            const paginatedTransactions = transactions.slice(startIndex, startIndex + this.itemsPerPage);
+            
+            this.transactionsBodyEl.innerHTML = '';
+            const fragment = document.createDocumentFragment();
+            const rowTemplate = document.getElementById('tpl-transaction-row').content;
+            const yearTemplate = document.getElementById('tpl-year-divider').content;
+            
+            let currentYear = null;
+            
+            paginatedTransactions.forEach(t => {
+                const amountClass = t.amount >= 0 ? 'positive' : 'negative';
+                const [year, month, day] = t.date.split('-');
+                
+                if (year !== currentYear) {
+                    const yearClone = document.importNode(yearTemplate, true);
+                    yearClone.querySelector('.sticky-year').textContent = year;
+                    fragment.appendChild(yearClone);
+                    currentYear = year;
+                }
+                    
+                const clone = document.importNode(rowTemplate, true);
+                clone.querySelector('.desktop-date').textContent = t.date;
+                clone.querySelector('.mobile-date').textContent = `${month}/${day}`;
+                
+                const descCol = clone.querySelector('.desc-col');
+                if (this.currentAccount.id === 'root') {
+                    descCol.innerHTML = `<div>${t.description}</div><div style="font-size: 0.8rem; color: var(--text-muted);">${t.accountName}</div>`;
+                } else {
+                    descCol.textContent = t.description;
+                }
+                
+                clone.querySelector('.category-tag').textContent = t.category;
+                
+                const amountEl = clone.querySelector('.amount-col.amount');
+                amountEl.textContent = formatCurrency(t.amount);
+                amountEl.classList.add(amountClass);
+                
+                clone.querySelector('.amount-col.balance').textContent = formatCurrency(t.balance);
+                
+                fragment.appendChild(clone);
+            });
+            
+            this.transactionsBodyEl.appendChild(fragment);
+        }
+    }
 }
 
 // Initialize App
-document.addEventListener("DOMContentLoaded", () => {
-  new App();
+document.addEventListener('DOMContentLoaded', () => {
+    new App();
 });
