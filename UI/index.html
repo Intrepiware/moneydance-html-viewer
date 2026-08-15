@@ -121,6 +121,65 @@
     <!-- Overlay for mobile sidebar -->
     <div id="sidebar-overlay" class="overlay hidden"></div>
 
+    <!-- Handlebars Library -->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
+    
+    <!-- Handlebars Templates -->
+    <script id="account-node-partial" type="text/x-handlebars-template">
+      <div class="account-item">
+        <div class="account-header" data-id="{{id}}">
+          <div class="account-toggle {{#unless children.length}}empty{{/unless}} {{#if isOpen}}open{{/if}}">
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
+          <div class="account-icon">
+            <i class="fa-solid {{getAccountIcon type}}"></i>
+          </div>
+          <div class="account-name">{{name}}</div>
+          <div class="account-balance" style="color: {{#if (isPositive (getTotalBalance this))}}var(--positive){{else}}{{#if (isNegative (getTotalBalance this))}}var(--text-main){{/if}}{{/if}}">
+            {{formatCurrency (getTotalBalance this)}}
+          </div>
+        </div>
+        {{#if children.length}}
+          <div class="sub-accounts {{#if isOpen}}open{{/if}}">
+            {{#each children}}
+              {{> accountNode }}
+            {{/each}}
+          </div>
+        {{/if}}
+      </div>
+    </script>
+
+    <script id="account-tree-template" type="text/x-handlebars-template">
+      {{> accountNode this}}
+    </script>
+
+    <script id="transactions-template" type="text/x-handlebars-template">
+      {{#each paginatedTransactions}}
+        {{#if showYearDivider}}
+          <tr class="year-divider">
+            <th colspan="5" class="sticky-year">{{year}}</th>
+          </tr>
+        {{/if}}
+        <tr>
+          <td>
+            <span class="desktop-date">{{date}}</span>
+            <span class="mobile-date">{{month}}/{{day}}</span>
+          </td>
+          <td>
+            {{#if ../isRoot}}
+              <div>{{description}}</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">{{accountName}}</div>
+            {{else}}
+              {{description}}
+            {{/if}}
+          </td>
+          <td><span style="background: var(--tag-bg); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">{{category}}</span></td>
+          <td class="amount-col amount {{#if (isPositive amount)}}positive{{else}}negative{{/if}}">{{formatCurrency amount}}</td>
+          <td class="amount-col">{{formatCurrency balance}}</td>
+        </tr>
+      {{/each}}
+    </script>
+
     <script src="app.js"></script>
   </body>
 </html>

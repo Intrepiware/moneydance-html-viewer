@@ -37,6 +37,15 @@ const getAccountIcon = (type) => {
   }
 };
 
+const calculateTotalBalance = (node) => {
+  if (node.balance !== undefined) return node.balance;
+  if (!node.children || node.children.length === 0) return 0;
+  return node.children.reduce(
+    (sum, child) => sum + calculateTotalBalance(child),
+    0
+  );
+};
+
 class App {
   constructor(data) {
     this.data = data;
@@ -90,6 +99,18 @@ class App {
     this.closeSidebarBtn = document.getElementById("close-sidebar");
 
     this.themeToggleBtn = document.getElementById("theme-toggle");
+    
+    // Register Handlebars helpers and partials
+    Handlebars.registerHelper('getAccountIcon', getAccountIcon);
+    Handlebars.registerHelper('formatCurrency', formatCurrency);
+    Handlebars.registerHelper('isPositive', (amount) => amount > 0);
+    Handlebars.registerHelper('isNegative', (amount) => amount < 0);
+    Handlebars.registerHelper('getTotalBalance', calculateTotalBalance);
+    
+    Handlebars.registerPartial('accountNode', document.getElementById('account-node-partial').innerHTML);
+    
+    this.accountTreeTemplate = Handlebars.compile(document.getElementById('account-tree-template').innerHTML);
+    this.transactionsTemplate = Handlebars.compile(document.getElementById('transactions-template').innerHTML);
   }
 
   bindEvents() {
@@ -121,6 +142,27 @@ class App {
       this.currentPage++;
       this.renderTransactions();
       this.scrollToTop();
+    });
+    
+    // Account tree event delegation
+    this.accountTreeEl.addEventListener('click', (e) => {
+      const header = e.target.closest('.account-header');
+      if (!header) return;
+      
+      const toggle = header.querySelector('.account-toggle');
+      const subContainer = header.nextElementSibling;
+      const hasChildren = subContainer && subContainer.classList.contains('sub-accounts');
+      
+      if (hasChildren && (e.target.closest('.account-toggle') || e.target.classList.contains('account-toggle'))) {
+        toggle.classList.toggle('open');
+        subContainer.classList.toggle('open');
+        e.stopPropagation();
+        return;
+      }
+      
+      const id = header.dataset.id;
+      const node = this.findNodeById(this.data, id);
+      if (node) this.selectAccount(node, header);
     });
   }
 
@@ -177,86 +219,23 @@ class App {
   }
 
   calculateTotalBalance(node) {
-    if (node.balance !== undefined) return node.balance;
-    if (!node.children || node.children.length === 0) return 0;
-    return node.children.reduce(
-      (sum, child) => sum + this.calculateTotalBalance(child),
-      0,
-    );
+    return calculateTotalBalance(node);
+  }
+  
+  findNodeById(node, id) {
+    if (node.id === id) return node;
+    if (node.children) {
+      for (const child of node.children) {
+        const found = this.findNodeById(child, id);
+        if (found) return found;
+      }
+    }
+    return null;
   }
 
   renderAccountTree() {
-    this.accountTreeEl.innerHTML = "";
-    const ul = document.createElement("ul");
-    ul.className = "account-item";
-    this.buildAccountNode(this.data, ul, true);
-    this.accountTreeEl.appendChild(ul);
-  }
-
-  buildAccountNode(node, container, isOpen = false) {
-    const hasChildren = node.children && node.children.length > 0;
-
-    const header = document.createElement("div");
-    header.className = "account-header";
-    header.dataset.id = node.id;
-
-    const toggle = document.createElement("div");
-    toggle.className = `account-toggle ${hasChildren ? "" : "empty"} ${isOpen ? "open" : ""}`;
-    toggle.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
-
-    const icon = document.createElement("div");
-    icon.className = "account-icon";
-    icon.innerHTML = `<i class="fa-solid ${getAccountIcon(node.type)}"></i>`;
-
-    const name = document.createElement("div");
-    name.className = "account-name";
-    name.textContent = node.name;
-
-    const balance = document.createElement("div");
-    balance.className = "account-balance";
-    const nodeBalance = this.calculateTotalBalance(node);
-    balance.textContent = formatCurrency(nodeBalance);
-    if (nodeBalance < 0) balance.style.color = "var(--text-main)";
-    else if (nodeBalance > 0) balance.style.color = "var(--positive)";
-
-    header.appendChild(toggle);
-    header.appendChild(icon);
-    header.appendChild(name);
-    header.appendChild(balance);
-
-    container.appendChild(header);
-
-    let subContainer = null;
-    if (hasChildren) {
-      subContainer = document.createElement("div");
-      subContainer.className = `sub-accounts ${isOpen ? "open" : ""}`;
-
-      node.children.forEach((child) => {
-        const childWrapper = document.createElement("div");
-        childWrapper.className = "account-item";
-        this.buildAccountNode(child, childWrapper);
-        subContainer.appendChild(childWrapper);
-      });
-
-      container.appendChild(subContainer);
-    }
-
-    // Event Listeners
-    header.addEventListener("click", (e) => {
-      // If clicked on toggle and has children, just toggle
-      if (
-        hasChildren &&
-        (e.target.closest(".account-toggle") ||
-          e.target.classList.contains("account-toggle"))
-      ) {
-        toggle.classList.toggle("open");
-        subContainer.classList.toggle("open");
-        e.stopPropagation();
-        return;
-      }
-
-      this.selectAccount(node, header);
-    });
+    this.data.isOpen = true; // Make root open by default
+    this.accountTreeEl.innerHTML = this.accountTreeTemplate(this.data);
   }
 
   selectAccount(node, headerEl = null) {
@@ -342,48 +321,25 @@ class App {
       }
 
       const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const paginatedTransactions = transactions.slice(
-        startIndex,
-        startIndex + this.itemsPerPage,
-      );
+      const paginatedTransactions = transactions.slice(startIndex, startIndex + this.itemsPerPage);
 
       let currentYear = null;
-      let rowsHtml = "";
-
-      paginatedTransactions.forEach((t) => {
-        const amountClass = t.amount >= 0 ? "positive" : "negative";
-        const descDisplay =
-          this.currentAccount.id === "root"
-            ? `<div>${t.description}</div><div style="font-size: 0.8rem; color: var(--text-muted);">${t.accountName}</div>`
-            : t.description;
-
-        const [year, month, day] = t.date.split("-");
-
-        if (year !== currentYear) {
-          rowsHtml += `
-                        <tr class="year-divider">
-                            <th colspan="5" class="sticky-year">
-                                ${year}
-                            </th>
-                        </tr>
-                    `;
-          currentYear = year;
-        }
-
-        rowsHtml += `
-                    <tr>
-                        <td>
-                            <span class="desktop-date">${t.date}</span>
-                            <span class="mobile-date">${month}/${day}</span>
-                        </td>
-                        <td>${descDisplay}</td>
-                        <td><span style="background: var(--tag-bg); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${t.category}</span></td>
-                        <td class="amount-col amount ${amountClass}">${formatCurrency(t.amount)}</td>
-                        <td class="amount-col">${formatCurrency(t.balance)}</td>
-                    </tr>
-                `;
+      const processedTransactions = paginatedTransactions.map(t => {
+          const [year, month, day] = t.date.split("-");
+          const showYearDivider = year !== currentYear;
+          if (showYearDivider) currentYear = year;
+          
+          return {
+              ...t,
+              year, month, day,
+              showYearDivider
+          };
       });
-      this.transactionsBodyEl.innerHTML = rowsHtml;
+      
+      this.transactionsBodyEl.innerHTML = this.transactionsTemplate({
+          paginatedTransactions: processedTransactions,
+          isRoot: this.currentAccount.id === "root"
+      });
     }
   }
 }
