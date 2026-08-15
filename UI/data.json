@@ -22,7 +22,8 @@
               "description": "Grocery Store",
               "category": "Food",
               "amount": -115.4,
-              "balance": 4820.1
+              "balance": 4820.1,
+              "memo": "Weekly provisions"
             },
             {
               "id": "t2",
@@ -46,7 +47,9 @@
               "description": "Electric Bill",
               "category": "Utilities",
               "amount": -142.1,
-              "balance": 4990.45
+              "balance": 4990.45,
+              "checkNumber": "ACH",
+              "memo": "Auto-pay utility"
             },
             {
               "id": "t5",
@@ -54,7 +57,8 @@
               "description": "Streaming Service",
               "category": "Entertainment",
               "amount": -15.99,
-              "balance": 5132.55
+              "balance": 5132.55,
+              "checkNumber": "ACH"
             },
             {
               "id": "t6",
@@ -70,7 +74,9 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": 5212.84
+              "balance": 5212.84,
+              "checkNumber": "DEPOSIT",
+              "memo": "Direct deposit payroll"
             },
             {
               "id": "t8",
@@ -78,7 +84,8 @@
               "description": "Hardware Store",
               "category": "Home",
               "amount": -34.8,
-              "balance": 2362.84
+              "balance": 2362.84,
+              "checkNumber": "1042"
             },
             {
               "id": "t9",
@@ -94,7 +101,8 @@
               "description": "Mobile Phone Bill",
               "category": "Utilities",
               "amount": -85.0,
-              "balance": 2486.79
+              "balance": 2486.79,
+              "checkNumber": "ACH"
             },
             {
               "id": "t11",
@@ -110,7 +118,8 @@
               "description": "Bookstore",
               "category": "Shopping",
               "amount": -28.5,
-              "balance": 2624.19
+              "balance": 2624.19,
+              "memo": "New releases"
             },
             {
               "id": "t13",
@@ -126,7 +135,8 @@
               "description": "Internet Service",
               "category": "Utilities",
               "amount": -75.0,
-              "balance": 2658.19
+              "balance": 2658.19,
+              "checkNumber": "ACH"
             },
             {
               "id": "t15",
@@ -134,7 +144,8 @@
               "description": "Gym Membership",
               "category": "Health",
               "amount": -50.0,
-              "balance": 2733.19
+              "balance": 2733.19,
+              "checkNumber": "ACH"
             },
             {
               "id": "t16",
@@ -174,7 +185,8 @@
               "description": "Online Marketplace",
               "category": "Shopping",
               "amount": -65.99,
-              "balance": 3061.49
+              "balance": 3061.49,
+              "checkNumber": "ACH"
             },
             {
               "id": "t21",
@@ -206,7 +218,8 @@
               "description": "Water Bill",
               "category": "Utilities",
               "amount": -54.1,
-              "balance": 3259.98
+              "balance": 3259.98,
+              "checkNumber": "ACH"
             },
             {
               "id": "t25",
@@ -230,7 +243,9 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": 3378.38
+              "balance": 3378.38,
+              "checkNumber": "DEPOSIT",
+              "memo": "Direct deposit payroll"
             },
             {
               "id": "t28",
@@ -278,7 +293,9 @@
               "description": "Hardware Store",
               "category": "Home",
               "amount": -18.9,
-              "balance": 832.88
+              "balance": 832.88,
+              "checkNumber": "1043",
+              "memo": "Repair supplies"
             },
             {
               "id": "t34",
@@ -294,7 +311,8 @@
               "description": "Electric Bill",
               "category": "Utilities",
               "amount": -125.4,
-              "balance": 928.58
+              "balance": 928.58,
+              "checkNumber": "ACH"
             },
             {
               "id": "t36",
@@ -318,7 +336,8 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": 1084.58
+              "balance": 1084.58,
+              "checkNumber": "DEPOSIT"
             },
             {
               "id": "t39",
@@ -342,7 +361,8 @@
               "description": "Mobile Phone Bill",
               "category": "Utilities",
               "amount": -85.0,
-              "balance": -1619.72
+              "balance": -1619.72,
+              "checkNumber": "ACH"
             },
             {
               "id": "t42",
@@ -358,7 +378,8 @@
               "description": "Internet Service",
               "category": "Utilities",
               "amount": -75.0,
-              "balance": -1492.62
+              "balance": -1492.62,
+              "checkNumber": "ACH"
             },
             {
               "id": "t44",
@@ -366,7 +387,8 @@
               "description": "Grocery Store",
               "category": "Food",
               "amount": -145.8,
-              "balance": -1417.62
+              "balance": -1417.62,
+              "memo": "Holiday BBQ"
             },
             {
               "id": "t45",
@@ -390,7 +412,8 @@
               "description": "Gym Membership",
               "category": "Health",
               "amount": -50.0,
-              "balance": -1216.52
+              "balance": -1216.52,
+              "checkNumber": "ACH"
             },
             {
               "id": "t48",
@@ -446,7 +469,8 @@
               "description": "Water Bill",
               "category": "Utilities",
               "amount": -48.9,
-              "balance": -840.22
+              "balance": -840.22,
+              "checkNumber": "ACH"
             },
             {
               "id": "t55",
@@ -470,7 +494,9 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -704.62
+              "balance": -704.62,
+              "checkNumber": "DEPOSIT",
+              "memo": "Direct deposit payroll"
             },
             {
               "id": "t58",
@@ -502,7 +528,8 @@
               "description": "Hardware Store",
               "category": "Home",
               "amount": -22.1,
-              "balance": 2284.88
+              "balance": 2284.88,
+              "checkNumber": "1044"
             },
             {
               "id": "t62",
@@ -526,7 +553,8 @@
               "description": "Electric Bill",
               "category": "Utilities",
               "amount": -112.3,
-              "balance": 2469.28
+              "balance": 2469.28,
+              "checkNumber": "ACH"
             },
             {
               "id": "t65",
@@ -558,7 +586,8 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": 2668.28
+              "balance": 2668.28,
+              "checkNumber": "DEPOSIT"
             },
             {
               "id": "t69",
@@ -574,7 +603,8 @@
               "description": "Mobile Phone Bill",
               "category": "Utilities",
               "amount": -85.0,
-              "balance": -86.12
+              "balance": -86.12,
+              "checkNumber": "ACH"
             },
             {
               "id": "t71",
@@ -590,7 +620,8 @@
               "description": "Internet Service",
               "category": "Utilities",
               "amount": -75.0,
-              "balance": 47.78
+              "balance": 47.78,
+              "checkNumber": "ACH"
             },
             {
               "id": "t73",
@@ -614,7 +645,8 @@
               "description": "Gym Membership",
               "category": "Health",
               "amount": -50.0,
-              "balance": 180.63
+              "balance": 180.63,
+              "checkNumber": "ACH"
             },
             {
               "id": "t76",
@@ -678,7 +710,8 @@
               "description": "Water Bill",
               "category": "Utilities",
               "amount": -51.2,
-              "balance": 610.03
+              "balance": 610.03,
+              "checkNumber": "ACH"
             },
             {
               "id": "t84",
@@ -702,7 +735,9 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": 730.03
+              "balance": 730.03,
+              "checkNumber": "DEPOSIT",
+              "memo": "Direct deposit payroll"
             },
             {
               "id": "t87",
@@ -750,7 +785,8 @@
               "description": "Electric Bill",
               "category": "Utilities",
               "amount": -98.4,
-              "balance": -1807.07
+              "balance": -1807.07,
+              "checkNumber": "ACH"
             },
             {
               "id": "t93",
@@ -782,7 +818,8 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -1623.07
+              "balance": -1623.07,
+              "checkNumber": "DEPOSIT"
             },
             {
               "id": "t97",
@@ -798,7 +835,8 @@
               "description": "Mobile Phone Bill",
               "category": "Utilities",
               "amount": -85.0,
-              "balance": -4389.57
+              "balance": -4389.57,
+              "checkNumber": "ACH"
             },
             {
               "id": "t99",
@@ -814,7 +852,8 @@
               "description": "Internet Service",
               "category": "Utilities",
               "amount": -75.0,
-              "balance": -4252.27
+              "balance": -4252.27,
+              "checkNumber": "ACH"
             },
             {
               "id": "t101",
@@ -838,7 +877,8 @@
               "description": "Gym Membership",
               "category": "Health",
               "amount": -50.0,
-              "balance": -4124.97
+              "balance": -4124.97,
+              "checkNumber": "ACH"
             },
             {
               "id": "t104",
@@ -878,7 +918,8 @@
               "description": "Online Marketplace",
               "category": "Shopping",
               "amount": -55.2,
-              "balance": -3821.37
+              "balance": -3821.37,
+              "checkNumber": "ACH"
             },
             {
               "id": "t109",
@@ -902,7 +943,8 @@
               "description": "Water Bill",
               "category": "Utilities",
               "amount": -49.5,
-              "balance": -3661.97
+              "balance": -3661.97,
+              "checkNumber": "ACH"
             },
             {
               "id": "t112",
@@ -926,7 +968,9 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -3539.17
+              "balance": -3539.17,
+              "checkNumber": "DEPOSIT",
+              "memo": "Direct deposit payroll"
             },
             {
               "id": "t115",
@@ -974,7 +1018,8 @@
               "description": "Electric Bill",
               "category": "Utilities",
               "amount": -105.2,
-              "balance": -6100.27
+              "balance": -6100.27,
+              "checkNumber": "ACH"
             },
             {
               "id": "t121",
@@ -1006,7 +1051,8 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -5911.07
+              "balance": -5911.07,
+              "checkNumber": "DEPOSIT"
             },
             {
               "id": "t125",
@@ -1022,7 +1068,8 @@
               "description": "Mobile Phone Bill",
               "category": "Utilities",
               "amount": -85.0,
-              "balance": -8669.57
+              "balance": -8669.57,
+              "checkNumber": "ACH"
             },
             {
               "id": "t127",
@@ -1038,7 +1085,8 @@
               "description": "Internet Service",
               "category": "Utilities",
               "amount": -75.0,
-              "balance": -8530.77
+              "balance": -8530.77,
+              "checkNumber": "ACH"
             },
             {
               "id": "t129",
@@ -1062,7 +1110,8 @@
               "description": "Gym Membership",
               "category": "Health",
               "amount": -50.0,
-              "balance": -8403.07
+              "balance": -8403.07,
+              "checkNumber": "ACH"
             },
             {
               "id": "t132",
@@ -1102,7 +1151,8 @@
               "description": "Online Marketplace",
               "category": "Shopping",
               "amount": -38.4,
-              "balance": -8099.67
+              "balance": -8099.67,
+              "checkNumber": "ACH"
             },
             {
               "id": "t137",
@@ -1126,7 +1176,8 @@
               "description": "Water Bill",
               "category": "Utilities",
               "amount": -47.8,
-              "balance": -7972.17
+              "balance": -7972.17,
+              "checkNumber": "ACH"
             },
             {
               "id": "t140",
@@ -1134,7 +1185,8 @@
               "description": "Hardware Store",
               "category": "Home",
               "amount": -25.1,
-              "balance": -7924.37
+              "balance": -7924.37,
+              "checkNumber": "1045"
             },
             {
               "id": "t141",
@@ -1150,7 +1202,9 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -7852.87
+              "balance": -7852.87,
+              "checkNumber": "DEPOSIT",
+              "memo": "Direct deposit payroll"
             },
             {
               "id": "t143",
@@ -1198,7 +1252,8 @@
               "description": "Electric Bill",
               "category": "Utilities",
               "amount": -118.3,
-              "balance": -10385.87
+              "balance": -10385.87,
+              "checkNumber": "ACH"
             },
             {
               "id": "t149",
@@ -1230,7 +1285,8 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -10183.87
+              "balance": -10183.87,
+              "checkNumber": "DEPOSIT"
             },
             {
               "id": "t153",
@@ -1246,7 +1302,8 @@
               "description": "Mobile Phone Bill",
               "category": "Utilities",
               "amount": -85.0,
-              "balance": -12955.27
+              "balance": -12955.27,
+              "checkNumber": "ACH"
             },
             {
               "id": "t155",
@@ -1262,7 +1319,8 @@
               "description": "Internet Service",
               "category": "Utilities",
               "amount": -75.0,
-              "balance": -12824.07
+              "balance": -12824.07,
+              "checkNumber": "ACH"
             },
             {
               "id": "t157",
@@ -1286,7 +1344,8 @@
               "description": "Gym Membership",
               "category": "Health",
               "amount": -50.0,
-              "balance": -12691.92
+              "balance": -12691.92,
+              "checkNumber": "ACH"
             },
             {
               "id": "t160",
@@ -1326,7 +1385,8 @@
               "description": "Online Marketplace",
               "category": "Shopping",
               "amount": -45.1,
-              "balance": -12412.12
+              "balance": -12412.12,
+              "checkNumber": "ACH"
             },
             {
               "id": "t165",
@@ -1350,7 +1410,8 @@
               "description": "Water Bill",
               "category": "Utilities",
               "amount": -46.5,
-              "balance": -12268.62
+              "balance": -12268.62,
+              "checkNumber": "ACH"
             },
             {
               "id": "t168",
@@ -1374,7 +1435,9 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -12150.42
+              "balance": -12150.42,
+              "checkNumber": "DEPOSIT",
+              "memo": "Direct deposit payroll"
             },
             {
               "id": "t171",
@@ -1422,7 +1485,8 @@
               "description": "Electric Bill",
               "category": "Utilities",
               "amount": -124.5,
-              "balance": -14702.12
+              "balance": -14702.12,
+              "checkNumber": "ACH"
             },
             {
               "id": "t177",
@@ -1454,7 +1518,8 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -14494.22
+              "balance": -14494.22,
+              "checkNumber": "DEPOSIT"
             },
             {
               "id": "t181",
@@ -1470,7 +1535,8 @@
               "description": "Mobile Phone Bill",
               "category": "Utilities",
               "amount": -85.0,
-              "balance": -17249.02
+              "balance": -17249.02,
+              "checkNumber": "ACH"
             },
             {
               "id": "t183",
@@ -1486,7 +1552,8 @@
               "description": "Internet Service",
               "category": "Utilities",
               "amount": -75.0,
-              "balance": -17114.32
+              "balance": -17114.32,
+              "checkNumber": "ACH"
             },
             {
               "id": "t185",
@@ -1510,7 +1577,8 @@
               "description": "Gym Membership",
               "category": "Health",
               "amount": -50.0,
-              "balance": -16981.22
+              "balance": -16981.22,
+              "checkNumber": "ACH"
             },
             {
               "id": "t188",
@@ -1550,7 +1618,8 @@
               "description": "Online Marketplace",
               "category": "Shopping",
               "amount": -41.5,
-              "balance": -16685.62
+              "balance": -16685.62,
+              "checkNumber": "ACH"
             },
             {
               "id": "t193",
@@ -1574,7 +1643,8 @@
               "description": "Water Bill",
               "category": "Utilities",
               "amount": -48.2,
-              "balance": -16548.62
+              "balance": -16548.62,
+              "checkNumber": "ACH"
             },
             {
               "id": "t196",
@@ -1598,7 +1668,9 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -16427.52
+              "balance": -16427.52,
+              "checkNumber": "DEPOSIT",
+              "memo": "Direct deposit payroll"
             },
             {
               "id": "t199",
@@ -1646,7 +1718,8 @@
               "description": "Electric Bill",
               "category": "Utilities",
               "amount": -130.1,
-              "balance": -18976.92
+              "balance": -18976.92,
+              "checkNumber": "ACH"
             },
             {
               "id": "t205",
@@ -1678,7 +1751,8 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -18759.32
+              "balance": -18759.32,
+              "checkNumber": "DEPOSIT"
             },
             {
               "id": "t209",
@@ -1694,7 +1768,8 @@
               "description": "Mobile Phone Bill",
               "category": "Utilities",
               "amount": -85.0,
-              "balance": -21522.62
+              "balance": -21522.62,
+              "checkNumber": "ACH"
             },
             {
               "id": "t211",
@@ -1710,7 +1785,8 @@
               "description": "Internet Service",
               "category": "Utilities",
               "amount": -75.0,
-              "balance": -21389.72
+              "balance": -21389.72,
+              "checkNumber": "ACH"
             },
             {
               "id": "t213",
@@ -1734,7 +1810,8 @@
               "description": "Gym Membership",
               "category": "Health",
               "amount": -50.0,
-              "balance": -21260.72
+              "balance": -21260.72,
+              "checkNumber": "ACH"
             },
             {
               "id": "t216",
@@ -1774,7 +1851,8 @@
               "description": "Online Marketplace",
               "category": "Shopping",
               "amount": -49.3,
-              "balance": -20961.12
+              "balance": -20961.12,
+              "checkNumber": "ACH"
             },
             {
               "id": "t221",
@@ -1798,7 +1876,8 @@
               "description": "Water Bill",
               "category": "Utilities",
               "amount": -52.4,
-              "balance": -20814.32
+              "balance": -20814.32,
+              "checkNumber": "ACH"
             },
             {
               "id": "t224",
@@ -1822,7 +1901,9 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -20683.82
+              "balance": -20683.82,
+              "checkNumber": "DEPOSIT",
+              "memo": "Direct deposit payroll"
             },
             {
               "id": "t227",
@@ -1870,7 +1951,8 @@
               "description": "Electric Bill",
               "category": "Utilities",
               "amount": -135.2,
-              "balance": -23216.72
+              "balance": -23216.72,
+              "checkNumber": "ACH"
             },
             {
               "id": "t233",
@@ -1902,7 +1984,9 @@
               "description": "Paycheck",
               "category": "Income",
               "amount": 2850.0,
-              "balance": -22991.72
+              "balance": -22991.72,
+              "checkNumber": "DEPOSIT",
+              "memo": "Direct deposit payroll"
             },
             {
               "id": "t237",
@@ -1918,7 +2002,8 @@
               "description": "Mobile Phone Bill",
               "category": "Utilities",
               "amount": -85.0,
-              "balance": -25745.42
+              "balance": -25745.42,
+              "checkNumber": "ACH"
             },
             {
               "id": "t239",
@@ -1934,7 +2019,8 @@
               "description": "Internet Service",
               "category": "Utilities",
               "amount": -75.0,
-              "balance": -25607.02
+              "balance": -25607.02,
+              "checkNumber": "ACH"
             },
             {
               "id": "t241",
@@ -1958,7 +2044,8 @@
               "description": "Gym Membership",
               "category": "Health",
               "amount": -50.0,
-              "balance": -25479.07
+              "balance": -25479.07,
+              "checkNumber": "ACH"
             },
             {
               "id": "t244",
@@ -1998,7 +2085,8 @@
               "description": "Online Marketplace",
               "category": "Shopping",
               "amount": -52.1,
-              "balance": -25190.07
+              "balance": -25190.07,
+              "checkNumber": "ACH"
             },
             {
               "id": "t249",

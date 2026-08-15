@@ -289,11 +289,12 @@ class App {
     if (this.searchQuery) {
       transactions = transactions.filter(
         (t) =>
-          t.description.toLowerCase().includes(this.searchQuery) ||
-          t.category.toLowerCase().includes(this.searchQuery) ||
-          (t.accountName &&
-            t.accountName.toLowerCase().includes(this.searchQuery)) ||
-          t.amount.toString().includes(this.searchQuery),
+          (t.description && t.description.toLowerCase().includes(this.searchQuery)) ||
+          (t.category && t.category.toLowerCase().includes(this.searchQuery)) ||
+          (t.accountName && t.accountName.toLowerCase().includes(this.searchQuery)) ||
+          (t.memo && t.memo.toLowerCase().includes(this.searchQuery)) ||
+          (t.checkNumber && t.checkNumber.toLowerCase().includes(this.searchQuery)) ||
+          t.amount.toString().includes(this.searchQuery)
       );
     }
 

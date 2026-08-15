@@ -166,11 +166,15 @@
             <span class="mobile-date">{{month}}/{{day}}</span>
           </td>
           <td>
-            {{#if ../isRoot}}
-              <div>{{description}}</div>
-              <div style="font-size: 0.8rem; color: var(--text-muted);">{{accountName}}</div>
-            {{else}}
+            <div>
+              {{#if checkNumber}}<span class="check-number">#{{checkNumber}}</span>{{/if}}
               {{description}}
+            </div>
+            {{#if memo}}
+              <div class="transaction-memo">{{memo}}</div>
+            {{/if}}
+            {{#if ../isRoot}}
+              <div class="transaction-account">{{accountName}}</div>
             {{/if}}
           </td>
           <td><span style="background: var(--tag-bg); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">{{category}}</span></td>
