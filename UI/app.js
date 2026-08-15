@@ -124,6 +124,7 @@ class App {
         this.transactionsBodyEl = document.getElementById('transactions-body');
         this.currentAccountNameEl = document.getElementById('current-account-name');
         this.totalBalanceEl = document.getElementById('total-balance');
+        this.mobileTotalBalanceEl = document.getElementById('mobile-total-balance');
         this.totalTransactionsEl = document.getElementById('total-transactions');
         this.searchInputEl = document.getElementById('search-input');
         this.noResultsEl = document.getElementById('no-results');
@@ -288,6 +289,11 @@ class App {
         const balance = this.calculateTotalBalance(node);
         this.totalBalanceEl.textContent = formatCurrency(balance);
         this.totalBalanceEl.className = `amount ${balance >= 0 ? 'positive' : 'negative'}`;
+        
+        if (this.mobileTotalBalanceEl) {
+            this.mobileTotalBalanceEl.textContent = formatCurrency(balance);
+            this.mobileTotalBalanceEl.className = `amount ${balance >= 0 ? 'positive' : 'negative'}`;
+        }
         
         // Reset search
         this.searchInputEl.value = '';

@@ -1,92 +1,120 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Moneydance Viewer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="light-mode">
     <div id="app">
-        <!-- Sidebar -->
-        <aside id="sidebar" class="sidebar">
-            <div class="sidebar-header">
-                <h2><i class="fa-solid fa-wallet"></i> Finance View</h2>
-                <button id="close-sidebar" class="mobile-only icon-btn"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="sidebar-content">
-                <h3>Accounts</h3>
-                <div id="account-tree" class="account-tree">
-                    <!-- Account tree rendered here -->
-                </div>
-            </div>
-            <div class="sidebar-footer">
-                <p>Read-Only Mode</p>
-            </div>
-        </aside>
+      <!-- Sidebar -->
+      <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+          <h2><i class="fa-solid fa-wallet"></i> Finance View</h2>
+          <button id="close-sidebar" class="mobile-only icon-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="sidebar-content">
+          <h3>Accounts</h3>
+          <div id="account-tree" class="account-tree">
+            <!-- Account tree rendered here -->
+          </div>
+        </div>
+        <div class="sidebar-footer">
+          <p>Read-Only Mode</p>
+        </div>
+      </aside>
 
-        <!-- Main Content -->
-        <main id="main-content" class="main-content">
-            <header class="topbar">
-                <div class="topbar-left">
-                    <button id="open-sidebar" class="mobile-only icon-btn"><i class="fa-solid fa-bars"></i></button>
-                    <h1 id="current-account-name">All Accounts</h1>
-                </div>
-                <div class="topbar-right" style="display: flex; align-items: center; gap: 15px;">
-                    <div class="search-container">
-                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                        <input type="text" id="search-input" placeholder="Search transactions...">
-                    </div>
-                    <button id="theme-toggle" class="icon-btn" title="Toggle Light/Dark Mode"><i class="fa-solid fa-sun"></i></button>
-                </div>
-            </header>
-
-            <div class="content-body">
-                <div class="summary-cards">
-                    <div class="card glass-card">
-                        <h4>Total Balance</h4>
-                        <p id="total-balance" class="amount positive">$0.00</p>
-                    </div>
-                    <div class="card glass-card">
-                        <h4>Transactions</h4>
-                        <p id="total-transactions">0</p>
-                    </div>
-                </div>
-
-                <div class="transactions-section glass-panel">
-                    <div class="table-header">
-                        <h2>Transactions</h2>
-                    </div>
-                    <div class="table-responsive">
-                        <table id="transactions-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Description</th>
-                                    <th>Category</th>
-                                    <th class="amount-col">Amount</th>
-                                    <th class="amount-col">Balance</th>
-                                </tr>
-                            </thead>
-                            <tbody id="transactions-body">
-                                <!-- Transactions rendered here -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div id="no-results" class="no-results hidden">
-                        <i class="fa-regular fa-folder-open"></i>
-                        <p>No transactions found.</p>
-                    </div>
-                </div>
+      <!-- Main Content -->
+      <main id="main-content" class="main-content">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button id="open-sidebar" class="mobile-only icon-btn">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <h1 id="current-account-name">All Accounts</h1>
+          </div>
+          <div
+            class="topbar-right"
+            style="display: flex; align-items: center; gap: 15px"
+          >
+            <div class="search-container">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search transactions..."
+              />
             </div>
-        </main>
+            <button
+              id="theme-toggle"
+              class="icon-btn"
+              title="Toggle Light/Dark Mode"
+            >
+              <i class="fa-solid fa-sun"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="mobile-only mobile-balance-bar">
+          <span>Total Balance</span>
+          <span id="mobile-total-balance" class="amount">$0.00</span>
+        </div>
+
+        <div class="content-body">
+          <div class="summary-cards">
+            <div class="card glass-card">
+              <h4>Total Balance</h4>
+              <p id="total-balance" class="amount positive">$0.00</p>
+            </div>
+            <div class="card glass-card">
+              <h4>Transactions</h4>
+              <p id="total-transactions">0</p>
+            </div>
+          </div>
+
+          <div class="transactions-section glass-panel">
+            <div class="table-header">
+              <h2>Transactions</h2>
+            </div>
+            <div class="table-responsive">
+              <table id="transactions-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th class="amount-col">Amount</th>
+                    <th class="amount-col">Balance</th>
+                  </tr>
+                </thead>
+                <tbody id="transactions-body">
+                  <!-- Transactions rendered here -->
+                </tbody>
+              </table>
+            </div>
+            <div id="no-results" class="no-results hidden">
+              <i class="fa-regular fa-folder-open"></i>
+              <p>No transactions found.</p>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-    
+
     <!-- Overlay for mobile sidebar -->
     <div id="sidebar-overlay" class="overlay hidden"></div>
 
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
