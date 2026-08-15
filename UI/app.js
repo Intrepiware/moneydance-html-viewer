@@ -109,6 +109,11 @@ class App {
     init() {
         this.cacheDOM();
         this.bindEvents();
+        
+        if (localStorage.getItem('theme') === 'light') {
+            this.toggleTheme(true);
+        }
+        
         this.extractAllTransactions();
         this.renderAccountTree();
         this.selectAccount(this.data); // Select root by default
@@ -129,6 +134,8 @@ class App {
         this.overlayEl = document.getElementById('sidebar-overlay');
         this.openSidebarBtn = document.getElementById('open-sidebar');
         this.closeSidebarBtn = document.getElementById('close-sidebar');
+        
+        this.themeToggleBtn = document.getElementById('theme-toggle');
     }
 
     bindEvents() {
@@ -140,6 +147,20 @@ class App {
         this.openSidebarBtn.addEventListener('click', () => this.toggleSidebar(true));
         this.closeSidebarBtn.addEventListener('click', () => this.toggleSidebar(false));
         this.overlayEl.addEventListener('click', () => this.toggleSidebar(false));
+        
+        this.themeToggleBtn.addEventListener('click', () => this.toggleTheme());
+    }
+
+    toggleTheme(forceLight = null) {
+        if (forceLight !== null) {
+            document.body.classList.toggle('light-mode', forceLight);
+        } else {
+            document.body.classList.toggle('light-mode');
+        }
+        
+        const isLight = document.body.classList.contains('light-mode');
+        this.themeToggleBtn.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
     }
 
     toggleSidebar(show) {
@@ -313,7 +334,7 @@ class App {
                     <tr>
                         <td>${t.date}</td>
                         <td>${descDisplay}</td>
-                        <td><span style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${t.category}</span></td>
+                        <td><span style="background: var(--tag-bg); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">${t.category}</span></td>
                         <td class="amount-col amount ${amountClass}">${formatCurrency(t.amount)}</td>
                         <td class="amount-col">${formatCurrency(t.balance)}</td>
                     </tr>

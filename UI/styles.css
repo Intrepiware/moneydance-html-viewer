@@ -9,7 +9,40 @@
     --border-color: #334155;
     --positive: #10b981;
     --negative: #ef4444;
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --account-hover: rgba(99, 102, 241, 0.1);
+    --account-active: rgba(99, 102, 241, 0.2);
+    --topbar-bg: rgba(15, 23, 42, 0.8);
+    --search-bg: rgba(30, 41, 59, 0.5);
+    --search-bg-focus: rgba(30, 41, 59, 0.8);
+    --table-header-bg: rgba(30, 41, 59, 0.5);
+    --table-row-hover: rgba(255, 255, 255, 0.03);
+    --tag-bg: rgba(255, 255, 255, 0.1);
+    --icon-hover: rgba(255, 255, 255, 0.1);
     --font-family: 'Inter', sans-serif;
+}
+
+body.light-mode {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg-base: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-surface-glass: rgba(255, 255, 255, 0.8);
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --positive: #059669;
+    --negative: #dc2626;
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --account-hover: rgba(79, 70, 229, 0.05);
+    --account-active: rgba(79, 70, 229, 0.1);
+    --topbar-bg: rgba(255, 255, 255, 0.8);
+    --search-bg: rgba(241, 245, 249, 0.8);
+    --search-bg-focus: #ffffff;
+    --table-header-bg: rgba(241, 245, 249, 0.8);
+    --table-row-hover: rgba(0, 0, 0, 0.02);
+    --tag-bg: rgba(0, 0, 0, 0.05);
+    --icon-hover: rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -24,6 +57,7 @@ body {
     color: var(--text-main);
     line-height: 1.6;
     overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 #app {
@@ -37,9 +71,10 @@ body {
     background: var(--bg-surface-glass);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
     border-radius: 16px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 /* Sidebar */
@@ -49,7 +84,7 @@ body {
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s, border-color 0.3s;
     z-index: 20;
 }
 
@@ -59,6 +94,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: border-color 0.3s;
 }
 
 .sidebar-header h2 {
@@ -82,6 +118,7 @@ body {
     color: var(--text-muted);
     margin-bottom: 15px;
     letter-spacing: 0.05em;
+    transition: color 0.3s;
 }
 
 .sidebar-footer {
@@ -90,6 +127,7 @@ body {
     font-size: 0.85rem;
     color: var(--text-muted);
     text-align: center;
+    transition: border-color 0.3s, color 0.3s;
 }
 
 /* Account Tree */
@@ -112,11 +150,11 @@ body {
 }
 
 .account-header:hover {
-    background-color: rgba(99, 102, 241, 0.1);
+    background-color: var(--account-hover);
 }
 
 .account-header.active {
-    background-color: rgba(99, 102, 241, 0.2);
+    background-color: var(--account-active);
     color: var(--primary);
     font-weight: 500;
 }
@@ -126,7 +164,7 @@ body {
     text-align: center;
     margin-right: 8px;
     color: var(--text-muted);
-    transition: transform 0.2s;
+    transition: transform 0.2s, color 0.3s;
     font-size: 0.8rem;
 }
 
@@ -141,6 +179,7 @@ body {
 .account-icon {
     margin-right: 10px;
     color: var(--text-muted);
+    transition: color 0.3s;
 }
 
 .account-header.active .account-icon {
@@ -201,9 +240,10 @@ body {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--border-color);
-    background: rgba(15, 23, 42, 0.8);
+    background: var(--topbar-bg);
     backdrop-filter: blur(8px);
     z-index: 10;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .topbar-left {
@@ -228,6 +268,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-muted);
+    transition: color 0.3s;
 }
 
 #search-input {
@@ -235,7 +276,7 @@ body {
     padding: 10px 15px 10px 35px;
     border-radius: 20px;
     border: 1px solid var(--border-color);
-    background-color: rgba(30, 41, 59, 0.5);
+    background-color: var(--search-bg);
     color: var(--text-main);
     font-family: inherit;
     font-size: 0.95rem;
@@ -245,7 +286,7 @@ body {
 #search-input:focus {
     outline: none;
     border-color: var(--primary);
-    background-color: rgba(30, 41, 59, 0.8);
+    background-color: var(--search-bg-focus);
     box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
 }
 
@@ -267,7 +308,7 @@ body {
 
 .card {
     padding: 25px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
 }
 
 .card:hover {
@@ -281,6 +322,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 10px;
+    transition: color 0.3s;
 }
 
 .card p {
@@ -300,6 +342,7 @@ body {
 .table-header {
     padding: 20px 25px;
     border-bottom: 1px solid var(--border-color);
+    transition: border-color 0.3s;
 }
 
 .table-responsive {
@@ -321,15 +364,17 @@ th {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border-bottom: 1px solid var(--border-color);
-    background: rgba(30, 41, 59, 0.5);
+    background: var(--table-header-bg);
     position: sticky;
     top: 0;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
 
 td {
     padding: 15px 25px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--glass-border);
     font-size: 0.95rem;
+    transition: border-color 0.3s;
 }
 
 tbody tr {
@@ -337,7 +382,7 @@ tbody tr {
 }
 
 tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: var(--table-row-hover);
 }
 
 .amount-col {
@@ -359,6 +404,7 @@ tbody tr:hover {
     justify-content: center;
     padding: 60px 20px;
     color: var(--text-muted);
+    transition: color 0.3s;
 }
 
 .no-results i {
@@ -380,11 +426,11 @@ tbody tr:hover {
     cursor: pointer;
     padding: 5px;
     border-radius: 5px;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, color 0.3s;
 }
 
 .icon-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--icon-hover);
 }
 
 .mobile-only {
