@@ -91,11 +91,11 @@
               <table id="transactions-table">
                 <thead>
                   <tr>
-                    <th>Date</th>
+                    <th class="date-col">Date</th>
                     <th>Description</th>
-                    <th>Category</th>
+                    <th class="hide-mobile category-col">Category</th>
                     <th class="amount-col">Amount</th>
-                    <th class="amount-col">Balance</th>
+                    <th class="amount-col hide-mobile">Balance</th>
                   </tr>
                 </thead>
                 <tbody id="transactions-body">
@@ -106,11 +106,15 @@
                 <i class="fa-regular fa-folder-open"></i>
                 <p>No transactions found.</p>
               </div>
-              
+
               <div id="pagination-controls" class="pagination-controls hidden">
-                <button id="prev-page" class="pagination-btn"><i class="fa-solid fa-chevron-left"></i> Prev</button>
+                <button id="prev-page" class="pagination-btn">
+                  <i class="fa-solid fa-chevron-left"></i> Prev
+                </button>
                 <span id="page-info">Page 1 of 1</span>
-                <button id="next-page" class="pagination-btn">Next <i class="fa-solid fa-chevron-right"></i></button>
+                <button id="next-page" class="pagination-btn">
+                  Next <i class="fa-solid fa-chevron-right"></i>
+                </button>
               </div>
             </div>
           </div>
@@ -123,7 +127,7 @@
 
     <!-- Handlebars Library -->
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
-    
+
     <!-- Handlebars Templates -->
     <script id="account-node-partial" type="text/x-handlebars-template">
       <div class="account-item">
@@ -157,7 +161,7 @@
       {{#each paginatedTransactions}}
         {{#if showYearDivider}}
           <tr class="year-divider">
-            <th colspan="5" class="sticky-year">{{year}}</th>
+            <th colspan="3" class="sticky-year">{{year}}</th>
           </tr>
         {{/if}}
         <tr>
@@ -166,20 +170,19 @@
             <span class="mobile-date">{{month}}/{{day}}</span>
           </td>
           <td>
-            <div>
-              {{#if checkNumber}}<span class="check-number">#{{checkNumber}}</span>{{/if}}
-              {{description}}
+            <div class="desc-main">{{description}}</div>
+            <div class="desc-extra">
+              {{#if checkNumber}}<span class="badge">#{{checkNumber}}</span>{{/if}}
+              <span class="badge hide-desktop">{{category}}</span>
+              {{#if memo}}<span class="memo-text">{{memo}}</span>{{/if}}
             </div>
-            {{#if memo}}
-              <div class="transaction-memo">{{memo}}</div>
-            {{/if}}
             {{#if ../isRoot}}
-              <div class="transaction-account">{{accountName}}</div>
+              <div class="transaction-account"><i class="fa-solid fa-building-columns"></i> {{accountName}}</div>
             {{/if}}
           </td>
-          <td><span style="background: var(--tag-bg); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">{{category}}</span></td>
+          <td class="hide-mobile"><span class="badge">{{category}}</span></td>
           <td class="amount-col amount {{#if (isPositive amount)}}positive{{else}}negative{{/if}}">{{formatCurrency amount}}</td>
-          <td class="amount-col">{{formatCurrency balance}}</td>
+          <td class="amount-col hide-mobile">{{formatCurrency balance}}</td>
         </tr>
       {{/each}}
     </script>

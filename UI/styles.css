@@ -106,6 +106,57 @@ body {
     gap: 10px;
 }
 
+.desc-main {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.desc-extra {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.desc-extra > span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.badge {
+    background: var(--tag-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--text-main);
+    flex-shrink: 0;
+}
+
+.memo-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    flex-shrink: 1;
+}
+
+.transaction-account {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hide-desktop {
+    display: none !important;
+}
+
 .sidebar-content {
     flex: 1;
     overflow-y: auto;
@@ -352,6 +403,20 @@ table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
+    table-layout: fixed;
+}
+
+.date-col {
+    width: 110px;
+}
+
+.category-col {
+    width: 120px;
+}
+
+.amount-col {
+    width: 120px;
+    text-align: right;
 }
 
 th {
@@ -366,6 +431,7 @@ th {
     position: sticky;
     top: 0;
     transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    white-space: nowrap;
 }
 
 td {
@@ -373,6 +439,7 @@ td {
     border-bottom: 1px solid var(--glass-border);
     font-size: 0.95rem;
     transition: border-color 0.3s;
+    overflow: hidden;
 }
 
 tbody tr {
@@ -563,6 +630,14 @@ tbody tr:hover {
     .desktop-date { display: none; }
     .mobile-date { display: inline; }
     
+    .hide-mobile {
+        display: none !important;
+    }
+    
+    .hide-desktop {
+        display: inline-block !important;
+    }
+
     .year-divider {
         display: table-row;
     }
@@ -582,7 +657,15 @@ tbody tr:hover {
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
+    .date-col {
+        width: 60px;
+    }
+    
+    .amount-col {
+        width: 85px;
+    }
+
     th, td {
-        padding: 12px 15px;
+        padding: 12px 10px;
     }
 }
