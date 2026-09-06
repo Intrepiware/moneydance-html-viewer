@@ -11,7 +11,7 @@ Preserve the current UI and add a versioned, financially complete snapshot expor
 ## Technical Context
 
 **Language/Version**: Jython 2.7-compatible Moneydance script; browser JavaScript ES modules; Node 20.9.0 available for development tests.
-**Primary Dependencies**: Moneydance 2024.4 source model; existing Handlebars with a pinned tested version; native Worker/Intl; development-only schema validator.
+**Primary Dependencies**: Moneydance 2024.4 source model; existing Handlebars with a pinned tested version; native Worker/Intl; Node built-in development tools; no added package dependencies at setup.
 **Storage**: Manually provisioned same-origin JSON snapshot, in-memory worker indexes; private data untracked. No financial localStorage/cookies/database.
 **Testing**: Node built-in test runner, schema/semantic synthetic fixtures, browser worker/DOM fixture harness, source-register comparisons, Pixel 8 full-history trials.
 **Target Platform**: Moneydance on user's Windows desktop; browser on Pixel 8 plus desktop inspection.

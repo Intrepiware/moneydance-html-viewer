@@ -7,7 +7,7 @@ This guide specifies commands and scenarios to be delivered during implementatio
 - User's Moneydance 2024.4 with a test/copy book for controlled cases and access to known main-book register values.
 - Node 20.9.0 or compatible newer runtime. Standalone Python is not required; source probes/export run under **Jython 2.7** inside Moneydance's script facility. Python 3 test success does not demonstrate exporter compatibility.
 - Pixel 8 and desktop browser. Full-history private snapshot stays untracked; synthetic fixtures are safe for shared testing.
-- Implementation adds the files listed in plan.md, including a locked development schema validator and npm manifest. Install the locked development dependencies with `npm ci` once that manifest exists.
+- Setup provides a private npm manifest and dependency-free lockfile. Use `npm ci --ignore-scripts` to verify the locked setup. Node built-ins provide current tests/server; the maintained schema and shared financial validator remain T007/T009 work.
 
 ## Automated Checks (after implementation)
 

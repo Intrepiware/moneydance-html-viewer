@@ -1,0 +1,71 @@
+# Implementation Validation
+
+## Phases 1 and 2 execution
+
+- T001–T003: setup completed. Private npm manifest and dependency-free lockfile;
+  restricted local server; synthetic fixtures and test-mode data supplied.
+- T004: read-only Jython 2.7 probe and reference-input instructions prepared.
+  Candidate API signatures reviewed against official documentation. Actual Jython
+  syntax/execution and Moneydance source behavior remain unverified.
+- T005: BLOCKED pending execution in Moneydance with independently checked
+  reference inputs. No Moneydance process was present during environment inspection.
+- T006–T012: not started because the task dependency chain requires T005 evidence.
+- Phases 3–7: outside this invocation's requested scope; not started.
+
+## Checks performed
+
+- Node v20.9.0 detected.
+- `npm install --package-lock-only --ignore-scripts --offline`: passed; no packages added.
+- `npm test`: 2 tests passed, 0 failed. Synthetic reference check preserves 13 entries,
+  5 transactions, account references, running-balance recurrences, baseline dates,
+  budget closing balances and Checking's 105000/104500-cent sidebar checkpoints.
+- HTTP test checks real/test separation, missing-file 404, private-route denial,
+  encoded/raw traversal rejection, malformed URLs, HEAD, method rejection and no-store.
+- Test command emitted MaxListenersExceededWarning for TLSSocket listeners before
+  TAP output. Tests passed; origin of the warning has not been established. The
+  application server test uses local HTTP only; do not treat it as financial evidence.
+
+These are setup checks only. No maintained v1 schema, financial validator, browser
+integration acceptance, full-history performance measurements, Moneydance runtime
+comparisons or Pixel 8 acceptance has been completed.
+
+## Resume T005
+
+Follow [the preflight instructions](../../scripts/moneydance-preflight.md).
+Run `scripts/moneydance-preflight.py` in Moneydance's script facility with a
+controlled/reference book and the private reference JSON. Return the sanitized
+summary plus the exact Moneydance version/build. A passing summary still requires
+manual confirmation of case coverage and source register order. Do not share the
+private reference file or mark unverified cases complete.
+
+The existing UI and export_json.py remain unchanged. Serving the existing UI is
+not yet evidence that it consumes the new fixture or honors test=true; those
+integrations have their own later tasks.
+
+## User-reported initial Moneydance run
+
+Jython 2.7.2; Moneydance build 5253; September 6, 2026. Case 1 completed 19 comparisons but reported FAIL. No exception was reported; the aggregate output cannot identify the failing comparison. All coverage labels remained UNVERIFIED because labels are credited only for passing cases. This does not establish that all 19 comparisons failed.
+
+The probe now reports fixed per-comparison labels and PASS/FAIL, including reference row ordinal and field name without values. No accounting calculations or expected reference values were changed. Updated diagnostics require another Moneydance run. T005 remains incomplete.
+
+Second user run: 30/31 comparisons passed; only reference-row-1-description failed. Screenshot shows Paycheck on the split-side register. Parent-versus-account-side description remains a hypothesis, not a verified rule. Added failed reference-row expected/actual values and a parent-description diagnostic at user request, without changing pass criteria or financial calculations. Diagnostic revision awaits Moneydance execution.
+
+Third user run (build 5253, Jython 2.7.2): the sole mismatch is confirmed as an empty split-side description with parentDescription matching the reference and displayed register. All 30 other checks pass. The probe now resolves an empty account-side description from its parent, preserving nonempty account-side descriptions. Nonempty split/parent precedence remains unverified. Reference expectations and financial calculations are unchanged; the revised probe still needs runtime confirmation and the remaining T005 cases are outstanding.
+
+## Confirmed Case 1 runtime result
+
+User-reported run at September 6, 2026, 15:00:15 CDT: Jython 2.7.2, Moneydance build 5253. Case 1 PASS, all 31 comparisons passed after the empty split-description fallback. This establishes the tested account's source identities, three reference rows (dates, descriptions, signed amounts and running balances), opening/closing/current balances, two dated own/sidebar comparisons, and unchanged limited fingerprint.
+
+The probe credits the configured debit-credit, same-day-order, split, transfer and future labels. These labels are not proof of both transfer sides or all split variants: the run compares only the configured Misc Spending Budget account. Opening-only, hidden-nonzero, active-under-hidden, income-sign and investment-cash remain UNVERIFIED. T005 remains incomplete. The remaining controlled-case recipe/reference inputs still need to be supplied; the user is not expected to invent them.
+
+Expanded user run on build 5253 / Jython 2.7.2: Cases 1, 2, 4, 5, 6 and 7 passed. Case 3 passed 31/33 comparisons; the two failures were numeric source amounts compared against quoted numeric strings in the supplied reference. Confirmed this defect existed in the generated public example as well as the private copy. Removed quotes from those two amountCents fields in both files without changing the expected amounts or source book. All monetary/date/reference balance comparisons otherwise matched. Corrected reference rerun remains pending; T005 is not yet marked complete.
+
+## Seven-case reference run passed
+
+User-reported September 6, 2026 15:26:09 CDT run on Moneydance build 5253 / Jython 2.7.2: all seven cases passed, with 31 + 13 + 33 + 15 + 21 + 21 + 21 = 155 passing comparisons. No failed comparisons or runtime exceptions were reported. The result is PREFLIGHT_REFERENCE_CHECKS_PASS.
+
+The probe checks amounts, descriptions, source identities, running/own/recursive balances and limited source fingerprints. It does not assert the configured account types or inactive flags. Final coverage confirmation is still needed that Preflight Hidden is inactive, its child active, and Preflight Investment an Investment account (USD cash only), as specified in the recipe. Existing screenshot establishes the three-row Case 1 register order. T005 remains unchecked pending those configuration confirmations; this is not a request to rerun successful financial comparisons.
+
+## Register-versus-sidebar evidence for hidden hierarchy
+
+User confirms opening balances of 5000 cents for Preflight Hidden and 2500 cents for its active child. Screenshots show the Hidden register has no rows and a 5000-cent footer; the child register shows the September 7 transfer of 1000 cents, a 3500-cent running balance and footer. Both sidebar entries show zero; their parent's sidebar shows 14000 cents. Combined with the passed current/date API checks, the source register/API values support the expected amounts but differ from the desktop sidebar presentation. Cause (configuration, display policy, or stale state) is not established. No source transactions or reference amounts should be changed to reproduce the sidebar zeros. The confirmed viewer requirement remains retaining hidden contributions; this finding must not be represented as exact desktop-sidebar parity.

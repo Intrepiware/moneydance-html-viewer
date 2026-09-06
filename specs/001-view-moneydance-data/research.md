@@ -43,7 +43,7 @@ All design choices below are resolved for planning. Runtime verification obligat
 - **Decision**: Source script remains Jython 2.7-compatible inside the user's Moneydance runtime. Do not run it as standalone Python. Use available Node 20.9.0 built-in tests for pure modules and a small development static server, with browser integration fixtures and real Pixel 8 trials. Keep a pinned tested Handlebars build; no production framework or server service.
 - **Rationale**: Node is available; `python` is not on PATH. Moneydance injects the book context and Java classes. Jython 2.7 compatibility is an explicit user requirement. Record the runtime patch/build during preflight; all exporter and Moneydance probe code must use Python 2.7-compatible syntax and libraries available in Moneydance. No Python 3-only features or CPython-only native dependencies.
 - **Alternatives considered**: Assume standalone Python execution; introduce a full bundler/framework; treat desktop browser emulation as proof of phone performance.
-- **Validation tooling**: Introduce a development-only pinned JSON Schema validator compatible with draft 2020-12 for fixtures; production worker performs contract-specific structural/semantic checks. Dependency version/lock selection is implementation setup, not a source-data or product decision.
+- **Validation tooling (T001 decision)**: Use Node built-in test/http/fs modules and the planned contract-specific structural/semantic validator for both CLI and worker checks. Still deliver the maintained JSON Schema in T007 as the external contract. Do not add a separate general-purpose schema engine at setup: it would duplicate the mandatory semantic validator for this single contract. Schema-specific automation can be justified in T007 if concrete gaps require it. No new direct/transitive packages are adopted; package-lock.json records the dependency-free setup. Existing UI dependencies remain unchanged until their planned integration review.
 
 ## Constitution and research limits
 
@@ -52,3 +52,7 @@ Constitution v1.1.0 now applies. Proposed dependencies require documented need, 
 ## Explicit Synthetic Dataset Selection
 
 The user added US1 acceptance scenarios for test=true and a missing-export link. Use a separate same-origin configured v1 synthetic file, selected before fetching. This is an explicit navigation choice, consistent with load-once and the prohibition on silent mock fallback; it requires no new dependency.
+
+## T005 partial evidence: split descriptions
+
+User-reported build 5253 / Jython 2.7.2 diagnostics and the register screenshot establish that the tested split with an empty account-side description displays its parent description. The probe now uses that fallback. Carry this behavior into exporter description normalization in T010; retain split/allocation memos independently for search. Nonempty split-versus-parent description precedence has not been established by this case and must be checked before generalizing. This evidence does not complete T005.
