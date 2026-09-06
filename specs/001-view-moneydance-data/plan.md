@@ -6,7 +6,7 @@
 
 ## Summary
 
-Preserve the current UI and add a versioned, financially complete snapshot exported from Moneydance. A worker-owned adapter validates and indexes account-side entries and produces the existing UI's view data. Source-exported dated balance timelines supply sidebar values at the user-local page-load date; running balances remain independent of filtering. All Accounts has no total; search includes description/memos/partial amounts and descendants; the sidebar footer displays the local export instant. No cloud delivery, encryption, or deployment is introduced.
+Preserve the current UI and add a versioned, financially complete snapshot exported from Moneydance. A worker-owned adapter validates and indexes account-side entries and produces the existing UI's view data. Source-exported compact balance timelines (one baseline at the UTC export date minus one day, plus later changes) supply sidebar values at the user-local page-load date; running balances remain independent of filtering. All Accounts has no total; search includes description/memos/partial amounts and descendants; the sidebar footer displays the local export instant. No cloud delivery, encryption, or deployment is introduced.
 
 ## Technical Context
 
@@ -92,3 +92,7 @@ tests/
 ## Requirement Coverage
 
 FR-001–004: exporter account coverage + balances and visible tree. FR-005–009: source entry identity/order and query paging, running balances, transfer preservation. FR-010–012: normalized worker search and immutable results. FR-013–014: candidate validation and source reconciliation. FR-015: hide every synthetic total. FR-016: Intl footer tied to the page session snapshot. FR-017: one download per page session, no dataset identity or in-page replacement. SC-001–007: quickstart validation matrix.
+
+## Explicit Test Mode (US1 Acceptance 5–6)
+
+Choose snapshotUrl or testSnapshotUrl in UI/config.js once at page load using the exact test=true query value. Supply a compatible synthetic UI/data/test-snapshot.json and keep the existing UI with a small Test data indicator. A missing real export (HTTP 404) produces a clear error and a link that navigates to the same page with test=true. No automatic fallback or additional fetch occurs in the failing page session. This implements FR-019 and remains within local, read-only viewing scope.

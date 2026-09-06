@@ -42,3 +42,7 @@
 - Ready for planning; optional clarification can review the documented defaults first. No source code changed and no application tests were run for this documentation-only work.
 
 - Load-once simplification reviewed: FR-017 and quickstart network checks cover one request per page session; no generation IDs, dataset identity tracking, or in-page replacement. Existing 16 document-quality checks remain passing.
+
+- FR-018 records compact balance retention without trimming transaction history. The data model and tasks define a UTC-date-minus-one-day baseline, later changes, and explicit errors before coverage; runtime equivalence remains to be verified.
+
+- US1 acceptance scenarios 5–6 and FR-019 are mapped to explicit test selection, a missing-real-export navigation link, and one fetch per page session. Both datasets use the same validated contract; no automatic fallback is introduced.

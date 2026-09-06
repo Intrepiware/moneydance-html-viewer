@@ -4,7 +4,7 @@
 
 See [example-export.json](contracts/example-export.json) for a small, synthetic example of this proposed contract, explained in [example-export.md](contracts/example-export.md). It illustrates the current timeline design; it is not output from the existing exporter or evidence of verified Moneydance behavior.
 
-`schemaVersion: 1`, `exportDate` (UTC ISO timestamp or null), `sourceVersion`, `accounts` (recursive root), and `entries` (flat array).
+`schemaVersion: 1`, `exportDate` (UTC ISO timestamp or null), `sourceVersion`, `balanceStartDate` (required YYYY-MM-DD coverage boundary), `accounts` (recursive root), and `entries` (flat array).
 
 effectiveDate is derived view state: capture the device-local YYYY-MM-DD at page load and pass it to the worker. It is not a snapshot field. Invalid exportDate produces `As of: unavailable` without affecting the cutoff. Reload recalculates balances for the new local date; the cutoff stays fixed within a page session. Reject unversioned historical exports with an actionable re-export message: their missing balances cannot be inferred safely. Preserve historical samples unchanged.
 
@@ -14,7 +14,7 @@ Fields: `id`, `name`, `type` (source type string), `currency`, `inactive`, `incl
 
 All identifiers are nonempty unique strings. Traverse all ancestors, even inactive/investment ones. `included` is true only for active supported non-investment USD accounts/categories, false for root, investments, securities, and inactive accounts. An active unsupported non-investment currency/type is a validation error, not a silently hidden account. Excluded accounts retain metadata for ancestry and counterpart lookup; their monetary fields may be null. Included accounts require integer balances.
 
-`balanceTimeline` contains source-generated balance checkpoints: `beforeFirstDateOwnCents`, `beforeFirstDateSidebarCents`, and `points` ordered by distinct YYYY-MM-DD, each with `date`, `ownBalanceCents`, `sidebarBalanceCents`. Include every date on which this account's own or recursive balance changes, including hidden descendants and all supplied future activity. For included accounts, the timeline is required. The worker chooses the last point on or before page-load effectiveDate, or the before-first-date values when none exists. This supports dates before or after export without freezing hidden contributions at export time.
+`balanceTimeline` contains `points` ordered by distinct YYYY-MM-DD, each with `date`, `ownBalanceCents`, and `sidebarBalanceCents`. To minimize export size, emit one baseline point dated `balanceStartDate` with source balances through that date, then only dates after it on which own or recursive balances change, including hidden descendants and all supplied future activity. Omit earlier checkpoints and the former before-first-date fields. The exporter sets balanceStartDate to the export instant's UTC calendar date minus one day, covering the earliest device-local date at export time without sourceTimeZone. This required financial boundary remains usable if the optional display exportDate is missing/invalid. Each included account requires a baseline even when it has no entries. The worker selects the last point on or before page-load effectiveDate; reject a cutoff before balanceStartDate as INVALID_SNAPSHOT with a clear coverage error rather than extrapolating. Historical sidebar-date selection is out of scope. Full entries, opening/closing balances and per-entry running balances remain unchanged.
 
 Source computation must retain recursive source display conventions, including any excluded descendant effects. Do not sum already-recursive child balances or treat security units as USD. Validate the timeline at multiple reference dates; unavailable date-specific source valuation is a financial validation blocker, never permission to extrapolate a frozen balance. Timelines represent only exported knowledge, not future price changes or transactions absent from the snapshot. Synthetic All Accounts has no total.
 
@@ -36,7 +36,7 @@ Fields: `accountId`, `name`, `memo`, optional `amountCents` (integer or null). A
 
 - Every money value and intermediate sum must be a safe integer within ±9,007,199,254,740,991 cents; reject overflow/nonfinite/fractional values. Use source integer minor units, never floating-point reconstruction.
 - Reject duplicate IDs, account cycles, missing included monetary fields, unknown versions, invalid timeline/entry dates, dangling account/allocation references, duplicate register order, and broken recurrence.
-- Verify each own timeline checkpoint from opening balance and ordered entries through that date. Recursive timeline checkpoints must reconcile at source for each changing date, including dates driven only by hidden descendants. Worker lookup uses the user-local page-load date.
+- Verify each own timeline checkpoint from opening balance and ordered entries through that date. Recursive timeline checkpoints must reconcile at source at the baseline and each retained changing date, including dates driven only by hidden descendants. Worker lookup uses the user-local page-load date.
 - Optional display exportDate may be absent/null/invalid; this only affects its label. Required financial metadata errors reject the candidate snapshot.
 
 ## Derived View State
@@ -46,3 +46,5 @@ Keep a worker-owned immutable entry store, indexes of own-account entry IDs, a g
 Visible account tree reparents included nodes to their nearest included ancestor (or synthetic All Accounts). Original ancestry remains in the worker for search and validation. Display balances come from exported sidebar values, not the pruned tree.
 
 Loader states: idle → loading → ready/empty or error. Download the configured URL once per page session, then use the in-memory dataset for all queries and paging. Reloading the page creates fresh state and captures a new effectiveDate. No polling, in-page dataset replacement, dataset identity comparison, or previously-seen detection. Query results carry request IDs only; stale results never overwrite newer search/account choices. A failed initial load shows an error; reload is the retry mechanism.
+
+Test mode is page-session source-selection state, not a snapshot field or dataset identity. Real and synthetic snapshots use the identical model and balanceStartDate coverage rules. Keep the synthetic fixture coverage suitable for its documented test dates; do not override the device-local effectiveDate to make a fixture load.

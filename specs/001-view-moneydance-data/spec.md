@@ -20,7 +20,7 @@
 
 - Q: Does the viewer need to track dataset generations or whether a dataset has been seen before? → A: No. Download the configured URL once per page load and use the in-memory data. No in-page replacement or dataset identity tracking; request IDs remain for overlapping queries.
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Check envelope and account balances (Priority: P1)
 
@@ -36,6 +36,8 @@ As the sole user, I want to quickly inspect my checking envelope sub-accounts an
 2. **Given** a parent with its own activity and subordinate balances, **When** its sidebar balance is shown, **Then** each contribution is counted once, including inactive descendant effects, and future-dated activity is excluded.
 3. **Given** an inactive account, **When** browsing or searching, **Then** neither its account entry nor its own transaction rows appear; an included account's legitimate transfer counterpart and balance effects remain intact.
 4. **Given** an active supported descendant beneath a hidden ancestor, **When** browsing, **Then** that descendant remains accessible without making the hidden ancestor selectable.
+5. **Given** a test json file is in the data directory, **When** the user adds a `test=true` url parameter, **Then** the test/dummy data is rendered instead of the real Moneydance export.
+6. **Given** the json export file is missing, **When** browsing the app without the `test=true` url parameter, **Then** the UI displays an error informing the user about the missing file, and provides a link to the test dataset (`test=true` url parameter).
 
 ### User Story 2 - Review an account's full register (Priority: P1)
 
@@ -99,7 +101,7 @@ As the user, I want a supplied snapshot to load with its date visible and errors
 - Missing or invalid export timestamps produce `As of: unavailable`, never a fabricated current time or an invalid-date string. Any separate financial-data validation error remains visible.
 - Income/expense categories do not turn the combined view into an implied net-worth calculation.
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -122,7 +124,11 @@ As the user, I want a supplied snapshot to load with its date visible and errors
 
 - **FR-017**: The viewer MUST request its configured snapshot URL once per page load and use the loaded data for account selection, search, and pagination without further snapshot downloads. It MUST NOT poll, replace datasets in-page, or track whether a dataset was previously seen. Reloading the page starts a fresh load and retries failures.
 
-### Key Entities *(include if feature involves data)*
+- **FR-018**: The export MUST omit redundant historical sidebar-balance checkpoints, retaining a baseline sufficient for the earliest supported local page-load date and all subsequent known balance changes. This size reduction MUST preserve full transaction history, per-entry running balances, hidden-account contributions and future-date advancement. Historical sidebar-date browsing is out of scope; unsupported earlier cutoffs MUST produce a visible error rather than an incorrect balance.
+
+- **FR-019**: An explicit `test=true` URL parameter MUST select the supplied synthetic test dataset instead of the real export. Without that parameter, a missing real export MUST produce a visible missing-file error and a link that reloads the page with `test=true`. Selection MUST remain one dataset request per page load; no automatic fallback is allowed.
+
+### Key Entities _(include if feature involves data)_
 
 - **Snapshot**: A dated representation of Moneydance records with an export timestamp and sufficient information to establish supported balances and history.
 - **Account**: A named financial account or income/expense category with status, account type, parent relationship, own activity, and balance contribution.
@@ -130,7 +136,7 @@ As the user, I want a supplied snapshot to load with its date visible and errors
 - **Allocation**: A category or counterpart component with an amount and optional memo; several allocations may belong to one account entry.
 - **Transfer**: Related effects on accounts; both included counterparts remain visible in combined activity.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

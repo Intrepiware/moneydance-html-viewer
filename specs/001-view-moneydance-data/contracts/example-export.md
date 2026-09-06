@@ -27,7 +27,7 @@ The two September 6 rows illustrate successive transaction running balances. The
 
 ## Dates and Export Metadata
 
-The export timestamp is September 6 at 23:00 UTC. Its local rendering appears in the toolbar. effectiveDate is not exported: a page loaded on September 5 selects balances through September 5 ($1,050 for Checking), while a September 6 load selects $1,045. All supplied transactions remain in their registers, including those still future relative to page-load date.
+The export timestamp is September 6 at 23:00 UTC. balanceStartDate is September 5 (the UTC export date minus one day). Each included account has one September 5 baseline and only later changes; earlier balance checkpoints are omitted, but all 13 entries remain. Checking therefore has only the $1,050 September 5 baseline and the $1,045 September 6 point. A simulated cutoff before September 5 fails visibly; the activity table above describes history, not retained timeline points. Its local rendering appears in the toolbar. effectiveDate is not exported: a page loaded on September 5 selects balances through September 5 ($1,050 for Checking), while a September 6 load selects $1,045. All supplied transactions remain in their registers, including those still future relative to page-load date.
 
 Every money field is integer cents. Full-account running balances do not change with search, paging, or page-load date. The root has no monetary balance, sourceTimeZone is absent, and no generation ID is used.
 

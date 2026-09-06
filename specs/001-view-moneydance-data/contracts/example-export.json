@@ -23,19 +23,7 @@
         "openingBalanceCents": 0,
         "closingBalanceCents": 0,
         "balanceTimeline": {
-          "beforeFirstDateOwnCents": 0,
-          "beforeFirstDateSidebarCents": 0,
           "points": [
-            {
-              "date": "2026-09-01",
-              "ownBalanceCents": 0,
-              "sidebarBalanceCents": 320000
-            },
-            {
-              "date": "2026-09-03",
-              "ownBalanceCents": 0,
-              "sidebarBalanceCents": 120000
-            },
             {
               "date": "2026-09-05",
               "ownBalanceCents": 0,
@@ -59,16 +47,9 @@
             "openingBalanceCents": 0,
             "closingBalanceCents": 0,
             "balanceTimeline": {
-              "beforeFirstDateOwnCents": 0,
-              "beforeFirstDateSidebarCents": 0,
               "points": [
                 {
-                  "date": "2026-09-01",
-                  "ownBalanceCents": 200000,
-                  "sidebarBalanceCents": 200000
-                },
-                {
-                  "date": "2026-09-03",
+                  "date": "2026-09-05",
                   "ownBalanceCents": 0,
                   "sidebarBalanceCents": 0
                 }
@@ -86,14 +67,7 @@
             "openingBalanceCents": 0,
             "closingBalanceCents": 65000,
             "balanceTimeline": {
-              "beforeFirstDateOwnCents": 0,
-              "beforeFirstDateSidebarCents": 0,
               "points": [
-                {
-                  "date": "2026-09-01",
-                  "ownBalanceCents": 80000,
-                  "sidebarBalanceCents": 80000
-                },
                 {
                   "date": "2026-09-05",
                   "ownBalanceCents": 65000,
@@ -113,11 +87,9 @@
             "openingBalanceCents": 0,
             "closingBalanceCents": 20000,
             "balanceTimeline": {
-              "beforeFirstDateOwnCents": 0,
-              "beforeFirstDateSidebarCents": 0,
               "points": [
                 {
-                  "date": "2026-09-01",
+                  "date": "2026-09-05",
                   "ownBalanceCents": 20000,
                   "sidebarBalanceCents": 20000
                 }
@@ -135,11 +107,9 @@
             "openingBalanceCents": 0,
             "closingBalanceCents": 19500,
             "balanceTimeline": {
-              "beforeFirstDateOwnCents": 0,
-              "beforeFirstDateSidebarCents": 0,
               "points": [
                 {
-                  "date": "2026-09-01",
+                  "date": "2026-09-05",
                   "ownBalanceCents": 20000,
                   "sidebarBalanceCents": 20000
                 },
@@ -164,11 +134,9 @@
         "openingBalanceCents": 0,
         "closingBalanceCents": 320000,
         "balanceTimeline": {
-          "beforeFirstDateOwnCents": 0,
-          "beforeFirstDateSidebarCents": 0,
           "points": [
             {
-              "date": "2026-09-01",
+              "date": "2026-09-05",
               "ownBalanceCents": 320000,
               "sidebarBalanceCents": 320000
             }
@@ -186,11 +154,9 @@
         "openingBalanceCents": 0,
         "closingBalanceCents": 200000,
         "balanceTimeline": {
-          "beforeFirstDateOwnCents": 0,
-          "beforeFirstDateSidebarCents": 0,
           "points": [
             {
-              "date": "2026-09-03",
+              "date": "2026-09-05",
               "ownBalanceCents": 200000,
               "sidebarBalanceCents": 200000
             }
@@ -208,8 +174,6 @@
         "openingBalanceCents": 0,
         "closingBalanceCents": 15000,
         "balanceTimeline": {
-          "beforeFirstDateOwnCents": 0,
-          "beforeFirstDateSidebarCents": 0,
           "points": [
             {
               "date": "2026-09-05",
@@ -230,9 +194,12 @@
         "openingBalanceCents": 0,
         "closingBalanceCents": 500,
         "balanceTimeline": {
-          "beforeFirstDateOwnCents": 0,
-          "beforeFirstDateSidebarCents": 0,
           "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            },
             {
               "date": "2026-09-06",
               "ownBalanceCents": 500,
@@ -549,5 +516,6 @@
         }
       ]
     }
-  ]
+  ],
+  "balanceStartDate": "2026-09-05"
 }

@@ -4,7 +4,7 @@ A small synthetic [example export](example-export.json) and its [walkthrough](ex
 
 ## Exporter → Viewer
 
-The external supplied-data contract is Snapshot v1 as defined in [data-model.md](../data-model.md). JSON encoded UTF-8; integer cents; date-only financial dates; UTC export instant separate from the derived user-local page-load effectiveDate; per-account dated balance timelines support recalculation. No HTTP API or cloud service is introduced.
+The external supplied-data contract is Snapshot v1 as defined in [data-model.md](../data-model.md). JSON encoded UTF-8; integer cents; date-only financial dates; UTC export instant separate from the derived user-local page-load effectiveDate; required balanceStartDate and per-account compact balance timelines support recalculation: one baseline at the UTC export date minus one day, then later changes only. Reject effectiveDate before balanceStartDate as INVALID_SNAPSHOT; full entries and running balances are not truncated. No HTTP API or cloud service is introduced.
 
 The exporter performs a stable read of the open account book, validates source references and balances, writes a temporary sibling file, and replaces the target only on success. A failed export must leave the last valid file intact and report a clear error. No shutdown hook in this phase.
 
@@ -41,3 +41,9 @@ Dataset identity is not tracked: the viewer never checks whether it has seen the
 ## Moneydance Runtime Compatibility
 
 export_json.py and any in-Moneydance preflight script must run under **Jython 2.7** using Moneydance's provided context and Java classes. Preserve Python 2.7-compatible syntax, encoding/file handling, and dependencies; do not require Python 3 or CPython-only native packages. Validate actual execution inside Moneydance before accepting exporter changes.
+
+## Explicit Test Dataset Selection
+
+UI/config.js also defines same-origin testSnapshotUrl, default ./data/test-snapshot.json. At page load, URLSearchParams.get("test") === "true" selects that URL; absent or other values select snapshotUrl. This selects a source before the single worker load and does not attempt the real URL first. Both sources obey exactly the same v1 validation, local-date cutoff, and query contracts. The synthetic file is deliberately supplied in UI/data/test-snapshot.json; the old UI/data.json is not assumed compatible.
+
+For HTTP 404 on the real snapshot, return LOAD_FAILED with optional reason: NOT_FOUND so the main thread can display a missing-export message and an ordinary link to the current page with test=true (preserving other parameters). Clicking navigates/reloads into test mode. Other load failures remain visible, with no automatic fallback. A missing/invalid test snapshot likewise errors without trying the real export. Show a small Test data indicator in test mode so fictional balances are recognizable. The local server must return 404 for a missing snapshot route rather than the HTML shell; it serves the committed synthetic test file in either mode.
