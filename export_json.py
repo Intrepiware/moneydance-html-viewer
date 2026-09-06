@@ -1,6 +1,8 @@
 import json
 import time
 import os
+import datetime
+
 # from com.infinitekind.moneydance.model import Account
 from com.infinitekind.moneydance.model import AbstractTxn
 
@@ -29,6 +31,8 @@ def build_account_tree(acct):
     }
     for i in range(acct.getSubAccountCount()):
         child = acct.getSubAccount(i)
+        if child.getAccountIsInactive():
+            continue
         node["children"].append(build_account_tree(child))
     return node
 
@@ -48,22 +52,20 @@ for ptxn in book.getTransactionSet().getAllTxns():
     for i in range(ptxn.getOtherTxnCount()):
         stxn = ptxn.getOtherTxn(i)
         splits.append({
-            "category_id": unicode(stxn.getAccount().getUUID()),
-            "category_name": unicode(stxn.getAccount().getAccountName()),
+            "categoryId": unicode(stxn.getAccount().getUUID()),
+            "categoryName": unicode(stxn.getAccount().getAccountName()),
             "amount": format_amount(stxn.getValue(), currency),
-            # "memo": unicode(stxn.getMemo()) if stxn.getMemo() else "",
             "memo": unicode(stxn.getMemo()) if "getMemo" in dir(stxn) else "",
-            "cleared_status": get_status_str(stxn.getStatus())
+            "clearedStatus": get_status_str(stxn.getStatus())
         })
         
     txns.append({
         "id": unicode(ptxn.getUUID()),
         "date": ptxn.getDateInt(),
-        "account_id": unicode(parent_acct.getUUID()),
-        "account_name": unicode(parent_acct.getAccountName()),
-        "check_num": unicode(ptxn.getCheckNumber()) if ptxn.getCheckNumber() else "",
+        "accountId": unicode(parent_acct.getUUID()),
+        "accountName": unicode(parent_acct.getAccountName()),
+        "checkNum": unicode(ptxn.getCheckNumber()) if ptxn.getCheckNumber() else "",
         "description": unicode(ptxn.getDescription()) if ptxn.getDescription() else "",
-        # "memo": unicode(ptxn.getMemo()) if ptxn.getMemo() else "",
         "memo": unicode(ptxn.getMemo()) if "getMemo" in dir(ptxn) else "",
         "cleared_status": get_status_str(ptxn.getStatus()),
         "tags": tags,
@@ -71,6 +73,7 @@ for ptxn in book.getTransactionSet().getAllTxns():
     })
 
 output_data = {
+    "exportDate": "%sZ" % datetime.datetime.utcnow().isoformat(),
     "accounts": account_tree,
     "transactions": txns
 }
