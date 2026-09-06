@@ -98,7 +98,7 @@ As the user, I want a supplied snapshot to load with its date visible and errors
 - Missing optional memo or check number is acceptable; missing information needed to establish correct amounts or balances is an error.
 - Multiple allocations with identical category names still receive `Split`; a missing category displays `Uncategorized` rather than a fabricated category.
 - Reloading an old snapshot on a later local date includes previously future-dated entries that are now due. Only entries already present in that snapshot are considered; no newer source activity is invented. The export timestamp stays unchanged.
-- Missing or invalid export timestamps produce `As of: unavailable`, never a fabricated current time or an invalid-date string. Any separate financial-data validation error remains visible.
+- Missing, null, or malformed export timestamps reject the snapshot with a visible export-date error; financial data is not rendered and no current-time fallback is fabricated.
 - Income/expense categories do not turn the combined view into an implied net-worth calculation.
 
 ## Requirements _(mandatory)_
@@ -120,7 +120,7 @@ As the user, I want a supplied snapshot to load with its date visible and errors
 - **FR-013**: The viewer MUST identify the export timestamp and use the user-local page-load date for balance cutoffs. Failed or invalid loads MUST produce a visible error without fabricated zero balances, silent data loss.
 - **FR-014**: Supported amounts, account associations, dates, and balances MUST reconcile with reference Moneydance records at the same effective date. Missing required financial information MUST be reported as a failure rather than accepted as successful real-data viewing.
 - **FR-015**: All Accounts MUST be a combined activity view without an overall balance or net-worth figure. Individual account and sub-account sidebar balances remain required.
-- **FR-016**: The toolbar's bottom-left corner MUST display `As of:` followed by the loaded snapshot's export date and time, formatted in the user's device locale and timezone with a timezone indicator (abbreviation or UTC offset). It MUST show the export instant rather than load time and refer to the single snapshot loaded for this page session. Missing or invalid timestamps MUST display `As of: unavailable`. On mobile this label MUST be accessible in the toolbar when opened.
+- **FR-016**: The toolbar's bottom-left corner MUST display `As of:` followed by the loaded snapshot's export date and time, formatted in the user's device locale and timezone with a timezone indicator (abbreviation or UTC offset). It MUST show the export instant rather than load time and refer to the single snapshot loaded for this page session. Missing, null, or malformed timestamps MUST cause the snapshot to fail loading with a visible export-date error, even when its financial data is otherwise valid. On mobile this label MUST be accessible in the toolbar when opened.
 
 - **FR-017**: The viewer MUST request its configured snapshot URL once per page load and use the loaded data for account selection, search, and pagination without further snapshot downloads. It MUST NOT poll, replace datasets in-page, or track whether a dataset was previously seen. Reloading the page starts a fresh load and retries failures.
 
@@ -146,7 +146,7 @@ As the user, I want a supplied snapshot to load with its date visible and errors
 - **SC-004**: For a recorded set of at least 20 representative description, memo, amount, descendant, and no-match queries over full representative history on the Pixel 8, each search displays usable results in under two seconds after query submission. This operationalizes the user's provisional target; failure triggers review, not automatic scope reduction.
 - **SC-005**: In five recorded initial-load trials with representative full history on the Pixel 8, supplied-snapshot loading reaches usable records in under 10 seconds per trial under the recorded test conditions. The broader requirement remains loading PLUS decryption under 10 seconds; passing this phase alone does not prove that later target or allocate a decryption budget.
 - **SC-006**: Every reference row retains the same running balance across paging, search, and combined views, and every tested invalid load gives an explicit failure rather than misleading successful data.
-- **SC-007**: For reference export instants spanning a local-date boundary and a daylight-saving transition, the bottom-left toolbar label shows the correct local date, time, and timezone indicator in two tested device timezones. Missing/invalid timestamps show the unavailable label, and searching or paging never changes the displayed export time.
+- **SC-007**: For reference export instants spanning a local-date boundary and a daylight-saving transition, the bottom-left toolbar label shows the correct local date, time, and timezone indicator in two tested device timezones. Missing, null, or malformed timestamps fail loading with a visible export-date error, and searching or paging never changes the displayed export time.
 
 ## Assumptions
 

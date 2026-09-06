@@ -46,3 +46,5 @@
 - FR-018 records compact balance retention without trimming transaction history. The data model and tasks define a UTC-date-minus-one-day baseline, later changes, and explicit errors before coverage; runtime equivalence remains to be verified.
 
 - US1 acceptance scenarios 5–6 and FR-019 are mapped to explicit test selection, a missing-real-export navigation link, and one fetch per page session. Both datasets use the same validated contract; no automatic fallback is introduced.
+
+- Decisions in analyze.md reconciled: FR-016/SC-007 now require a visible load failure for missing/null/malformed exportDate. T012/T014 own the US1 NOT_FOUND signal; T019/T021 cover check numbers and Uncategorized; T006 requires fixture reconciliation after contract changes. Runtime validation remains unexecuted.

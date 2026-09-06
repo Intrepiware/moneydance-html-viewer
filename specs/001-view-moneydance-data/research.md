@@ -34,7 +34,7 @@ All design choices below are resolved for planning. Runtime verification obligat
 ## Date rendering and UX correctness
 
 - **Decision**: Format the UTC export instant with Intl.DateTimeFormat using locale defaults and timeZoneName: short; use textContent and validate explicit Z/offset. Do not split localized strings on spaces. Keep date-only financial dates separate. Surface visible errors, use page reload to retry failed initial loads, show mobile running balances, and remove All Accounts totals everywhere.
-- **Rationale**: Timezone abbreviations and date ordering vary by locale; the user's sample function conveys intent but positional token extraction is fragile. Missing export timestamp is recoverable when required financial timelines are valid; effectiveDate comes from the device at page load.
+- **Rationale**: Timezone abbreviations and date ordering vary by locale; the user's sample function conveys intent but positional token extraction is fragile. The user decision in analyze.md supersedes timestamp recovery: missing, null, or malformed exportDate rejects the snapshot with a visible error, even with valid financial timelines. effectiveDate still comes from the device at page load.
 - **Alternatives considered**: Browser date conversion of transaction integers; using device date to recalculate balances; hiding balance column on mobile unchanged.
 - **Evidence**: [Intl.DateTimeFormat.formatToParts](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/formatToParts); UI/index.html currently hides running balances on mobile.
 

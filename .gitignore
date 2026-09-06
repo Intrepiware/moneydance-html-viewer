@@ -1,2 +1,5 @@
 /.agents/skills/speckit-*/
 /UI/data/moneydance-export-20[0-9\-]*.json
+
+# Private viewer snapshot; synthetic test-snapshot.json remains trackable.
+/UI/data/snapshot.json

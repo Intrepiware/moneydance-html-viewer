@@ -86,7 +86,7 @@ tests/
 - SDK docs establish candidate methods, not installed-version behavior. Opening balances/order/signs/recursive totals must reconcile; never fabricate zeros or silently drop records.
 - A worker may still exceed time or memory limits. Measure initial load and query memory; retain only compact indexes and current page on main thread. Scope changes require explicit discussion.
 - Source snapshots must be internally consistent. Abort an export if a stable read cannot be established or source comparisons change during capture.
-- ExportDate may be invalid without blocking the independent user-local page-load cutoff; display unavailable timestamp. Missing or invalid balance timelines reject the snapshot. Validate dated hidden-account contributions rather than retaining frozen export-day totals.
+- Missing, null, or malformed exportDate rejects the snapshot with a visible export-date error. A valid timestamp does not determine the user-local page-load cutoff. Missing or invalid balance timelines reject the snapshot. Validate dated hidden-account contributions rather than retaining frozen export-day totals.
 - Private files are for local validation only. The development server binds loopback by default; phone validation requires deliberate private-network access with synthetic data first.
 
 ## Requirement Coverage

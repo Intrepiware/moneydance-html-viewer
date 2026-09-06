@@ -22,7 +22,7 @@ Production selection: a small `UI/config.js` defines a same-origin `snapshotUrl`
 
 - `ready { requestId, metadata, accounts, totalCount }`: compact visible tree plus exportDate/effectiveDate; no full entry array crosses the boundary.
 - `page { requestId, totalMatches, page, pageSize, rows }`: at most 100 DTO rows with account identity, ISO date, description, memo, check number, category label, amountCents and runningBalanceCents. Out-of-range pages clamp to last valid page, empty results report page 1.
-- `error { requestId, code, message }`: user-safe message with no financial content dump. Codes: `LOAD_FAILED`, `UNSUPPORTED_VERSION`, `INVALID_SNAPSHOT`, `INVALID_QUERY`, `WORKER_FAILED`.
+- `error { requestId, code, message, reason? }`: user-safe message with no financial content dump. Codes: `LOAD_FAILED`, `UNSUPPORTED_VERSION`, `INVALID_SNAPSHOT`, `INVALID_QUERY`, `WORKER_FAILED`.
 
 UI ignores responses for obsolete request IDs. Chunk long searches so newer queries can supersede work; use a short 100 ms debounce counted within measured search latency. An obsolete page must never flash as current results.
 
@@ -32,7 +32,7 @@ Main thread renders current page using existing Handlebars templates with defaul
 
 Search case-folds and trims the whole query. OR matching across description, transaction memo, each allocation memo, and normalized amount. Do not match category, account name, tags, or check number as extra search fields. Amount matching strips optional `$` and grouping commas only for a valid numeric fragment; canonical target has two decimals and no grouping. Unsigned queries match either sign; negative fragments require negative amount for the amount branch only. Text branches remain independent. Never use eval or treat user query as a regular expression.
 
-The bottom-left sidebar footer shows `As of:` plus `Intl.DateTimeFormat(undefined, {year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit',timeZoneName:'short'}).format(exportInstant)`. Use the device timezone, do not split localized text on spaces. Invalid timestamps show `As of: unavailable`. Date-only entries are rendered from their components, not converted across timezones.
+The bottom-left sidebar footer shows `As of:` plus `Intl.DateTimeFormat(undefined, {year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit',timeZoneName:'short'}).format(exportInstant)`. Use the device timezone, do not split localized text on spaces. Validate exportDate before ready: missing, null, wrong-type, or malformed timestamps return INVALID_SNAPSHOT with a visible export-date error and no rendered financial data; no unavailable-label fallback is used. Date-only entries are rendered from their components, not converted across timezones.
 
 All Accounts hides all overall monetary summary elements while keeping counts. Selected-account summary uses the same source timeline recursive value selected for page-load effectiveDate as its sidebar. Mobile rows expose their own running balance through a compact secondary line if the existing desktop balance column remains hidden. Full memo and account identity must be accessible without introducing the deferred split modal.
 

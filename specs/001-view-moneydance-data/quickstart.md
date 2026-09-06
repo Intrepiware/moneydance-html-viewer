@@ -44,7 +44,7 @@ Historical unversioned samples must fail with a re-export message, not display g
 | Initial load fails, then page reloads | Visible error; reload makes a fresh request without restoring prior data |
 | Repeated searches, account changes, and paging | Network inspection shows no additional snapshot requests; each page reload makes one fresh request |
 | Export time near midnight and DST transition in two device zones | Correct local instant and timezone indicator in bottom-left footer; unchanged transaction dates; cutoff follows each device-local page-load date |
-| Missing export timestamp with valid balance timelines | As of: unavailable; financial validation independent |
+| Missing, null, wrong-type, or malformed export timestamp with valid balance timelines | INVALID_SNAPSHOT; visible export-date error and no rendered financial data in real and test modes |
 
 Use synthetic cases for timezone and malformed data tests. The fixture harness must assert expected rows/labels as well as render them; manual inspection alone does not establish financial equality.
 
@@ -64,7 +64,7 @@ Have the user complete envelope-balance lookup and most-recent purchase lookup a
 
 ## Page-load Date Regression
 
-Use the same snapshot with an entry dated September 6. Load with local date September 5: sidebar excludes it. Reload with local date September 6: sidebar includes it; register running balances and export timestamp are unchanged. Repeat with a hidden descendant contribution and in two timezones straddling midnight. An open page keeps its captured date until reload. Verify the baseline at balanceStartDate (UTC export date minus one day), subsequent changes and after-last-checkpoint dates; a cutoff before coverage must fail visibly. Compare compact versus full reference timelines at every supported change date, including hidden effects, and confirm earlier points are absent while all entries/running balances remain intact. Verify missing display exportDate still works with valid balanceStartDate; do not invent unexported activity.
+Use the same snapshot with an entry dated September 6. Load with local date September 5: sidebar excludes it. Reload with local date September 6: sidebar includes it; register running balances and export timestamp are unchanged. Repeat with a hidden descendant contribution and in two timezones straddling midnight. An open page keeps its captured date until reload. Verify the baseline at balanceStartDate (UTC export date minus one day), subsequent changes and after-last-checkpoint dates; a cutoff before coverage must fail visibly. Compare compact versus full reference timelines at every supported change date, including hidden effects, and confirm earlier points are absent while all entries/running balances remain intact. Verify missing, null, or malformed exportDate fails loading even with valid balanceStartDate; do not invent unexported activity.
 
 ## Test Dataset Selection (US1 Acceptance 5–6 / FR-019)
 
