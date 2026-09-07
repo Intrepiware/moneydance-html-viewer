@@ -37,3 +37,30 @@ delete-and-retry fallback is used.
 After controlled-book validation, a fresh full private-book export and its CLI
 validation are required before full-data acceptance. Keep that file local and do
 not paste its contents. Worker/UI integration and Pixel 8 trials are later tasks.
+
+## Troubleshooting validation
+
+Security metadata is now omitted unless required by an exported allocation or the
+ancestry of a retained account. Retained securities may have an empty currency;
+included accounts still require USD. On the next Moneydance export, verify that
+unreferenced leaf securities disappear and run the validator again. Source
+runtime verification of this pruning remains pending until that export is run.
+
+Normal validation retains the compact JSON error report (status, code, and field)
+and exits with status 1 on failure. For local troubleshooting, run:
+
+```powershell
+node scripts/validate-snapshot.mjs UI/data/snapshot.json --debug
+```
+
+`--debug` adds the complete failing entity and full stack trace to stderr. Account
+and timeline failures include the account; entry and allocation failures include
+the entry. Top-level failures include the snapshot. If reading or parsing fails,
+there is no parsed entity; the diagnostic says so and prints the stack trace.
+Debug output can contain private financial data; keep it local or sanitize it
+before sharing. Successful validation has the same output with either mode.
+
+The shared validator does not log diagnostics. It attaches entity context to its
+error so the CLI can explicitly disclose it; the web worker retains its compact
+error response. No constitution amendment is needed: these explicitly requested
+local diagnostics are separate from the routine logs prohibited by Principle III.

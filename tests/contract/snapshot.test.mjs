@@ -69,3 +69,28 @@ test('duplicate order and aggregate overflow are rejected', () => {
   find(t.accounts).openingBalanceCents = Number.MAX_SAFE_INTEGER;
   assert.throws(() => validateSnapshot(t));
 });
+
+test('security metadata permits empty currency while preserving references and USD checks', () => {
+  const s = fresh();
+  const security = { id: 'security-reference', name: 'Synthetic Fund', type: 'SECURITY',
+    currency: '', inactive: false, included: false, children: [],
+    openingBalanceCents: null, closingBalanceCents: null, balanceTimeline: null };
+  s.accounts.children.push(security);
+  s.entries[0].allocations.push({ accountId: security.id, name: security.name, memo: '', amountCents: null });
+  assert.doesNotThrow(() => validateSnapshot(s));
+  for (const value of [null, 42, undefined]) {
+    security.currency = value;
+    assert.throws(() => validateSnapshot(s), e => e.field === 'account.currency');
+  }
+  security.currency = '';
+  security.included = true;
+  assert.throws(() => validateSnapshot(s), e => e.field === 'account.included');
+  security.included = false;
+  s.accounts.children.pop();
+  assert.throws(() => validateSnapshot(s), e => e.field === 'allocation.accountId');
+  s.entries[0].allocations.pop();
+  s.accounts.children[0].currency = '';
+  assert.throws(() => validateSnapshot(s), e => e.field === 'account.currency');
+  s.accounts.children[0].currency = 'EUR';
+  assert.throws(() => validateSnapshot(s), e => e.field === 'account.included');
+});

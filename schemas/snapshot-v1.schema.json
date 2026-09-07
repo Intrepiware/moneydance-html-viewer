@@ -69,7 +69,7 @@
         },
         "currency": {
           "type": "string",
-          "minLength": 1
+          "description": "May be empty for retained SECURITY metadata only."
         },
         "inactive": {
           "type": "boolean"
@@ -119,6 +119,11 @@
         }
       },
       "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "SECURITY" } } },
+          "then": { "properties": { "included": { "const": false } } },
+          "else": { "properties": { "currency": { "minLength": 1 } } }
+        },
         {
           "if": {
             "properties": {

@@ -231,8 +231,18 @@ def build_snapshot(records, instant, source_version):
             node['closingBalanceCents'] = exact(r['closing'] * sign)
             node['balanceTimeline'] = {'points': points}
         nodes[r['id']] = node
-    for aid in nodes:
-        nodes[aid]['children'] = [nodes[child] for child in children[aid]]
+    # Securities have no viewing role. Retain only reference targets and ancestors
+    # of retained nodes; prune after balance checks so valuation cannot be hidden.
+    retained = set(r['id'] for r in records if r['type'] != 'SECURITY')
+    for entry in emitted_entries:
+        retained.update(a['accountId'] for a in entry['allocations'])
+    for aid in list(retained):
+        parent_id = by_id[aid]['parentId']
+        while parent_id is not None and parent_id not in retained:
+            retained.add(parent_id)
+            parent_id = by_id[parent_id]['parentId']
+    for aid in retained:
+        nodes[aid]['children'] = [nodes[child] for child in children[aid] if child in retained]
     return {'schemaVersion': 1, 'exportDate': instant.isoformat() + 'Z',
             'sourceVersion': source_version, 'balanceStartDate': boundary,
             'accounts': nodes[roots[0]], 'entries': emitted_entries}
