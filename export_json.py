@@ -1,91 +1,311 @@
-import json
-import time
-import os
+# -*- coding: utf-8 -*-
+"""Snapshot v1 exporter. Run inside Moneydance's Jython 2.7 script facility.
+
+Read-only source capture; no close hook or remote delivery. Save a controlled
+book first and validate the JSON before using the full private book.
+"""
 import datetime
+import json
+import os
+import sys
+from java.lang import Runnable
+from java.lang import Exception as JavaException
+from java.io import File, FileOutputStream, OutputStreamWriter
+from java.nio.file import Files, StandardCopyOption
+from javax.swing import JFileChooser, SwingUtilities
+from com.infinitekind.moneydance.model import TxnSet
 
-# from com.infinitekind.moneydance.model import Account
-from com.infinitekind.moneydance.model import AbstractTxn
+LIMIT = 9007199254740991
+SUPPORTED = ('BANK', 'CREDIT_CARD', 'ASSET', 'LIABILITY', 'LOAN', 'INCOME', 'EXPENSE')
+EXCLUDED = ('ROOT', 'INVESTMENT', 'SECURITY')
 
-def get_status_str(status):
-    if status == AbstractTxn.ClearedStatus.CLEARED: 
-        return "CLEARED"
-    if status == AbstractTxn.ClearedStatus.RECONCILING: 
-        return "RECONCILING"
-    return "UNCLEARED"
 
-def format_amount(val, currency):
-    if not currency: 
-        return val / 100.0
-    return currency.getDoubleValue(val)
+class ExportError(Exception):
+    pass
 
-book = moneydance.getCurrentAccountBook()
-root = book.getRootAccount()
 
-def build_account_tree(acct):
-    node = {
-        "id": unicode(acct.getUUID()),
-        "name": unicode(acct.getAccountName()),
-        "type": unicode(acct.getAccountType().name()),
-        "currency": unicode(acct.getCurrencyType().getIDString()),
-        "children": []
-    }
-    for i in range(acct.getSubAccountCount()):
-        child = acct.getSubAccount(i)
-        if child.getAccountIsInactive():
+def require(condition, code):
+    if not condition:
+        raise ExportError(code)
+
+
+def exact(value):
+    require(isinstance(value, (int, long)) and not isinstance(value, bool), 'INVALID_CENTS')
+    require(-LIMIT <= value <= LIMIT, 'UNSAFE_CENTS')
+    return long(value)
+
+
+def add(a, b):
+    return exact(exact(a) + exact(b))
+
+
+def text(value):
+    return unicode(value) if value is not None else u''
+
+
+def check_editing_mode(item):
+    # Build 5253 does not expose this method on all source objects.
+    # Double capture with source stamps remains mandatory regardless.
+    if hasattr(item, 'isInEditingMode'):
+        require(not item.isInEditingMode(), 'SOURCE_EDIT_IN_PROGRESS')
+
+
+def cleared_status(txn):
+    source = text(txn.getClearedStatus().name())
+    statuses = {'UNRECONCILED': 'UNCLEARED', 'UNCLEARED': 'UNCLEARED',
+                'CLEARED': 'CLEARED', 'RECONCILING': 'RECONCILING'}
+    require(source in statuses, 'UNSUPPORTED_CLEARED_STATUS')
+    return statuses[source]
+
+
+def date_text(value):
+    raw = str(int(value))
+    require(len(raw) == 8, 'INVALID_SOURCE_DATE')
+    return datetime.date(int(raw[:4]), int(raw[4:6]), int(raw[6:])).isoformat()
+
+
+def memo(txn):
+    if hasattr(txn, 'getMemo'):
+        return text(txn.getMemo())
+    # Split descriptions carry allocation text; the parent carries transaction memo.
+    return text(txn.getDescription())
+
+
+def capture(book):
+    """Copy relevant source data to Python values; never retain mutable Java nodes."""
+    records = []
+    seen = set()
+    transaction_set = book.getTransactionSet()
+
+    def visit(account, parent_id, ancestor_needs_balances=False):
+        aid = text(account.getUUID())
+        require(aid and aid not in seen, 'DUPLICATE_ACCOUNT_OR_CYCLE')
+        seen.add(aid)
+        check_editing_mode(account)
+        kind = text(account.getAccountType().name())
+        currency = text(account.getCurrencyType().getIDString())
+        inactive = bool(account.getAccountIsInactive())
+        require(kind in SUPPORTED or kind in EXCLUDED or inactive, 'UNSUPPORTED_ACCOUNT_TYPE')
+        included = kind in SUPPORTED and not inactive
+        require(not included or currency == 'USD', 'UNSUPPORTED_CURRENCY')
+        needs_balances = included or ancestor_needs_balances
+        require(not needs_balances or (currency == 'USD' and kind != 'SECURITY'),
+                'UNVERIFIED_DESCENDANT_VALUATION')
+        sign = -1 if account.balanceIsNegated() else 1
+        record = {'id': aid, 'parentId': parent_id, 'name': text(account.getAccountName()),
+                  'type': kind, 'currency': currency, 'inactive': inactive, 'included': included,
+                  'sign': sign, 'needsBalances': needs_balances,
+                  'opening': long(account.getStartBalance()) if needs_balances else None,
+                  'sourceClosing': long(account.getUserBalance()) if needs_balances else None,
+                  'sourceCurrent': long(account.getUserCurrentBalance()) if needs_balances else None,
+                  'sourceRecursiveClosing': long(account.getRecursiveUserBalance()) if needs_balances else None,
+                  'sourceRecursiveCurrent': long(account.getRecursiveUserCurrentBalance()) if needs_balances else None,
+                  'sourceStamp': long(account.getSyncTimestamp()), 'rows': []}
+        rows = []
+        if needs_balances:
+            source = transaction_set.getTransactionsForAccount(account)
+            rows = sorted([source.getTxn(i) for i in range(source.getSize())], key=lambda t: int(t.getDateInt()))
+        detached = TxnSet()
+        for txn in rows:
+            detached.addTxn(txn)
+        if needs_balances:
+            detached.setHoldBalances(True)
+            detached.recalcBalances(record['opening'], bool(account.balanceIsNegated()))
+        row_ids = set()
+        for order, txn in enumerate(rows):
+            check_editing_mode(txn)
+            eid = text(txn.getUUID())
+            require(eid and eid not in row_ids, 'DUPLICATE_ENTRY')
+            row_ids.add(eid)
+            require(text(txn.getAccount().getUUID()) == aid, 'ENTRY_ACCOUNT_MISMATCH')
+            parent = txn.getParentTxn()
+            require(parent is not None, 'MISSING_PARENT_TRANSACTION')
+            split = text(parent.getUUID()) != eid
+            description = text(txn.getDescription()) or text(parent.getDescription())
+            allocations = []
+            for i in range(txn.getOtherTxnCount()):
+                other = txn.getOtherTxn(i)
+                allocations.append({'accountId': text(other.getAccount().getUUID()),
+                                    'name': text(other.getAccount().getAccountName()),
+                                    'memo': memo(txn) if split else memo(other),
+                                    'amountCents': None})
+            tags = sorted(set(text(t) for node in (parent, txn) for t in (node.getKeywords() or [])))
+            record['rows'].append({'id': eid, 'transactionId': text(parent.getUUID()),
+                                   'accountId': aid, 'date': date_text(txn.getDateInt()),
+                                   'registerOrder': order, 'raw': long(txn.getValue()),
+                                   'sdkBalance': long(detached.getBalanceAt(order)),
+                                   'description': description, 'memo': text(parent.getMemo()),
+                                   'checkNum': text(txn.getCheckNumber()),
+                                   'clearedStatus': cleared_status(txn),
+                                   'tags': tags, 'allocations': allocations,
+                                   'sourceStamp': long(txn.getSyncTimestamp())})
+        records.append(record)
+        for i in range(account.getSubAccountCount()):
+            visit(account.getSubAccount(i), aid, needs_balances)
+    visit(book.getRootAccount(), None)
+    return records
+
+
+def build_snapshot(records, instant, source_version):
+    boundary = (instant.date() - datetime.timedelta(days=1)).isoformat()
+    today = datetime.date.today().isoformat()
+    by_id = dict((r['id'], r) for r in records)
+    children = dict((r['id'], []) for r in records)
+    roots = []
+    for r in records:
+        if r['parentId'] is None:
+            roots.append(r['id'])
+        else:
+            require(r['parentId'] in by_id, 'MISSING_PARENT_ACCOUNT')
+            children[r['parentId']].append(r['id'])
+    require(len(roots) == 1, 'INVALID_ROOT')
+    emitted_entries = []
+    # Integer raw deltas are kept in source sign until the owning parent's display
+    # sign is applied. Included entries separately use their own account's sign.
+    for r in records:
+        if not r['needsBalances']:
+            # Metadata-only accounts do not participate in any included total.
+            # Their security quantities/portfolio balances are outside this export.
+            r['daily'] = {}
+            r['closing'] = None
             continue
-        node["children"].append(build_account_tree(child))
-    return node
+        opening = r['opening']
+        running = opening
+        daily = {}
+        for row in r['rows']:
+            running = add(running, row['raw']) if r['currency'] == 'USD' else running + row['raw']
+            daily[row['date']] = add(daily.get(row['date'], 0), row['raw']) if r['currency'] == 'USD' else daily.get(row['date'], 0) + row['raw']
+            require(row['sdkBalance'] == running * r['sign'], 'SDK_RUNNING_BALANCE_MISMATCH')
+            for allocation in row['allocations']:
+                require(allocation['accountId'] in by_id, 'MISSING_ALLOCATION_ACCOUNT')
+            if r['included']:
+                entry = dict((k, v) for k, v in row.items() if k not in ('raw', 'sdkBalance', 'sourceStamp'))
+                entry['amountCents'] = exact(row['raw'] * r['sign'])
+                entry['runningBalanceCents'] = exact(running * r['sign'])
+                emitted_entries.append(entry)
+        require(running * r['sign'] == r['sourceClosing'], 'SOURCE_CLOSING_MISMATCH')
+        r['daily'] = daily
+        r['closing'] = running
 
-account_tree = build_account_tree(root)
+    def aggregate(aid):
+        r = by_id[aid]
+        require(r['currency'] == 'USD' and r['type'] != 'SECURITY', 'UNVERIFIED_DESCENDANT_VALUATION')
+        opening = exact(r['opening'])
+        events = dict((day, exact(value)) for day, value in r['daily'].items())
+        for child in children[aid]:
+            child_opening, child_events = aggregate(child)
+            opening = add(opening, child_opening)
+            for day, amount in child_events.items():
+                events[day] = add(events.get(day, 0), amount)
+        return opening, events
 
-txns = []
-for ptxn in book.getTransactionSet().getAllTxns():
-    parent_acct = ptxn.getAccount()
-    currency = parent_acct.getCurrencyType()
-    
-    tags = []
-    keywords = ptxn.getKeywords()
-    if keywords:
-        tags = [unicode(k) for k in keywords]
-        
-    splits = []
-    for i in range(ptxn.getOtherTxnCount()):
-        stxn = ptxn.getOtherTxn(i)
-        splits.append({
-            "categoryId": unicode(stxn.getAccount().getUUID()),
-            "categoryName": unicode(stxn.getAccount().getAccountName()),
-            "amount": format_amount(stxn.getValue(), currency),
-            "memo": unicode(stxn.getMemo()) if "getMemo" in dir(stxn) else "",
-            "clearedStatus": get_status_str(stxn.getStatus())
-        })
-        
-    txns.append({
-        "id": unicode(ptxn.getUUID()),
-        "date": ptxn.getDateInt(),
-        "accountId": unicode(parent_acct.getUUID()),
-        "accountName": unicode(parent_acct.getAccountName()),
-        "checkNum": unicode(ptxn.getCheckNumber()) if ptxn.getCheckNumber() else "",
-        "description": unicode(ptxn.getDescription()) if ptxn.getDescription() else "",
-        "memo": unicode(ptxn.getMemo()) if "getMemo" in dir(ptxn) else "",
-        "cleared_status": get_status_str(ptxn.getStatus()),
-        "tags": tags,
-        "splits": splits
-    })
+    def at(opening, events, cutoff):
+        total = exact(opening)
+        for day in sorted(events):
+            if day <= cutoff:
+                total = add(total, events[day])
+        return total
 
-output_data = {
-    "exportDate": "%sZ" % datetime.datetime.utcnow().isoformat(),
-    "accounts": account_tree,
-    "transactions": txns
-}
+    nodes = {}
+    for r in records:
+        node = dict((key, r[key]) for key in ('id', 'name', 'type', 'currency', 'inactive', 'included'))
+        node.update({'children': [], 'openingBalanceCents': None, 'closingBalanceCents': None, 'balanceTimeline': None})
+        if r['included']:
+            sign = r['sign']
+            opening, events = aggregate(r['id'])
+            require(at(r['opening'], r['daily'], today) * sign == r['sourceCurrent'], 'SOURCE_CURRENT_MISMATCH')
+            require(at(opening, events, today) * sign == r['sourceRecursiveCurrent'], 'SOURCE_RECURSIVE_CURRENT_MISMATCH')
+            require(at(opening, events, '9999-12-31') * sign == r['sourceRecursiveClosing'], 'SOURCE_RECURSIVE_CLOSING_MISMATCH')
+            own = exact(at(r['opening'], r['daily'], boundary) * sign)
+            sidebar = exact(at(opening, events, boundary) * sign)
+            points = [{'date': boundary, 'ownBalanceCents': own, 'sidebarBalanceCents': sidebar}]
+            for day in sorted(set(events) | set(r['daily'])):
+                if day <= boundary:
+                    continue
+                own = add(own, exact(r['daily'].get(day, 0) * sign))
+                sidebar = add(sidebar, exact(events.get(day, 0) * sign))
+                previous = points[-1]
+                if own != previous['ownBalanceCents'] or sidebar != previous['sidebarBalanceCents']:
+                    points.append({'date': day, 'ownBalanceCents': own, 'sidebarBalanceCents': sidebar})
+            node['openingBalanceCents'] = exact(r['opening'] * sign)
+            node['closingBalanceCents'] = exact(r['closing'] * sign)
+            node['balanceTimeline'] = {'points': points}
+        nodes[r['id']] = node
+    for aid in nodes:
+        nodes[aid]['children'] = [nodes[child] for child in children[aid]]
+    return {'schemaVersion': 1, 'exportDate': instant.isoformat() + 'Z',
+            'sourceVersion': source_version, 'balanceStartDate': boundary,
+            'accounts': nodes[roots[0]], 'entries': emitted_entries}
 
-timestamp = time.strftime("%Y%m%d-%H%M%S")
-filepath = r"C:\data\json\moneydance-export-%s.json" % timestamp
 
-dir_name = os.path.dirname(filepath)
-if not os.path.exists(dir_name):
-    os.makedirs(dir_name)
+def atomic_save(snapshot, target):
+    directory = target.getAbsoluteFile().getParentFile()
+    require(directory.isDirectory(), 'OUTPUT_DIRECTORY_MISSING')
+    temporary = File.createTempFile('.snapshot-', '.tmp', directory)
+    try:
+        stream = FileOutputStream(temporary)
+        writer = OutputStreamWriter(stream, 'UTF-8')
+        try:
+            # Compact JSON is material for the full-history file size.
+            for chunk in json.JSONEncoder(ensure_ascii=True, separators=(',', ':')).iterencode(snapshot):
+                writer.write(chunk)
+            writer.flush()
+            stream.getFD().sync()
+        finally:
+            writer.close()
+        # Fail rather than delete the last good export if atomic replacement is unavailable.
+        Files.move(temporary.toPath(), target.toPath(), StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING)
+    finally:
+        if temporary.exists():
+            temporary.delete()
 
-with open(filepath, 'w') as f:
-    json.dump(output_data, f, indent=2)
 
-print("Export saved to: " + filepath)
+class CaptureOnUIThread(Runnable):
+    def __init__(self, book):
+        self.book = book
+        self.result = None
+        self.error = None
+
+    def run(self):
+        try:
+            # UI edits cannot interleave on the EDT. Compare full detached captures
+            # (including source stamps) to detect background changes; reject edits.
+            first = capture(self.book)
+            second = capture(self.book)
+            require(first == second, 'SOURCE_CHANGED_DURING_CAPTURE')
+            self.result = first
+        except (Exception, JavaException) as error:
+            self.error = error
+
+
+def main():
+    require(sys.version_info[:2] == (2, 7) and sys.platform.startswith('java'), 'MONEYDANCE_JYTHON_27_REQUIRED')
+    book = moneydance.getCurrentAccountBook()
+    require(book is not None, 'OPEN_BOOK_REQUIRED')
+    chooser = JFileChooser()
+    chooser.setDialogTitle('Save Moneydance Snapshot v1 JSON')
+    chooser.setSelectedFile(File('snapshot.json'))
+    if chooser.showSaveDialog(None) != JFileChooser.APPROVE_OPTION:
+        print('EXPORT_CANCELLED')
+        return
+    target = chooser.getSelectedFile().getAbsoluteFile()
+    operation = CaptureOnUIThread(book)
+    if SwingUtilities.isEventDispatchThread():
+        operation.run()
+    else:
+        SwingUtilities.invokeAndWait(operation)
+    if operation.error is not None:
+        raise operation.error
+    require(moneydance.getCurrentAccountBook() == book, 'SOURCE_BOOK_CHANGED')
+    snapshot = build_snapshot(operation.result, datetime.datetime.utcnow(), 'Moneydance build %d' % int(moneydance.getBuild()))
+    atomic_save(snapshot, target)
+    print('EXPORT_OK: schemaVersion=1 entries=%d' % len(snapshot['entries']))
+
+
+try:
+    main()
+except ExportError as error:
+    print('EXPORT_FAILED: ' + str(error))
+except (Exception, JavaException):
+    # Do not log exception messages containing private record contents or paths.
+    print('EXPORT_FAILED: RUNTIME_OR_IO_ERROR (last valid export retained)')

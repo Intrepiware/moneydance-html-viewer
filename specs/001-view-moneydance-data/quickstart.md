@@ -69,3 +69,7 @@ Use the same snapshot with an entry dated September 6. Load with local date Sept
 ## Test Dataset Selection (US1 Acceptance 5–6 / FR-019)
 
 Supply the v1 synthetic file at UI/data/test-snapshot.json. Navigate with ?test=true and confirm synthetic balances plus a Test data indicator; network inspection must show one test-snapshot request and no real-snapshot request. Without the parameter (also with test=false), confirm real data is selected. Make the real export unavailable: expect HTTP 404, a missing-file message, and a link preserving other page parameters while adding test=true. Follow it and confirm a fresh page loads test data. Missing or malformed test data must error without fetching the real export. Other real-load errors must never silently fall back. Apply the same financial/date validation to both sources.
+
+## Current T011 handoff
+
+The maintained schema, cents module, snapshot validator and CLI now exist. See [export-validation.md](../../scripts/export-validation.md) for the updated exporter run and automated comparison against the existing private reference. The exporter implementation remains unverified until this Moneydance run; T012 and later UI tasks have not started.

@@ -69,3 +69,27 @@ The probe checks amounts, descriptions, source identities, running/own/recursive
 ## Register-versus-sidebar evidence for hidden hierarchy
 
 User confirms opening balances of 5000 cents for Preflight Hidden and 2500 cents for its active child. Screenshots show the Hidden register has no rows and a 5000-cent footer; the child register shows the September 7 transfer of 1000 cents, a 3500-cent running balance and footer. Both sidebar entries show zero; their parent's sidebar shows 14000 cents. Combined with the passed current/date API checks, the source register/API values support the expected amounts but differ from the desktop sidebar presentation. Cause (configuration, display policy, or stale state) is not established. No source transactions or reference amounts should be changed to reproduce the sidebar zeros. The confirmed viewer requirement remains retaining hidden contributions; this finding must not be represented as exact desktop-sidebar parity.
+
+## Resumed Phase 2 implementation
+
+T005 accepted on seven-case runtime results plus user setup confirmation/register screenshots; retain the documented desktop-sidebar discrepancy as a presentation limitation rather than claiming sidebar parity. T006 retains compact source-generated timelines because hidden own history is not supplied to the viewer. T007/T008/T009 implemented: schema, safe cents, structural/financial validation, reference indexes and CLI. Ten Node tests passed; valid fixture accepted, corrupted running-balance fixture rejected with INVALID_SNAPSHOT. No added package dependencies.
+
+T010 code is implemented but its runtime acceptance belongs to T011 and is pending. export_json.py now captures source data twice on the UI thread, validates source own/current/recursive totals, emits included account-side entries and compact checkpoints, and performs atomic sibling-file replacement. Memo, status, capture and file APIs beyond the prior preflight still require Moneydance execution. T012 remains unstarted behind the required T011 dependency. Follow scripts/export-validation.md using the existing test book; no new reference transactions are needed.
+
+## Build 5253 exporter compatibility corrections
+
+User reported missing isInEditingMode and completed export after commenting out both calls. Exported status was UNRECONCILED for all 12 entries, rejected by the contract expecting UNCLEARED. Exporter now checks editing mode only when the method is exposed and explicitly maps UNRECONCILED to UNCLEARED; unknown statuses still fail. Mandatory full double capture including source stamps remains in place. Applying just that status mapping to an in-memory copy of the user's snapshot passes validation (118 accounts, 12 included entries). The original exported file was not modified. All 10 Node tests pass. Corrected exporter runtime run and reference comparison remain pending.
+
+## T011 Java exception boundary correction
+
+User confirmed the corrected export validates (118 accounts, 12 included entries) and all applicable exported reference comparisons pass. Cancellation reports EXPORT_CANCELLED as expected. Attempting C:\Program Files\test.json fails at File.createTempFile with java.io.IOException before target replacement; Python Exception alone did not catch it in Jython. Added explicit java.lang.Exception handling at the top-level and UI-thread capture boundaries, retaining the safe EXPORT_FAILED message without exception contents. The access-denied rerun and original-file preservation confirmation remain pending; no claim of completed T011 yet.
+
+## Phase 2 completion
+
+User confirms corrected access-denied handling worked as expected; cancellation already passed. Original local snapshot still passes the CLI validator. Together with the successful controlled-book export/reference comparison, this completes the controlled T011 gate. Full private-book acceptance/performance remains outstanding, not implied by the test book.
+
+T012 now provides UI/config.js, module worker loading/validation, compact visible account metadata with local-date balance lookup, client request IDs/stale-result rejection, disposal, same-origin enforcement and explicit test source selection. No UI integration, register-query implementation or search was added. Query handling is deferred to T020/T025 and currently reports INVALID_QUERY. All 14 Node tests pass, including a real isolated Node worker with HTTP fetch, handler errors and client lifecycle. This does not claim native browser/Pixel 8 acceptance; those story-phase checks remain pending. Phases 1 and 2 are marked complete; Phases 3 through 7 remain unchecked.
+
+## Real-book excluded-security correction
+
+The user encountered SOURCE_CLOSING_MISMATCH on an excluded security whose raw quantities and source balance use different semantics. The exporter had unnecessarily validated financial history for every account. It now captures/calculates financial history only for included accounts and descendants contributing to their totals; other accounts remain metadata-only, with all ancestry retained and included cash-side references preserved. Non-USD/security descendants of included accounts still fail UNVERIFIED_DESCENDANT_VALUATION. Removed the temporary full-record debug dump. This change requires a real Moneydance rerun; no Python runtime is installed locally (the py launcher reports none).
