@@ -142,3 +142,29 @@ The user's external hosting tests do not add cloud delivery implementation scope
 Follow-up: the loading status now has a theme-aware colored panel and CSS spinner,
 removed on ready/error. Reduced-motion preferences disable rotation. No new
 assets or dependencies. Visual verification of this follow-up remains pending.
+
+## Phase 4 register implementation — 2026-09-07
+
+T018–T021 implemented. `query.mjs` builds one global sorted index of entry IDs;
+direct-account queries reverse the existing source-order IDs without mutating
+history. Page DTOs contain at most 100 rows with original amount/running balance,
+account identity, date, description, memo, supplied check number and category
+label. The worker retains the full snapshot and performs no additional downloads.
+The UI clears stale rows while paging/selecting, uses existing request-ID rejection,
+shows explicit empty direct registers, and exposes running balance on mobile.
+No source/exporter changes, dependencies, search implementation or deployment.
+
+Automated evidence: 23 Node tests pass. New tests cover 205 entries with repeated
+descriptions/amounts, same-day source order, future dates, page clamping, opening
+balance effects, direct-only scope, All Accounts transfer counterparts, source
+balance invariance, category labels and invalid queries. The isolated real worker
+test now exercises an actual page reply and still verifies a single fetch.
+Application and browser-scenario module syntax checks pass.
+
+T019 browser scenarios are written and registered after the balance suite. They
+use the real worker/client/controller and a 412px iframe to check paged rendering,
+checks/memos/categories, escaping, empty parent registers, switching and mobile
+running-balance visibility. **Unexecuted**: browser inventory returned no browsers.
+T022 remains unchecked pending browser harness execution and actual Moneydance /
+Pixel 8 register comparison. The user's successful Phase 3 balance checks are not
+claimed as proof of these new register behaviors. Search remains Phase 5 work.

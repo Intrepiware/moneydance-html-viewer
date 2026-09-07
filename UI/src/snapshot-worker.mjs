@@ -1,22 +1,27 @@
 import { validateSnapshot, validDate, visibleAccounts } from './snapshot.mjs';
+import { createRegisterQuery } from './query.mjs';
 
 // The same handler runs in a browser Worker and in isolated Node worker tests.
 export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fetch }) {
-  let attempted = false, disposed = false, model = null;
+  let attempted = false, disposed = false, model = null, query = null;
   const controller = new AbortController();
   const error = (requestId, code, message, reason) => {
     if (!disposed) postMessage({ type: 'error', requestId, code, message, ...(reason ? { reason } : {}) });
   };
   return async message => {
     if (disposed) return;
-    if (message?.type === 'dispose') { disposed = true; controller.abort(); model = null; return; }
+    if (message?.type === 'dispose') { disposed = true; controller.abort(); model = null; query = null; return; }
     const requestId = message?.requestId;
     if (!Number.isSafeInteger(requestId) || requestId < 1) {
       error(null, 'INVALID_QUERY', 'Invalid request ID.'); return;
     }
     if (message.type !== 'load') {
-      // Register and search queries are implemented by T020/T025, not this foundation.
-      error(requestId, 'INVALID_QUERY', model ? 'Query handler is not implemented yet.' : 'Snapshot is not ready.'); return;
+      if (message.type !== 'query' || !query) {
+        error(requestId, 'INVALID_QUERY', 'Snapshot is not ready or request is invalid.'); return;
+      }
+      try { postMessage({ type: 'page', requestId, ...query(message) }); }
+      catch { error(requestId, 'INVALID_QUERY', 'Unable to display this register.'); }
+      return;
     }
     if (attempted) { error(requestId, 'LOAD_FAILED', 'Reload the page to load a snapshot again.'); return; }
     attempted = true;
@@ -41,11 +46,13 @@ export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fe
       if (message.effectiveDate < data.balanceStartDate) {
         model = null; error(requestId, 'INVALID_SNAPSHOT', 'Page-load date is before snapshot balance coverage.'); return;
       }
+      query = createRegisterQuery(model);
       postMessage({ type: 'ready', requestId,
         metadata: { exportDate: data.exportDate, effectiveDate: message.effectiveDate, sourceVersion: data.sourceVersion },
         accounts: visibleAccounts(model, message.effectiveDate), totalCount: model.entries.length });
     } catch (failure) {
       model = null;
+      query = null;
       const version = failure.code === 'UNSUPPORTED_VERSION';
       error(requestId, version ? failure.code : 'INVALID_SNAPSHOT', version ? 'Unsupported snapshot version; re-export from Moneydance.' : 'Snapshot validation failed.');
     }

@@ -38,3 +38,22 @@ for (const name of ['transfers', 'same-day-order', 'future-activity']) {
   await save(`tests/fixtures/${name}-v1.json`, baseline);
 }
 console.log('Synthetic fixtures generated from the documented example.');
+
+// Full-register pagination with an opening balance and repeated descriptions/amounts.
+const register = copy();
+const registerAccount = account('register-pages', true, 12345);
+register.accounts.children.push(registerAccount);
+for (let i = 0; i < 205; i++) {
+  register.entries.push({ id: `register-${String(i).padStart(3, '0')}`,
+    transactionId: `transaction-${i}`, accountId: registerAccount.id,
+    date: i === 204 ? '2099-01-02' : '2099-01-01', registerOrder: i,
+    amountCents: 100, runningBalanceCents: 12345 + (i + 1) * 100,
+    description: 'Repeated purchase <not markup>', memo: 'Full memo & details',
+    checkNum: i === 204 ? '0007' : '', clearedStatus: 'UNCLEARED', tags: [],
+    allocations: i === 204 ? [] : Array.from({ length: i === 203 ? 1 : 2 }, () => ({
+      accountId: baseline.accounts.children[0].id, name: 'Checking', memo: 'Allocation note', amountCents: null })) });
+}
+registerAccount.closingBalanceCents = 32845;
+registerAccount.balanceTimeline.points.push({ date: '2099-01-01', ownBalanceCents: 32745, sidebarBalanceCents: 32745 },
+  { date: '2099-01-02', ownBalanceCents: 32845, sidebarBalanceCents: 32845 });
+await save('tests/fixtures/register-pages-v1.json', register);

@@ -346,10 +346,16 @@ body {
 .content-body {
     flex: 1;
     overflow: auto;
-    padding: 30px;
+    padding: 0 30px 30px;
     display: flex;
     flex-direction: column;
     gap: 30px;
+}
+
+/* Initial spacing scrolls away instead of leaving a gap above sticky headers. */
+.content-body::before {
+    content: '';
+    flex: 0 0 0;
 }
 
 .summary-cards {
@@ -387,6 +393,9 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0;
+    background: var(--bg-surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 .table-header {
@@ -526,7 +535,32 @@ tbody tr:hover {
 
 .desktop-date { display: inline; }
 .mobile-date { display: none; }
-.year-divider { display: none; }
+.year-divider { display: table-row; }
+
+#transactions-table thead th {
+    background: var(--bg-surface);
+    z-index: 11;
+}
+
+#transactions-table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.sticky-year {
+    position: sticky;
+    top: var(--register-header-height, 0px);
+    background: var(--bg-surface);
+    color: var(--primary);
+    font-weight: 700;
+    text-align: center;
+    padding: 8px 15px;
+    z-index: 10;
+    border-top: 2px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 
 /* Utilities */
 .icon-btn {
@@ -605,6 +639,7 @@ tbody tr:hover {
         gap: 0;
         display: block;
     }
+    .content-body::before { display: none; }
 
     .mobile-balance-bar {
         display: flex;
@@ -638,24 +673,7 @@ tbody tr:hover {
         display: inline-block !important;
     }
 
-    .year-divider {
-        display: table-row;
-    }
-    
-    .sticky-year {
-        position: sticky;
-        top: 45px;
-        background: var(--bg-surface);
-        color: var(--primary);
-        font-weight: 700;
-        text-align: center;
-        padding: 8px 15px;
-        z-index: 10;
-        border-top: 2px solid var(--border-color);
-        border-bottom: 2px solid var(--border-color);
-        font-size: 0.9rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+
 
     .date-col {
         width: 60px;
@@ -738,4 +756,25 @@ body.light-mode #load-status.is-error {
 
 @media (prefers-reduced-motion: reduce) {
     #load-status.is-loading::before { animation: none; }
+}
+
+/* Register details remain readable without a split dialog. */
+#register-status { padding: 1rem; color: var(--text-muted); }
+#transactions-body .desc-extra { flex-wrap: wrap; overflow: visible; }
+#transactions-body .memo-text { white-space: normal; overflow-wrap: anywhere; }
+#transactions-body .transaction-account { white-space: normal; overflow-wrap: anywhere; }
+.mobile-running-balance { display: none; }
+#transactions-body tr.future-entry { background-color: rgba(250, 204, 21, 0.10); }
+body.light-mode #transactions-body tr.future-entry { background-color: #fffde8; }
+@media (max-width: 768px) {
+    #transactions-table .amount-col { width: 105px; }
+    .mobile-running-balance {
+        display: block;
+        white-space: normal;
+        font-size: 0.7rem;
+        font-weight: 400;
+        line-height: 1.3;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+    }
 }

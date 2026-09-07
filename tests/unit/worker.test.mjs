@@ -36,7 +36,10 @@ test('real isolated worker fetches once and sends compact metadata without recor
     assert.equal(ready.accounts[0].sidebarBalanceCents, 104500);
     assert.equal('entries' in ready, false);
     assert.equal(JSON.stringify(ready).includes('runningBalanceCents'), false);
-    assert.equal((await ask({ type: 'query', requestId: 2 })).code, 'INVALID_QUERY');
+    const page = await ask({ type: 'query', requestId: 2 });
+    assert.equal(page.type, 'page'); assert.equal(page.rows.length, 13);
+    assert.equal(page.totalMatches, 13);
+    assert.equal((await ask({ type: 'query', requestId: 4, page: 0 })).code, 'INVALID_QUERY');
     assert.equal((await ask({ ...load, url, requestId: 3 })).code, 'LOAD_FAILED');
     assert.equal(fetches, 1);
   } finally { await worker.terminate(); await new Promise(resolve => server.close(resolve)); }

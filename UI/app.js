@@ -22,6 +22,16 @@ export class App {
     handlebars.registerHelper('isNegative', amount => amount < 0);
     handlebars.registerPartial('accountNode', document.getElementById('account-node-partial').innerHTML);
     this.treeTemplate = handlebars.compile(document.getElementById('account-tree-template').innerHTML);
+    this.transactionsTemplate = handlebars.compile(document.getElementById('transactions-template').innerHTML);
+    for (const id of ['transactions-body', 'transactions-table', 'no-results', 'pagination-controls', 'prev-page', 'next-page', 'page-info', 'register-status'])
+      this.el[id] = document.getElementById(id);
+    this.page = 1;
+    this.mobileLayout = this.window.matchMedia('(max-width: 768px)');
+    this.mobileLayout.addEventListener('change', () => this.updateYearColumns(), { signal: this.handles.signal });
+    this.headerObserver = new this.window.ResizeObserver(([entry]) => {
+      this.el['transactions-table'].style.setProperty('--register-header-height', `${entry.target.getBoundingClientRect().height}px`);
+    });
+    this.headerObserver.observe(this.el['transactions-table'].querySelector('thead'));
     this.client = createSnapshotClient({ pageUrl, config, onMessage: message => this.receive(message) });
     const listen = (element, action) => element.addEventListener('click', action, { signal: this.handles.signal });
     listen(this.el['account-tree'], event => {
@@ -39,6 +49,8 @@ export class App {
     listen(document.getElementById('close-sidebar'), () => this.toggleSidebar(false));
     listen(this.el['sidebar-overlay'], () => this.toggleSidebar(false));
     listen(this.el['theme-toggle'], () => this.toggleTheme());
+    listen(this.el['prev-page'], () => this.requestPage(this.page - 1));
+    listen(this.el['next-page'], () => this.requestPage(this.page + 1));
     try { this.toggleTheme(this.window.localStorage.getItem('theme') !== 'dark'); } catch { /* theme storage is optional */ }
   }
 
@@ -55,6 +67,7 @@ export class App {
     this.el['load-status'].setAttribute('role', 'status');
     this.el['load-status'].hidden = false;
     this.el['total-transactions'].textContent = '—';
+    this.clearRegister();
     return new Promise(resolve => { this.resolveLoad = resolve; this.client.load(); });
   }
 
@@ -69,7 +82,10 @@ export class App {
       this.el['load-status'].hidden = true;
       this.el['load-status'].classList.remove('is-loading');
       this.selectAccount(root);
+    } else if (message.type === 'page') {
+      this.renderPage(message);
     } else if (message.type === 'error') {
+      this.clearRegister();
       this.nodes.clear();
       this.el['account-tree'].replaceChildren();
       this.el['balance-card'].hidden = true;
@@ -104,6 +120,53 @@ export class App {
       this.el[id].className = `amount ${node.sidebarBalanceCents < 0 ? 'negative' : 'positive'}`;
     }
     if (this.window.innerWidth <= 768) this.toggleSidebar(false);
+    this.requestPage(1);
+  }
+
+  clearRegister() {
+    this.el['transactions-body'].replaceChildren();
+    this.el['transactions-table'].classList.add('hidden');
+    this.el['no-results'].classList.add('hidden');
+    this.el['pagination-controls'].classList.add('hidden');
+    this.el['register-status'].hidden = true;
+    this.el['prev-page'].disabled = true;
+    this.el['next-page'].disabled = true;
+  }
+
+  requestPage(page) {
+    this.clearRegister();
+    this.el['total-transactions'].textContent = '—';
+    this.el['register-status'].textContent = 'Loading transactions…';
+    this.el['register-status'].hidden = false;
+    this.document.querySelector('.content-body').scrollTop = 0;
+    this.client.query({ accountId: this.currentAccount.isAll ? null : this.currentAccount.id, page });
+  }
+
+  renderPage(message) {
+    this.page = message.page;
+    this.el['register-status'].hidden = true;
+    this.el['total-transactions'].textContent = String(message.totalMatches);
+    let previousYear;
+    const rows = message.rows.map(row => {
+      const [year, month, day] = row.date.split('-');
+      const showYearDivider = year !== previousYear;
+      previousYear = year;
+      return { ...row, year, month, day, showYearDivider, isFuture: row.date > this.metadata.effectiveDate };
+    });
+    this.el['transactions-body'].innerHTML = this.transactionsTemplate({ paginatedTransactions: rows, isRoot: this.currentAccount.isAll,
+      columnCount: this.mobileLayout.matches ? 3 : 5 });
+    this.el['transactions-table'].classList.toggle('hidden', rows.length === 0);
+    this.el['no-results'].classList.toggle('hidden', rows.length !== 0);
+    const pages = Math.max(1, Math.ceil(message.totalMatches / message.pageSize));
+    this.el['page-info'].textContent = `Page ${message.page} of ${pages}`;
+    this.el['pagination-controls'].classList.toggle('hidden', pages === 1);
+    this.el['prev-page'].disabled = message.page === 1;
+    this.el['next-page'].disabled = message.page === pages;
+  }
+
+  updateYearColumns() {
+    for (const heading of this.el['transactions-body'].querySelectorAll('.sticky-year'))
+      heading.colSpan = this.mobileLayout.matches ? 3 : 5;
   }
 
   toggleSidebar(show) {
@@ -118,7 +181,7 @@ export class App {
     try { this.window.localStorage.setItem('theme', light ? 'light' : 'dark'); } catch { /* optional preference */ }
   }
 
-  dispose() { this.client.dispose(); this.handles.abort(); }
+  dispose() { this.client.dispose(); this.handles.abort(); this.headerObserver.disconnect(); }
 }
 
 // The harness imports the controller without starting another instance.

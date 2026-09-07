@@ -81,7 +81,7 @@
               <p id="total-balance" class="amount positive"></p>
             </div>
             <div class="card glass-card">
-              <h4>All transactions</h4>
+              <h4>Transactions</h4>
               <p id="total-transactions">0</p>
             </div>
           </div>
@@ -91,7 +91,7 @@
               <h2>Transactions</h2>
             </div>
             <div class="table-responsive">
-              <p class="balance-preview-note">Account balances are available. Transaction browsing is not available yet.</p>
+              <p id="register-status" role="status" hidden></p>
               <table id="transactions-table" class="hidden">
                 <thead>
                   <tr>
@@ -167,18 +167,18 @@
       {{#each paginatedTransactions}}
         {{#if showYearDivider}}
           <tr class="year-divider">
-            <th colspan="3" class="sticky-year">{{year}}</th>
+            <th colspan="{{../columnCount}}" class="sticky-year">{{year}}</th>
           </tr>
         {{/if}}
-        <tr>
+        <tr data-entry-id="{{id}}" data-account-id="{{accountId}}" class="{{#if isFuture}}future-entry{{/if}}">
           <td>
-            <span class="desktop-date">{{date}}</span>
+            <span class="desktop-date">{{month}}/{{day}}</span>
             <span class="mobile-date">{{month}}/{{day}}</span>
           </td>
           <td>
-            <div class="desc-main">{{description}}</div>
+            <div class="desc-main" title="{{description}}">{{description}}</div>
             <div class="desc-extra">
-              {{#if checkNumber}}<span class="badge">#{{checkNumber}}</span>{{/if}}
+              {{#if checkNum}}<span class="badge">#{{checkNum}}</span>{{/if}}
               <span class="badge hide-desktop">{{category}}</span>
               {{#if memo}}<span class="memo-text">{{memo}}</span>{{/if}}
             </div>
@@ -187,8 +187,8 @@
             {{/if}}
           </td>
           <td class="hide-mobile"><span class="badge">{{category}}</span></td>
-          <td class="amount-col amount {{#if (isPositive amount)}}positive{{else}}negative{{/if}}">{{formatCurrency amount}}</td>
-          <td class="amount-col hide-mobile">{{formatCurrency balance}}</td>
+          <td class="amount-col amount {{#if (isNegative amountCents)}}negative{{else}}positive{{/if}}">{{formatCurrency amountCents}}<span class="mobile-running-balance">Balance: {{formatCurrency runningBalanceCents}}</span></td>
+          <td class="amount-col hide-mobile">{{formatCurrency runningBalanceCents}}</td>
         </tr>
       {{/each}}
     </script>
