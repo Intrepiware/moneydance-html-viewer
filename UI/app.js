@@ -23,7 +23,7 @@ export class App {
     handlebars.registerPartial('accountNode', document.getElementById('account-node-partial').innerHTML);
     this.treeTemplate = handlebars.compile(document.getElementById('account-tree-template').innerHTML);
     this.transactionsTemplate = handlebars.compile(document.getElementById('transactions-template').innerHTML);
-    for (const id of ['transactions-body', 'transactions-table', 'no-results', 'pagination-controls', 'prev-page', 'next-page', 'page-info', 'register-status'])
+    for (const id of ['transactions-body', 'transactions-table', 'no-results', 'pagination-controls', 'prev-page', 'next-page', 'page-info', 'register-status', 'future-summary'])
       this.el[id] = document.getElementById(id);
     this.page = 1;
     this.mobileLayout = this.window.matchMedia('(max-width: 768px)');
@@ -51,6 +51,7 @@ export class App {
     listen(this.el['theme-toggle'], () => this.toggleTheme());
     listen(this.el['prev-page'], () => this.requestPage(this.page - 1));
     listen(this.el['next-page'], () => this.requestPage(this.page + 1));
+    listen(this.el['future-summary'], () => { this.includeFuture = true; this.requestPage(1); });
     try { this.toggleTheme(this.window.localStorage.getItem('theme') !== 'dark'); } catch { /* theme storage is optional */ }
   }
 
@@ -109,6 +110,7 @@ export class App {
   }
 
   selectAccount(node) {
+    this.includeFuture = false;
     this.currentAccount = node;
     for (const header of this.el['account-tree'].querySelectorAll('.account-header'))
       header.classList.toggle('active', header.dataset.id === node.id);
@@ -124,6 +126,7 @@ export class App {
   }
 
   clearRegister() {
+    this.el['future-summary'].hidden = true;
     this.el['transactions-body'].replaceChildren();
     this.el['transactions-table'].classList.add('hidden');
     this.el['no-results'].classList.add('hidden');
@@ -139,13 +142,17 @@ export class App {
     this.el['register-status'].textContent = 'Loading transactions…';
     this.el['register-status'].hidden = false;
     this.document.querySelector('.content-body').scrollTop = 0;
-    this.client.query({ accountId: this.currentAccount.isAll ? null : this.currentAccount.id, page });
+    this.client.query({ accountId: this.currentAccount.isAll ? null : this.currentAccount.id, page, includeFuture: this.includeFuture });
   }
 
   renderPage(message) {
     this.page = message.page;
     this.el['register-status'].hidden = true;
     this.el['total-transactions'].textContent = String(message.totalMatches);
+    const future = message.future;
+    this.el['future-summary'].hidden = this.includeFuture || !future.count;
+    this.el['future-summary'].textContent = `${future.count} Future Transaction${future.count === 1 ? '' : 's'}: ${future.amountCents > 0 ? '+' : ''}${formatUsd(future.amountCents)}`;
+    this.el['no-results'].querySelector('p').textContent = future.count && !this.includeFuture ? 'No current or past transactions.' : 'No transactions found.';
     let previousYear;
     const rows = message.rows.map(row => {
       const [year, month, day] = row.date.split('-');

@@ -47,3 +47,10 @@ export_json.py and any in-Moneydance preflight script must run under **Jython 2.
 UI/config.js also defines same-origin testSnapshotUrl, default ./data/test-snapshot.json. At page load, URLSearchParams.get("test") === "true" selects that URL; absent or other values select snapshotUrl. This selects a source before the single worker load and does not attempt the real URL first. Both sources obey exactly the same v1 validation, local-date cutoff, and query contracts. The synthetic file is deliberately supplied in UI/data/test-snapshot.json; the old UI/data.json is not assumed compatible.
 
 For HTTP 404 on the real snapshot, return LOAD_FAILED with optional reason: NOT_FOUND so the main thread can display a missing-export message and an ordinary link to the current page with test=true (preserving other parameters). Clicking navigates/reloads into test mode. Other load failures remain visible, with no automatic fallback. A missing/invalid test snapshot likewise errors without trying the real export. Show a small Test data indicator in test mode so fictional balances are recognizable. The local server must return 404 for a missing snapshot route rather than the HTML shell; it serves the committed synthetic test file in either mode.
+
+Future disclosure: query accepts `includeFuture` (boolean, default false). Worker
+query construction captures the page-load effectiveDate. Page replies include
+`future { count, amountCents }` for the entire scoped register; totalMatches and
+pagination describe currently visible entries. Reveal sets includeFuture=true and
+page=1. Every sidebar selection resets it to false. The summary is a signed sum
+of entry amounts, not a balance; original entries and sidebar values are unchanged.

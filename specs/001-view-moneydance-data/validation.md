@@ -168,3 +168,23 @@ running-balance visibility. **Unexecuted**: browser inventory returned no browse
 T022 remains unchecked pending browser harness execution and actual Moneydance /
 Pixel 8 register comparison. The user's successful Phase 3 balance checks are not
 claimed as proof of these new register behaviors. Search remains Phase 5 work.
+
+Future disclosure follow-up: worker/UI now hide future rows initially and display
+a thin yellow summary/reveal control; account selection resets visibility. All 24
+Node tests pass, including whole-register summary, cutoff equality, reveal paging
+and unchanged running balances. Browser scenario updated; visual execution pending.
+
+## Phase 4 acceptance — user confirmation
+
+The user reports the browser harness finished with ALL PASS after restarting the
+local server. Reported passing scenarios cover actual worker/client source
+selection and failure handling; balance selection and hidden hierarchy; register
+paging, direct scope, future dates, categories, checks, memo, escaping, mobile
+running balances and stale replies.
+
+The user also confirms all remaining requested manual checks passed: comparison
+of dates, descriptions, amounts, running balances and same-day order with
+Moneydance; transfer counterparts; future summary/reveal/reset; pagination;
+All Accounts/account switching; and Pixel 8 readability and sticky year scrolling.
+This is user-reported browser/device/source evidence, not agent-observed execution.
+T022 is complete and Phase 4 is accepted. No later-phase work is implied.

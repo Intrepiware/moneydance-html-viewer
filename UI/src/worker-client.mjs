@@ -47,9 +47,9 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
       return send({ type: 'load', url: url.href, effectiveDate });
     },
     // UI integration and querying follow in the story phases. No new load occurs.
-    query({ accountId = null, text = '', page = 1, pageSize = 100 } = {}) {
+    query({ accountId = null, text = '', page = 1, pageSize = 100, includeFuture = false } = {}) {
       if (!worker || disposed || !ready) throw new Error('Snapshot is not ready.');
-      return send({ type: 'query', accountId, text, page, pageSize });
+      return send({ type: 'query', accountId, text, page, pageSize, includeFuture });
     },
     dispose() {
       if (disposed) return;

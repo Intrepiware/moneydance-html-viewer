@@ -176,3 +176,12 @@ Marketing, distribution, multiple users, transaction entry/editing/deletion, mul
 ### Required Exporter Compatibility
 
 The user requires export_json.py to remain a Moneydance-compatible Python file running under **Jython 2.7**. Exporter changes must preserve execution inside Moneydance with its provided context. This is a mandatory compatibility constraint, not a proposed technology choice. Acceptance requires running the exporter in that environment; standalone Python 3 validation is insufficient.
+
+## Future register disclosure (user update)
+
+Future-dated rows are initially hidden using the fixed local page-load date.
+A thin pale-yellow link-style bar reports their count and net signed USD amount
+across the entire selected register. Clicking reveals the rows with ordinary
+pagination and removes the bar; no re-hide control. Account selection resets the
+state to hidden. Sidebar and source running balances never change. All Accounts
+counts and sums included account-side entries, retaining transfer counterparts.

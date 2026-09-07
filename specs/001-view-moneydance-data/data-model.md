@@ -48,3 +48,8 @@ Visible account tree reparents included nodes to their nearest included ancestor
 Loader states: idle → loading → ready/empty or error. Download the configured URL once per page session, then use the in-memory dataset for all queries and paging. Reloading the page creates fresh state and captures a new effectiveDate. No polling, in-page dataset replacement, dataset identity comparison, or previously-seen detection. Query results carry request IDs only; stale results never overwrite newer search/account choices. A failed initial load shows an error; reload is the retry mechanism.
 
 Test mode is page-session source-selection state, not a snapshot field or dataset identity. Real and synthetic snapshots use the identical model and balanceStartDate coverage rules. Keep the synthetic fixture coverage suitable for its documented test dates; do not override the device-local effectiveDate to make a fixture load.
+
+Future disclosure view state: `includeFuture` starts false and resets on account
+selection. The worker summarizes entries dated strictly after effectiveDate before
+pagination. Reveal includes those entries without changing their running balances.
+Summary count and net amount cover the whole register, not just the current page.

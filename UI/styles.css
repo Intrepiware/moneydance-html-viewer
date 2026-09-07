@@ -778,3 +778,20 @@ body.light-mode #transactions-body tr.future-entry { background-color: #fffde8; 
         margin-top: 0.25rem;
     }
 }
+
+#future-summary {
+    display: block;
+    width: 100%;
+    padding: 7px 15px;
+    border: 0;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(250, 204, 21, 0.10);
+    color: var(--text-main);
+    font: inherit;
+    font-size: 0.85rem;
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
+}
+body.light-mode #future-summary { background: #fffde8; }
+#future-summary:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }

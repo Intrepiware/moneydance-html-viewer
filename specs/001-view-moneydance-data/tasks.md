@@ -51,9 +51,9 @@
 - [X] T019 [P] [US2] Add full-register browser scenarios in tests/browser/register.mjs for switching accounts, paging, future rows, supplied check numbers, single-allocation category versus Split, Uncategorized for no allocations, and running-balance visibility at Pixel 8 width.
 - [X] T020 [US2] Implement unfiltered register queries in UI/src/query.mjs and wire page replies in UI/src/snapshot-worker.mjs, returning at most 100 rows with totalMatches and deterministic date/account/register-order/ID ordering while retaining each entry's source balance.
 - [X] T021 [US2] Render register pages and navigation in UI/app.js and UI/index.html with signed USD values, date-only transaction dates, description, memo, supplied check number, account identity and category/Split/Uncategorized label; add the compact running-balance treatment in UI/styles.css without a split modal or major layout redesign.
-- [ ] T022 [US2] Compare full-register and transfer scenarios with Moneydance and verify the browser harness, recording source ordering and mobile row visibility evidence in specs/001-view-moneydance-data/validation.md.
+- [X] T022 [US2] Compare full-register and transfer scenarios with Moneydance and verify the browser harness, recording source ordering and mobile row visibility evidence in specs/001-view-moneydance-data/validation.md.
 
-**Implementation status (2026-09-07)**: T018–T021 implemented with 23 passing Node tests. T022 remains pending browser/Pixel 8 execution and comparison with Moneydance; no browser is connected in this session.
+**Implementation status (2026-09-07)**: T018–T022 complete. The user reports ALL PASS from the browser harness and successful remaining manual register, Moneydance comparison, and Pixel 8 checks. See validation.md for acceptance evidence.
 
 **Checkpoint**: Full-history browsing works independently of search.
 

@@ -46,7 +46,7 @@ export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fe
       if (message.effectiveDate < data.balanceStartDate) {
         model = null; error(requestId, 'INVALID_SNAPSHOT', 'Page-load date is before snapshot balance coverage.'); return;
       }
-      query = createRegisterQuery(model);
+      query = createRegisterQuery(model, message.effectiveDate);
       postMessage({ type: 'ready', requestId,
         metadata: { exportDate: data.exportDate, effectiveDate: message.effectiveDate, sourceVersion: data.sourceVersion },
         accounts: visibleAccounts(model, message.effectiveDate), totalCount: model.entries.length });
