@@ -54,3 +54,11 @@ query construction captures the page-load effectiveDate. Page replies include
 pagination describe currently visible entries. Reveal sets includeFuture=true and
 page=1. Every sidebar selection resets it to false. The summary is a signed sum
 of entry amounts, not a balance; original entries and sidebar values are unchanged.
+
+Phase 5 query behavior: nonempty text selects included entries in the selected
+account's original descendant interval (All Accounts selects all). Clearing text
+restores direct-account scope. The future summary applies only to matching entries;
+revealing futures retains the search, while account selection retains the search
+and resets future visibility. The client invalidates pending replies at input time,
+then sends the next query after a 100 ms debounce. Worker searches yield regularly
+and suppress superseded results. Only the current search ID list is cached.

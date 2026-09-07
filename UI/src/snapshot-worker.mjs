@@ -4,6 +4,7 @@ import { createRegisterQuery } from './query.mjs';
 // The same handler runs in a browser Worker and in isolated Node worker tests.
 export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fetch }) {
   let attempted = false, disposed = false, model = null, query = null;
+  let latestQuery = 0;
   const controller = new AbortController();
   const error = (requestId, code, message, reason) => {
     if (!disposed) postMessage({ type: 'error', requestId, code, message, ...(reason ? { reason } : {}) });
@@ -19,8 +20,12 @@ export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fe
       if (message.type !== 'query' || !query) {
         error(requestId, 'INVALID_QUERY', 'Snapshot is not ready or request is invalid.'); return;
       }
-      try { postMessage({ type: 'page', requestId, ...query(message) }); }
-      catch { error(requestId, 'INVALID_QUERY', 'Unable to display this register.'); }
+      latestQuery = requestId;
+      const isCurrent = () => !disposed && latestQuery === requestId;
+      try {
+        const result = await query(message, { isCurrent });
+        if (result && isCurrent()) postMessage({ type: 'page', requestId, ...result });
+      } catch { if (isCurrent()) error(requestId, 'INVALID_QUERY', 'Unable to display this register.'); }
       return;
     }
     if (attempted) { error(requestId, 'LOAD_FAILED', 'Reload the page to load a snapshot again.'); return; }

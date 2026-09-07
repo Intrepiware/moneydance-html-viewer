@@ -46,7 +46,8 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
       } catch { workerFailed(); return; }
       return send({ type: 'load', url: url.href, effectiveDate });
     },
-    // UI integration and querying follow in the story phases. No new load occurs.
+    // Invalidate immediately on input, before the debounced request is sent.
+    invalidatePending() { if (ready && !disposed) currentRequest = ++sequence; },
     query({ accountId = null, text = '', page = 1, pageSize = 100, includeFuture = false } = {}) {
       if (!worker || disposed || !ready) throw new Error('Snapshot is not ready.');
       return send({ type: 'query', accountId, text, page, pageSize, includeFuture });

@@ -62,11 +62,13 @@
 **Goal**: Search description, transaction memo, allocation memos and partial amounts across the selected account and included descendants, or All Accounts.
 **Independent test**: Exercise matches in each allowed field, descendant and unrelated accounts, signed amounts and repeated allocations; clear search to restore direct-account scope and verify every result retains its originating balance.
 
-- [ ] T023 [P] [US3] Add search semantics tests in tests/unit/search.test.mjs for case-insensitive whole-query substrings within individual fields, allocation-memo deduplication, partial amounts with optional dollar/comma formatting, unsigned either-sign matches, and minus restricting only the amount branch; exclude account/category/check/tags-only matches.
-- [ ] T024 [P] [US3] Add browser search scenarios in tests/browser/search.mjs for descendant scope, All Accounts, clear-to-own-register behavior, explicit no results, paging and rapid account/query changes with stale responses.
-- [ ] T025 [US3] Implement indexed search in UI/src/query.mjs using original ancestry and included-entry IDs without full descendant-record copies; preserve stable ordering and source running balances and yield during long work so newer requests can be processed.
-- [ ] T026 [US3] Integrate the single search field, 100 ms debounce, page reset, request-ID stale-result rejection and no-results state in UI/app.js and UI/src/worker-client.mjs without changing sidebar balances.
-- [ ] T027 [US3] Run the search acceptance set and an initial 20-query timing sample on the Pixel 8, recording end-to-end latency including debounce in specs/001-view-moneydance-data/validation.md against the provisional two-second target.
+- [X] T023 [P] [US3] Add search semantics tests in tests/unit/search.test.mjs for case-insensitive whole-query substrings within individual fields, allocation-memo deduplication, partial amounts with optional dollar/comma formatting, unsigned either-sign matches, and minus restricting only the amount branch; exclude account/category/check/tags-only matches.
+- [X] T024 [P] [US3] Add browser search scenarios in tests/browser/search.mjs for descendant scope, All Accounts, clear-to-own-register behavior, explicit no results, paging and rapid account/query changes with stale responses.
+- [X] T025 [US3] Implement indexed search in UI/src/query.mjs using original ancestry and included-entry IDs without full descendant-record copies; preserve stable ordering and source running balances and yield during long work so newer requests can be processed.
+- [X] T026 [US3] Integrate the single search field, 100 ms debounce, page reset, request-ID stale-result rejection and no-results state in UI/app.js and UI/src/worker-client.mjs without changing sidebar balances.
+- [X] T027 [US3] Run the search acceptance set and an initial 20-query timing sample on the Pixel 8, recording end-to-end latency including debounce in specs/001-view-moneydance-data/validation.md against the provisional two-second target.
+
+**Implementation status (2026-09-07)**: T023–T027 complete. The browser harness reports ALL PASS, and the user confirms all 20 real-data searches on Pixel finished comfortably under two seconds. This is user-observed threshold evidence, not instrumented millisecond timing; see validation.md.
 
 **Checkpoint**: Searching and clearing search satisfy the scoped history and memo requirements.
 

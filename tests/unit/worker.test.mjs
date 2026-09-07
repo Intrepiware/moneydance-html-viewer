@@ -57,3 +57,27 @@ test('client selects explicit test mode, captures local date and ignores stale r
   assert.deepEqual(seen.map(m => m.requestId), [1, 3]);
   client.dispose(); assert.throws(() => client.query());
 });
+
+test('input invalidation rejects replies during debounce before the next query', () => {
+  const sent=[], seen=[];
+  const worker={postMessage:m=>sent.push(m),terminate(){}};
+  const client=createSnapshotClient({pageUrl:'http://localhost/',workerFactory:()=>worker,onMessage:m=>seen.push(m)});
+  client.load();worker.onmessage({data:{type:'ready',requestId:1}});
+  client.query({text:'old'}); const stale=sent.at(-1).requestId;
+  client.invalidatePending();worker.onmessage({data:{type:'page',requestId:stale}});
+  assert.deepEqual(seen.map(m=>m.type),['ready']);
+  client.query({text:'new'});worker.onmessage({data:{type:'page',requestId:sent.at(-1).requestId}});
+  assert.deepEqual(seen.map(m=>m.type),['ready','page']);client.dispose();
+});
+test('worker suppresses superseded searches while retaining a single download', async () => {
+  const messages=[];let fetches=0;
+  const handler=createSnapshotHandler({baseUrl:load.url,postMessage:m=>messages.push(m),fetchSnapshot:async()=>{fetches++;return{ok:true,text:async()=>fixture};}});
+  await handler(load);
+  const first=handler({type:'query',requestId:2,text:'candy'});
+  const second=handler({type:'query',requestId:3,text:'parking'});
+  await Promise.all([first,second]);
+  assert.equal(messages.some(m=>m.requestId===2),false);
+  assert.equal(messages.at(-1).requestId,3);
+  assert.equal(messages.at(-1).totalMatches,2);
+  assert.equal(fetches,1);
+});

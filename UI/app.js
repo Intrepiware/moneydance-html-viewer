@@ -14,7 +14,7 @@ export class App {
     this.nodes = new Map();
     this.el = Object.fromEntries(['account-tree', 'current-account-name', 'total-balance',
       'mobile-total-balance', 'balance-card', 'mobile-balance-bar', 'total-transactions',
-      'search-input', 'load-status', 'test-data-link', 'test-data-indicator', 'sidebar',
+      'search-input', 'clear-search', 'load-status', 'test-data-link', 'test-data-indicator', 'sidebar',
       'sidebar-overlay', 'theme-toggle'].map(id => [id, document.getElementById(id)]));
     handlebars.registerHelper('getAccountIcon', getAccountIcon);
     handlebars.registerHelper('formatCurrency', formatUsd);
@@ -26,6 +26,7 @@ export class App {
     for (const id of ['transactions-body', 'transactions-table', 'no-results', 'pagination-controls', 'prev-page', 'next-page', 'page-info', 'register-status', 'future-summary'])
       this.el[id] = document.getElementById(id);
     this.page = 1;
+    this.searchText = '';
     this.mobileLayout = this.window.matchMedia('(max-width: 768px)');
     this.mobileLayout.addEventListener('change', () => this.updateYearColumns(), { signal: this.handles.signal });
     this.headerObserver = new this.window.ResizeObserver(([entry]) => {
@@ -52,10 +53,36 @@ export class App {
     listen(this.el['prev-page'], () => this.requestPage(this.page - 1));
     listen(this.el['next-page'], () => this.requestPage(this.page + 1));
     listen(this.el['future-summary'], () => { this.includeFuture = true; this.requestPage(1); });
+    listen(this.el['clear-search'], () => {
+      if (this.el['search-input'].disabled) return;
+      this.el['search-input'].value = '';
+      this.el['search-input'].dispatchEvent(new this.window.Event('input', { bubbles: true }));
+      this.el['search-input'].focus();
+    });
+    this.document.addEventListener('keydown', event => {
+      if (this.mobileLayout.matches || this.el['search-input'].disabled || event.isComposing) return;
+      if ((event.ctrlKey || event.metaKey) && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'f') {
+        event.preventDefault();
+        this.el['search-input'].focus();
+        this.el['search-input'].select();
+      }
+    }, { signal: this.handles.signal });
+    this.el['search-input'].addEventListener('input', () => {
+      this.searchText = this.el['search-input'].value;
+      this.el['clear-search'].hidden = !this.searchText;
+      this.client.invalidatePending();
+      this.window.clearTimeout(this.searchTimer);
+      this.clearRegister();
+      this.el['total-transactions'].textContent = '—';
+      this.el['register-status'].textContent = 'Searching transactions…';
+      this.el['register-status'].hidden = false;
+      this.searchTimer = this.window.setTimeout(() => this.requestPage(1), 100);
+    }, { signal: this.handles.signal });
     try { this.toggleTheme(this.window.localStorage.getItem('theme') !== 'dark'); } catch { /* theme storage is optional */ }
   }
 
   start() {
+    this.el['search-input'].disabled = true;
     this.el['account-tree'].replaceChildren();
     this.nodes.clear();
     this.el['balance-card'].hidden = true;
@@ -74,6 +101,7 @@ export class App {
 
   receive(message) {
     if (message.type === 'ready') {
+      this.el['search-input'].disabled = false;
       this.metadata = message.metadata;
       const root = { id: '', name: 'All Accounts', type: 'ROOT', isAll: true, isOpen: true, children: message.accounts };
       const index = node => { this.nodes.set(node.id, node); node.children.forEach(index); };
@@ -86,6 +114,9 @@ export class App {
     } else if (message.type === 'page') {
       this.renderPage(message);
     } else if (message.type === 'error') {
+      this.window.clearTimeout(this.searchTimer);
+      this.el['search-input'].disabled = true;
+      this.el['clear-search'].hidden = true;
       this.clearRegister();
       this.nodes.clear();
       this.el['account-tree'].replaceChildren();
@@ -110,6 +141,7 @@ export class App {
   }
 
   selectAccount(node) {
+    this.window.clearTimeout(this.searchTimer);
     this.includeFuture = false;
     this.currentAccount = node;
     for (const header of this.el['account-tree'].querySelectorAll('.account-header'))
@@ -142,7 +174,7 @@ export class App {
     this.el['register-status'].textContent = 'Loading transactions…';
     this.el['register-status'].hidden = false;
     this.document.querySelector('.content-body').scrollTop = 0;
-    this.client.query({ accountId: this.currentAccount.isAll ? null : this.currentAccount.id, page, includeFuture: this.includeFuture });
+    this.client.query({ accountId: this.currentAccount.isAll ? null : this.currentAccount.id, text: this.searchText, page, includeFuture: this.includeFuture });
   }
 
   renderPage(message) {
@@ -152,7 +184,7 @@ export class App {
     const future = message.future;
     this.el['future-summary'].hidden = this.includeFuture || !future.count;
     this.el['future-summary'].textContent = `${future.count} Future Transaction${future.count === 1 ? '' : 's'}: ${future.amountCents > 0 ? '+' : ''}${formatUsd(future.amountCents)}`;
-    this.el['no-results'].querySelector('p').textContent = future.count && !this.includeFuture ? 'No current or past transactions.' : 'No transactions found.';
+    this.el['no-results'].querySelector('p').textContent = future.count && !this.includeFuture ? 'No current or past matches. Future transactions are available above.' : this.searchText.trim() ? 'No results found.' : 'No transactions found.';
     let previousYear;
     const rows = message.rows.map(row => {
       const [year, month, day] = row.date.split('-');
@@ -160,7 +192,7 @@ export class App {
       previousYear = year;
       return { ...row, year, month, day, showYearDivider, isFuture: row.date > this.metadata.effectiveDate };
     });
-    this.el['transactions-body'].innerHTML = this.transactionsTemplate({ paginatedTransactions: rows, isRoot: this.currentAccount.isAll,
+    this.el['transactions-body'].innerHTML = this.transactionsTemplate({ paginatedTransactions: rows, isRoot: this.currentAccount.isAll || Boolean(this.searchText.trim()),
       columnCount: this.mobileLayout.matches ? 3 : 5 });
     this.el['transactions-table'].classList.toggle('hidden', rows.length === 0);
     this.el['no-results'].classList.toggle('hidden', rows.length !== 0);
@@ -188,7 +220,7 @@ export class App {
     try { this.window.localStorage.setItem('theme', light ? 'light' : 'dark'); } catch { /* optional preference */ }
   }
 
-  dispose() { this.client.dispose(); this.handles.abort(); this.headerObserver.disconnect(); }
+  dispose() { this.window.clearTimeout(this.searchTimer); this.client.dispose(); this.handles.abort(); this.headerObserver.disconnect(); }
 }
 
 // The harness imports the controller without starting another instance.

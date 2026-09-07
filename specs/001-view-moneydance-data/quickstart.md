@@ -78,7 +78,7 @@ The maintained schema, cents module, snapshot validator and CLI now exist. See [
 
 The balance sidebar and account selection are implemented. Register/search and
 the export-date footer remain later-phase work; their controls are not active.
-Run `npm test` for the implemented Node tests (23 passing as of September 7).
+Run `npm test` for the implemented Node tests (31 passing as of September 7).
 
 ```powershell
 node scripts/serve-ui.mjs --snapshot UI/data/snapshot.json
@@ -105,7 +105,7 @@ Register browsing now shows direct-account history in descending source order,
 100 rows per page, with unchanged source running balances. All Accounts includes
 every included account-side row, including both transfer sides. Checking has no
 own rows in the synthetic budget example; select a budget to see its register.
-Search remains disabled until Phase 5.
+Search is now enabled by Phase 5; see the search verification section below.
 
 Run `npm test`, then start the server above and open `/tests/browser/`. The harness
 now includes a 205-row synthetic register via `/tests/browser/register-pages.json`:
@@ -120,3 +120,31 @@ future transactions, amounts and running balances. Switch All Accounts → child
 All Accounts and page through an account with over 100 entries. On Pixel 8 confirm
 running balances and memo text are readable. Report mismatches and harness results;
 these new register/device checks remain unverified in this implementation session.
+
+## Phase 5 search verification
+
+The existing search field now searches description, transaction memo, allocation
+memos and partial USD amounts. Matching is case-insensitive, using the full typed
+query as a substring of each individual field. Account/category names, tags and
+check numbers are not search fields. Examples: `50` matches either sign and larger
+amounts such as 150.25; `-50` restricts amount matches to negatives, while memo and
+description matches remain independent. Dollar signs and valid grouping commas
+are optional for amount searches.
+
+A search on a parent includes accessible descendants. Clearing the field restores
+the parent's direct register. Switching accounts keeps the query and resets future
+visibility; future matches are summarized by the yellow bar until revealed. Paging
+and searching preserve sidebar and originating-account running balances.
+
+Run `/tests/browser/` again: the harness now runs balance, register and search
+scenarios and must finish with ALL PASS. It also prints 20 synthetic search times
+including the 100 ms debounce. No server-route change is needed for this phase.
+These small-fixture timings are not full-data performance evidence.
+
+For T027, on Pixel 8 with your real export, check description-only, memo-only,
+allocation-memo-only, amount and descendant matches; clearing search; no results;
+rapid typing/account changes; and unchanged balances. Measure 20 representative
+queries from the last input change until the resulting rows appear (including
+debounce). Report browser, dataset entry count, and timing range/individual times,
+without private search text. The provisional target is under two seconds per query.
+T027 remains pending those reported acceptance and timing results.

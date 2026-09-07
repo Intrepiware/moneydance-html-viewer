@@ -45,7 +45,7 @@ test('All Accounts retains counterparts and selection never loses rows or alters
   assert.equal(rows.filter(r => r.description === 'Candy Bar').length, 2);
 });
 test('queries reject malformed input and excluded/unknown accounts', () => {
-  for (const input of [{page: 0}, {page: 1.5}, {pageSize: 101}, {text:'search'}, {accountId:'missing'}, {accountId:model.snapshot.accounts.id}])
+  for (const input of [{page: 0}, {page: 1.5}, {pageSize: 101}, {text:null}, {accountId:'missing'}, {accountId:model.snapshot.accounts.id}])
     assert.throws(() => query(input), e => e.code === 'INVALID_QUERY');
 });
 

@@ -188,3 +188,59 @@ Moneydance; transfer counterparts; future summary/reveal/reset; pagination;
 All Accounts/account switching; and Pixel 8 readability and sticky year scrolling.
 This is user-reported browser/device/source evidence, not agent-observed execution.
 T022 is complete and Phase 4 is accepted. No later-phase work is implied.
+
+## Phase 5 implementation — 2026-09-07
+
+T023–T026 implemented. Worker search indexes lowercase description, transaction
+memo and individual allocation memos plus exact signed USD strings. It scans the
+global sorted entry-ID index with original ancestry intervals and retains only
+the current search result ID list for paging/reveal. Scans yield every 512 entries
+to permit newer requests; superseded results are neither posted nor cached. No
+additional snapshot fetches, source edits, packages or cloud services were added.
+
+The UI enables search after ready, debounces input by 100 ms, invalidates previous
+responses immediately during that delay, resets to page 1, and cancels pending
+input timers on account selection/disposal. Search results display originating
+account identity. Clearing search restores direct-account scope; sidebar and source
+running balances remain unchanged. Future disclosure applies to matching entries;
+account selection retains the query and resets future visibility.
+
+Evidence: 31 Node tests pass, including allowed fields, excluded fields,
+case-insensitive whole-query matching, amount fragments/signs/formatting,
+allocation-match deduplication, original hidden ancestry, search paging, no results,
+future matching summaries, cancellation and debounce stale-response suppression.
+The browser harness includes search scenarios and 20 synthetic timing samples.
+Browser execution is unverified: the tool returned no connected browsers or apps.
+T027 remains unchecked pending actual browser search acceptance and 20 real-data
+Pixel 8 timings including debounce. Prior register acceptance does not establish
+search acceptance or full-history latency. Phase 6 onward remains unimplemented.
+
+## Phase 5 acceptance update — user report
+
+The user reports ALL PASS from the complete browser harness, including the new
+search DOM scenarios: description/memo/allocation matching, descendants, clear,
+paging, future disclosure, rapid changes and unchanged balances. All earlier
+balance and register harness scenarios also passed.
+
+Twenty synthetic search timings including debounce were 101, 110, 102, 107, 102,
+103, 117, 118, 118, 114, 110, 108, 117, 115, 119, 115, 115, 116, 119, 116 ms
+(range 101–119 ms). The user also reports searches on Pixel are functional and
+performant. This supports device functional acceptance and qualitative performance.
+It does not establish a measured 20-query real-data Pixel 8 timing sample. T027
+remains open only for that quantitative evidence; no repeat of passing functional
+checks is requested. Clear-button/keyboard-shortcut checks were not separately
+reported by the harness.
+
+## Phase 5 acceptance completed — user confirmation
+
+Following the real-data Pixel test instructions, the user confirms: "all 20
+searches finished comfortably under two seconds". This completes the practical
+20-query threshold check agreed in the conversation, including the visible wait
+from finishing input until results appear. It is user-observed timing evidence,
+not an instrumented millisecond measurement. The earlier 101–119 ms numbers remain
+synthetic harness results and are not attributed to real-data searches.
+
+Together with the previously reported ALL PASS browser harness and functional
+Pixel search checks, this completes T027 and Phase 5 acceptance. Later-phase
+full-data performance checks retain their own scope; no later tasks are marked
+complete by this report.

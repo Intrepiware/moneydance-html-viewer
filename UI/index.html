@@ -54,8 +54,9 @@
               <input
                 type="text"
                 id="search-input"
-                placeholder="Search transactions..." disabled title="Search is not available yet"
+                placeholder="Search transactions..." disabled aria-label="Search descriptions, memos, or amounts" aria-keyshortcuts="Control+f Meta+f" title="Search (Ctrl+F / Command+F)"
               />
+              <button id="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>×</button>
             </div>
             <button
               id="theme-toggle"
