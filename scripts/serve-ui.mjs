@@ -36,6 +36,9 @@ export function createViewerServer({ root = repo, snapshot = resolve(root, 'UI/d
       allowedRoot = resolve(root, 'UI'); target = resolve(allowedRoot, path === '/' ? 'index.html' : path.slice(1));
     } else if (path.startsWith('/src/') && ['.js', '.mjs'].includes(extname(path))) {
       allowedRoot = resolve(root, 'UI/src'); target = resolve(root, 'UI', path.slice(1));
+    } else if (path === '/tests/browser/hidden-ancestor.json') {
+      allowedRoot = resolve(root, 'tests/fixtures');
+      target = resolve(allowedRoot, 'hidden-ancestor-v1.json');
     } else if (path.startsWith('/tests/browser/') && mime[extname(path === '/tests/browser/' ? 'index.html' : path)]) {
       allowedRoot = resolve(root, 'tests/browser');
       target = resolve(root, path === '/tests/browser/' ? 'tests/browser/index.html' : path.slice(1));

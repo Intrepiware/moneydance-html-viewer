@@ -1,29 +1,4 @@
-import { validateSnapshot, validDate } from './snapshot.mjs';
-
-function visibleAccounts(model, effectiveDate) {
-  const nodes = new Map();
-  for (const account of model.accountsById.values()) {
-    if (!account.included) continue;
-    const points = account.balanceTimeline.points;
-    let low = 0, high = points.length;
-    while (low < high) {
-      const middle = (low + high) >>> 1;
-      if (points[middle].date <= effectiveDate) low = middle + 1;
-      else high = middle;
-    }
-    const p = points[low - 1];
-    nodes.set(account.id, { id: account.id, name: account.name, type: account.type,
-      currency: account.currency, ownBalanceCents: p.ownBalanceCents,
-      sidebarBalanceCents: p.sidebarBalanceCents, children: [] });
-  }
-  const roots = [];
-  for (const [id, node] of nodes) {
-    let parent = model.ancestry.get(id).parentId;
-    while (parent !== null && !nodes.has(parent)) parent = model.ancestry.get(parent).parentId;
-    (parent === null ? roots : nodes.get(parent).children).push(node);
-  }
-  return roots;
-}
+import { validateSnapshot, validDate, visibleAccounts } from './snapshot.mjs';
 
 // The same handler runs in a browser Worker and in isolated Node worker tests.
 export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fetch }) {

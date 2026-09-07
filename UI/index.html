@@ -32,6 +32,7 @@
         </div>
         <div class="sidebar-footer">
           <p>Read-Only Mode</p>
+          <p id="test-data-indicator" hidden>Test data</p>
         </div>
       </aside>
 
@@ -53,7 +54,7 @@
               <input
                 type="text"
                 id="search-input"
-                placeholder="Search transactions..."
+                placeholder="Search transactions..." disabled title="Search is not available yet"
               />
             </div>
             <button
@@ -66,19 +67,21 @@
           </div>
         </header>
 
-        <div class="mobile-only mobile-balance-bar">
+        <div id="mobile-balance-bar" class="mobile-only mobile-balance-bar" hidden>
           <span>Total Balance</span>
-          <span id="mobile-total-balance" class="amount">$0.00</span>
+          <span id="mobile-total-balance" class="amount"></span>
         </div>
 
         <div class="content-body">
+          <p id="load-status" class="is-loading" role="status">Loading accounts…</p>
+          <a id="test-data-link" hidden>View test data</a>
           <div class="summary-cards">
-            <div class="card glass-card">
+            <div id="balance-card" class="card glass-card" hidden>
               <h4>Total Balance</h4>
-              <p id="total-balance" class="amount positive">$0.00</p>
+              <p id="total-balance" class="amount positive"></p>
             </div>
             <div class="card glass-card">
-              <h4>Transactions</h4>
+              <h4>All transactions</h4>
               <p id="total-transactions">0</p>
             </div>
           </div>
@@ -88,7 +91,8 @@
               <h2>Transactions</h2>
             </div>
             <div class="table-responsive">
-              <table id="transactions-table">
+              <p class="balance-preview-note">Account balances are available. Transaction browsing is not available yet.</p>
+              <table id="transactions-table" class="hidden">
                 <thead>
                   <tr>
                     <th class="date-col">Date</th>
@@ -139,9 +143,11 @@
             <i class="fa-solid {{getAccountIcon type}}"></i>
           </div>
           <div class="account-name">{{name}}</div>
-          <div class="account-balance" style="color: {{#if (isPositive (getTotalBalance this))}}var(--positive){{else}}{{#if (isNegative (getTotalBalance this))}}var(--text-main){{/if}}{{/if}}">
-            {{formatCurrency (getTotalBalance this)}}
+          {{#unless isAll}}
+          <div class="account-balance {{#if (isNegative sidebarBalanceCents)}}negative{{else}}positive{{/if}}">
+            {{formatCurrency sidebarBalanceCents}}
           </div>
+          {{/unless}}
         </div>
         {{#if children.length}}
           <div class="sub-accounts {{#if isOpen}}open{{/if}}">
@@ -187,6 +193,6 @@
       {{/each}}
     </script>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
   </body>
 </html>

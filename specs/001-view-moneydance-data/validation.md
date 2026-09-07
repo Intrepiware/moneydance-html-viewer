@@ -93,3 +93,52 @@ T012 now provides UI/config.js, module worker loading/validation, compact visibl
 ## Real-book excluded-security correction
 
 The user encountered SOURCE_CLOSING_MISMATCH on an excluded security whose raw quantities and source balance use different semantics. The exporter had unnecessarily validated financial history for every account. It now captures/calculates financial history only for included accounts and descendants contributing to their totals; other accounts remain metadata-only, with all ancestry retained and included cash-side references preserved. Non-USD/security descendants of included accounts still fail UNVERIFIED_DESCENDANT_VALUATION. Removed the temporary full-record debug dump. This change requires a real Moneydance rerun; no Python runtime is installed locally (the py launcher reports none).
+
+## Phase 3 balance browsing — 2026-09-07
+
+T013–T016 implementation is present. The worker projects included accounts onto
+nearest included ancestors using source timeline balances at the fixed local
+page-load date. It retains original ancestry and full entries in worker memory.
+The UI receives only navigation metadata, supports parent/child selection, hides
+All Accounts totals on desktop/mobile/sidebar, labels explicit test data, and
+provides a preserving-parameters test-mode navigation link for a missing real
+export. Register/search controls remain unavailable pending their own phases.
+
+Automated evidence: `npm test` passes 20 Node tests. New balance tests verify
+September 5/6 Checking totals (105000/104500 cents), own-versus-recursive values,
+opening-only balances, baseline coverage, and hidden hierarchy (105250 cents
+including a 500-cent hidden contribution and 250-cent accessible child). Existing
+worker tests prove one fetch and compact messages; server tests cover the explicit
+synthetic hidden-hierarchy fixture route. No packages added or exporter changes
+made during Phase 3.
+
+Browser acceptance harness: `tests/browser/index.html` and `balances.mjs` exercise
+actual browser worker/client loading plus real app markup/templates/controller.
+Scenarios cover missing real export, preserving navigation parameters, explicit
+synthetic selection, missing/malformed synthetic input without fallback, account
+selection, the $1,045 total, no All Accounts totals, and accessible children under
+hidden ancestors. **Unexecuted**: the browser tool reported no browser available.
+
+T017 is **blocked/unverified**: no Pixel 8 access and no new user-reported
+comparison of the rendered UI with current Moneydance data. Prior controlled-book
+source evidence remains valid for its reported scope, but does not establish UI
+or latest full-private-export acceptance. No Phase 4–7 tasks were implemented.
+
+## Phase 3 manual acceptance — user report, 2026-09-07
+
+The user reports all manual tests successful: synthetic and real exports loaded
+on desktop; synthetic data uploaded by the user to Blob storage loaded on Pixel 8
+and desktop; real data loaded on the phone through ngrok. The existing layout is
+preserved as desired, and sidebar balances match the actual Moneydance interface.
+T017 is accepted on this user-reported device/source verification. Execution of
+the automated browser harness and a device date-change/reload trial were not
+separately reported; the date-cutoff behavior has the existing automated evidence.
+
+Real-data loading on Pixel 8 took approximately 7–8 seconds over ngrok and was
+faster on the local desktop. This is an informal user measurement, not the five
+instrumented trials required by T034 or evidence for future decryption timing.
+The user's external hosting tests do not add cloud delivery implementation scope.
+
+Follow-up: the loading status now has a theme-aware colored panel and CSS spinner,
+removed on ready/error. Reduced-motion preferences disable rotation. No new
+assets or dependencies. Visual verification of this follow-up remains pending.

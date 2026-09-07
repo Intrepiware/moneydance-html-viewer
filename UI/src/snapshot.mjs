@@ -241,3 +241,30 @@ export function validateSnapshot(snapshot) {
     throw error;
   }
 }
+
+export function visibleAccounts(model, effectiveDate) {
+  if (!validDate(effectiveDate) || effectiveDate < model.snapshot.balanceStartDate)
+    throw new SnapshotError("INVALID_SNAPSHOT", "effectiveDate; before balance coverage or invalid date");
+  const nodes = new Map();
+  for (const account of model.accountsById.values()) {
+    if (!account.included) continue;
+    const points = account.balanceTimeline.points;
+    let low = 0, high = points.length;
+    while (low < high) {
+      const middle = (low + high) >>> 1;
+      if (points[middle].date <= effectiveDate) low = middle + 1;
+      else high = middle;
+    }
+    const p = points[low - 1];
+    nodes.set(account.id, { id: account.id, name: account.name, type: account.type,
+      currency: account.currency, ownBalanceCents: p.ownBalanceCents,
+      sidebarBalanceCents: p.sidebarBalanceCents, children: [] });
+  }
+  const roots = [];
+  for (const [id, node] of nodes) {
+    let parent = model.ancestry.get(id).parentId;
+    while (parent !== null && !nodes.has(parent)) parent = model.ancestry.get(parent).parentId;
+    (parent === null ? roots : nodes.get(parent).children).push(node);
+  }
+  return roots;
+}

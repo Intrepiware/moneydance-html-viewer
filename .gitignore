@@ -1,11 +1,13 @@
 /.agents/skills/speckit-*/
-/UI/data/moneydance-export-20[0-9\-]*.json
 
-# Private viewer snapshot; synthetic test-snapshot.json remains trackable.
-/UI/data/snapshot.json
+# Exclude all data files except moneydance-export-schema.json and test-snapshot.json
+/UI/data/*
+!/UI/data/moneydance-export-schema.json
+!/UI/data/test-snapshot.json
+
 
 # Local tooling outputs and private preflight references
-/UI/data/preflight-reference.private.json
+# /UI/data/preflight-reference.private.json
 node_modules/
 coverage/
 dist/

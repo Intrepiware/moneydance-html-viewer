@@ -12,6 +12,8 @@ test('server isolates selected snapshots and refuses private paths/traversal', a
   await writeFile(join(root, 'UI/index.html'), '<h1>Fixture</h1>');
   await writeFile(join(root, 'UI/data/test-snapshot.json'), '{"test":true}');
   await writeFile(join(root, 'UI/data/private.json'), 'never serve');
+  await mkdir(join(root, 'tests/fixtures'), { recursive: true });
+  await writeFile(join(root, 'tests/fixtures/hidden-ancestor-v1.json'), '{"synthetic":true}');
   const server = createViewerServer({ root });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const get = (path, method = 'GET') => new Promise((resolve, reject) => {
@@ -24,6 +26,8 @@ test('server isolates selected snapshots and refuses private paths/traversal', a
     assert.equal((await get('/')).status, 200);
     assert.equal((await get('/data/snapshot.json')).status, 404);
     assert.equal((await get('/data/test-snapshot.json?test=true')).body, '{"test":true}');
+    assert.equal((await get('/tests/browser/hidden-ancestor.json')).body, '{"synthetic":true}');
+    assert.equal((await get('/tests/fixtures/hidden-ancestor-v1.json')).status, 404);
     await writeFile(join(root, 'UI/data/snapshot.json'), '{"real":true}');
     assert.equal((await get('/data/snapshot.json')).body, '{"real":true}');
     assert.equal((await get('/data/snapshot.json', 'HEAD')).body, '');

@@ -73,3 +73,28 @@ Supply the v1 synthetic file at UI/data/test-snapshot.json. Navigate with ?test=
 ## Current T011 handoff
 
 The maintained schema, cents module, snapshot validator and CLI now exist. See [export-validation.md](../../scripts/export-validation.md) for the updated exporter run and automated comparison against the existing private reference. The exporter implementation remains unverified until this Moneydance run; T012 and later UI tasks have not started.
+
+## Phase 3 is available for local verification
+
+The balance sidebar and account selection are implemented. Register/search and
+the export-date footer remain later-phase work; their controls are not active.
+Run `npm test` for the implemented Node tests (20 passing as of September 7).
+
+```powershell
+node scripts/serve-ui.mjs --snapshot UI/data/snapshot.json
+```
+
+Open `http://127.0.0.1:8080/?test=true` for synthetic balances, or omit the query
+parameter for your export. Open `http://127.0.0.1:8080/tests/browser/` for the browser
+acceptance harness; it uses only synthetic data and intentional failing URLs,
+regardless of the supplied private snapshot. It must finish with `ALL PASS`.
+The server exposes the existing synthetic hidden-ancestor fixture through the
+specific `/tests/browser/hidden-ancestor.json` route without exposing the rest of
+the fixtures directory.
+
+For Pixel 8 verification (T017), first serve synthetic data on your trusted local
+network using the server's explicit `--host` option. Check sidebar open/close,
+Checking $1,045 after September 6, sub-account selection, no All Accounts total,
+and the browser harness. Then compare a fresh real export with the source-agreed
+balances at the same local date. Record results in validation.md. Browser and
+Pixel 8 checks have not yet been run; desktop Node tests do not complete T017.
