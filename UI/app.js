@@ -239,12 +239,22 @@ export class App {
   dispose() { this.window.clearTimeout(this.searchTimer); this.client.dispose(); this.handles.abort(); this.headerObserver.disconnect(); }
 }
 
+// Use the same bootstrap in production and lifecycle regression scenarios.
+export function startViewer(options) {
+  const app = new App(options);
+  app.window.addEventListener('pagehide', event => {
+    // A cached document resumes its existing session, including its worker/date.
+    // Keep this listener through repeated cache visits; dispose only on departure.
+    if (!event.persisted) app.dispose();
+  }, { signal: app.handles.signal });
+  void app.start();
+  return app;
+}
+
 // The harness imports the controller without starting another instance.
 if (document.querySelector('script[type="module"][src="app.js"]')) {
   try {
-    const app = new App();
-    void app.start();
-    window.addEventListener('pagehide', () => app.dispose(), { once: true });
+    startViewer();
   } catch {
     document.getElementById('app').dataset.state = 'error';
     const status = document.getElementById('load-status');

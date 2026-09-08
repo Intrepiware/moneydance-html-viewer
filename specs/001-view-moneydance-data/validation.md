@@ -388,3 +388,49 @@ peak-memory measurement are claimed.
 T034 is complete and all Phase 7 tasks are checked. No further load or search
 rerun is required for this acceptance. Encryption/decryption and the eventual
 combined loading-plus-decryption target remain outside this validation.
+
+## T037 lifecycle correction — implementation, browser acceptance pending
+
+UI/app.js now uses startViewer for production bootstrap and the lifecycle harness.
+A persisted pagehide leaves the worker, listeners, current data and effectiveDate
+intact. A non-persisted pagehide disposes the app; the lifecycle listener uses the
+app AbortSignal instead of once, so repeated cached visits cannot consume cleanup.
+No pageshow reload, new snapshot request or dataset identity mechanism was added.
+
+The new tests/browser/lifecycle.mjs uses the production bootstrap with the actual
+worker handler and synthetic register fixture. It dispatches repeated persisted
+hide/show events and checks account selection, future reveal, paging, search,
+clear, All Accounts, unchanged dates, one worker/download and final cleanup.
+These simulated events test lifecycle handling, not actual browser cache admission.
+
+Validation: npm test passes all 37 existing tests; node --check on the new harness
+and git diff --check pass. The known npm TLSSocket listener warning occurred again;
+no viewer runtime is executed by npm itself. No new source-runtime or performance
+claims are made. Browser inventory returned no apps/browsers, so new browser
+execution is unverified and T037 remains open.
+
+User verification: reload /tests/browser/ and expect the new PASS lifecycle DOM
+line followed by ALL PASS. Separately, open the synthetic viewer, navigate to
+another page in the same tab, return with Back, and check account selection,
+search and paging; repeat once. Browser cache eligibility varies, so a normal
+reload on Back does not itself prove cached restoration. If available, confirm
+pageshow.persisted via browser developer tools or the browser's back/forward-cache
+inspection. Record observed results without claiming cache restoration solely
+from the simulated-event harness.
+
+No extension hooks are registered (extensions.yml hooks: {}).
+
+## T037 acceptance completed — user report
+
+The user confirms the manual navigation/Back use case works as described and
+reports ALL PASS from the complete browser harness, including PASS lifecycle DOM:
+repeated persisted hide/show, account/search/paging, one fetch, fixed dates and
+final disposal. Earlier balance, register, search and loading suites also passed.
+
+This completes T037 and Phase 8. The harness establishes handling of simulated
+persisted lifecycle events; the manual check establishes usable Back navigation.
+Actual browser cache admission was not separately instrumented and is not claimed.
+Synthetic search timings were 102–118 ms including debounce; these do not replace
+the previously accepted real-data Pixel performance evidence. All current feature
+tasks are complete. Deferred encryption and combined loading/decryption acceptance
+remain unchanged.

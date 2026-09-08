@@ -126,3 +126,14 @@ These are file-independent task pairs once their phase prerequisites are complet
 3. Add US2 full registers, US3 search, then US4 freshness/error presentation, retaining working earlier scenarios at each checkpoint.
 4. Finish real Moneydance and Pixel 8 acceptance with all four stories. Do not silently trim history or introduce cloud/encryption work to meet timing goals.
 5. Keep export_json.py and scripts/moneydance-preflight.py executable in Moneydance's Jython 2.7 runtime throughout. Node tests do not establish Moneydance compatibility.
+
+## Phase 8: Convergence
+
+- [X] T037 HIGH — Preserve a usable viewer after browser back/forward-cache restoration in UI/app.js per FR-001, FR-017 and T012/T029 (partial; F1). The production pagehide handler currently calls app.dispose() unconditionally, terminating the worker and aborting every UI listener while leaving the rendered page intact; no pageshow restoration handling exists. Handle persisted page lifecycle transitions without leaving a dead cached UI, preserve one snapshot request and the captured effectiveDate for a retained page session, and retain cleanup for final disposal. Add regression coverage in tests/browser/loading.mjs (or a dedicated registered lifecycle harness) that exercises the production bootstrap through persisted hide/show and repeated navigation, verifies account selection/search/paging still work without an extra snapshot fetch, and checks final cleanup. Record actual browser results in specs/001-view-moneydance-data/validation.md; do not claim a reproduced device failure from static review alone.
+
+### T037 implementation status
+
+The pagehide listener now preserves persisted page sessions and disposes only on
+non-persisted departure. The shared production startViewer bootstrap is exercised
+by tests/browser/lifecycle.mjs, registered in the full browser harness. Existing
+37 Node tests, lifecycle syntax and diff checks pass. T037 is complete on user-reported ALL PASS lifecycle harness results and successful manual Back/Forward use. See validation.md for the distinction between simulated persisted transitions and manual navigation evidence.
