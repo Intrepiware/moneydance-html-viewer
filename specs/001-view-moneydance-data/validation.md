@@ -288,3 +288,103 @@ is accepted on this user-reported browser/device evidence.
 The reported synthetic search sample ranges from 101–120 ms including debounce;
 it remains synthetic evidence and is not a new real-data performance measurement.
 Phase 7 checks remain separate and are not marked complete by this report.
+
+## Phase 7 final checks and review — 2026-09-07
+
+T033 complete using the latest user-reported complete browser ALL PASS run
+immediately preceding this phase and the following agent-run command checks:
+
+| Command | Result |
+| --- | --- |
+| npm test | 37 passed, zero failed |
+| node --trace-warnings --test | 37 passed; npm-run TLSSocket listener warning did not recur in direct Node execution |
+| node scripts/validate-snapshot.mjs tests/fixtures/valid-snapshot-v1.json | Exit 0; VALID, 10 accounts / 13 entries |
+| node scripts/validate-snapshot.mjs tests/fixtures/invalid-balance-v1.json | Expected exit 1; INVALID_SNAPSHOT, entry.runningBalanceCents |
+| node scripts/validate-snapshot.mjs specs/001-view-moneydance-data/contracts/example-export.json | Exit 0; VALID, 10 accounts / 13 entries |
+| node scripts/validate-snapshot.mjs UI/data/snapshot.json | Exit 0; VALID, 450 accounts / 74,211 entries; local file 36,041,836 bytes |
+| npm ls --all | Empty npm dependency tree |
+
+Private validation used ordinary safe reporting, not --debug; no financial
+records were printed. The local snapshot size/counts describe this file only and
+are not assumed to identify the file used in earlier Pixel trials. The browser
+run is user evidence, not a new agent-controlled browser execution. No application
+source changes were needed during Phase 7, so that immediately preceding complete
+browser run remains applicable. The npm warning was not suppressed or treated as
+evidence of a viewer memory leak; direct Node validation was clean.
+
+T035 review against constitution v1.1.0:
+
+- Financial fidelity: safe integer cents, source running balances, complete included history, original ancestry and hidden contributions remain intact; source comparison evidence is retained. Search and future disclosure do not mutate balances. No net-worth total is added.
+- Runtime: exporter remains Jython 2.7 using Moneydance/Java facilities. It was not changed or claimed to have been newly executed inside Moneydance in this phase. Prior build 5253 source tests remain the runtime evidence.
+- Privacy/read-only: the viewer only fetches its selected same-origin snapshot once; no financial persistence or write API. localStorage holds only theme. Errors are sanitized; explicit local CLI --debug is the only entity-dump path. Export captures source data without record setters and atomically replaces an output file. Git ignore rules protect private UI/data files.
+- Simplicity/memory: the worker owns the snapshot and reference indexes; entries aliases the snapshot array, not a copy. Normalized search strings and a globally ordered ID list are built once; only the current search result ID list is cached. Main thread receives navigation metadata and at most 100 DTO rows per reply. New requests cancel obsolete searches; disposal terminates the worker. Parsing temporarily needs the JSON text as well as the parsed object. Code ownership review does not establish actual Pixel peak memory.
+- Responsive UI: accepted desktop/Pixel evidence covers balances, readable registers/search and footer; mobile expand targets are 44px, date headings adapt to three/five columns, future disclosure preserves the accepted pale yellow styling. No redesign or speculative performance changes were made.
+- Dependencies: package.json is private and npm ls confirms no installed direct/transitive npm packages. Existing Handlebars browser bundle remains pinned to 4.7.9; its necessity, release/security evidence and exact template checks are in research.md. Existing Font Awesome 6.4.0 supplies icons and Google Fonts supplies Inter; these are remote presentation resources, not new dependencies in this phase. CDN availability remains an external loading dependency. No framework, validator package or additional telemetry was introduced.
+
+No constitutional amendment or exception is needed. Functional/source acceptance
+is supported by the recorded evidence; the remaining acceptance blocker is T034.
+Actual Pixel peak memory is also unmeasured, distinct from the completed ownership
+review; no numerical memory budget or result is claimed.
+
+T036 complete: quickstart.md now documents implemented commands/behavior instead
+of obsolete phase handoffs. The example walkthrough identifies the implemented
+contract, validated counts, future disclosure and footer. Deferred encryption,
+Azure upload, deployment, close hooks, investment presentation, net worth and
+transaction entry remain explicit.
+
+T034 remains OPEN. The previous 20 real-data Pixel searches comfortably below two
+seconds remain accepted as user-observed threshold evidence. Five individual
+initial-load times, browser/network/cache context and confirmation of the dataset
+used are still missing. The informal earlier 7–8 second ngrok load is insufficient
+to assert five trials. quickstart.md contains a small report template and exact
+manual timing boundaries. No additional search run is requested unless conditions
+or data changed materially. Decryption is neither implemented nor validated; the
+later combined loading-plus-decryption target remains unverified.
+
+Extension hooks: extensions.yml contains hooks: {}; no pre/post hooks execute.
+
+## Pixel 8 final performance report — 2026-09-07
+
+User-reported environment: Pixel 8, Brave 1.94.121 / Chromium 152.0.7977.83;
+Azure Storage Account hosting, using Cloudflare, September 7, 2026. Other assets
+cached after the first load. Snapshot reported as 35,198 KB, 450 accounts and
+74,211 entries. Size is recorded in the user's units without assuming decimal
+versus binary KB. Counts match the locally validated snapshot.
+
+Five initial-load times: 2.97, 1.33, 1.34, 1.21 and 1.18 seconds. All five pass
+the under-ten-second supplied-snapshot target; range 1.18–2.97 seconds, mean
+1.606 seconds. Timing follows the requested reload-to-usable-balances-and-rows
+manual test; no instrumented browser trace is claimed.
+
+The user ran several searches, all below three seconds, and observed no crashes
+or memory warnings. This is positive stability evidence, not a peak-memory
+measurement. It also does not establish whether any search exceeded two seconds:
+“below three” neither proves nor disproves the provisional under-two-second target.
+The number of queries in this sample is not specified. Earlier 20-query
+under-two-second acceptance remains historical evidence; the new hosted test
+conditions are recorded separately.
+
+T034 remains open only to resolve search timing: confirm whether the prior
+20-query under-two-second sample applies to this dataset and environment, or
+measure 20 representative searches in the reported environment from final input
+to usable results, including debounce. If any exceed two seconds, record that
+result for review rather than silently changing the target or claiming a pass.
+No repeat of the five passing load trials is needed.
+
+Azure/Cloudflare here describes the user's test route, not implementation or
+acceptance of deployment/encryption by this feature. Decryption remains absent;
+the combined loading-plus-decryption target is still unverified.
+
+## Phase 7 acceptance completed — user clarification
+
+The user clarified “Under 2” in response to whether any searches took two seconds
+or longer. The latest hosted Pixel 8 search sample therefore meets the provisional
+under-two-second threshold. Its count remains “several”; it is not relabeled as a
+new 20-query run. Together with the earlier accepted 20-query real-data Pixel
+sample and the five recorded hosted load trials, this completes practical T034
+acceptance using user-reported timing evidence. No instrumented search timings or
+peak-memory measurement are claimed.
+
+T034 is complete and all Phase 7 tasks are checked. No further load or search
+rerun is required for this acceptance. Encryption/decryption and the eventual
+combined loading-plus-decryption target remain outside this validation.

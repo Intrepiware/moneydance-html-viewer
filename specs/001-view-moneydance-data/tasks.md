@@ -38,7 +38,7 @@
 - [X] T016 [US1] Integrate worker-ready account metadata into UI/app.js and existing UI/index.html templates, preserving the layout and rendering sidebar/selected-account totals; hide excluded accounts while retaining accessible included descendants and omit net worth/All Accounts totals; show a Test data indicator for explicit test mode and implement the HTTP-404 missing-real-export error/link to reload with test=true, preserving other URL parameters.
 - [X] T017 [US1] Verify the balance scenarios on the Pixel 8 and reference Moneydance data, including the synthetic Checking total of $1,045 after September 6, and record outcomes in specs/001-view-moneydance-data/validation.md.
 
-**Implementation status (2026-09-07)**: T013–T017 complete, with T017 accepted on user-reported successful desktop/Pixel 8 tests and sidebar reconciliation with Moneydance. The automated browser harness itself has not been reported as run. See validation.md for evidence and timing limits.
+**Implementation status (2026-09-07)**: T013–T017 complete, with T017 accepted on user-reported successful desktop/Pixel 8 tests and sidebar reconciliation with Moneydance. Subsequent complete browser harness runs also passed. See validation.md for evidence and timing limits.
 
 **Checkpoint**: Balance browsing is usable without register or search completion.
 
@@ -89,10 +89,12 @@
 
 ## Phase 7: Polish and Cross-Cutting Validation
 
-- [ ] T033 Run the unit, contract and browser suites plus valid/invalid CLI examples from specs/001-view-moneydance-data/quickstart.md; resolve failures in the implicated files and record actual commands/results in specs/001-view-moneydance-data/validation.md.
-- [ ] T034 Measure five initial loads and at least 20 representative searches with the real large snapshot on the Pixel 8, recording timing boundaries, environment, counts and results in specs/001-view-moneydance-data/validation.md without private records; assess the under-ten-second loading target and provisional under-two-second search target, explicitly noting decryption is not implemented or validated in this phase.
-- [ ] T035 Review the final dependency tree, memory ownership, responsive UI and read-only behavior against .specify/memory/constitution.md; simplify only where fidelity is preserved, fix demonstrated issues in the implicated files, and document dependency justification and any remaining acceptance blockers in specs/001-view-moneydance-data/validation.md.
-- [ ] T036 Update specs/001-view-moneydance-data/quickstart.md and contracts/example-export.md to reflect verified commands and behavior, keeping real-export handling private and explicitly retaining encryption, Azure upload, deployment, close hooks, investment presentation, net worth and transaction entry as deferred work.
+- [X] T033 Run the unit, contract and browser suites plus valid/invalid CLI examples from specs/001-view-moneydance-data/quickstart.md; resolve failures in the implicated files and record actual commands/results in specs/001-view-moneydance-data/validation.md.
+- [X] T034 Measure five initial loads and at least 20 representative searches with the real large snapshot on the Pixel 8, recording timing boundaries, environment, counts and results in specs/001-view-moneydance-data/validation.md without private records; assess the under-ten-second loading target and provisional under-two-second search target, explicitly noting decryption is not implemented or validated in this phase.
+- [X] T035 Review the final dependency tree, memory ownership, responsive UI and read-only behavior against .specify/memory/constitution.md; simplify only where fidelity is preserved, fix demonstrated issues in the implicated files, and document dependency justification and any remaining acceptance blockers in specs/001-view-moneydance-data/validation.md.
+- [X] T036 Update specs/001-view-moneydance-data/quickstart.md and contracts/example-export.md to reflect verified commands and behavior, keeping real-export handling private and explicitly retaining encryption, Azure upload, deployment, close hooks, investment presentation, net worth and transaction entry as deferred work.
+
+**Phase 7 status (2026-09-07)**: T033, T035 and T036 complete; see validation.md for command results, user-reported browser evidence and the final review. T034 complete: five Pixel 8 Azure/Cloudflare loads passed (1.18–2.97 seconds); the user clarified that the latest searches were under two seconds. Together with the earlier accepted 20-query sample, this completes practical performance acceptance. All Phase 7 tasks are complete; decryption and its combined loading target remain unverified. See validation.md.
 
 ## Dependencies and Execution Order
 

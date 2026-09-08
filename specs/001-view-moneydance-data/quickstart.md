@@ -1,172 +1,119 @@
 # Validation Quickstart
 
-This guide specifies commands and scenarios to be delivered during implementation. The referenced scripts/tests do not exist yet; do not interpret this guide as a completed test run.
+The exporter, viewer, CLI and synthetic test harness are implemented. See
+[validation.md](validation.md) for actual results and remaining device evidence.
 
 ## Prerequisites
 
-- User's Moneydance 2024.4 with a test/copy book for controlled cases and access to known main-book register values.
-- Node 20.9.0 or compatible newer runtime. Standalone Python is not required; source probes/export run under **Jython 2.7** inside Moneydance's script facility. Python 3 test success does not demonstrate exporter compatibility.
-- Pixel 8 and desktop browser. Full-history private snapshot stays untracked; synthetic fixtures are safe for shared testing.
-- Setup provides a private npm manifest and dependency-free lockfile. Use `npm ci --ignore-scripts` to verify the locked setup. Node built-ins provide current tests/server; the maintained schema and shared financial validator remain T007/T009 work.
+- Node 20.9.0 or compatible newer runtime. The private npm project has no package dependencies.
+- Moneydance with Jython 2.7 for `export_json.py` and the source probe. The verified source runtime is Jython 2.7.2 / Moneydance build 5253. Do not run these scripts with standalone Python or Node.
+- Desktop browser and Pixel 8. Keep real exports in ignored `UI/data/`; share only synthetic fixtures or sanitized results.
 
-## Automated Checks (after implementation)
+## Automated and Browser Checks
 
-From the repository root in PowerShell:
+Run from the repository root in PowerShell:
 
 ```powershell
-npm ci
-node --test tests/unit/*.test.mjs tests/contract/*.test.mjs
+npm test
 node scripts/validate-snapshot.mjs tests/fixtures/valid-snapshot-v1.json
 node scripts/validate-snapshot.mjs tests/fixtures/invalid-balance-v1.json
-node scripts/serve-ui.mjs --host 127.0.0.1 --port 8080 --snapshot tests/fixtures/valid-snapshot-v1.json
-```
-
-The validator exits 0 for valid data and nonzero for invalid data, printing only counts/error codes/field paths, not financial values. The invalid-balance command is expected to fail. The server serves UI at `http://127.0.0.1:8080/`, the selected snapshot at `/data/snapshot.json`, and synthetic browser tests at `/tests/browser/`; it must restrict routes to those resources and prevent directory traversal. Browser test page must show an explicit pass/fail summary and exercise actual worker messaging. No cloud access is needed.
-
-## Source Financial Validation
-
-Run the planned `scripts/moneydance-preflight.py` inside Moneydance, then the updated `export_json.py`. Do not run either with Node or standalone Python. Preflight records installed runtime and validates supported method availability without modifying the book. Export a controlled snapshot first and provision it manually as the supplied data.
-
-Reference matrix: debit, credit, opening balance with zero entries, multiple splits, same-day ordering, two-sided transfer, future entry, inactive child with nonzero contribution, active descendant of excluded parent, income/expense sign convention, and included cash transfer to excluded investment account. Compare source display values at exactly the same effective date. Each full register must reconcile opening through closing; each row must match its source amount/running balance. Sidebar recursive balances must include hidden contributions without counting child totals twice. A mismatch fails financial acceptance, even when the file is schema-valid.
-
-Historical unversioned samples must fail with a re-export message, not display guessed balances. A fresh v1 export is required for successful full-history validation. Keep the old files and compact schema unchanged as compatibility evidence.
-
-## Browser Scenarios
-
-| Scenario | Expected result |
-| --- | --- |
-| Select parent, then child, then All Accounts | Direct normal registers; complete combined list; no overall total anywhere |
-| Search description, memo-only and split-memo-only text | Selected account plus included descendants; correct account identity; no duplicate matching entry |
-| Search 50, -50, and formatted amounts | Partial numeric matches; minus affects amount branch only; independent text matches still work |
-| Clear search, paginate, switch accounts rapidly | Correct scope restored; balances unchanged; stale worker responses ignored |
-| Mobile register | Per-row running balance available without desktop mode; accepted density retained |
-| Empty, corrupt, unsafe integer, duplicate entry, missing financial metadata | Valid-empty distinct from visible failure; no invented balances |
-| Initial load fails, then page reloads | Visible error; reload makes a fresh request without restoring prior data |
-| Repeated searches, account changes, and paging | Network inspection shows no additional snapshot requests; each page reload makes one fresh request |
-| Export time near midnight and DST transition in two device zones | Correct local instant and timezone indicator in bottom-left footer; unchanged transaction dates; cutoff follows each device-local page-load date |
-| Missing, null, wrong-type, or malformed export timestamp with valid balance timelines | INVALID_SNAPSHOT; visible export-date error and no rendered financial data in real and test modes |
-
-Use synthetic cases for timezone and malformed data tests. The fixture harness must assert expected rows/labels as well as render them; manual inspection alone does not establish financial equality.
-
-## Pixel 8 Acceptance
-
-For phone access use an explicitly chosen private LAN bind after synthetic desktop validation:
-
-```powershell
-node scripts/serve-ui.mjs --host 0.0.0.0 --port 8080 --snapshot tests/fixtures/valid-snapshot-v1.json
-```
-
-Open `http://<desktop-private-address>:8080/` on the phone. This is a temporary development session, not deployment; stop the server when finished. Use personal data only on the user's trusted private network with deliberate access, never a public tunnel. Network/firewall setup may require separate environment permission.
-
-Repeat with the fresh private full-history v1 export selected via `--snapshot` when ready. Record snapshot byte size, entry/account counts, effective date, browser/device, network, cache conditions, and timing aggregates without content values. Five initial trials must be under 10 seconds from navigation/load request to usable first rows and balances. Twenty representative searches must be under two seconds from completed query to rendered page, including debounce. Test initial-load peak memory and rapid input separately; no required history or descendants may be dropped to improve results silently.
-
-Have the user complete envelope-balance lookup and most-recent purchase lookup and confirm readability. Passing desktop emulation is not passing Pixel 8. Record SC-001–007 outcomes in a later validation report. Decryption remains excluded: explicitly mark the eventual combined 10-second target unverified, regardless of current loading results.
-
-## Page-load Date Regression
-
-Use the same snapshot with an entry dated September 6. Load with local date September 5: sidebar excludes it. Reload with local date September 6: sidebar includes it; register running balances and export timestamp are unchanged. Repeat with a hidden descendant contribution and in two timezones straddling midnight. An open page keeps its captured date until reload. Verify the baseline at balanceStartDate (UTC export date minus one day), subsequent changes and after-last-checkpoint dates; a cutoff before coverage must fail visibly. Compare compact versus full reference timelines at every supported change date, including hidden effects, and confirm earlier points are absent while all entries/running balances remain intact. Verify missing, null, or malformed exportDate fails loading even with valid balanceStartDate; do not invent unexported activity.
-
-## Test Dataset Selection (US1 Acceptance 5–6 / FR-019)
-
-Supply the v1 synthetic file at UI/data/test-snapshot.json. Navigate with ?test=true and confirm synthetic balances plus a Test data indicator; network inspection must show one test-snapshot request and no real-snapshot request. Without the parameter (also with test=false), confirm real data is selected. Make the real export unavailable: expect HTTP 404, a missing-file message, and a link preserving other page parameters while adding test=true. Follow it and confirm a fresh page loads test data. Missing or malformed test data must error without fetching the real export. Other real-load errors must never silently fall back. Apply the same financial/date validation to both sources.
-
-## Historical T011 handoff (superseded by implementation reports)
-
-The maintained schema, cents module, snapshot validator and CLI now exist. See [export-validation.md](../../scripts/export-validation.md) for the updated exporter run and automated comparison against the existing private reference. The exporter implementation remains unverified until this Moneydance run; T012 and later UI tasks have not started.
-
-## Phase 3 is available for local verification
-
-The balance sidebar and account selection are implemented. Register/search and
-the export-date footer remain later-phase work; their controls are not active.
-Run `npm test` for the implemented Node tests (31 passing as of September 7).
-
-```powershell
+node scripts/validate-snapshot.mjs specs/001-view-moneydance-data/contracts/example-export.json
 node scripts/serve-ui.mjs --snapshot UI/data/snapshot.json
 ```
 
-Open `http://127.0.0.1:8080/?test=true` for synthetic balances, or omit the query
-parameter for your export. Open `http://127.0.0.1:8080/tests/browser/` for the browser
-acceptance harness; it uses only synthetic data and intentional failing URLs,
-regardless of the supplied private snapshot. It must finish with `ALL PASS`.
-The server exposes the existing synthetic hidden-ancestor fixture through the
-specific `/tests/browser/hidden-ancestor.json` route without exposing the rest of
-the fixtures directory.
+The valid examples exit 0 with 10 accounts and 13 entries. The invalid example
+intentionally exits 1 with `INVALID_SNAPSHOT`, field `entry.runningBalanceCents`.
+`npm test` runs all 37 unit/contract checks, including server isolation, actual
+isolated worker messaging, financial invariants, search and timestamp handling.
 
-For Pixel 8 verification (T017), first serve synthetic data on your trusted local
-network using the server's explicit `--host` option. Check sidebar open/close,
-Checking $1,045 after September 6, sub-account selection, no All Accounts total,
-and the browser harness. Then compare a fresh real export with the source-agreed
-balances at the same local date. Record results in validation.md. Browser and
-Pixel 8 checks have not yet been run; desktop Node tests do not complete T017.
+Open `http://127.0.0.1:8080/tests/browser/` and expect `ALL PASS`. The harness runs
+actual worker/client and app DOM checks for balances, registers, search and loading
+states. It uses synthetic fixtures, regardless of the private snapshot selected
+for the normal viewer. Restart an older server after route changes.
 
-## Phase 4 register verification
+Open `http://127.0.0.1:8080/?test=true` for the synthetic viewer; omit `test=true`
+for the configured real snapshot. Only the exact value `true` selects test data.
+A missing real file displays an error and a test-data link preserving other URL
+parameters. Invalid or missing test data fails without fetching real data.
 
-Register browsing now shows direct-account history in descending source order,
-100 rows per page, with unchanged source running balances. All Accounts includes
-every included account-side row, including both transfer sides. Checking has no
-own rows in the synthetic budget example; select a budget to see its register.
-Search is now enabled by Phase 5; see the search verification section below.
+The server defaults to loopback and only exposes explicit UI/test routes and the
+selected snapshot. It does not expose other private files or directories.
+`npm run fixtures` regenerates synthetic fixtures from the documented example.
 
-Run `npm test`, then start the server above and open `/tests/browser/`. The harness
-now includes a 205-row synthetic register via `/tests/browser/register-pages.json`:
-check paging, same-day order, future entries, check number `0007`, category labels,
-full memo, escaped text and mobile running balances. The first row has balance
-$328.45; the final row has $124.45, including the $123.45 opening balance. This
-fixture is intentionally synthetic and is generated by `npm run fixtures`.
+## Private Export Validation
 
-For T022, run the browser harness and compare your real account register against
-Moneydance: opening balance effects, same-day ordering, split/transfer entries,
-future transactions, amounts and running balances. Switch All Accounts → child →
-All Accounts and page through an account with over 100 entries. On Pixel 8 confirm
-running balances and memo text are readable. Report mismatches and harness results;
-these new register/device checks remain unverified in this implementation session.
+Run `export_json.py` inside Moneydance, then:
 
-## Phase 5 search verification
+```powershell
+node scripts/validate-snapshot.mjs UI/data/snapshot.json
+```
 
-The existing search field now searches description, transaction memo, allocation
-memos and partial USD amounts. Matching is case-insensitive, using the full typed
-query as a substring of each individual field. Account/category names, tags and
-check numbers are not search fields. Examples: `50` matches either sign and larger
-amounts such as 150.25; `-50` restricts amount matches to negatives, while memo and
-description matches remain independent. Dollar signs and valid grouping commas
-are optional for amount searches.
+Normal errors contain only codes and field names. For local troubleshooting:
 
-A search on a parent includes accessible descendants. Clearing the field restores
-the parent's direct register. Switching accounts keeps the query and resets future
-visibility; future matches are summarized by the yellow bar until revealed. Paging
-and searching preserve sidebar and originating-account running balances.
+```powershell
+node scripts/validate-snapshot.mjs --debug UI/data/snapshot.json
+```
 
-Run `/tests/browser/` again: the harness now runs balance, register and search
-scenarios and must finish with ALL PASS. It also prints 20 synthetic search times
-including the 100 ms debounce. No server-route change is needed for this phase.
-These small-fixture timings are not full-data performance evidence.
+`--debug` additionally prints the failing entity and full stack trace. That output
+can contain private financial details; keep it local. The viewer uses normal safe
+errors. Old unversioned exports require re-export; their balances are not guessed.
 
-For T027, on Pixel 8 with your real export, check description-only, memo-only,
-allocation-memo-only, amount and descendant matches; clearing search; no results;
-rapid typing/account changes; and unchanged balances. Measure 20 representative
-queries from the last input change until the resulting rows appear (including
-debounce). Report browser, dataset entry count, and timing range/individual times,
-without private search text. The provisional target is under two seconds per query.
-T027 remains pending those reported acceptance and timing results.
+For controlled source comparisons and failed-save/cancel checks, follow
+[export-validation.md](../../scripts/export-validation.md) and
+[moneydance-preflight.md](../../scripts/moneydance-preflight.md). Schema validation
+alone does not establish agreement with Moneydance. Source checks already recorded
+in validation.md need repeating when exporter semantics change.
 
-## Phase 6 snapshot freshness and failures
+## Verified Viewer Behavior
 
-The sidebar footer now shows `As of:` with the export instant in the device's
-locale/timezone (including the timezone label). Check it on desktop and by opening
-the sidebar on Pixel 8. Changing the selected account must not change this label.
-It describes export age, independently of the page-load transaction cutoff.
+- Sidebar balances use the device-local date captured at page load. Hidden contributions remain in source totals; accessible descendants of hidden ancestors remain selectable.
+- Normal registers show direct-account history, newest first, 100 rows per page. All Accounts retains included transfer counterparts and has no monetary total.
+- Dates display MM/dd with sticky year headings. Mobile rows retain running balances and memo text.
+- Future entries are hidden behind a centered pale-yellow summary. Reveal shows them; selecting an account resets disclosure. No history is removed from the snapshot.
+- Search matches description, transaction memo, allocation memos and partial USD amounts. Nonempty search includes descendants; clearing restores direct-account scope. Account/category names, tags and checks are not extra search fields. Unsigned amounts match either sign; a minus restricts the amount branch only.
+- The clear X empties search; desktop Ctrl+F / Cmd+F focuses it. Search includes a 100 ms debounce and discards stale replies. Balances never change because of filtering.
+- The As of footer replaces Read-Only Mode using its original muted font/color and centered alignment. It shows the export instant in the device locale/timezone, independently of the balance cutoff. Transaction calendar dates are never timezone-converted.
+- Loading is prominent; valid empty data and failures are distinct. Errors remove financial content and the footer. Reload is the only retry; searches, paging and account changes do not download another snapshot.
 
-Restart the local server to enable the new loading-fixture routes, then refresh
-`/tests/browser/`. The added loading suite tests invalid timestamps in real and
-test modes, unknown version, malformed/invalid input, missing files, valid-empty
-data, query errors, actual worker failure, no stale footer/accounts and one-fetch
-behavior. It should finish with ALL PASS. A deliberately failing test worker is
-part of this suite; its failure must produce the expected visible error state.
+Synthetic tests cover local-date boundaries, hidden contributions, compact timeline
+coverage, UTC midnight/DST formatting and missing/null/malformed timestamps in both
+source modes. A cutoff before balanceStartDate fails; full register history remains
+intact. An open page keeps its captured date until reload.
 
-Valid empty data shows a successful-load message with its As of label. Failed
-loads show a prominent error and reload guidance, with no stale financial content
-or timestamp. Invalid timestamps specifically request a new Moneydance export.
-No automatic retry or dataset fallback is added.
+## Remaining Pixel 8 Performance Record (T034)
 
-T032 remains open until the browser run and local-time footer check are reported.
-`npm test` currently passes 37 tests; Phase 7 remains separate.
+Use the actual large export in the ordinary viewer, not the small harness fixture.
+For temporary trusted-LAN access:
+
+```powershell
+node scripts/serve-ui.mjs --host 0.0.0.0 --port 8080 --snapshot UI/data/snapshot.json
+```
+
+Open `http://<desktop-private-address>:8080/` on Pixel 8. Stop the development server
+when finished. This command does not implement deployment or cloud delivery.
+
+1. Record browser/version, network/access route, local test date, snapshot byte size and validator account/entry counts. Do not record account names or search text.
+2. Reload five times. For each trial, time from starting navigation/reload until both sidebar balances and the first register page are usable. Record all five times; each target is under 10 seconds. Snapshot fetch uses no-store; note whether other browser assets were already cached. A stopwatch is sufficient if reported as manual timing.
+3. The user's earlier 20 representative real-data Pixel searches all finished comfortably under two seconds and remain accepted as manual threshold evidence. Confirm whether that sample used this same dataset/browser/network; provide missing context. Repeat only if conditions or data changed materially. Search timing runs from the final input change to usable results, including debounce. Cover description, memo, allocation memo, amount, descendants and no matches without sharing query text.
+4. Note any tab reload/crash, persistent slowdown or memory warning after repeated searches and account switches. Code review confirms ownership boundaries; actual Pixel peak memory has not been measured. If profiling memory, record only aggregate memory values.
+
+Suggested report:
+
+```text
+Pixel 8 browser/version:
+Network/access route and date:
+Snapshot bytes / accounts / entries:
+Other assets cached: yes/no/unknown
+Five initial loads (seconds):
+20-search sample: prior sample same conditions / new sample and results
+Reloads, crashes or memory warnings:
+```
+
+Earlier user feedback established readable account lookup, register viewing and
+search on Pixel, plus source balance agreement. The earlier informal 7–8 second
+ngrok load is not five recorded trials. No repeat of already-passing functional
+checks is required for documentation cleanup.
+
+Encryption/decryption, Azure upload, deployment, close hooks, investment
+presentation, net worth and transaction entry remain deferred. Even five passing
+load trials would not validate the later combined loading-plus-decryption target.

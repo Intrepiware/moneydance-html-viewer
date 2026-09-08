@@ -1,6 +1,6 @@
 # Example Export
 
-[example-export.json](example-export.json) illustrates the proposed v1 contract using fictional IDs and the requested budget scenario. All opening balances are zero. It is documentation, not output from the current exporter or verified Moneydance runtime behavior.
+[example-export.json](example-export.json) illustrates the implemented v1 contract using fictional IDs and the requested budget scenario. All opening balances are zero. It is synthetic documentation, not a real Moneydance export. Source-runtime comparison evidence is recorded separately in [validation.md](../validation.md).
 
 Checking contains Mortgage Budget, Groceries Budget, Electricity Budget, and Misc Spending Budget. On September 1, a $3,200 paycheck is allocated directly to those sub-accounts: $2,000, $800, $200, and $200 respectively.
 
@@ -31,6 +31,10 @@ The export timestamp is September 6 at 23:00 UTC. balanceStartDate is September 
 
 Every money field is integer cents. Full-account running balances do not change with search, paging, or page-load date. The root has no monetary balance, sourceTimeZone is absent, and no generation ID is used.
 
-This example retains the currently documented balanceTimeline design. Hidden-account and error cases are omitted to keep the example focused. A maintained v1 schema and comparisons with Moneydance remain implementation work.
+This example uses the implemented compact balanceTimeline design. Hidden-account and error cases are omitted to keep it focused; tests/fixtures contains those cases. The maintained schema is schemas/snapshot-v1.schema.json. Run `node scripts/validate-snapshot.mjs specs/001-view-moneydance-data/contracts/example-export.json` from the repository root: it reports VALID with 10 accounts and 13 entries.
+
+Future entries remain in the export but are initially hidden in the UI behind a yellow summary until revealed. Account selection resets disclosure. The export instant appears in the As of sidebar footer using the device timezone and the original Read-Only Mode styling. See [quickstart.md](../quickstart.md) for current viewer and validation commands.
+
+Encryption, Azure upload, deployment, close hooks, investment presentation, net worth and transaction entry remain deferred.
 
 Validation performed: JSON generation/parsing, account references, all opening-to-running-to-closing balance recurrences, and the final $1,045 Checking aggregate. This does not establish SDK behavior or real register ordering.
