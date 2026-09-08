@@ -35,10 +35,15 @@ It is memory-only and is not financial data in the status log.
 
 State: idle → closingArmed → captured → publishing → finished. Closing the
 configured book arms one capture; its postsave consumes the arm. Ordinary saves
-do nothing. Duplicate notifications cannot capture or publish twice. Opening any
-book invalidates the arm/candidate. A later close starts a fresh cycle. If closing
-does not reach postsave, no candidate is usable. If an exit is canceled, no success
-is reported; a subsequent closing invalidates the old candidate before recapture.
+do nothing. Within an active close cycle, duplicate closing notifications do not
+reset the arm, discard a successful candidate, restart deadlines or initiate another
+capture. Duplicate postsave/exiting notifications cannot capture or publish twice.
+Opening any book ends the cycle and invalidates its arm/candidate. Confirmed exit
+cancellation also ends the cycle and invalidates the candidate before another close
+attempt; it never reports success. Only a close after the previous cycle has ended
+starts a fresh cycle. If closing does not reach postsave, no candidate is usable.
+How cancellation is detected must be verified in the actual runtime; do not assume
+an undocumented cancellation callback or treat a duplicate close as proof of cancellation.
 Only app:exiting publishes automatically. Rare book switching may incur capture
 cost, per user approval, but never publishes by itself.
 
@@ -52,7 +57,11 @@ remaining deadline; an earlier manual snapshot cannot substitute for final state
 Do not launch another PUT while an older request may still be active. A timed-out
 ambiguous PUT is not blindly retried; manual retry captures fresh data.
 
-Use one 60-second budget beginning with capture; shutdown does not reset it.
+Each operation has a 60-second budget beginning with capture. Additionally, the
+first closing notification for the configured book starts a 60-second shutdown
+deadline. All extension work during closing, including waiting for or draining an
+existing manual operation before capture, counts against that deadline. Use the
+earlier applicable deadline; neither exit nor duplicate notifications reset it.
 Measure operation duration and incremental shutdown duration separately. Check
 the deadline during source traversal, transformation and between stages; use
 cancellable bounded HTTP. Never Thread.stop. Timeout of queued EDT work cancels

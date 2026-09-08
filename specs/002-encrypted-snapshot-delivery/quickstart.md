@@ -44,13 +44,25 @@ menu to renew without reinstalling. Check password changes affect only new expor
 ## Normal exit (US3)
 
 Finish a final fictional edit, exit with window X, reopen, retrieve/decrypt and
-compare the final saved values. Repeat with menu Exit if available. Check ordinary
+compare the final saved values. Repeat with menu Exit if available.
+Complete three normal close/reopen cycles after one installation, making a distinct
+synthetic edit before each close. Retrieve and decrypt each publication, verify
+that edit and expected financial values, and check persistent settings and the
+next-launch operation result. Installation-only restarts do not satisfy this test.
+
+Check ordinary
 saves cause no capture; duplicate notifications cannot publish twice. Book switching
 may capture but must not upload, retain another book or publish an old candidate.
 Exercise canceled exit only if the application provides a normal cancel path.
 Use deterministic lifecycle tests for cases unavailable in the UI, labeling them
 as simulations. Test shutdown during an ongoing manual attempt and offline exit.
 Record both operation time and incremental shutdown delay against 60 seconds.
+Start the shutdown deadline at the first configured-book closing notification;
+include waiting for an ongoing manual attempt before capture. Enforce the earlier
+of that deadline and the operation's capture-start deadline. Test duplicate closing
+before/after capture and during publication: it must preserve the candidate and
+deadlines without recapturing. Verify confirmed cancellation invalidates the cycle;
+record the actual detection mechanism rather than assume a cancellation callback.
 
 ## Viewer and device (US4)
 
