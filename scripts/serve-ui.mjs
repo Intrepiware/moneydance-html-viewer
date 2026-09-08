@@ -13,6 +13,15 @@ const inside = (root, path) => {
   const rel = relative(root, path);
   return rel !== '..' && !rel.startsWith('..\\') && !rel.startsWith('../') && !isAbsolute(rel);
 };
+const loadingFixtures = {
+  'timestamp-missing.json': 'invalid-export-date-missing-v1.json',
+  'timestamp-null.json': 'invalid-export-date-null-v1.json',
+  'timestamp-type.json': 'invalid-export-date-wrong-type-v1.json',
+  'timestamp-bad.json': 'invalid-export-date-malformed-v1.json',
+  'empty.json': 'empty-snapshot-v1.json',
+  'version.json': 'unsupported-version.json',
+  'balance.json': 'invalid-balance-v1.json',
+};
 
 // Only the selected private snapshot and explicit public routes are exposed.
 export function createViewerServer({ root = repo, snapshot = resolve(root, 'UI/data/snapshot.json') } = {}) {
@@ -42,6 +51,9 @@ export function createViewerServer({ root = repo, snapshot = resolve(root, 'UI/d
     } else if (path === '/tests/browser/register-pages.json') {
       allowedRoot = resolve(root, 'tests/fixtures');
       target = resolve(allowedRoot, 'register-pages-v1.json');
+    } else if (path.startsWith('/tests/browser/loading-fixtures/') && Object.hasOwn(loadingFixtures, path.slice('/tests/browser/loading-fixtures/'.length))) {
+      allowedRoot = resolve(root, 'tests/fixtures');
+      target = resolve(allowedRoot, loadingFixtures[path.slice('/tests/browser/loading-fixtures/'.length)]);
     } else if (path.startsWith('/tests/browser/') && mime[extname(path === '/tests/browser/' ? 'index.html' : path)]) {
       allowedRoot = resolve(root, 'tests/browser');
       target = resolve(root, path === '/tests/browser/' ? 'tests/browser/index.html' : path.slice(1));

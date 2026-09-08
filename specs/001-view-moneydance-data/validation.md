@@ -244,3 +244,47 @@ Together with the previously reported ALL PASS browser harness and functional
 Pixel search checks, this completes T027 and Phase 5 acceptance. Later-phase
 full-data performance checks retain their own scope; no later tasks are marked
 complete by this report.
+
+## Phase 6 implementation — 2026-09-07
+
+T028–T031 implemented. A shared strict export-instant check is used by snapshot
+validation and Intl formatting. The sidebar footer renders export time with the
+device locale/timezone; transaction calendar components remain unchanged. The UI
+exposes loading/ready/empty/error state, distinguishes a valid empty export from
+failure, clears timestamp/account/register content after error, and retains the
+explicit missing-real-file test-data link. Client worker failures and received
+error messages are terminal; stale replies cannot restore content afterward.
+
+Evidence: all 37 Node tests pass, covering midnight/DST formatting, invalid dates,
+empty/version distinctions, timestamp errors, worker construction/send/runtime/
+message-decoding failures, terminal state, stale replies and existing register/
+search/financial invariants. Syntax and diff checks pass. Handlebars 4.7.9's exact
+CDN URL was fetched successfully after network approval; recursive account and
+register templates compiled/rendered in Node VM with escaping and column spans
+verified. This is template verification, not browser visual acceptance.
+
+The browser loading suite uses the actual worker/client and test-only request
+counting, plus real UI tests for empty/error states and a deliberately failing
+worker. Both real/test selections exercise invalid export timestamps. New fixture
+routes require restarting an already-running local server.
+
+T032 remains unverified for browser execution: available browser/app inventory was
+empty. The user still needs to run the new harness and check the footer on desktop
+and Pixel. No Phase 7 performance/device acceptance is claimed.
+
+## Phase 6 acceptance completed — user confirmation
+
+The user reports ALL PASS from the complete browser harness. Loading contract
+checks passed for timestamps in real/test modes, empty/version/financial failures,
+invalid queries and reload-only retry. Loading DOM checks passed for empty/error
+states, the export footer, stale content removal, actual worker failure and
+cross-origin rejection. Earlier balance, register and search scenarios also passed.
+
+The user confirms the As of date appears correct on Pixel and desktop. The date
+replaces Read-Only Mode and inherits that label's font, muted color and centered
+alignment, per the user's latest presentation request. T032 is complete and Phase 6
+is accepted on this user-reported browser/device evidence.
+
+The reported synthetic search sample ranges from 101–120 ms including debounce;
+it remains synthetic evidence and is not a new real-data performance measurement.
+Phase 7 checks remain separate and are not marked complete by this report.

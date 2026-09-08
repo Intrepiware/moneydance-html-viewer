@@ -59,7 +59,8 @@ export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fe
       model = null;
       query = null;
       const version = failure.code === 'UNSUPPORTED_VERSION';
-      error(requestId, version ? failure.code : 'INVALID_SNAPSHOT', version ? 'Unsupported snapshot version; re-export from Moneydance.' : 'Snapshot validation failed.');
+      error(requestId, version ? failure.code : 'INVALID_SNAPSHOT', version ? 'Unsupported snapshot version; re-export from Moneydance.' :
+        failure.field === 'exportDate' ? 'Missing or invalid export timestamp. Re-export from Moneydance.' : 'Snapshot validation failed. Re-export from Moneydance.');
     }
   };
 }

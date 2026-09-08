@@ -41,6 +41,12 @@ export function validDate(value) {
   const d = new Date(`${value}T00:00:00Z`);
   return Number.isFinite(d.getTime()) && d.toISOString().slice(0, 10) === value;
 }
+export function validExportDate(stamp) {
+  return typeof stamp === 'string' &&
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?Z$/.test(stamp) &&
+    validDate(stamp.slice(0, 10)) && Number.isFinite(Date.parse(stamp)) &&
+    Number(stamp.slice(11, 13)) <= 23 && Number(stamp.slice(14, 16)) <= 59 && Number(stamp.slice(17, 19)) <= 59;
+}
 const date = (v, p) => {
   if (!validDate(v)) fail(p, v);
 };
@@ -66,16 +72,7 @@ export function validateSnapshot(snapshot) {
         "schemaVersion; re-export required",
       );
     const stamp = snapshot.exportDate;
-    if (
-      typeof stamp !== "string" ||
-      !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?Z$/.test(stamp) ||
-      !validDate(stamp.slice(0, 10)) ||
-      !Number.isFinite(Date.parse(stamp)) ||
-      Number(stamp.slice(11, 13)) > 23 ||
-      Number(stamp.slice(14, 16)) > 59 ||
-      Number(stamp.slice(17, 19)) > 59
-    )
-      fail("exportDate", stamp);
+    if (!validExportDate(stamp)) fail("exportDate", stamp);
     string(snapshot.sourceVersion, "sourceVersion", true);
     date(snapshot.balanceStartDate, "balanceStartDate");
     const boundary = new Date(stamp);

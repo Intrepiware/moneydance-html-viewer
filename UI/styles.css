@@ -227,6 +227,10 @@ body {
     visibility: hidden;
 }
 
+#as-of-date {
+    overflow-wrap: anywhere;
+}
+
 @media (max-width: 768px) {
     .account-header { min-height: 44px; }
     .account-toggle {

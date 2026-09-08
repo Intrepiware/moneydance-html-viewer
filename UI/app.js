@@ -1,12 +1,13 @@
 import { createSnapshotClient } from './src/worker-client.mjs';
 import { formatUsd } from './src/money.mjs';
+import { formatExportDate, transactionDateParts } from './src/format.mjs';
 
 const getAccountIcon = type => ({ BANK: 'fa-building-columns', CREDIT_CARD: 'fa-credit-card',
   LOAN: 'fa-hand-holding-dollar', ASSET: 'fa-sack-dollar', LIABILITY: 'fa-file-invoice-dollar' }[type] || 'fa-wallet');
 
 export class App {
   constructor({ document = globalThis.document, handlebars = globalThis.Handlebars,
-    pageUrl = globalThis.location.href, config = globalThis.MONEYDANCE_CONFIG } = {}) {
+    pageUrl = globalThis.location.href, config = globalThis.MONEYDANCE_CONFIG, workerFactory } = {}) {
     this.document = document;
     this.window = document.defaultView;
     this.pageUrl = pageUrl;
@@ -14,7 +15,7 @@ export class App {
     this.nodes = new Map();
     this.el = Object.fromEntries(['account-tree', 'current-account-name', 'total-balance',
       'mobile-total-balance', 'balance-card', 'mobile-balance-bar', 'total-transactions',
-      'search-input', 'clear-search', 'load-status', 'test-data-link', 'test-data-indicator', 'sidebar',
+      'search-input', 'clear-search', 'load-status', 'as-of-date', 'test-data-link', 'test-data-indicator', 'sidebar',
       'sidebar-overlay', 'theme-toggle'].map(id => [id, document.getElementById(id)]));
     handlebars.registerHelper('getAccountIcon', getAccountIcon);
     handlebars.registerHelper('formatCurrency', formatUsd);
@@ -33,7 +34,7 @@ export class App {
       this.el['transactions-table'].style.setProperty('--register-header-height', `${entry.target.getBoundingClientRect().height}px`);
     });
     this.headerObserver.observe(this.el['transactions-table'].querySelector('thead'));
-    this.client = createSnapshotClient({ pageUrl, config, onMessage: message => this.receive(message) });
+    this.client = createSnapshotClient({ pageUrl, config, workerFactory, onMessage: message => this.receive(message) });
     const listen = (element, action) => element.addEventListener('click', action, { signal: this.handles.signal });
     listen(this.el['account-tree'], event => {
       const header = event.target.closest('.account-header');
@@ -82,6 +83,9 @@ export class App {
   }
 
   start() {
+    this.document.getElementById('app').dataset.state = 'loading';
+    this.el['as-of-date'].hidden = true;
+    this.el['as-of-date'].textContent = '';
     this.el['search-input'].disabled = true;
     this.el['account-tree'].replaceChildren();
     this.nodes.clear();
@@ -101,6 +105,10 @@ export class App {
 
   receive(message) {
     if (message.type === 'ready') {
+      this.snapshotEmpty = message.totalCount === 0;
+      this.document.getElementById('app').dataset.state = this.snapshotEmpty ? 'empty' : 'ready';
+      this.el['as-of-date'].textContent = formatExportDate(message.metadata.exportDate);
+      this.el['as-of-date'].hidden = false;
       this.el['search-input'].disabled = false;
       this.metadata = message.metadata;
       const root = { id: '', name: 'All Accounts', type: 'ROOT', isAll: true, isOpen: true, children: message.accounts };
@@ -108,12 +116,20 @@ export class App {
       index(root);
       this.el['account-tree'].innerHTML = this.treeTemplate(root);
       this.el['total-transactions'].textContent = String(message.totalCount);
-      this.el['load-status'].hidden = true;
+      this.el['load-status'].hidden = !this.snapshotEmpty;
+      this.el['load-status'].textContent = this.snapshotEmpty ? 'Snapshot loaded. No transactions in this export.' : '';
       this.el['load-status'].classList.remove('is-loading');
       this.selectAccount(root);
     } else if (message.type === 'page') {
       this.renderPage(message);
     } else if (message.type === 'error') {
+      this.document.getElementById('app').dataset.state = 'error';
+      this.el['as-of-date'].hidden = true;
+      this.el['as-of-date'].textContent = '';
+      this.metadata = null;
+      this.currentAccount = null;
+      this.el['current-account-name'].textContent = 'Unable to load snapshot';
+      this.client.dispose();
       this.window.clearTimeout(this.searchTimer);
       this.el['search-input'].disabled = true;
       this.el['clear-search'].hidden = true;
@@ -127,7 +143,7 @@ export class App {
       this.el['load-status'].classList.remove('is-loading');
       this.el['load-status'].classList.add('is-error');
       this.el['load-status'].setAttribute('role', 'alert');
-      this.el['load-status'].textContent = `Unable to load accounts. ${message.message} Reload the page to retry.`;
+      this.el['load-status'].textContent = `${message.message} Reload the page to retry.`;
       this.el['test-data-link'].hidden = true;
       if (!this.client.testMode && message.code === 'LOAD_FAILED' && message.reason === 'NOT_FOUND') {
         const url = new URL(this.pageUrl);
@@ -187,7 +203,7 @@ export class App {
     this.el['no-results'].querySelector('p').textContent = future.count && !this.includeFuture ? 'No current or past matches. Future transactions are available above.' : this.searchText.trim() ? 'No results found.' : 'No transactions found.';
     let previousYear;
     const rows = message.rows.map(row => {
-      const [year, month, day] = row.date.split('-');
+      const {year, month, day} = transactionDateParts(row.date);
       const showYearDivider = year !== previousYear;
       previousYear = year;
       return { ...row, year, month, day, showYearDivider, isFuture: row.date > this.metadata.effectiveDate };
@@ -225,7 +241,16 @@ export class App {
 
 // The harness imports the controller without starting another instance.
 if (document.querySelector('script[type="module"][src="app.js"]')) {
-  const app = new App();
-  void app.start();
-  window.addEventListener('pagehide', () => app.dispose(), { once: true });
+  try {
+    const app = new App();
+    void app.start();
+    window.addEventListener('pagehide', () => app.dispose(), { once: true });
+  } catch {
+    document.getElementById('app').dataset.state = 'error';
+    const status = document.getElementById('load-status');
+    status.className = 'is-error';
+    status.setAttribute('role', 'alert');
+    status.textContent = 'Unable to initialize the viewer. Reload the page to retry.';
+    status.hidden = false;
+  }
 }

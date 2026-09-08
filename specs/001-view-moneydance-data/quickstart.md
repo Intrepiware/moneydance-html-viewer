@@ -148,3 +148,25 @@ queries from the last input change until the resulting rows appear (including
 debounce). Report browser, dataset entry count, and timing range/individual times,
 without private search text. The provisional target is under two seconds per query.
 T027 remains pending those reported acceptance and timing results.
+
+## Phase 6 snapshot freshness and failures
+
+The sidebar footer now shows `As of:` with the export instant in the device's
+locale/timezone (including the timezone label). Check it on desktop and by opening
+the sidebar on Pixel 8. Changing the selected account must not change this label.
+It describes export age, independently of the page-load transaction cutoff.
+
+Restart the local server to enable the new loading-fixture routes, then refresh
+`/tests/browser/`. The added loading suite tests invalid timestamps in real and
+test modes, unknown version, malformed/invalid input, missing files, valid-empty
+data, query errors, actual worker failure, no stale footer/accounts and one-fetch
+behavior. It should finish with ALL PASS. A deliberately failing test worker is
+part of this suite; its failure must produce the expected visible error state.
+
+Valid empty data shows a successful-load message with its As of label. Failed
+loads show a prominent error and reload guidance, with no stale financial content
+or timestamp. Invalid timestamps specifically request a new Moneydance export.
+No automatic retry or dataset fallback is added.
+
+T032 remains open until the browser run and local-time footer check are reported.
+`npm test` currently passes 37 tests; Phase 7 remains separate.

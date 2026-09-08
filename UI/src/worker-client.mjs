@@ -13,8 +13,9 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
   const effectiveDate = localPageDate(now);
   let worker, loaded = false, ready = false, disposed = false, sequence = 0, currentRequest = 0;
   const workerFailed = () => {
-    if (!disposed) onMessage({ type: 'error', requestId: currentRequest, code: 'WORKER_FAILED', message: 'Snapshot worker failed. Reload the page to retry.' });
-    disposed = true; worker?.terminate();
+    if (disposed) return;
+    disposed = true; ready = false; worker?.terminate();
+    onMessage({ type: 'error', requestId: currentRequest, code: 'WORKER_FAILED', message: 'Snapshot worker failed.' });
   };
   const send = message => {
     currentRequest = ++sequence;
@@ -28,7 +29,9 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
       loaded = true;
       let url;
       try {
-        url = new URL(testMode ? config.testSnapshotUrl : config.snapshotUrl, page);
+        const selected = testMode ? config.testSnapshotUrl : config.snapshotUrl;
+        if (typeof selected !== 'string' || !selected.trim()) throw new Error();
+        url = new URL(selected, page);
         if (!['http:', 'https:'].includes(url.protocol) || url.origin !== page.origin || url.username || url.password) throw new Error();
       } catch {
         onMessage({ type: 'error', requestId: ++sequence, code: 'LOAD_FAILED', message: 'Snapshot URL must be same-origin HTTP or HTTPS.' }); return;
@@ -38,6 +41,7 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
         worker.onmessage = event => {
           if (!disposed && event.data?.requestId === currentRequest) {
             if (event.data.type === 'ready') ready = true;
+            if (event.data.type === 'error') { ready = false; disposed = true; worker.terminate(); }
             onMessage(event.data);
           }
         };

@@ -62,3 +62,14 @@ User-reported build 5253 / Jython 2.7.2 diagnostics and the register screenshot 
 Retain the compact timeline contract. The successful seven-case preflight (155 comparisons, Jython 2.7.2/build 5253) supports source-side integer opening-plus-entry calculations and USD descendant aggregation. Browser-only reconstruction is insufficient because excluded accounts retain metadata but not their own entries; exporting those rows would enlarge scope and payload. Source calculations therefore fold all supported descendant effects into a baseline plus later changes, while the browser independently reconciles own balances from included history. No general historical valuation engine is added. Non-USD descendants affecting an included total must fail explicitly until trustworthy valuation is available. Registers/API values, not the observed desktop sidebar zeros for hidden accounts, are the reference for required hidden contributions. Nonempty split descriptions retain account-side text; empty ones fall back to parent text, as verified. No contract or fixture shape changes are needed.
 
 Real-book refinement: financial validation is scoped to included accounts and their contribution-bearing descendants. Unrelated excluded investment/security subtrees retain metadata without quantity/balance reconciliation. Traversal still visits all descendants, so an active supported account beneath an excluded ancestor remains included. A security contributing to an included parent's total remains a valuation blocker; no USD amounts are fabricated.
+
+## Phase 6 Handlebars pin
+
+The existing browser bundle is pinned to 4.7.9 on jsDelivr instead of `@latest`.
+The [official 4.7.9 release](https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.7.9)
+lists security fixes and the project's [security policy](https://github.com/handlebars-lang/handlebars.js/security)
+supports the 4.7 series. This preserves the established template engine; it adds no
+npm packages or transitive installation footprint. The exact browser bundle was
+fetched and its recursive/account and register templates tested with escaped
+synthetic text. Full browser acceptance remains in T032. Remote fonts/icons and
+the existing CDN delivery arrangement are otherwise unchanged by this pin.

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "exportDate": "2026-09-06T23:00:00Z",
+  "sourceVersion": "2024.4",
+  "accounts": {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "name": "Root",
+    "type": "ROOT",
+    "currency": "USD",
+    "inactive": false,
+    "included": false,
+    "openingBalanceCents": null,
+    "closingBalanceCents": null,
+    "balanceTimeline": null,
+    "children": []
+  },
+  "entries": [],
+  "balanceStartDate": "2026-09-05"
+}

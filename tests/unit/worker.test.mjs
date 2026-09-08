@@ -81,3 +81,41 @@ test('worker suppresses superseded searches while retaining a single download', 
   assert.equal(messages.at(-1).totalMatches,2);
   assert.equal(fetches,1);
 });
+
+test('loader rejects every invalid timestamp with a safe timestamp error', async () => {
+  for (const stamp of [undefined, null, 7, 'malformed', '2026-02-30T00:00:00Z']) {
+    const data=JSON.parse(fixture); data.exportDate=stamp;
+    const messages=[];
+    const handler=createSnapshotHandler({baseUrl:load.url,postMessage:m=>messages.push(m),fetchSnapshot:async()=>({ok:true,text:async()=>JSON.stringify(data)})});
+    await handler(load);
+    assert.equal(messages.length,1);assert.equal(messages[0].code,'INVALID_SNAPSHOT');
+    assert.match(messages[0].message,/export timestamp/);
+    assert.equal('entity' in messages[0],false);
+  }
+});
+test('client makes worker failures terminal and does not forward stale messages', () => {
+  for (const failure of ['error','messageerror','send','construct']) {
+    const seen=[]; let terminated=0;
+    const worker={postMessage(){if(failure==='send')throw new Error('private diagnostic');},terminate(){terminated++;}};
+    const client=createSnapshotClient({pageUrl:'http://localhost/',onMessage:m=>seen.push(m),workerFactory:()=>{if(failure==='construct')throw new Error('private diagnostic');return worker;}});
+    client.load();
+    if(failure==='error')worker.onerror({preventDefault(){}});
+    if(failure==='messageerror')worker.onmessageerror();
+    assert.equal(seen.length,1);assert.equal(seen[0].code,'WORKER_FAILED');
+    assert.equal(JSON.stringify(seen).includes('private diagnostic'),false);
+    worker.onmessage?.({data:{type:'ready',requestId:1}});
+    assert.equal(seen.length,1);
+    assert.throws(()=>client.query());assert.throws(()=>client.load());
+    if(failure!=='construct')assert.equal(terminated,1);
+  }
+});
+test('empty and unknown-version snapshots have distinct loader results', async () => {
+  const data=JSON.parse(fixture); data.entries=[];data.accounts.children=[];
+  for(const version of [1,2]) {
+    data.schemaVersion=version;const messages=[];
+    const handler=createSnapshotHandler({baseUrl:load.url,postMessage:m=>messages.push(m),fetchSnapshot:async()=>({ok:true,text:async()=>JSON.stringify(data)})});
+    await handler(load);
+    if(version===1){assert.equal(messages[0].type,'ready');assert.equal(messages[0].totalCount,0);}
+    else assert.equal(messages[0].code,'UNSUPPORTED_VERSION');
+  }
+});

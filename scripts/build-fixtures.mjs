@@ -57,3 +57,8 @@ registerAccount.closingBalanceCents = 32845;
 registerAccount.balanceTimeline.points.push({ date: '2099-01-01', ownBalanceCents: 32745, sidebarBalanceCents: 32745 },
   { date: '2099-01-02', ownBalanceCents: 32845, sidebarBalanceCents: 32845 });
 await save('tests/fixtures/register-pages-v1.json', register);
+
+const empty = copy(); empty.accounts.children = []; empty.entries = [];
+await save('tests/fixtures/empty-snapshot-v1.json', empty);
+const unknownVersion = copy(); unknownVersion.schemaVersion = 2;
+await save('tests/fixtures/unsupported-version.json', unknownVersion);
