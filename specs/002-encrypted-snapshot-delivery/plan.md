@@ -3,7 +3,7 @@
 **Branch**: `feature-moneydance-extension-and-encryption` (actual Git branch; setup-plan reports the feature-directory identifier separately)  
 **Date**: 2026-09-08 | **Spec**: [spec.md](spec.md)  
 **Input**: `specs/002-encrypted-snapshot-delivery/spec.md`  
-**Status**: Draft — G3 design resolved by user approval of plain status text plus an Extensions-menu action; installation and shutdown acceptance remain pending. Phase 1 data-model.md, contracts and quickstart.md have not been generated. This is a draft plan, not an implementation-ready gate pass.
+**Status**: Design complete for task generation. Data model, contracts, quickstart and tasks are available. Installation, full-book shutdown bounds and end-to-end validation are implementation/release gates, not completed acceptance claims.
 
 ## Summary
 
@@ -36,13 +36,13 @@ Pre-research: no scope exception. Part 2 explicitly advances previously deferred
 | V Evidence              | Installation/lifecycle gates precede delivery acceptance; actual phone, cloud and source results recorded separately from fixtures.                                                                            |
 | VI Dependencies         | Platform facilities and existing engine only. DPAPI bridge replaces an additional native binding dependency. Official DevKit build tools are isolated development tooling, not a new production library chain. |
 
-Post-research: no justified violation is needed. **G1/G2 remain acceptance obligations; G3 has an approved design with runtime verification pending.** All later work depends on the relevant gate. No full end-to-end acceptance can be asserted from API documentation or standalone JVM reflection.
+Post-research: no justified violation is needed. **G1/G2 remain acceptance obligations; G3 has an approved design with runtime verification pending.** Dependent release requires the relevant checks; implementing the testable pieces is authorized by the task sequence. No full end-to-end acceptance can be asserted from API documentation or standalone JVM reflection.
 
 ## Project Structure
 
 ### Documentation
 
-Created: plan.md and research.md. Not yet generated: data-model.md, contracts/interfaces.md, contracts/encrypted-snapshot.md and quickstart.md. tasks.md belongs to a later speckit-tasks run.
+Created: plan.md, research.md, data-model.md, contracts/interfaces.md, contracts/encrypted-snapshot.md, quickstart.md and tasks.md.
 
 ### Planned source touch-points
 
@@ -80,13 +80,13 @@ Paths are intended deliverables, not claims that they already exist. Package the
 3. **G3 — Expiry warning and settings action (design approved)**: use plain status text directing the user to Extensions > Snapshot Settings. Register that menu action to open Azure configuration and renewal instructions. No clickable status text or internal component listeners are required. Verify warning timing, menu navigation, expired-secret behavior and coexistence with normal Moneydance progress in the installed extension.
 4. Protected configuration and platform crypto vectors, including Unicode passwords and JVM-to-WebCrypto interoperability. Validate DPAPI helper and installation resource access. Require genuine secret storage before unattended delivery.
 5. Manual pipeline and synthetic Azure upload. Prefer narrow 23-month blob SAS over a broad account key; actual account policy must allow it. No account key is embedded in the extension. Establish blob destination, HTTPS same-origin website path and cache bypass before real-data upload.
-6. Normal-exit pipeline only after G1/G2/G3. Join/serialize existing work; if a prior manual capture predates final state, it cannot count as the exit export. Never queue an older publication after a newer one. Persist bounded, sanitized status for next launch.
+6. Implement and validate the normal-exit pipeline after the persistent/manual foundations; release requires G1/G2/G3 evidence. Join/serialize existing work; if a prior manual capture predates final state, it cannot count as the exit export. Never queue an older publication after a newer one. Persist bounded, sanitized status for next launch.
 7. Viewer unlock state, fixed binary envelope, password-manager-compatible form, recoverable wrong-password attempts, plaintext test mode, prior lifecycle fix and all Part 1 regressions.
 8. Actual source/cloud/device evidence and combined timing. No failure waived by fixture success.
 
 ## Key Design Decisions and Risks
 
-- Use AES-256-GCM and PBKDF2-HMAC-SHA256 with a fixed envelope version; the proposed parameters are in research.md; the byte-level contract is deferred. Native provider support must be tested in the installed JVM. Do not trade away authentication or KDF strength to meet time goals.
+- Use AES-256-GCM and PBKDF2-HMAC-SHA256 with a fixed envelope version; the fixed parameters and byte layout are defined in contracts/encrypted-snapshot.md. Native provider support must be tested in the installed JVM. Do not trade away authentication or KDF strength to meet time goals.
 - Store desktop encryption password and SAS together under DPAPI CurrentUser; account/book identifier is nonsecret routing metadata. Secrets travel to the helper through pipes, never command-line arguments or generated command text. Do not start a visible helper window.
 - Use one blob-scoped HTTPS service SAS with write permission, 23-calendar-month issuance lifetime, where the account policy permits. Non-expiring account keys have a broader privilege footprint; managed identity is not assumed on an ordinary desktop. If policy cannot satisfy lifetime, stop for a decision rather than shortening it.
 - One completed ciphertext PUT publishes atomically to readers. HTTP 201 means acknowledged success. A connection lost after sending can have unknown outcome; show that explicitly and do not blindly retry an old payload. No explicit remote version history is required.
@@ -99,3 +99,8 @@ Paths are intended deliverables, not claims that they already exist. Package the
 ## Requirement Coverage
 
 FR-001/012 → G1 and official packaging; FR-002 → shared exporter/source references; FR-003/009/010 → protected configuration, lifetime and G3; FR-004–008/011 → serialized pipeline/G2/publication status; FR-013–017/019 → planned worker unlock/form/test-mode contracts; FR-018 and SC-001–008 → planned acceptance matrix. The approved warning/menu design replaces clickable status; installation and shutdown requirements remain unchanged.
+
+
+## Post-design constitution review
+
+All six principles remain satisfied by design: unchanged financial contract, Jython 2.7, protected secrets and synthetic evidence, no framework or periodic export, explicit actual-runtime/device checks, and native dependencies. Detailed wire/session contracts add no dataset version tracking. A 128 MiB safety ceiling fails visibly rather than trimming history and requires review if source growth exceeds it. No new principle exception. All production acceptance tasks remain unchecked.

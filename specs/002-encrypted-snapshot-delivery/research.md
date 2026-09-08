@@ -1,7 +1,7 @@
 # Part 2 Research
 
 **Date**: 2026-09-08  
-**Status**: User approved capture on book close and plain expiry status text directing to an Extensions-menu settings action. Early exit detection and clickable-status API discovery are no longer design blockers. Persistent installation, full-book shutdown deadlines and end-to-end acceptance remain unverified. Phase 1 artifacts have not yet been generated. Earlier probe entries below are historical evidence; the latest accepted decisions supersede their blockers.
+**Status**: User approved capture on book close and plain expiry status text directing to an Extensions-menu settings action. Early exit detection and clickable-status API discovery are no longer design blockers. Persistent installation, full-book shutdown deadlines and end-to-end acceptance remain unverified. Phase 1 artifacts and tasks are now generated; the remaining checks are assigned to implementation and release acceptance. Earlier probe entries below are historical evidence; the latest accepted decisions supersede their blockers.
 
 ## Persistent Jython extension and genuine signing
 
@@ -13,9 +13,9 @@
 
 **Evidence**: [Official Python extension guide](https://test.infinitekind.com/developer-python), [developer resources](https://test.infinitekind.com/developer). No keys, certificates or signed package were generated in this planning run.
 
-## Shutdown lifecycle — unresolved gate G2
+## Shutdown lifecycle — chosen design, G2 runtime acceptance pending
 
-**Decision**: Do not select an unproven event as a guaranteed final-state publication hook. Probe normal exit, canceled exit, save and book-close ordering in the actual installed runtime before implementing automatic publication.
+**Decision**: Use one configured-book capture at postsave following closing, then publish detached data at app:exiting. This follows actual synthetic capture evidence and the user-approved book-switch cost. Ordinary saves do not capture. Final-state comparisons, persistent installation and full-book bounded completion remain acceptance tasks.
 
 **Rationale**: Vendor resources list save and application-exit notifications, but do not establish the ordering and completion guarantees needed by FR-005. An event name alone cannot establish that a final saved book is available or that a background upload can finish before termination. The existing exporter uses EDT capture; blocking the EDT while waiting for work that needs it risks deadlock.
 
@@ -35,7 +35,7 @@
 
 ## Native crypto and interoperable envelope
 
-**Decision**: Candidate AES-256-GCM with 128-bit tag, unique random 96-bit IV and fresh 128-bit salt per export; PBKDF2-HMAC-SHA256 at 600,000 iterations. Use Java JCA and browser Web Crypto rather than adding a crypto package. Version the binary envelope and authenticate header parameters. Keep inner snapshot v1 unchanged. Freeze exact bytes/password encoding in Phase 1 only after compatibility gates close.
+**Decision**: Candidate AES-256-GCM with 128-bit tag, unique random 96-bit IV and fresh 128-bit salt per export; PBKDF2-HMAC-SHA256 at 600,000 iterations. Use Java JCA and browser Web Crypto rather than adding a crypto package. Version the binary envelope and authenticate header parameters. Keep inner snapshot v1 unchanged. Exact bytes and password encoding are now specified in contracts/encrypted-snapshot.md; bundled-runtime interoperability remains a required implementation test.
 
 **Rationale**: Authenticated encryption rejects modified data. Native APIs exist on both sides. OWASP's PBKDF2 work factor is a conservative design baseline, not proof that Pixel timing or a particular password is adequate. Require non-ASCII, combining-character and supplementary-character interoperability vectors before accepting password encoding.
 
@@ -269,3 +269,10 @@ that opens Azure configuration and renewal instructions. That would change the
 confirmed clickable-status acceptance criterion and therefore requires a user
 decision; it has not been adopted or implemented. Another identical read-only
 component scan would not resolve that product decision.
+
+
+## Design completion and implementation handoff
+
+User decisions resolve the two original API-design blockers. Prior unresolved-gate statements in probe history describe the evidence at that time. No runtime acceptance is waived: tasks.md assigns installation, final-state comparisons, deadline enforcement, Azure policy, DPAPI, cryptographic interoperability and actual device testing. Phase 0 design choices are resolved; the runtime checks must pass before release.
+
+A separate design review recommended a fixed 37-byte authenticated header, native PBKDF2/AES-GCM, exact UTF-8 passwords with lone-surrogate rejection, and a mirrored 128 MiB plaintext safety ceiling. These are recorded in the envelope contract. The ceiling is an explicit resource guard, not history truncation or a claim of device capacity. Alternatives rejected: attacker-selected KDF parameters, JSON/base64 inflation and silent Unicode normalization. See the Web Crypto specification linked in the contract; historical provider behavior is not accepted as proof of current JCA interoperability.
