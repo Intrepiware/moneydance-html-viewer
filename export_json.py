@@ -312,10 +312,11 @@ def main():
     print('EXPORT_OK: schemaVersion=1 entries=%d' % len(snapshot['entries']))
 
 
-try:
-    main()
-except ExportError as error:
-    print('EXPORT_FAILED: ' + str(error))
-except (Exception, JavaException):
-    # Do not log exception messages containing private record contents or paths.
-    print('EXPORT_FAILED: RUNTIME_OR_IO_ERROR (last valid export retained)')
+if not globals().get('_EXPORT_LIBRARY_ONLY', False):
+    try:
+        main()
+    except ExportError as error:
+        print('EXPORT_FAILED: ' + str(error))
+    except (Exception, JavaException):
+        # Do not log exception messages containing private record contents or paths.
+        print('EXPORT_FAILED: RUNTIME_OR_IO_ERROR (last valid export retained)')
