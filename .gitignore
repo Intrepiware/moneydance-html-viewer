@@ -1,0 +1,23 @@
+/.agents/skills/speckit-*/
+
+# Exclude all data files except moneydance-export-schema.json and test-snapshot.json
+/UI/data/*
+!/UI/data/moneydance-export-schema.json
+!/UI/data/test-snapshot.json
+
+
+# Local tooling outputs and private preflight references
+# /UI/data/preflight-reference.private.json
+node_modules/
+coverage/
+dist/
+build/
+*.log
+.env*
+__pycache__/
+*.pyc
+*.class
+.venv/
+*.tmp
+.DS_Store
+Thumbs.db

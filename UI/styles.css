@@ -227,6 +227,23 @@ body {
     visibility: hidden;
 }
 
+#as-of-date {
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
+    .account-header { min-height: 44px; }
+    .account-toggle {
+        flex: 0 0 44px;
+        width: 44px;
+        height: 44px;
+        margin: -8px -4px -8px -12px;
+        display: grid;
+        place-items: center;
+        touch-action: manipulation;
+    }
+}
+
 .account-icon {
     margin-right: 10px;
     color: var(--text-muted);
@@ -325,7 +342,7 @@ body {
 
 #search-input {
     width: 100%;
-    padding: 10px 15px 10px 35px;
+    padding: 10px 40px 10px 35px;
     border-radius: 20px;
     border: 1px solid var(--border-color);
     background-color: var(--search-bg);
@@ -346,10 +363,33 @@ body {
 .content-body {
     flex: 1;
     overflow: auto;
-    padding: 30px;
+    padding: 0 30px 30px;
     display: flex;
     flex-direction: column;
     gap: 30px;
+}
+
+#clear-search {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+#clear-search:hover { background: var(--icon-hover); color: var(--text-main); }
+#clear-search:focus-visible { outline: 2px solid var(--primary); }
+
+/* Initial spacing scrolls away instead of leaving a gap above sticky headers. */
+.content-body::before {
+    content: '';
+    flex: 0 0 0;
 }
 
 .summary-cards {
@@ -387,6 +427,9 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0;
+    background: var(--bg-surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 .table-header {
@@ -526,7 +569,32 @@ tbody tr:hover {
 
 .desktop-date { display: inline; }
 .mobile-date { display: none; }
-.year-divider { display: none; }
+.year-divider { display: table-row; }
+
+#transactions-table thead th {
+    background: var(--bg-surface);
+    z-index: 11;
+}
+
+#transactions-table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.sticky-year {
+    position: sticky;
+    top: var(--register-header-height, 0px);
+    background: var(--bg-surface);
+    color: var(--primary);
+    font-weight: 700;
+    text-align: center;
+    padding: 8px 15px;
+    z-index: 10;
+    border-top: 2px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 
 /* Utilities */
 .icon-btn {
@@ -605,6 +673,7 @@ tbody tr:hover {
         gap: 0;
         display: block;
     }
+    .content-body::before { display: none; }
 
     .mobile-balance-bar {
         display: flex;
@@ -638,24 +707,7 @@ tbody tr:hover {
         display: inline-block !important;
     }
 
-    .year-divider {
-        display: table-row;
-    }
-    
-    .sticky-year {
-        position: sticky;
-        top: 45px;
-        background: var(--bg-surface);
-        color: var(--primary);
-        font-weight: 700;
-        text-align: center;
-        padding: 8px 15px;
-        z-index: 10;
-        border-top: 2px solid var(--border-color);
-        border-bottom: 2px solid var(--border-color);
-        font-size: 0.9rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+
 
     .date-col {
         width: 60px;
@@ -669,3 +721,111 @@ tbody tr:hover {
         padding: 12px 10px;
     }
 }
+
+/* Balance-only milestone: hide summaries until a real account is selected. */
+[hidden] { display: none !important; }
+#test-data-indicator { color: var(--text-main); font-weight: 600; }
+#load-status, .balance-preview-note { padding: 1rem; color: var(--text-main); }
+#test-data-link { display: inline-block; margin: 0 1rem 1rem; color: var(--text-main); text-decoration: underline; }
+
+#load-status.is-loading {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+    background: var(--account-active);
+    border: 1px solid var(--primary);
+    border-left-width: 4px;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+#load-status.is-loading::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 1.4rem;
+    height: 1.4rem;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--primary);
+    border-right-color: var(--primary);
+    border-radius: 50%;
+    animation: loading-spin 0.85s linear infinite;
+}
+
+@keyframes loading-spin { to { transform: rotate(360deg); } }
+
+#load-status.is-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+    background: #450a0a;
+    color: #fecaca;
+    border: 1px solid #f87171;
+    border-left-width: 4px;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+body.light-mode #load-status.is-error {
+    background: #fef2f2;
+    color: #991b1b;
+    border-color: #dc2626;
+}
+
+#load-status.is-error::before {
+    content: '!';
+    flex: 0 0 auto;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0.1rem;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.25rem;
+    font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #load-status.is-loading::before { animation: none; }
+}
+
+/* Register details remain readable without a split dialog. */
+#register-status { padding: 1rem; color: var(--text-muted); }
+#transactions-body .desc-extra { flex-wrap: wrap; overflow: visible; }
+#transactions-body .memo-text { white-space: normal; overflow-wrap: anywhere; }
+#transactions-body .transaction-account { white-space: normal; overflow-wrap: anywhere; }
+.mobile-running-balance { display: none; }
+#transactions-body tr.future-entry { background-color: rgba(250, 204, 21, 0.10); }
+body.light-mode #transactions-body tr.future-entry { background-color: #fffde8; }
+@media (max-width: 768px) {
+    #transactions-table .amount-col { width: 105px; }
+    .mobile-running-balance {
+        display: block;
+        white-space: normal;
+        font-size: 0.7rem;
+        font-weight: 400;
+        line-height: 1.3;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+    }
+}
+
+#future-summary {
+    display: block;
+    width: 100%;
+    padding: 7px 15px;
+    border: 0;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(250, 204, 21, 0.10);
+    color: var(--text-main);
+    font: inherit;
+    font-size: 0.85rem;
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
+}
+body.light-mode #future-summary { background: #fffde8; }
+#future-summary:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }

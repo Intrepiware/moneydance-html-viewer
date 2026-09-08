@@ -1,355 +1,266 @@
-const retrieveData = async () => {
-  try {
-    const response = await fetch("./data.json");
+import { createSnapshotClient } from './src/worker-client.mjs';
+import { formatUsd } from './src/money.mjs';
+import { formatExportDate, transactionDateParts } from './src/format.mjs';
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+const getAccountIcon = type => ({ BANK: 'fa-building-columns', CREDIT_CARD: 'fa-credit-card',
+  LOAN: 'fa-hand-holding-dollar', ASSET: 'fa-sack-dollar', LIABILITY: 'fa-file-invoice-dollar' }[type] || 'fa-wallet');
 
-    return await response.json();
-  } catch (error) {
-    console.error("Failed to load mock data:", error);
-    throw error;
-  }
-};
-
-const formatCurrency = (amount) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount);
-};
-
-const getAccountIcon = (type) => {
-  switch (type) {
-    case "BANK":
-      return "fa-building-columns";
-    case "CREDIT_CARD":
-      return "fa-credit-card";
-    case "LOAN":
-      return "fa-hand-holding-dollar";
-    case "ASSET":
-      return "fa-sack-dollar";
-    case "LIABILITY":
-      return "fa-file-invoice-dollar";
-    default:
-      return "fa-wallet";
-  }
-};
-
-const calculateTotalBalance = (node) => {
-  if (node.balance !== undefined) return node.balance;
-  if (!node.children || node.children.length === 0) return 0;
-  return node.children.reduce(
-    (sum, child) => sum + calculateTotalBalance(child),
-    0
-  );
-};
-
-class App {
-  constructor(data) {
-    this.data = data;
-    this.currentAccount = null;
-    this.allTransactions = [];
-    this.searchQuery = "";
-    this.currentPage = 1;
-    this.itemsPerPage = 100;
-
-    this.init();
-  }
-
-  static async create() {
-    const data = await retrieveData();
-    return new App(data);
-  }
-
-  init() {
-    this.cacheDOM();
-    this.bindEvents();
-
-    if (localStorage.getItem("theme") === "light") {
-      this.toggleTheme(true);
-    }
-
-    this.extractAllTransactions();
-    this.renderAccountTree();
-    this.selectAccount(this.data); // Select root by default
-  }
-
-  cacheDOM() {
-    this.accountTreeEl = document.getElementById("account-tree");
-    this.transactionsBodyEl = document.getElementById("transactions-body");
-    this.currentAccountNameEl = document.getElementById("current-account-name");
-    this.totalBalanceEl = document.getElementById("total-balance");
-    this.mobileTotalBalanceEl = document.getElementById("mobile-total-balance");
-    this.totalTransactionsEl = document.getElementById("total-transactions");
-    this.searchInputEl = document.getElementById("search-input");
-    this.noResultsEl = document.getElementById("no-results");
-    this.transactionsTableEl = document.getElementById("transactions-table");
-
-    this.paginationControlsEl = document.getElementById("pagination-controls");
-    this.prevPageBtn = document.getElementById("prev-page");
-    this.nextPageBtn = document.getElementById("next-page");
-    this.pageInfoEl = document.getElementById("page-info");
-
-    // Mobile sidebar
-    this.sidebarEl = document.getElementById("sidebar");
-    this.overlayEl = document.getElementById("sidebar-overlay");
-    this.openSidebarBtn = document.getElementById("open-sidebar");
-    this.closeSidebarBtn = document.getElementById("close-sidebar");
-
-    this.themeToggleBtn = document.getElementById("theme-toggle");
-    
-    // Register Handlebars helpers and partials
-    Handlebars.registerHelper('getAccountIcon', getAccountIcon);
-    Handlebars.registerHelper('formatCurrency', formatCurrency);
-    Handlebars.registerHelper('isPositive', (amount) => amount > 0);
-    Handlebars.registerHelper('isNegative', (amount) => amount < 0);
-    Handlebars.registerHelper('getTotalBalance', calculateTotalBalance);
-    
-    Handlebars.registerPartial('accountNode', document.getElementById('account-node-partial').innerHTML);
-    
-    this.accountTreeTemplate = Handlebars.compile(document.getElementById('account-tree-template').innerHTML);
-    this.transactionsTemplate = Handlebars.compile(document.getElementById('transactions-template').innerHTML);
-  }
-
-  bindEvents() {
-    this.searchInputEl.addEventListener("input", (e) => {
-      this.searchQuery = e.target.value.toLowerCase();
-      this.currentPage = 1;
-      this.renderTransactions();
+export class App {
+  constructor({ document = globalThis.document, handlebars = globalThis.Handlebars,
+    pageUrl = globalThis.location.href, config = globalThis.MONEYDANCE_CONFIG, workerFactory } = {}) {
+    this.document = document;
+    this.window = document.defaultView;
+    this.pageUrl = pageUrl;
+    this.handles = new this.window.AbortController();
+    this.nodes = new Map();
+    this.el = Object.fromEntries(['account-tree', 'current-account-name', 'total-balance',
+      'mobile-total-balance', 'balance-card', 'mobile-balance-bar', 'total-transactions',
+      'search-input', 'clear-search', 'load-status', 'as-of-date', 'test-data-link', 'test-data-indicator', 'sidebar',
+      'sidebar-overlay', 'theme-toggle'].map(id => [id, document.getElementById(id)]));
+    handlebars.registerHelper('getAccountIcon', getAccountIcon);
+    handlebars.registerHelper('formatCurrency', formatUsd);
+    handlebars.registerHelper('isPositive', amount => amount > 0);
+    handlebars.registerHelper('isNegative', amount => amount < 0);
+    handlebars.registerPartial('accountNode', document.getElementById('account-node-partial').innerHTML);
+    this.treeTemplate = handlebars.compile(document.getElementById('account-tree-template').innerHTML);
+    this.transactionsTemplate = handlebars.compile(document.getElementById('transactions-template').innerHTML);
+    for (const id of ['transactions-body', 'transactions-table', 'no-results', 'pagination-controls', 'prev-page', 'next-page', 'page-info', 'register-status', 'future-summary'])
+      this.el[id] = document.getElementById(id);
+    this.page = 1;
+    this.searchText = '';
+    this.mobileLayout = this.window.matchMedia('(max-width: 768px)');
+    this.mobileLayout.addEventListener('change', () => this.updateYearColumns(), { signal: this.handles.signal });
+    this.headerObserver = new this.window.ResizeObserver(([entry]) => {
+      this.el['transactions-table'].style.setProperty('--register-header-height', `${entry.target.getBoundingClientRect().height}px`);
     });
-
-    this.openSidebarBtn.addEventListener("click", () =>
-      this.toggleSidebar(true),
-    );
-    this.closeSidebarBtn.addEventListener("click", () =>
-      this.toggleSidebar(false),
-    );
-    this.overlayEl.addEventListener("click", () => this.toggleSidebar(false));
-
-    this.themeToggleBtn.addEventListener("click", () => this.toggleTheme());
-
-    this.prevPageBtn.addEventListener("click", () => {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-        this.renderTransactions();
-        this.scrollToTop();
-      }
-    });
-
-    this.nextPageBtn.addEventListener("click", () => {
-      this.currentPage++;
-      this.renderTransactions();
-      this.scrollToTop();
-    });
-    
-    // Account tree event delegation
-    this.accountTreeEl.addEventListener('click', (e) => {
-      const header = e.target.closest('.account-header');
+    this.headerObserver.observe(this.el['transactions-table'].querySelector('thead'));
+    this.client = createSnapshotClient({ pageUrl, config, workerFactory, onMessage: message => this.receive(message) });
+    const listen = (element, action) => element.addEventListener('click', action, { signal: this.handles.signal });
+    listen(this.el['account-tree'], event => {
+      const header = event.target.closest('.account-header');
       if (!header) return;
-      
-      const toggle = header.querySelector('.account-toggle');
-      const subContainer = header.nextElementSibling;
-      const hasChildren = subContainer && subContainer.classList.contains('sub-accounts');
-      
-      if (hasChildren && (e.target.closest('.account-toggle') || e.target.classList.contains('account-toggle'))) {
-        toggle.classList.toggle('open');
-        subContainer.classList.toggle('open');
-        e.stopPropagation();
+      if (event.target.closest('.account-toggle') && header.nextElementSibling) {
+        header.querySelector('.account-toggle').classList.toggle('open');
+        header.nextElementSibling.classList.toggle('open');
         return;
       }
-      
-      const id = header.dataset.id;
-      const node = this.findNodeById(this.data, id);
-      if (node) this.selectAccount(node, header);
+      const node = this.nodes.get(header.dataset.id);
+      if (node) this.selectAccount(node);
     });
+    listen(document.getElementById('open-sidebar'), () => this.toggleSidebar(true));
+    listen(document.getElementById('close-sidebar'), () => this.toggleSidebar(false));
+    listen(this.el['sidebar-overlay'], () => this.toggleSidebar(false));
+    listen(this.el['theme-toggle'], () => this.toggleTheme());
+    listen(this.el['prev-page'], () => this.requestPage(this.page - 1));
+    listen(this.el['next-page'], () => this.requestPage(this.page + 1));
+    listen(this.el['future-summary'], () => { this.includeFuture = true; this.requestPage(1); });
+    listen(this.el['clear-search'], () => {
+      if (this.el['search-input'].disabled) return;
+      this.el['search-input'].value = '';
+      this.el['search-input'].dispatchEvent(new this.window.Event('input', { bubbles: true }));
+      this.el['search-input'].focus();
+    });
+    this.document.addEventListener('keydown', event => {
+      if (this.mobileLayout.matches || this.el['search-input'].disabled || event.isComposing) return;
+      if ((event.ctrlKey || event.metaKey) && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'f') {
+        event.preventDefault();
+        this.el['search-input'].focus();
+        this.el['search-input'].select();
+      }
+    }, { signal: this.handles.signal });
+    this.el['search-input'].addEventListener('input', () => {
+      this.searchText = this.el['search-input'].value;
+      this.el['clear-search'].hidden = !this.searchText;
+      this.client.invalidatePending();
+      this.window.clearTimeout(this.searchTimer);
+      this.clearRegister();
+      this.el['total-transactions'].textContent = '—';
+      this.el['register-status'].textContent = 'Searching transactions…';
+      this.el['register-status'].hidden = false;
+      this.searchTimer = this.window.setTimeout(() => this.requestPage(1), 100);
+    }, { signal: this.handles.signal });
+    try { this.toggleTheme(this.window.localStorage.getItem('theme') !== 'dark'); } catch { /* theme storage is optional */ }
   }
 
-  scrollToTop() {
-    const contentBody = document.querySelector(".content-body");
-    if (contentBody) contentBody.scrollTop = 0;
+  start() {
+    this.document.getElementById('app').dataset.state = 'loading';
+    this.el['as-of-date'].hidden = true;
+    this.el['as-of-date'].textContent = '';
+    this.el['search-input'].disabled = true;
+    this.el['account-tree'].replaceChildren();
+    this.nodes.clear();
+    this.el['balance-card'].hidden = true;
+    this.el['mobile-balance-bar'].hidden = true;
+    this.el['test-data-link'].hidden = true;
+    this.el['test-data-indicator'].hidden = !this.client.testMode;
+    this.el['load-status'].textContent = 'Loading accounts…';
+    this.el['load-status'].classList.add('is-loading');
+    this.el['load-status'].classList.remove('is-error');
+    this.el['load-status'].setAttribute('role', 'status');
+    this.el['load-status'].hidden = false;
+    this.el['total-transactions'].textContent = '—';
+    this.clearRegister();
+    return new Promise(resolve => { this.resolveLoad = resolve; this.client.load(); });
   }
 
-  toggleTheme(forceLight = null) {
-    if (forceLight !== null) {
-      document.body.classList.toggle("light-mode", forceLight);
-    } else {
-      document.body.classList.toggle("light-mode");
+  receive(message) {
+    if (message.type === 'ready') {
+      this.snapshotEmpty = message.totalCount === 0;
+      this.document.getElementById('app').dataset.state = this.snapshotEmpty ? 'empty' : 'ready';
+      this.el['as-of-date'].textContent = formatExportDate(message.metadata.exportDate);
+      this.el['as-of-date'].hidden = false;
+      this.el['search-input'].disabled = false;
+      this.metadata = message.metadata;
+      const root = { id: '', name: 'All Accounts', type: 'ROOT', isAll: true, isOpen: true, children: message.accounts };
+      const index = node => { this.nodes.set(node.id, node); node.children.forEach(index); };
+      index(root);
+      this.el['account-tree'].innerHTML = this.treeTemplate(root);
+      this.el['total-transactions'].textContent = String(message.totalCount);
+      this.el['load-status'].hidden = !this.snapshotEmpty;
+      this.el['load-status'].textContent = this.snapshotEmpty ? 'Snapshot loaded. No transactions in this export.' : '';
+      this.el['load-status'].classList.remove('is-loading');
+      this.selectAccount(root);
+    } else if (message.type === 'page') {
+      this.renderPage(message);
+    } else if (message.type === 'error') {
+      this.document.getElementById('app').dataset.state = 'error';
+      this.el['as-of-date'].hidden = true;
+      this.el['as-of-date'].textContent = '';
+      this.metadata = null;
+      this.currentAccount = null;
+      this.el['current-account-name'].textContent = 'Unable to load snapshot';
+      this.client.dispose();
+      this.window.clearTimeout(this.searchTimer);
+      this.el['search-input'].disabled = true;
+      this.el['clear-search'].hidden = true;
+      this.clearRegister();
+      this.nodes.clear();
+      this.el['account-tree'].replaceChildren();
+      this.el['balance-card'].hidden = true;
+      this.el['mobile-balance-bar'].hidden = true;
+      this.el['total-transactions'].textContent = '—';
+      this.el['load-status'].hidden = false;
+      this.el['load-status'].classList.remove('is-loading');
+      this.el['load-status'].classList.add('is-error');
+      this.el['load-status'].setAttribute('role', 'alert');
+      this.el['load-status'].textContent = `${message.message} Reload the page to retry.`;
+      this.el['test-data-link'].hidden = true;
+      if (!this.client.testMode && message.code === 'LOAD_FAILED' && message.reason === 'NOT_FOUND') {
+        const url = new URL(this.pageUrl);
+        url.searchParams.set('test', 'true');
+        this.el['test-data-link'].href = url.href;
+        this.el['test-data-link'].hidden = false;
+      }
     }
+    this.resolveLoad?.(message);
+    this.resolveLoad = null;
+  }
 
-    const isLight = document.body.classList.contains("light-mode");
-    this.themeToggleBtn.innerHTML = isLight
-      ? '<i class="fa-solid fa-moon"></i>'
-      : '<i class="fa-solid fa-sun"></i>';
-    localStorage.setItem("theme", isLight ? "light" : "dark");
+  selectAccount(node) {
+    this.window.clearTimeout(this.searchTimer);
+    this.includeFuture = false;
+    this.currentAccount = node;
+    for (const header of this.el['account-tree'].querySelectorAll('.account-header'))
+      header.classList.toggle('active', header.dataset.id === node.id);
+    this.el['current-account-name'].textContent = node.name;
+    this.el['balance-card'].hidden = Boolean(node.isAll);
+    this.el['mobile-balance-bar'].hidden = Boolean(node.isAll);
+    for (const id of ['total-balance', 'mobile-total-balance']) {
+      this.el[id].textContent = node.isAll ? '' : formatUsd(node.sidebarBalanceCents);
+      this.el[id].className = `amount ${node.sidebarBalanceCents < 0 ? 'negative' : 'positive'}`;
+    }
+    if (this.window.innerWidth <= 768) this.toggleSidebar(false);
+    this.requestPage(1);
+  }
+
+  clearRegister() {
+    this.el['future-summary'].hidden = true;
+    this.el['transactions-body'].replaceChildren();
+    this.el['transactions-table'].classList.add('hidden');
+    this.el['no-results'].classList.add('hidden');
+    this.el['pagination-controls'].classList.add('hidden');
+    this.el['register-status'].hidden = true;
+    this.el['prev-page'].disabled = true;
+    this.el['next-page'].disabled = true;
+  }
+
+  requestPage(page) {
+    this.clearRegister();
+    this.el['total-transactions'].textContent = '—';
+    this.el['register-status'].textContent = 'Loading transactions…';
+    this.el['register-status'].hidden = false;
+    this.document.querySelector('.content-body').scrollTop = 0;
+    this.client.query({ accountId: this.currentAccount.isAll ? null : this.currentAccount.id, text: this.searchText, page, includeFuture: this.includeFuture });
+  }
+
+  renderPage(message) {
+    this.page = message.page;
+    this.el['register-status'].hidden = true;
+    this.el['total-transactions'].textContent = String(message.totalMatches);
+    const future = message.future;
+    this.el['future-summary'].hidden = this.includeFuture || !future.count;
+    this.el['future-summary'].textContent = `${future.count} Future Transaction${future.count === 1 ? '' : 's'}: ${future.amountCents > 0 ? '+' : ''}${formatUsd(future.amountCents)}`;
+    this.el['no-results'].querySelector('p').textContent = future.count && !this.includeFuture ? 'No current or past matches. Future transactions are available above.' : this.searchText.trim() ? 'No results found.' : 'No transactions found.';
+    let previousYear;
+    const rows = message.rows.map(row => {
+      const {year, month, day} = transactionDateParts(row.date);
+      const showYearDivider = year !== previousYear;
+      previousYear = year;
+      return { ...row, year, month, day, showYearDivider, isFuture: row.date > this.metadata.effectiveDate };
+    });
+    this.el['transactions-body'].innerHTML = this.transactionsTemplate({ paginatedTransactions: rows, isRoot: this.currentAccount.isAll || Boolean(this.searchText.trim()),
+      columnCount: this.mobileLayout.matches ? 3 : 5 });
+    this.el['transactions-table'].classList.toggle('hidden', rows.length === 0);
+    this.el['no-results'].classList.toggle('hidden', rows.length !== 0);
+    const pages = Math.max(1, Math.ceil(message.totalMatches / message.pageSize));
+    this.el['page-info'].textContent = `Page ${message.page} of ${pages}`;
+    this.el['pagination-controls'].classList.toggle('hidden', pages === 1);
+    this.el['prev-page'].disabled = message.page === 1;
+    this.el['next-page'].disabled = message.page === pages;
+  }
+
+  updateYearColumns() {
+    for (const heading of this.el['transactions-body'].querySelectorAll('.sticky-year'))
+      heading.colSpan = this.mobileLayout.matches ? 3 : 5;
   }
 
   toggleSidebar(show) {
-    if (show) {
-      this.sidebarEl.classList.add("open");
-      this.overlayEl.classList.remove("hidden");
-      setTimeout(() => this.overlayEl.classList.add("show"), 10);
-    } else {
-      this.sidebarEl.classList.remove("open");
-      this.overlayEl.classList.remove("show");
-      setTimeout(() => this.overlayEl.classList.add("hidden"), 300);
-    }
+    this.el.sidebar.classList.toggle('open', show);
+    this.el['sidebar-overlay'].classList.toggle('hidden', !show);
+    this.el['sidebar-overlay'].classList.toggle('show', show);
   }
 
-  extractAllTransactions(node = this.data, acc = []) {
-    if (node.transactions) {
-      node.transactions.forEach((t) => {
-        acc.push({ ...t, accountName: node.name });
-      });
-    }
-    if (node.children) {
-      node.children.forEach((child) => this.extractAllTransactions(child, acc));
-    }
-    this.allTransactions = acc.sort(
-      (a, b) => new Date(b.date) - new Date(a.date),
-    );
-    return acc;
+  toggleTheme(light = !this.document.body.classList.contains('light-mode')) {
+    this.document.body.classList.toggle('light-mode', light);
+    this.el['theme-toggle'].innerHTML = light ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+    try { this.window.localStorage.setItem('theme', light ? 'light' : 'dark'); } catch { /* optional preference */ }
   }
 
-  getAccountTransactions(node) {
-    let txs = [];
-    this.extractAllTransactions(node, txs);
-    return txs;
-  }
-
-  calculateTotalBalance(node) {
-    return calculateTotalBalance(node);
-  }
-  
-  findNodeById(node, id) {
-    if (node.id === id) return node;
-    if (node.children) {
-      for (const child of node.children) {
-        const found = this.findNodeById(child, id);
-        if (found) return found;
-      }
-    }
-    return null;
-  }
-
-  renderAccountTree() {
-    this.data.isOpen = true; // Make root open by default
-    this.accountTreeEl.innerHTML = this.accountTreeTemplate(this.data);
-  }
-
-  selectAccount(node, headerEl = null) {
-    this.currentAccount = node;
-
-    // Update active class
-    document
-      .querySelectorAll(".account-header")
-      .forEach((el) => el.classList.remove("active"));
-    if (headerEl) {
-      headerEl.classList.add("active");
-    } else {
-      // Find root header
-      const rootHeader = document.querySelector(
-        `.account-header[data-id="${node.id}"]`,
-      );
-      if (rootHeader) rootHeader.classList.add("active");
-    }
-
-    this.currentAccountNameEl.textContent =
-      node.id === "root" ? "All Accounts" : node.name;
-
-    const balance = this.calculateTotalBalance(node);
-    this.totalBalanceEl.textContent = formatCurrency(balance);
-    this.totalBalanceEl.className = `amount ${balance >= 0 ? "positive" : "negative"}`;
-
-    if (this.mobileTotalBalanceEl) {
-      this.mobileTotalBalanceEl.textContent = formatCurrency(balance);
-      this.mobileTotalBalanceEl.className = `amount ${balance >= 0 ? "positive" : "negative"}`;
-    }
-
-    // Reset search and pagination
-    this.searchInputEl.value = "";
-    this.searchQuery = "";
-    this.currentPage = 1;
-
-    this.renderTransactions();
-
-    // Close sidebar on mobile after selection
-    if (window.innerWidth <= 768) {
-      this.toggleSidebar(false);
-    }
-  }
-
-  renderTransactions() {
-    let transactions =
-      this.currentAccount.id === "root"
-        ? this.allTransactions
-        : this.getAccountTransactions(this.currentAccount);
-
-    if (this.searchQuery) {
-      transactions = transactions.filter(
-        (t) =>
-          (t.description && t.description.toLowerCase().includes(this.searchQuery)) ||
-          (t.category && t.category.toLowerCase().includes(this.searchQuery)) ||
-          (t.accountName && t.accountName.toLowerCase().includes(this.searchQuery)) ||
-          (t.memo && t.memo.toLowerCase().includes(this.searchQuery)) ||
-          (t.checkNumber && t.checkNumber.toLowerCase().includes(this.searchQuery)) ||
-          t.amount.toString().includes(this.searchQuery)
-      );
-    }
-
-    this.totalTransactionsEl.textContent = transactions.length;
-
-    if (transactions.length === 0) {
-      this.transactionsTableEl.classList.add("hidden");
-      this.noResultsEl.classList.remove("hidden");
-      this.paginationControlsEl.classList.add("hidden");
-    } else {
-      this.transactionsTableEl.classList.remove("hidden");
-      this.noResultsEl.classList.add("hidden");
-
-      const totalPages = Math.ceil(transactions.length / this.itemsPerPage);
-      if (this.currentPage > totalPages && totalPages > 0)
-        this.currentPage = totalPages;
-
-      if (totalPages > 1) {
-        this.paginationControlsEl.classList.remove("hidden");
-        this.pageInfoEl.textContent = `Page ${this.currentPage} of ${totalPages}`;
-        this.prevPageBtn.disabled = this.currentPage === 1;
-        this.nextPageBtn.disabled = this.currentPage === totalPages;
-      } else {
-        this.paginationControlsEl.classList.add("hidden");
-      }
-
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const paginatedTransactions = transactions.slice(startIndex, startIndex + this.itemsPerPage);
-
-      let currentYear = null;
-      const processedTransactions = paginatedTransactions.map(t => {
-          const [year, month, day] = t.date.split("-");
-          const showYearDivider = year !== currentYear;
-          if (showYearDivider) currentYear = year;
-          
-          return {
-              ...t,
-              year, month, day,
-              showYearDivider
-          };
-      });
-      
-      this.transactionsBodyEl.innerHTML = this.transactionsTemplate({
-          paginatedTransactions: processedTransactions,
-          isRoot: this.currentAccount.id === "root"
-      });
-    }
-  }
+  dispose() { this.window.clearTimeout(this.searchTimer); this.client.dispose(); this.handles.abort(); this.headerObserver.disconnect(); }
 }
 
-// Initialize App
-document.addEventListener("DOMContentLoaded", async () => {
+// Use the same bootstrap in production and lifecycle regression scenarios.
+export function startViewer(options) {
+  const app = new App(options);
+  app.window.addEventListener('pagehide', event => {
+    // A cached document resumes its existing session, including its worker/date.
+    // Keep this listener through repeated cache visits; dispose only on departure.
+    if (!event.persisted) app.dispose();
+  }, { signal: app.handles.signal });
+  void app.start();
+  return app;
+}
+
+// The harness imports the controller without starting another instance.
+if (document.querySelector('script[type="module"][src="app.js"]')) {
   try {
-    await App.create();
-  } catch (error) {
-    console.error("Failed to initialize application:", error);
+    startViewer();
+  } catch {
+    document.getElementById('app').dataset.state = 'error';
+    const status = document.getElementById('load-status');
+    status.className = 'is-error';
+    status.setAttribute('role', 'alert');
+    status.textContent = 'Unable to initialize the viewer. Reload the page to retry.';
+    status.hidden = false;
   }
-});
+}

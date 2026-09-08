@@ -1,0 +1,332 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Moneydance Snapshot v1",
+  "$comment": "Structural contract. UI/src/snapshot.mjs additionally validates real calendar dates, baseline relation, inclusion policy, references, recurrence, and timeline coverage. Source verifies recursive balances.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "exportDate",
+    "sourceVersion",
+    "balanceStartDate",
+    "accounts",
+    "entries"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "exportDate": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,6})?Z$"
+    },
+    "sourceVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "balanceStartDate": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "format": "date"
+    },
+    "accounts": {
+      "$ref": "#/$defs/account"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    }
+  },
+  "$defs": {
+    "account": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "type",
+        "currency",
+        "inactive",
+        "included",
+        "children",
+        "openingBalanceCents",
+        "closingBalanceCents",
+        "balanceTimeline"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "currency": {
+          "type": "string",
+          "description": "May be empty for retained SECURITY metadata only."
+        },
+        "inactive": {
+          "type": "boolean"
+        },
+        "included": {
+          "type": "boolean"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/account"
+          }
+        },
+        "openingBalanceCents": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "closingBalanceCents": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "balanceTimeline": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/timeline"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "SECURITY" } } },
+          "then": { "properties": { "included": { "const": false } } },
+          "else": { "properties": { "currency": { "minLength": 1 } } }
+        },
+        {
+          "if": {
+            "properties": {
+              "included": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "currency": {
+                "const": "USD"
+              },
+              "inactive": {
+                "const": false
+              },
+              "type": {
+                "enum": [
+                  "BANK",
+                  "CREDIT_CARD",
+                  "ASSET",
+                  "LIABILITY",
+                  "LOAN",
+                  "INCOME",
+                  "EXPENSE"
+                ]
+              },
+              "openingBalanceCents": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "closingBalanceCents": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "balanceTimeline": {
+                "$ref": "#/$defs/timeline"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "balanceTimeline": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "entry": {
+      "type": "object",
+      "required": [
+        "id",
+        "transactionId",
+        "accountId",
+        "date",
+        "registerOrder",
+        "amountCents",
+        "runningBalanceCents",
+        "description",
+        "memo",
+        "checkNum",
+        "clearedStatus",
+        "tags",
+        "allocations"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transactionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "accountId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "format": "date"
+        },
+        "registerOrder": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "amountCents": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "runningBalanceCents": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "description": {
+          "type": "string"
+        },
+        "memo": {
+          "type": "string"
+        },
+        "checkNum": {
+          "type": "string"
+        },
+        "clearedStatus": {
+          "enum": [
+            "CLEARED",
+            "RECONCILING",
+            "UNCLEARED"
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allocations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/allocation"
+          }
+        }
+      }
+    },
+    "allocation": {
+      "type": "object",
+      "required": [
+        "accountId",
+        "name",
+        "memo"
+      ],
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string"
+        },
+        "memo": {
+          "type": "string"
+        },
+        "amountCents": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "point": {
+      "type": "object",
+      "required": [
+        "date",
+        "ownBalanceCents",
+        "sidebarBalanceCents"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "format": "date"
+        },
+        "ownBalanceCents": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "sidebarBalanceCents": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "timeline": {
+      "type": "object",
+      "required": [
+        "points"
+      ],
+      "properties": {
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/point"
+          },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="light-mode">
-    <div id="app">
+    <div id="app" data-state="loading">
       <!-- Sidebar -->
       <aside id="sidebar" class="sidebar">
         <div class="sidebar-header">
@@ -31,7 +31,8 @@
           </div>
         </div>
         <div class="sidebar-footer">
-          <p>Read-Only Mode</p>
+          <p id="as-of-date" hidden></p>
+          <p id="test-data-indicator" hidden>Test data</p>
         </div>
       </aside>
 
@@ -53,8 +54,9 @@
               <input
                 type="text"
                 id="search-input"
-                placeholder="Search transactions..."
+                placeholder="Search transactions..." disabled aria-label="Search descriptions, memos, or amounts" aria-keyshortcuts="Control+f Meta+f" title="Search (Ctrl+F / Command+F)"
               />
+              <button id="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>×</button>
             </div>
             <button
               id="theme-toggle"
@@ -66,16 +68,18 @@
           </div>
         </header>
 
-        <div class="mobile-only mobile-balance-bar">
+        <div id="mobile-balance-bar" class="mobile-only mobile-balance-bar" hidden>
           <span>Total Balance</span>
-          <span id="mobile-total-balance" class="amount">$0.00</span>
+          <span id="mobile-total-balance" class="amount"></span>
         </div>
 
         <div class="content-body">
+          <p id="load-status" class="is-loading" role="status">Loading accounts…</p>
+          <a id="test-data-link" hidden>View test data</a>
           <div class="summary-cards">
-            <div class="card glass-card">
+            <div id="balance-card" class="card glass-card" hidden>
               <h4>Total Balance</h4>
-              <p id="total-balance" class="amount positive">$0.00</p>
+              <p id="total-balance" class="amount positive"></p>
             </div>
             <div class="card glass-card">
               <h4>Transactions</h4>
@@ -88,7 +92,9 @@
               <h2>Transactions</h2>
             </div>
             <div class="table-responsive">
-              <table id="transactions-table">
+              <p id="register-status" role="status" hidden></p>
+              <button id="future-summary" type="button" aria-controls="transactions-body" hidden></button>
+              <table id="transactions-table" class="hidden">
                 <thead>
                   <tr>
                     <th class="date-col">Date</th>
@@ -126,7 +132,7 @@
     <div id="sidebar-overlay" class="overlay hidden"></div>
 
     <!-- Handlebars Library -->
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.9/dist/handlebars.min.js"></script>
 
     <!-- Handlebars Templates -->
     <script id="account-node-partial" type="text/x-handlebars-template">
@@ -139,9 +145,11 @@
             <i class="fa-solid {{getAccountIcon type}}"></i>
           </div>
           <div class="account-name">{{name}}</div>
-          <div class="account-balance" style="color: {{#if (isPositive (getTotalBalance this))}}var(--positive){{else}}{{#if (isNegative (getTotalBalance this))}}var(--text-main){{/if}}{{/if}}">
-            {{formatCurrency (getTotalBalance this)}}
+          {{#unless isAll}}
+          <div class="account-balance {{#if (isNegative sidebarBalanceCents)}}negative{{else}}positive{{/if}}">
+            {{formatCurrency sidebarBalanceCents}}
           </div>
+          {{/unless}}
         </div>
         {{#if children.length}}
           <div class="sub-accounts {{#if isOpen}}open{{/if}}">
@@ -161,18 +169,18 @@
       {{#each paginatedTransactions}}
         {{#if showYearDivider}}
           <tr class="year-divider">
-            <th colspan="3" class="sticky-year">{{year}}</th>
+            <th colspan="{{../columnCount}}" class="sticky-year">{{year}}</th>
           </tr>
         {{/if}}
-        <tr>
+        <tr data-entry-id="{{id}}" data-account-id="{{accountId}}" class="{{#if isFuture}}future-entry{{/if}}">
           <td>
-            <span class="desktop-date">{{date}}</span>
+            <span class="desktop-date">{{month}}/{{day}}</span>
             <span class="mobile-date">{{month}}/{{day}}</span>
           </td>
           <td>
-            <div class="desc-main">{{description}}</div>
+            <div class="desc-main" title="{{description}}">{{description}}</div>
             <div class="desc-extra">
-              {{#if checkNumber}}<span class="badge">#{{checkNumber}}</span>{{/if}}
+              {{#if checkNum}}<span class="badge">#{{checkNum}}</span>{{/if}}
               <span class="badge hide-desktop">{{category}}</span>
               {{#if memo}}<span class="memo-text">{{memo}}</span>{{/if}}
             </div>
@@ -181,12 +189,12 @@
             {{/if}}
           </td>
           <td class="hide-mobile"><span class="badge">{{category}}</span></td>
-          <td class="amount-col amount {{#if (isPositive amount)}}positive{{else}}negative{{/if}}">{{formatCurrency amount}}</td>
-          <td class="amount-col hide-mobile">{{formatCurrency balance}}</td>
+          <td class="amount-col amount {{#if (isNegative amountCents)}}negative{{else}}positive{{/if}}">{{formatCurrency amountCents}}<span class="mobile-running-balance">Balance: {{formatCurrency runningBalanceCents}}</span></td>
+          <td class="amount-col hide-mobile">{{formatCurrency runningBalanceCents}}</td>
         </tr>
       {{/each}}
     </script>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
   </body>
 </html>

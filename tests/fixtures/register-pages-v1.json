@@ -1,0 +1,6272 @@
+{
+  "schemaVersion": 1,
+  "exportDate": "2026-09-06T23:00:00Z",
+  "sourceVersion": "2024.4",
+  "accounts": {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "name": "Root",
+    "type": "ROOT",
+    "currency": "USD",
+    "inactive": false,
+    "included": false,
+    "openingBalanceCents": null,
+    "closingBalanceCents": null,
+    "balanceTimeline": null,
+    "children": [
+      {
+        "id": "00000000-0000-4000-8000-000000000002",
+        "name": "Checking",
+        "type": "BANK",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 105000
+            },
+            {
+              "date": "2026-09-06",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 104500
+            }
+          ]
+        },
+        "children": [
+          {
+            "id": "00000000-0000-4000-8000-000000000003",
+            "name": "Mortgage Budget",
+            "type": "BANK",
+            "currency": "USD",
+            "inactive": false,
+            "included": true,
+            "openingBalanceCents": 0,
+            "closingBalanceCents": 0,
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-05",
+                  "ownBalanceCents": 0,
+                  "sidebarBalanceCents": 0
+                }
+              ]
+            },
+            "children": []
+          },
+          {
+            "id": "00000000-0000-4000-8000-000000000004",
+            "name": "Groceries Budget",
+            "type": "BANK",
+            "currency": "USD",
+            "inactive": false,
+            "included": true,
+            "openingBalanceCents": 0,
+            "closingBalanceCents": 65000,
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-05",
+                  "ownBalanceCents": 65000,
+                  "sidebarBalanceCents": 65000
+                }
+              ]
+            },
+            "children": []
+          },
+          {
+            "id": "00000000-0000-4000-8000-000000000005",
+            "name": "Electricity Budget",
+            "type": "BANK",
+            "currency": "USD",
+            "inactive": false,
+            "included": true,
+            "openingBalanceCents": 0,
+            "closingBalanceCents": 20000,
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-05",
+                  "ownBalanceCents": 20000,
+                  "sidebarBalanceCents": 20000
+                }
+              ]
+            },
+            "children": []
+          },
+          {
+            "id": "00000000-0000-4000-8000-000000000006",
+            "name": "Misc Spending Budget",
+            "type": "BANK",
+            "currency": "USD",
+            "inactive": false,
+            "included": true,
+            "openingBalanceCents": 0,
+            "closingBalanceCents": 19500,
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-05",
+                  "ownBalanceCents": 20000,
+                  "sidebarBalanceCents": 20000
+                },
+                {
+                  "date": "2026-09-06",
+                  "ownBalanceCents": 19500,
+                  "sidebarBalanceCents": 19500
+                }
+              ]
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000007",
+        "name": "Salary",
+        "type": "INCOME",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 320000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 320000,
+              "sidebarBalanceCents": 320000
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000008",
+        "name": "Mortgage",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 200000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 200000,
+              "sidebarBalanceCents": 200000
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000009",
+        "name": "Groceries",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 15000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 15000,
+              "sidebarBalanceCents": 15000
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000010",
+        "name": "Misc Exp",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 500,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            },
+            {
+              "date": "2026-09-06",
+              "ownBalanceCents": 500,
+              "sidebarBalanceCents": 500
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "register-pages",
+        "name": "Synthetic register-pages",
+        "type": "BANK",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 12345,
+        "closingBalanceCents": 32845,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 12345,
+              "sidebarBalanceCents": 12345
+            },
+            {
+              "date": "2099-01-01",
+              "ownBalanceCents": 32745,
+              "sidebarBalanceCents": 32745
+            },
+            {
+              "date": "2099-01-02",
+              "ownBalanceCents": 32845,
+              "sidebarBalanceCents": 32845
+            }
+          ]
+        },
+        "children": []
+      }
+    ]
+  },
+  "entries": [
+    {
+      "id": "00000000-0000-4000-8000-000000000100",
+      "transactionId": "00000000-0000-4000-8000-000000000100",
+      "accountId": "00000000-0000-4000-8000-000000000007",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "amountCents": 320000,
+      "runningBalanceCents": 320000,
+      "description": "Paycheck",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000003",
+          "name": "Mortgage Budget",
+          "memo": "",
+          "amountCents": 200000
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000004",
+          "name": "Groceries Budget",
+          "memo": "",
+          "amountCents": 80000
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000005",
+          "name": "Electricity Budget",
+          "memo": "",
+          "amountCents": 20000
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000006",
+          "name": "Misc Spending Budget",
+          "memo": "",
+          "amountCents": 20000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000101",
+      "transactionId": "00000000-0000-4000-8000-000000000100",
+      "accountId": "00000000-0000-4000-8000-000000000003",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "amountCents": 200000,
+      "runningBalanceCents": 200000,
+      "description": "Paycheck",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000007",
+          "name": "Salary",
+          "memo": "",
+          "amountCents": 200000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000102",
+      "transactionId": "00000000-0000-4000-8000-000000000100",
+      "accountId": "00000000-0000-4000-8000-000000000004",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "amountCents": 80000,
+      "runningBalanceCents": 80000,
+      "description": "Paycheck",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000007",
+          "name": "Salary",
+          "memo": "",
+          "amountCents": 80000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000103",
+      "transactionId": "00000000-0000-4000-8000-000000000100",
+      "accountId": "00000000-0000-4000-8000-000000000005",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "amountCents": 20000,
+      "runningBalanceCents": 20000,
+      "description": "Paycheck",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000007",
+          "name": "Salary",
+          "memo": "",
+          "amountCents": 20000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000104",
+      "transactionId": "00000000-0000-4000-8000-000000000100",
+      "accountId": "00000000-0000-4000-8000-000000000006",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "amountCents": 20000,
+      "runningBalanceCents": 20000,
+      "description": "Paycheck",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000007",
+          "name": "Salary",
+          "memo": "",
+          "amountCents": 20000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000105",
+      "transactionId": "00000000-0000-4000-8000-000000000105",
+      "accountId": "00000000-0000-4000-8000-000000000003",
+      "date": "2026-09-03",
+      "registerOrder": 1,
+      "amountCents": -200000,
+      "runningBalanceCents": 0,
+      "description": "Mortgage Payment",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000008",
+          "name": "Mortgage",
+          "memo": "",
+          "amountCents": -200000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000106",
+      "transactionId": "00000000-0000-4000-8000-000000000105",
+      "accountId": "00000000-0000-4000-8000-000000000008",
+      "date": "2026-09-03",
+      "registerOrder": 0,
+      "amountCents": 200000,
+      "runningBalanceCents": 200000,
+      "description": "Mortgage Payment",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000003",
+          "name": "Mortgage Budget",
+          "memo": "",
+          "amountCents": 200000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000107",
+      "transactionId": "00000000-0000-4000-8000-000000000107",
+      "accountId": "00000000-0000-4000-8000-000000000004",
+      "date": "2026-09-05",
+      "registerOrder": 1,
+      "amountCents": -15000,
+      "runningBalanceCents": 65000,
+      "description": "Groceries Expense",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000009",
+          "name": "Groceries",
+          "memo": "",
+          "amountCents": -15000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000108",
+      "transactionId": "00000000-0000-4000-8000-000000000107",
+      "accountId": "00000000-0000-4000-8000-000000000009",
+      "date": "2026-09-05",
+      "registerOrder": 0,
+      "amountCents": 15000,
+      "runningBalanceCents": 15000,
+      "description": "Groceries Expense",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000004",
+          "name": "Groceries Budget",
+          "memo": "",
+          "amountCents": 15000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000109",
+      "transactionId": "00000000-0000-4000-8000-000000000109",
+      "accountId": "00000000-0000-4000-8000-000000000006",
+      "date": "2026-09-06",
+      "registerOrder": 1,
+      "amountCents": -300,
+      "runningBalanceCents": 19700,
+      "description": "Candy Bar",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000010",
+          "name": "Misc Exp",
+          "memo": "",
+          "amountCents": -300
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000110",
+      "transactionId": "00000000-0000-4000-8000-000000000109",
+      "accountId": "00000000-0000-4000-8000-000000000010",
+      "date": "2026-09-06",
+      "registerOrder": 0,
+      "amountCents": 300,
+      "runningBalanceCents": 300,
+      "description": "Candy Bar",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000006",
+          "name": "Misc Spending Budget",
+          "memo": "",
+          "amountCents": 300
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000111",
+      "transactionId": "00000000-0000-4000-8000-000000000111",
+      "accountId": "00000000-0000-4000-8000-000000000006",
+      "date": "2026-09-06",
+      "registerOrder": 2,
+      "amountCents": -200,
+      "runningBalanceCents": 19500,
+      "description": "Parking",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000010",
+          "name": "Misc Exp",
+          "memo": "",
+          "amountCents": -200
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000112",
+      "transactionId": "00000000-0000-4000-8000-000000000111",
+      "accountId": "00000000-0000-4000-8000-000000000010",
+      "date": "2026-09-06",
+      "registerOrder": 1,
+      "amountCents": 200,
+      "runningBalanceCents": 500,
+      "description": "Parking",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000006",
+          "name": "Misc Spending Budget",
+          "memo": "",
+          "amountCents": 200
+        }
+      ]
+    },
+    {
+      "id": "register-000",
+      "transactionId": "transaction-0",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 0,
+      "amountCents": 100,
+      "runningBalanceCents": 12445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-001",
+      "transactionId": "transaction-1",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 1,
+      "amountCents": 100,
+      "runningBalanceCents": 12545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-002",
+      "transactionId": "transaction-2",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 2,
+      "amountCents": 100,
+      "runningBalanceCents": 12645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-003",
+      "transactionId": "transaction-3",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 3,
+      "amountCents": 100,
+      "runningBalanceCents": 12745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-004",
+      "transactionId": "transaction-4",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 4,
+      "amountCents": 100,
+      "runningBalanceCents": 12845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-005",
+      "transactionId": "transaction-5",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 5,
+      "amountCents": 100,
+      "runningBalanceCents": 12945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-006",
+      "transactionId": "transaction-6",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 6,
+      "amountCents": 100,
+      "runningBalanceCents": 13045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-007",
+      "transactionId": "transaction-7",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 7,
+      "amountCents": 100,
+      "runningBalanceCents": 13145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-008",
+      "transactionId": "transaction-8",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 8,
+      "amountCents": 100,
+      "runningBalanceCents": 13245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-009",
+      "transactionId": "transaction-9",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 9,
+      "amountCents": 100,
+      "runningBalanceCents": 13345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-010",
+      "transactionId": "transaction-10",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 10,
+      "amountCents": 100,
+      "runningBalanceCents": 13445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-011",
+      "transactionId": "transaction-11",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 11,
+      "amountCents": 100,
+      "runningBalanceCents": 13545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-012",
+      "transactionId": "transaction-12",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 12,
+      "amountCents": 100,
+      "runningBalanceCents": 13645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-013",
+      "transactionId": "transaction-13",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 13,
+      "amountCents": 100,
+      "runningBalanceCents": 13745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-014",
+      "transactionId": "transaction-14",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 14,
+      "amountCents": 100,
+      "runningBalanceCents": 13845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-015",
+      "transactionId": "transaction-15",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 15,
+      "amountCents": 100,
+      "runningBalanceCents": 13945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-016",
+      "transactionId": "transaction-16",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 16,
+      "amountCents": 100,
+      "runningBalanceCents": 14045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-017",
+      "transactionId": "transaction-17",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 17,
+      "amountCents": 100,
+      "runningBalanceCents": 14145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-018",
+      "transactionId": "transaction-18",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 18,
+      "amountCents": 100,
+      "runningBalanceCents": 14245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-019",
+      "transactionId": "transaction-19",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 19,
+      "amountCents": 100,
+      "runningBalanceCents": 14345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-020",
+      "transactionId": "transaction-20",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 20,
+      "amountCents": 100,
+      "runningBalanceCents": 14445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-021",
+      "transactionId": "transaction-21",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 21,
+      "amountCents": 100,
+      "runningBalanceCents": 14545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-022",
+      "transactionId": "transaction-22",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 22,
+      "amountCents": 100,
+      "runningBalanceCents": 14645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-023",
+      "transactionId": "transaction-23",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 23,
+      "amountCents": 100,
+      "runningBalanceCents": 14745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-024",
+      "transactionId": "transaction-24",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 24,
+      "amountCents": 100,
+      "runningBalanceCents": 14845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-025",
+      "transactionId": "transaction-25",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 25,
+      "amountCents": 100,
+      "runningBalanceCents": 14945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-026",
+      "transactionId": "transaction-26",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 26,
+      "amountCents": 100,
+      "runningBalanceCents": 15045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-027",
+      "transactionId": "transaction-27",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 27,
+      "amountCents": 100,
+      "runningBalanceCents": 15145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-028",
+      "transactionId": "transaction-28",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 28,
+      "amountCents": 100,
+      "runningBalanceCents": 15245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-029",
+      "transactionId": "transaction-29",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 29,
+      "amountCents": 100,
+      "runningBalanceCents": 15345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-030",
+      "transactionId": "transaction-30",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 30,
+      "amountCents": 100,
+      "runningBalanceCents": 15445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-031",
+      "transactionId": "transaction-31",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 31,
+      "amountCents": 100,
+      "runningBalanceCents": 15545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-032",
+      "transactionId": "transaction-32",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 32,
+      "amountCents": 100,
+      "runningBalanceCents": 15645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-033",
+      "transactionId": "transaction-33",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 33,
+      "amountCents": 100,
+      "runningBalanceCents": 15745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-034",
+      "transactionId": "transaction-34",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 34,
+      "amountCents": 100,
+      "runningBalanceCents": 15845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-035",
+      "transactionId": "transaction-35",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 35,
+      "amountCents": 100,
+      "runningBalanceCents": 15945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-036",
+      "transactionId": "transaction-36",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 36,
+      "amountCents": 100,
+      "runningBalanceCents": 16045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-037",
+      "transactionId": "transaction-37",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 37,
+      "amountCents": 100,
+      "runningBalanceCents": 16145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-038",
+      "transactionId": "transaction-38",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 38,
+      "amountCents": 100,
+      "runningBalanceCents": 16245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-039",
+      "transactionId": "transaction-39",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 39,
+      "amountCents": 100,
+      "runningBalanceCents": 16345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-040",
+      "transactionId": "transaction-40",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 40,
+      "amountCents": 100,
+      "runningBalanceCents": 16445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-041",
+      "transactionId": "transaction-41",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 41,
+      "amountCents": 100,
+      "runningBalanceCents": 16545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-042",
+      "transactionId": "transaction-42",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 42,
+      "amountCents": 100,
+      "runningBalanceCents": 16645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-043",
+      "transactionId": "transaction-43",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 43,
+      "amountCents": 100,
+      "runningBalanceCents": 16745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-044",
+      "transactionId": "transaction-44",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 44,
+      "amountCents": 100,
+      "runningBalanceCents": 16845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-045",
+      "transactionId": "transaction-45",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 45,
+      "amountCents": 100,
+      "runningBalanceCents": 16945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-046",
+      "transactionId": "transaction-46",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 46,
+      "amountCents": 100,
+      "runningBalanceCents": 17045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-047",
+      "transactionId": "transaction-47",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 47,
+      "amountCents": 100,
+      "runningBalanceCents": 17145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-048",
+      "transactionId": "transaction-48",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 48,
+      "amountCents": 100,
+      "runningBalanceCents": 17245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-049",
+      "transactionId": "transaction-49",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 49,
+      "amountCents": 100,
+      "runningBalanceCents": 17345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-050",
+      "transactionId": "transaction-50",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 50,
+      "amountCents": 100,
+      "runningBalanceCents": 17445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-051",
+      "transactionId": "transaction-51",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 51,
+      "amountCents": 100,
+      "runningBalanceCents": 17545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-052",
+      "transactionId": "transaction-52",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 52,
+      "amountCents": 100,
+      "runningBalanceCents": 17645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-053",
+      "transactionId": "transaction-53",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 53,
+      "amountCents": 100,
+      "runningBalanceCents": 17745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-054",
+      "transactionId": "transaction-54",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 54,
+      "amountCents": 100,
+      "runningBalanceCents": 17845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-055",
+      "transactionId": "transaction-55",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 55,
+      "amountCents": 100,
+      "runningBalanceCents": 17945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-056",
+      "transactionId": "transaction-56",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 56,
+      "amountCents": 100,
+      "runningBalanceCents": 18045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-057",
+      "transactionId": "transaction-57",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 57,
+      "amountCents": 100,
+      "runningBalanceCents": 18145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-058",
+      "transactionId": "transaction-58",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 58,
+      "amountCents": 100,
+      "runningBalanceCents": 18245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-059",
+      "transactionId": "transaction-59",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 59,
+      "amountCents": 100,
+      "runningBalanceCents": 18345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-060",
+      "transactionId": "transaction-60",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 60,
+      "amountCents": 100,
+      "runningBalanceCents": 18445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-061",
+      "transactionId": "transaction-61",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 61,
+      "amountCents": 100,
+      "runningBalanceCents": 18545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-062",
+      "transactionId": "transaction-62",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 62,
+      "amountCents": 100,
+      "runningBalanceCents": 18645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-063",
+      "transactionId": "transaction-63",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 63,
+      "amountCents": 100,
+      "runningBalanceCents": 18745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-064",
+      "transactionId": "transaction-64",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 64,
+      "amountCents": 100,
+      "runningBalanceCents": 18845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-065",
+      "transactionId": "transaction-65",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 65,
+      "amountCents": 100,
+      "runningBalanceCents": 18945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-066",
+      "transactionId": "transaction-66",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 66,
+      "amountCents": 100,
+      "runningBalanceCents": 19045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-067",
+      "transactionId": "transaction-67",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 67,
+      "amountCents": 100,
+      "runningBalanceCents": 19145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-068",
+      "transactionId": "transaction-68",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 68,
+      "amountCents": 100,
+      "runningBalanceCents": 19245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-069",
+      "transactionId": "transaction-69",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 69,
+      "amountCents": 100,
+      "runningBalanceCents": 19345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-070",
+      "transactionId": "transaction-70",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 70,
+      "amountCents": 100,
+      "runningBalanceCents": 19445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-071",
+      "transactionId": "transaction-71",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 71,
+      "amountCents": 100,
+      "runningBalanceCents": 19545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-072",
+      "transactionId": "transaction-72",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 72,
+      "amountCents": 100,
+      "runningBalanceCents": 19645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-073",
+      "transactionId": "transaction-73",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 73,
+      "amountCents": 100,
+      "runningBalanceCents": 19745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-074",
+      "transactionId": "transaction-74",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 74,
+      "amountCents": 100,
+      "runningBalanceCents": 19845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-075",
+      "transactionId": "transaction-75",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 75,
+      "amountCents": 100,
+      "runningBalanceCents": 19945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-076",
+      "transactionId": "transaction-76",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 76,
+      "amountCents": 100,
+      "runningBalanceCents": 20045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-077",
+      "transactionId": "transaction-77",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 77,
+      "amountCents": 100,
+      "runningBalanceCents": 20145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-078",
+      "transactionId": "transaction-78",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 78,
+      "amountCents": 100,
+      "runningBalanceCents": 20245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-079",
+      "transactionId": "transaction-79",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 79,
+      "amountCents": 100,
+      "runningBalanceCents": 20345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-080",
+      "transactionId": "transaction-80",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 80,
+      "amountCents": 100,
+      "runningBalanceCents": 20445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-081",
+      "transactionId": "transaction-81",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 81,
+      "amountCents": 100,
+      "runningBalanceCents": 20545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-082",
+      "transactionId": "transaction-82",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 82,
+      "amountCents": 100,
+      "runningBalanceCents": 20645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-083",
+      "transactionId": "transaction-83",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 83,
+      "amountCents": 100,
+      "runningBalanceCents": 20745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-084",
+      "transactionId": "transaction-84",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 84,
+      "amountCents": 100,
+      "runningBalanceCents": 20845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-085",
+      "transactionId": "transaction-85",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 85,
+      "amountCents": 100,
+      "runningBalanceCents": 20945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-086",
+      "transactionId": "transaction-86",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 86,
+      "amountCents": 100,
+      "runningBalanceCents": 21045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-087",
+      "transactionId": "transaction-87",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 87,
+      "amountCents": 100,
+      "runningBalanceCents": 21145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-088",
+      "transactionId": "transaction-88",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 88,
+      "amountCents": 100,
+      "runningBalanceCents": 21245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-089",
+      "transactionId": "transaction-89",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 89,
+      "amountCents": 100,
+      "runningBalanceCents": 21345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-090",
+      "transactionId": "transaction-90",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 90,
+      "amountCents": 100,
+      "runningBalanceCents": 21445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-091",
+      "transactionId": "transaction-91",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 91,
+      "amountCents": 100,
+      "runningBalanceCents": 21545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-092",
+      "transactionId": "transaction-92",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 92,
+      "amountCents": 100,
+      "runningBalanceCents": 21645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-093",
+      "transactionId": "transaction-93",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 93,
+      "amountCents": 100,
+      "runningBalanceCents": 21745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-094",
+      "transactionId": "transaction-94",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 94,
+      "amountCents": 100,
+      "runningBalanceCents": 21845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-095",
+      "transactionId": "transaction-95",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 95,
+      "amountCents": 100,
+      "runningBalanceCents": 21945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-096",
+      "transactionId": "transaction-96",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 96,
+      "amountCents": 100,
+      "runningBalanceCents": 22045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-097",
+      "transactionId": "transaction-97",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 97,
+      "amountCents": 100,
+      "runningBalanceCents": 22145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-098",
+      "transactionId": "transaction-98",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 98,
+      "amountCents": 100,
+      "runningBalanceCents": 22245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-099",
+      "transactionId": "transaction-99",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 99,
+      "amountCents": 100,
+      "runningBalanceCents": 22345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-100",
+      "transactionId": "transaction-100",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 100,
+      "amountCents": 100,
+      "runningBalanceCents": 22445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-101",
+      "transactionId": "transaction-101",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 101,
+      "amountCents": 100,
+      "runningBalanceCents": 22545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-102",
+      "transactionId": "transaction-102",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 102,
+      "amountCents": 100,
+      "runningBalanceCents": 22645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-103",
+      "transactionId": "transaction-103",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 103,
+      "amountCents": 100,
+      "runningBalanceCents": 22745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-104",
+      "transactionId": "transaction-104",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 104,
+      "amountCents": 100,
+      "runningBalanceCents": 22845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-105",
+      "transactionId": "transaction-105",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 105,
+      "amountCents": 100,
+      "runningBalanceCents": 22945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-106",
+      "transactionId": "transaction-106",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 106,
+      "amountCents": 100,
+      "runningBalanceCents": 23045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-107",
+      "transactionId": "transaction-107",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 107,
+      "amountCents": 100,
+      "runningBalanceCents": 23145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-108",
+      "transactionId": "transaction-108",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 108,
+      "amountCents": 100,
+      "runningBalanceCents": 23245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-109",
+      "transactionId": "transaction-109",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 109,
+      "amountCents": 100,
+      "runningBalanceCents": 23345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-110",
+      "transactionId": "transaction-110",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 110,
+      "amountCents": 100,
+      "runningBalanceCents": 23445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-111",
+      "transactionId": "transaction-111",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 111,
+      "amountCents": 100,
+      "runningBalanceCents": 23545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-112",
+      "transactionId": "transaction-112",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 112,
+      "amountCents": 100,
+      "runningBalanceCents": 23645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-113",
+      "transactionId": "transaction-113",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 113,
+      "amountCents": 100,
+      "runningBalanceCents": 23745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-114",
+      "transactionId": "transaction-114",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 114,
+      "amountCents": 100,
+      "runningBalanceCents": 23845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-115",
+      "transactionId": "transaction-115",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 115,
+      "amountCents": 100,
+      "runningBalanceCents": 23945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-116",
+      "transactionId": "transaction-116",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 116,
+      "amountCents": 100,
+      "runningBalanceCents": 24045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-117",
+      "transactionId": "transaction-117",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 117,
+      "amountCents": 100,
+      "runningBalanceCents": 24145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-118",
+      "transactionId": "transaction-118",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 118,
+      "amountCents": 100,
+      "runningBalanceCents": 24245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-119",
+      "transactionId": "transaction-119",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 119,
+      "amountCents": 100,
+      "runningBalanceCents": 24345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-120",
+      "transactionId": "transaction-120",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 120,
+      "amountCents": 100,
+      "runningBalanceCents": 24445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-121",
+      "transactionId": "transaction-121",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 121,
+      "amountCents": 100,
+      "runningBalanceCents": 24545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-122",
+      "transactionId": "transaction-122",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 122,
+      "amountCents": 100,
+      "runningBalanceCents": 24645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-123",
+      "transactionId": "transaction-123",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 123,
+      "amountCents": 100,
+      "runningBalanceCents": 24745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-124",
+      "transactionId": "transaction-124",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 124,
+      "amountCents": 100,
+      "runningBalanceCents": 24845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-125",
+      "transactionId": "transaction-125",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 125,
+      "amountCents": 100,
+      "runningBalanceCents": 24945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-126",
+      "transactionId": "transaction-126",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 126,
+      "amountCents": 100,
+      "runningBalanceCents": 25045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-127",
+      "transactionId": "transaction-127",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 127,
+      "amountCents": 100,
+      "runningBalanceCents": 25145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-128",
+      "transactionId": "transaction-128",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 128,
+      "amountCents": 100,
+      "runningBalanceCents": 25245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-129",
+      "transactionId": "transaction-129",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 129,
+      "amountCents": 100,
+      "runningBalanceCents": 25345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-130",
+      "transactionId": "transaction-130",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 130,
+      "amountCents": 100,
+      "runningBalanceCents": 25445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-131",
+      "transactionId": "transaction-131",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 131,
+      "amountCents": 100,
+      "runningBalanceCents": 25545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-132",
+      "transactionId": "transaction-132",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 132,
+      "amountCents": 100,
+      "runningBalanceCents": 25645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-133",
+      "transactionId": "transaction-133",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 133,
+      "amountCents": 100,
+      "runningBalanceCents": 25745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-134",
+      "transactionId": "transaction-134",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 134,
+      "amountCents": 100,
+      "runningBalanceCents": 25845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-135",
+      "transactionId": "transaction-135",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 135,
+      "amountCents": 100,
+      "runningBalanceCents": 25945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-136",
+      "transactionId": "transaction-136",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 136,
+      "amountCents": 100,
+      "runningBalanceCents": 26045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-137",
+      "transactionId": "transaction-137",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 137,
+      "amountCents": 100,
+      "runningBalanceCents": 26145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-138",
+      "transactionId": "transaction-138",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 138,
+      "amountCents": 100,
+      "runningBalanceCents": 26245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-139",
+      "transactionId": "transaction-139",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 139,
+      "amountCents": 100,
+      "runningBalanceCents": 26345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-140",
+      "transactionId": "transaction-140",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 140,
+      "amountCents": 100,
+      "runningBalanceCents": 26445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-141",
+      "transactionId": "transaction-141",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 141,
+      "amountCents": 100,
+      "runningBalanceCents": 26545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-142",
+      "transactionId": "transaction-142",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 142,
+      "amountCents": 100,
+      "runningBalanceCents": 26645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-143",
+      "transactionId": "transaction-143",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 143,
+      "amountCents": 100,
+      "runningBalanceCents": 26745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-144",
+      "transactionId": "transaction-144",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 144,
+      "amountCents": 100,
+      "runningBalanceCents": 26845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-145",
+      "transactionId": "transaction-145",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 145,
+      "amountCents": 100,
+      "runningBalanceCents": 26945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-146",
+      "transactionId": "transaction-146",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 146,
+      "amountCents": 100,
+      "runningBalanceCents": 27045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-147",
+      "transactionId": "transaction-147",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 147,
+      "amountCents": 100,
+      "runningBalanceCents": 27145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-148",
+      "transactionId": "transaction-148",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 148,
+      "amountCents": 100,
+      "runningBalanceCents": 27245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-149",
+      "transactionId": "transaction-149",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 149,
+      "amountCents": 100,
+      "runningBalanceCents": 27345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-150",
+      "transactionId": "transaction-150",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 150,
+      "amountCents": 100,
+      "runningBalanceCents": 27445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-151",
+      "transactionId": "transaction-151",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 151,
+      "amountCents": 100,
+      "runningBalanceCents": 27545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-152",
+      "transactionId": "transaction-152",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 152,
+      "amountCents": 100,
+      "runningBalanceCents": 27645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-153",
+      "transactionId": "transaction-153",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 153,
+      "amountCents": 100,
+      "runningBalanceCents": 27745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-154",
+      "transactionId": "transaction-154",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 154,
+      "amountCents": 100,
+      "runningBalanceCents": 27845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-155",
+      "transactionId": "transaction-155",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 155,
+      "amountCents": 100,
+      "runningBalanceCents": 27945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-156",
+      "transactionId": "transaction-156",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 156,
+      "amountCents": 100,
+      "runningBalanceCents": 28045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-157",
+      "transactionId": "transaction-157",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 157,
+      "amountCents": 100,
+      "runningBalanceCents": 28145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-158",
+      "transactionId": "transaction-158",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 158,
+      "amountCents": 100,
+      "runningBalanceCents": 28245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-159",
+      "transactionId": "transaction-159",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 159,
+      "amountCents": 100,
+      "runningBalanceCents": 28345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-160",
+      "transactionId": "transaction-160",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 160,
+      "amountCents": 100,
+      "runningBalanceCents": 28445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-161",
+      "transactionId": "transaction-161",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 161,
+      "amountCents": 100,
+      "runningBalanceCents": 28545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-162",
+      "transactionId": "transaction-162",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 162,
+      "amountCents": 100,
+      "runningBalanceCents": 28645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-163",
+      "transactionId": "transaction-163",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 163,
+      "amountCents": 100,
+      "runningBalanceCents": 28745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-164",
+      "transactionId": "transaction-164",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 164,
+      "amountCents": 100,
+      "runningBalanceCents": 28845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-165",
+      "transactionId": "transaction-165",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 165,
+      "amountCents": 100,
+      "runningBalanceCents": 28945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-166",
+      "transactionId": "transaction-166",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 166,
+      "amountCents": 100,
+      "runningBalanceCents": 29045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-167",
+      "transactionId": "transaction-167",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 167,
+      "amountCents": 100,
+      "runningBalanceCents": 29145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-168",
+      "transactionId": "transaction-168",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 168,
+      "amountCents": 100,
+      "runningBalanceCents": 29245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-169",
+      "transactionId": "transaction-169",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 169,
+      "amountCents": 100,
+      "runningBalanceCents": 29345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-170",
+      "transactionId": "transaction-170",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 170,
+      "amountCents": 100,
+      "runningBalanceCents": 29445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-171",
+      "transactionId": "transaction-171",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 171,
+      "amountCents": 100,
+      "runningBalanceCents": 29545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-172",
+      "transactionId": "transaction-172",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 172,
+      "amountCents": 100,
+      "runningBalanceCents": 29645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-173",
+      "transactionId": "transaction-173",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 173,
+      "amountCents": 100,
+      "runningBalanceCents": 29745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-174",
+      "transactionId": "transaction-174",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 174,
+      "amountCents": 100,
+      "runningBalanceCents": 29845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-175",
+      "transactionId": "transaction-175",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 175,
+      "amountCents": 100,
+      "runningBalanceCents": 29945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-176",
+      "transactionId": "transaction-176",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 176,
+      "amountCents": 100,
+      "runningBalanceCents": 30045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-177",
+      "transactionId": "transaction-177",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 177,
+      "amountCents": 100,
+      "runningBalanceCents": 30145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-178",
+      "transactionId": "transaction-178",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 178,
+      "amountCents": 100,
+      "runningBalanceCents": 30245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-179",
+      "transactionId": "transaction-179",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 179,
+      "amountCents": 100,
+      "runningBalanceCents": 30345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-180",
+      "transactionId": "transaction-180",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 180,
+      "amountCents": 100,
+      "runningBalanceCents": 30445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-181",
+      "transactionId": "transaction-181",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 181,
+      "amountCents": 100,
+      "runningBalanceCents": 30545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-182",
+      "transactionId": "transaction-182",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 182,
+      "amountCents": 100,
+      "runningBalanceCents": 30645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-183",
+      "transactionId": "transaction-183",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 183,
+      "amountCents": 100,
+      "runningBalanceCents": 30745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-184",
+      "transactionId": "transaction-184",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 184,
+      "amountCents": 100,
+      "runningBalanceCents": 30845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-185",
+      "transactionId": "transaction-185",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 185,
+      "amountCents": 100,
+      "runningBalanceCents": 30945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-186",
+      "transactionId": "transaction-186",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 186,
+      "amountCents": 100,
+      "runningBalanceCents": 31045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-187",
+      "transactionId": "transaction-187",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 187,
+      "amountCents": 100,
+      "runningBalanceCents": 31145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-188",
+      "transactionId": "transaction-188",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 188,
+      "amountCents": 100,
+      "runningBalanceCents": 31245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-189",
+      "transactionId": "transaction-189",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 189,
+      "amountCents": 100,
+      "runningBalanceCents": 31345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-190",
+      "transactionId": "transaction-190",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 190,
+      "amountCents": 100,
+      "runningBalanceCents": 31445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-191",
+      "transactionId": "transaction-191",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 191,
+      "amountCents": 100,
+      "runningBalanceCents": 31545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-192",
+      "transactionId": "transaction-192",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 192,
+      "amountCents": 100,
+      "runningBalanceCents": 31645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-193",
+      "transactionId": "transaction-193",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 193,
+      "amountCents": 100,
+      "runningBalanceCents": 31745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-194",
+      "transactionId": "transaction-194",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 194,
+      "amountCents": 100,
+      "runningBalanceCents": 31845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-195",
+      "transactionId": "transaction-195",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 195,
+      "amountCents": 100,
+      "runningBalanceCents": 31945,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-196",
+      "transactionId": "transaction-196",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 196,
+      "amountCents": 100,
+      "runningBalanceCents": 32045,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-197",
+      "transactionId": "transaction-197",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 197,
+      "amountCents": 100,
+      "runningBalanceCents": 32145,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-198",
+      "transactionId": "transaction-198",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 198,
+      "amountCents": 100,
+      "runningBalanceCents": 32245,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-199",
+      "transactionId": "transaction-199",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 199,
+      "amountCents": 100,
+      "runningBalanceCents": 32345,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-200",
+      "transactionId": "transaction-200",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 200,
+      "amountCents": 100,
+      "runningBalanceCents": 32445,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-201",
+      "transactionId": "transaction-201",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 201,
+      "amountCents": 100,
+      "runningBalanceCents": 32545,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-202",
+      "transactionId": "transaction-202",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 202,
+      "amountCents": 100,
+      "runningBalanceCents": 32645,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-203",
+      "transactionId": "transaction-203",
+      "accountId": "register-pages",
+      "date": "2099-01-01",
+      "registerOrder": 203,
+      "amountCents": 100,
+      "runningBalanceCents": 32745,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000002",
+          "name": "Checking",
+          "memo": "Allocation note",
+          "amountCents": null
+        }
+      ]
+    },
+    {
+      "id": "register-204",
+      "transactionId": "transaction-204",
+      "accountId": "register-pages",
+      "date": "2099-01-02",
+      "registerOrder": 204,
+      "amountCents": 100,
+      "runningBalanceCents": 32845,
+      "description": "Repeated purchase <not markup>",
+      "memo": "Full memo & details",
+      "checkNum": "0007",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": []
+    }
+  ],
+  "balanceStartDate": "2026-09-05"
+}

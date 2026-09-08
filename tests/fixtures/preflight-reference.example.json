@@ -1,0 +1,274 @@
+{
+  "cases": [
+    {
+      "accountPath": [
+        "Checking",
+        "Misc Spending Budget"
+      ],
+      "covers": [
+        "debit-credit",
+        "same-day-order",
+        "future",
+        "split",
+        "transfer"
+      ],
+      "openingBalanceCents": 0,
+      "closingBalanceCents": 19500,
+      "recursiveClosingBalanceCents": 19500,
+      "entries": [
+        {
+          "date": 20260901,
+          "description": "Paycheck",
+          "amountCents": 20000,
+          "runningBalanceCents": 20000
+        },
+        {
+          "date": 20260906,
+          "description": "Candy Bar",
+          "amountCents": -300,
+          "runningBalanceCents": 19700
+        },
+        {
+          "date": 20260906,
+          "description": "Parking",
+          "amountCents": -200,
+          "runningBalanceCents": 19500
+        }
+      ],
+      "dates": [
+        {
+          "date": 20260905,
+          "ownBalanceCents": 20000,
+          "sidebarBalanceCents": 20000
+        },
+        {
+          "date": 20260906,
+          "ownBalanceCents": 19500,
+          "sidebarBalanceCents": 19500
+        }
+      ]
+    },
+    {
+      "accountPath": [
+        "Preflight Opening Only"
+      ],
+      "covers": [
+        "opening-only"
+      ],
+      "openingBalanceCents": 1234,
+      "closingBalanceCents": 1234,
+      "recursiveClosingBalanceCents": 1234,
+      "entries": [],
+      "dates": [
+        {
+          "date": 20260905,
+          "ownBalanceCents": 1234,
+          "sidebarBalanceCents": 1234
+        },
+        {
+          "date": 20260908,
+          "ownBalanceCents": 1234,
+          "sidebarBalanceCents": 1234
+        }
+      ]
+    },
+    {
+      "accountPath": [
+        "Preflight Checking"
+      ],
+      "covers": [
+        "debit-credit",
+        "transfer",
+        "future",
+        "hidden-nonzero",
+        "active-under-hidden",
+        "investment-cash"
+      ],
+      "openingBalanceCents": 10000,
+      "closingBalanceCents": 11000,
+      "recursiveClosingBalanceCents": 19500,
+      "entries": [
+        {
+          "date": 20260902,
+          "description": "Reference Income",
+          "amountCents": 4000,
+          "runningBalanceCents": 14000
+        },
+        {
+          "date": 20260907,
+          "description": "Reference Envelope Transfer",
+          "amountCents": -1000,
+          "runningBalanceCents": 13000
+        },
+        {
+          "date": 20260908,
+          "description": "Reference Investment Transfer",
+          "amountCents": -2000,
+          "runningBalanceCents": 11000
+        }
+      ],
+      "dates": [
+        {
+          "date": 20260905,
+          "ownBalanceCents": 14000,
+          "sidebarBalanceCents": 21500
+        },
+        {
+          "date": 20260907,
+          "ownBalanceCents": 13000,
+          "sidebarBalanceCents": 21500
+        },
+        {
+          "date": 20260908,
+          "ownBalanceCents": 11000,
+          "sidebarBalanceCents": 19500
+        }
+      ]
+    },
+    {
+      "accountPath": [
+        "Preflight Checking",
+        "Preflight Hidden"
+      ],
+      "covers": [
+        "hidden-nonzero"
+      ],
+      "openingBalanceCents": 5000,
+      "closingBalanceCents": 5000,
+      "recursiveClosingBalanceCents": 8500,
+      "entries": [],
+      "dates": [
+        {
+          "date": 20260905,
+          "ownBalanceCents": 5000,
+          "sidebarBalanceCents": 7500
+        },
+        {
+          "date": 20260907,
+          "ownBalanceCents": 5000,
+          "sidebarBalanceCents": 8500
+        },
+        {
+          "date": 20260908,
+          "ownBalanceCents": 5000,
+          "sidebarBalanceCents": 8500
+        }
+      ]
+    },
+    {
+      "accountPath": [
+        "Preflight Checking",
+        "Preflight Hidden",
+        "Preflight Active Child"
+      ],
+      "covers": [
+        "active-under-hidden",
+        "transfer",
+        "future"
+      ],
+      "openingBalanceCents": 2500,
+      "closingBalanceCents": 3500,
+      "recursiveClosingBalanceCents": 3500,
+      "entries": [
+        {
+          "date": 20260907,
+          "description": "Reference Envelope Transfer",
+          "amountCents": 1000,
+          "runningBalanceCents": 3500
+        }
+      ],
+      "dates": [
+        {
+          "date": 20260905,
+          "ownBalanceCents": 2500,
+          "sidebarBalanceCents": 2500
+        },
+        {
+          "date": 20260907,
+          "ownBalanceCents": 3500,
+          "sidebarBalanceCents": 3500
+        },
+        {
+          "date": 20260908,
+          "ownBalanceCents": 3500,
+          "sidebarBalanceCents": 3500
+        }
+      ]
+    },
+    {
+      "accountPath": [
+        "Preflight Income"
+      ],
+      "covers": [
+        "income-sign",
+        "transfer"
+      ],
+      "openingBalanceCents": 0,
+      "closingBalanceCents": 4000,
+      "recursiveClosingBalanceCents": 4000,
+      "entries": [
+        {
+          "date": 20260902,
+          "description": "Reference Income",
+          "amountCents": 4000,
+          "runningBalanceCents": 4000
+        }
+      ],
+      "dates": [
+        {
+          "date": 20260901,
+          "ownBalanceCents": 0,
+          "sidebarBalanceCents": 0
+        },
+        {
+          "date": 20260905,
+          "ownBalanceCents": 4000,
+          "sidebarBalanceCents": 4000
+        },
+        {
+          "date": 20260908,
+          "ownBalanceCents": 4000,
+          "sidebarBalanceCents": 4000
+        }
+      ]
+    },
+    {
+      "accountPath": [
+        "Preflight Investment"
+      ],
+      "covers": [
+        "investment-cash",
+        "transfer",
+        "future"
+      ],
+      "openingBalanceCents": 0,
+      "closingBalanceCents": 2000,
+      "recursiveClosingBalanceCents": 2000,
+      "entries": [
+        {
+          "date": 20260908,
+          "description": "Reference Investment Transfer",
+          "amountCents": 2000,
+          "runningBalanceCents": 2000
+        }
+      ],
+      "dates": [
+        {
+          "date": 20260905,
+          "ownBalanceCents": 0,
+          "sidebarBalanceCents": 0
+        },
+        {
+          "date": 20260907,
+          "ownBalanceCents": 0,
+          "sidebarBalanceCents": 0
+        },
+        {
+          "date": 20260908,
+          "ownBalanceCents": 2000,
+          "sidebarBalanceCents": 2000
+        }
+      ]
+    }
+  ]
+}

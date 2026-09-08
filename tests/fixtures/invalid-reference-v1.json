@@ -1,0 +1,521 @@
+{
+  "schemaVersion": 1,
+  "exportDate": "2026-09-06T23:00:00Z",
+  "sourceVersion": "2024.4",
+  "accounts": {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "name": "Root",
+    "type": "ROOT",
+    "currency": "USD",
+    "inactive": false,
+    "included": false,
+    "openingBalanceCents": null,
+    "closingBalanceCents": null,
+    "balanceTimeline": null,
+    "children": [
+      {
+        "id": "00000000-0000-4000-8000-000000000002",
+        "name": "Checking",
+        "type": "BANK",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 105000
+            },
+            {
+              "date": "2026-09-06",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 104500
+            }
+          ]
+        },
+        "children": [
+          {
+            "id": "00000000-0000-4000-8000-000000000003",
+            "name": "Mortgage Budget",
+            "type": "BANK",
+            "currency": "USD",
+            "inactive": false,
+            "included": true,
+            "openingBalanceCents": 0,
+            "closingBalanceCents": 0,
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-05",
+                  "ownBalanceCents": 0,
+                  "sidebarBalanceCents": 0
+                }
+              ]
+            },
+            "children": []
+          },
+          {
+            "id": "00000000-0000-4000-8000-000000000004",
+            "name": "Groceries Budget",
+            "type": "BANK",
+            "currency": "USD",
+            "inactive": false,
+            "included": true,
+            "openingBalanceCents": 0,
+            "closingBalanceCents": 65000,
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-05",
+                  "ownBalanceCents": 65000,
+                  "sidebarBalanceCents": 65000
+                }
+              ]
+            },
+            "children": []
+          },
+          {
+            "id": "00000000-0000-4000-8000-000000000005",
+            "name": "Electricity Budget",
+            "type": "BANK",
+            "currency": "USD",
+            "inactive": false,
+            "included": true,
+            "openingBalanceCents": 0,
+            "closingBalanceCents": 20000,
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-05",
+                  "ownBalanceCents": 20000,
+                  "sidebarBalanceCents": 20000
+                }
+              ]
+            },
+            "children": []
+          },
+          {
+            "id": "00000000-0000-4000-8000-000000000006",
+            "name": "Misc Spending Budget",
+            "type": "BANK",
+            "currency": "USD",
+            "inactive": false,
+            "included": true,
+            "openingBalanceCents": 0,
+            "closingBalanceCents": 19500,
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-05",
+                  "ownBalanceCents": 20000,
+                  "sidebarBalanceCents": 20000
+                },
+                {
+                  "date": "2026-09-06",
+                  "ownBalanceCents": 19500,
+                  "sidebarBalanceCents": 19500
+                }
+              ]
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000007",
+        "name": "Salary",
+        "type": "INCOME",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 320000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 320000,
+              "sidebarBalanceCents": 320000
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000008",
+        "name": "Mortgage",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 200000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 200000,
+              "sidebarBalanceCents": 200000
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000009",
+        "name": "Groceries",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 15000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 15000,
+              "sidebarBalanceCents": 15000
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000010",
+        "name": "Misc Exp",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 500,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            },
+            {
+              "date": "2026-09-06",
+              "ownBalanceCents": 500,
+              "sidebarBalanceCents": 500
+            }
+          ]
+        },
+        "children": []
+      }
+    ]
+  },
+  "entries": [
+    {
+      "id": "00000000-0000-4000-8000-000000000100",
+      "transactionId": "00000000-0000-4000-8000-000000000100",
+      "accountId": "missing-account",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "amountCents": 320000,
+      "runningBalanceCents": 320000,
+      "description": "Paycheck",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000003",
+          "name": "Mortgage Budget",
+          "memo": "",
+          "amountCents": 200000
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000004",
+          "name": "Groceries Budget",
+          "memo": "",
+          "amountCents": 80000
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000005",
+          "name": "Electricity Budget",
+          "memo": "",
+          "amountCents": 20000
+        },
+        {
+          "accountId": "00000000-0000-4000-8000-000000000006",
+          "name": "Misc Spending Budget",
+          "memo": "",
+          "amountCents": 20000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000101",
+      "transactionId": "00000000-0000-4000-8000-000000000100",
+      "accountId": "00000000-0000-4000-8000-000000000003",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "amountCents": 200000,
+      "runningBalanceCents": 200000,
+      "description": "Paycheck",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000007",
+          "name": "Salary",
+          "memo": "",
+          "amountCents": 200000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000102",
+      "transactionId": "00000000-0000-4000-8000-000000000100",
+      "accountId": "00000000-0000-4000-8000-000000000004",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "amountCents": 80000,
+      "runningBalanceCents": 80000,
+      "description": "Paycheck",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000007",
+          "name": "Salary",
+          "memo": "",
+          "amountCents": 80000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000103",
+      "transactionId": "00000000-0000-4000-8000-000000000100",
+      "accountId": "00000000-0000-4000-8000-000000000005",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "amountCents": 20000,
+      "runningBalanceCents": 20000,
+      "description": "Paycheck",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000007",
+          "name": "Salary",
+          "memo": "",
+          "amountCents": 20000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000104",
+      "transactionId": "00000000-0000-4000-8000-000000000100",
+      "accountId": "00000000-0000-4000-8000-000000000006",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "amountCents": 20000,
+      "runningBalanceCents": 20000,
+      "description": "Paycheck",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000007",
+          "name": "Salary",
+          "memo": "",
+          "amountCents": 20000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000105",
+      "transactionId": "00000000-0000-4000-8000-000000000105",
+      "accountId": "00000000-0000-4000-8000-000000000003",
+      "date": "2026-09-03",
+      "registerOrder": 1,
+      "amountCents": -200000,
+      "runningBalanceCents": 0,
+      "description": "Mortgage Payment",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000008",
+          "name": "Mortgage",
+          "memo": "",
+          "amountCents": -200000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000106",
+      "transactionId": "00000000-0000-4000-8000-000000000105",
+      "accountId": "00000000-0000-4000-8000-000000000008",
+      "date": "2026-09-03",
+      "registerOrder": 0,
+      "amountCents": 200000,
+      "runningBalanceCents": 200000,
+      "description": "Mortgage Payment",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000003",
+          "name": "Mortgage Budget",
+          "memo": "",
+          "amountCents": 200000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000107",
+      "transactionId": "00000000-0000-4000-8000-000000000107",
+      "accountId": "00000000-0000-4000-8000-000000000004",
+      "date": "2026-09-05",
+      "registerOrder": 1,
+      "amountCents": -15000,
+      "runningBalanceCents": 65000,
+      "description": "Groceries Expense",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000009",
+          "name": "Groceries",
+          "memo": "",
+          "amountCents": -15000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000108",
+      "transactionId": "00000000-0000-4000-8000-000000000107",
+      "accountId": "00000000-0000-4000-8000-000000000009",
+      "date": "2026-09-05",
+      "registerOrder": 0,
+      "amountCents": 15000,
+      "runningBalanceCents": 15000,
+      "description": "Groceries Expense",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000004",
+          "name": "Groceries Budget",
+          "memo": "",
+          "amountCents": 15000
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000109",
+      "transactionId": "00000000-0000-4000-8000-000000000109",
+      "accountId": "00000000-0000-4000-8000-000000000006",
+      "date": "2026-09-06",
+      "registerOrder": 1,
+      "amountCents": -300,
+      "runningBalanceCents": 19700,
+      "description": "Candy Bar",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000010",
+          "name": "Misc Exp",
+          "memo": "",
+          "amountCents": -300
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000110",
+      "transactionId": "00000000-0000-4000-8000-000000000109",
+      "accountId": "00000000-0000-4000-8000-000000000010",
+      "date": "2026-09-06",
+      "registerOrder": 0,
+      "amountCents": 300,
+      "runningBalanceCents": 300,
+      "description": "Candy Bar",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000006",
+          "name": "Misc Spending Budget",
+          "memo": "",
+          "amountCents": 300
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000111",
+      "transactionId": "00000000-0000-4000-8000-000000000111",
+      "accountId": "00000000-0000-4000-8000-000000000006",
+      "date": "2026-09-06",
+      "registerOrder": 2,
+      "amountCents": -200,
+      "runningBalanceCents": 19500,
+      "description": "Parking",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000010",
+          "name": "Misc Exp",
+          "memo": "",
+          "amountCents": -200
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000112",
+      "transactionId": "00000000-0000-4000-8000-000000000111",
+      "accountId": "00000000-0000-4000-8000-000000000010",
+      "date": "2026-09-06",
+      "registerOrder": 1,
+      "amountCents": 200,
+      "runningBalanceCents": 500,
+      "description": "Parking",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "UNCLEARED",
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "00000000-0000-4000-8000-000000000006",
+          "name": "Misc Spending Budget",
+          "memo": "",
+          "amountCents": 200
+        }
+      ]
+    }
+  ],
+  "balanceStartDate": "2026-09-05"
+}

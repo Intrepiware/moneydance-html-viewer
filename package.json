@@ -1,0 +1,12 @@
+{
+  "name": "moneydance-personal-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local tooling for the personal Moneydance viewer",
+  "engines": { "node": ">=20.9.0" },
+  "scripts": {
+    "test": "node --test",
+    "serve": "node scripts/serve-ui.mjs",
+    "fixtures": "node scripts/build-fixtures.mjs"
+  }
+}
