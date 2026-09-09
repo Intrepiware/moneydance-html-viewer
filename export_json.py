@@ -8,7 +8,9 @@ import datetime
 import json
 import os
 import sys
-from java.lang import Runnable
+from java.lang import Runnable, System
+from java.util.concurrent import CountDownLatch, TimeUnit
+import threading
 from java.lang import Exception as JavaException
 from java.io import File, FileOutputStream, OutputStreamWriter
 from java.nio.file import Files, StandardCopyOption
@@ -22,6 +24,28 @@ EXCLUDED = ('ROOT', 'INVESTMENT', 'SECURITY')
 
 class ExportError(Exception):
     pass
+
+
+class Deadline(object):
+    """Cooperative monotonic deadline; cancellation never interrupts Java calls."""
+    def __init__(self, seconds=60, clock=None):
+        self.clock = clock or System.nanoTime
+        self.end = self.clock() + long(seconds * 1000000000)
+        self.cancelled = threading.Event()
+
+    def check(self):
+        if self.cancelled.is_set():
+            raise ExportError('EXPORT_CANCELLED')
+        if self.clock() >= self.end:
+            raise ExportError('EXPORT_TIMEOUT')
+
+    def cancel(self):
+        self.cancelled.set()
+
+
+def check_deadline(deadline):
+    if deadline is not None:
+        deadline.check()
 
 
 def require(condition, code):
@@ -71,13 +95,15 @@ def memo(txn):
     return text(txn.getDescription())
 
 
-def capture(book):
+def capture(book, deadline=None):
     """Copy relevant source data to Python values; never retain mutable Java nodes."""
+    check_deadline(deadline)
     records = []
     seen = set()
     transaction_set = book.getTransactionSet()
 
     def visit(account, parent_id, ancestor_needs_balances=False):
+        check_deadline(deadline)
         aid = text(account.getUUID())
         require(aid and aid not in seen, 'DUPLICATE_ACCOUNT_OR_CYCLE')
         seen.add(aid)
@@ -104,15 +130,23 @@ def capture(book):
         rows = []
         if needs_balances:
             source = transaction_set.getTransactionsForAccount(account)
-            rows = sorted([source.getTxn(i) for i in range(source.getSize())], key=lambda t: int(t.getDateInt()))
+            def dated(txn):
+                check_deadline(deadline)
+                return int(txn.getDateInt())
+            for i in range(source.getSize()):
+                check_deadline(deadline)
+                rows.append(source.getTxn(i))
+            rows.sort(key=dated)
         detached = TxnSet()
         for txn in rows:
+            check_deadline(deadline)
             detached.addTxn(txn)
         if needs_balances:
             detached.setHoldBalances(True)
             detached.recalcBalances(record['opening'], bool(account.balanceIsNegated()))
         row_ids = set()
         for order, txn in enumerate(rows):
+            check_deadline(deadline)
             check_editing_mode(txn)
             eid = text(txn.getUUID())
             require(eid and eid not in row_ids, 'DUPLICATE_ENTRY')
@@ -124,6 +158,7 @@ def capture(book):
             description = text(txn.getDescription()) or text(parent.getDescription())
             allocations = []
             for i in range(txn.getOtherTxnCount()):
+                check_deadline(deadline)
                 other = txn.getOtherTxn(i)
                 allocations.append({'accountId': text(other.getAccount().getUUID()),
                                     'name': text(other.getAccount().getAccountName()),
@@ -143,16 +178,19 @@ def capture(book):
         for i in range(account.getSubAccountCount()):
             visit(account.getSubAccount(i), aid, needs_balances)
     visit(book.getRootAccount(), None)
+    check_deadline(deadline)
     return records
 
 
-def build_snapshot(records, instant, source_version):
+def build_snapshot(records, instant, source_version, deadline=None):
+    check_deadline(deadline)
     boundary = (instant.date() - datetime.timedelta(days=1)).isoformat()
     today = datetime.date.today().isoformat()
     by_id = dict((r['id'], r) for r in records)
     children = dict((r['id'], []) for r in records)
     roots = []
     for r in records:
+        check_deadline(deadline)
         if r['parentId'] is None:
             roots.append(r['id'])
         else:
@@ -163,6 +201,7 @@ def build_snapshot(records, instant, source_version):
     # Integer raw deltas are kept in source sign until the owning parent's display
     # sign is applied. Included entries separately use their own account's sign.
     for r in records:
+        check_deadline(deadline)
         if not r['needsBalances']:
             # Metadata-only accounts do not participate in any included total.
             # Their security quantities/portfolio balances are outside this export.
@@ -173,6 +212,7 @@ def build_snapshot(records, instant, source_version):
         running = opening
         daily = {}
         for row in r['rows']:
+            check_deadline(deadline)
             running = add(running, row['raw']) if r['currency'] == 'USD' else running + row['raw']
             daily[row['date']] = add(daily.get(row['date'], 0), row['raw']) if r['currency'] == 'USD' else daily.get(row['date'], 0) + row['raw']
             require(row['sdkBalance'] == running * r['sign'], 'SDK_RUNNING_BALANCE_MISMATCH')
@@ -188,6 +228,7 @@ def build_snapshot(records, instant, source_version):
         r['closing'] = running
 
     def aggregate(aid):
+        check_deadline(deadline)
         r = by_id[aid]
         require(r['currency'] == 'USD' and r['type'] != 'SECURITY', 'UNVERIFIED_DESCENDANT_VALUATION')
         opening = exact(r['opening'])
@@ -196,18 +237,21 @@ def build_snapshot(records, instant, source_version):
             child_opening, child_events = aggregate(child)
             opening = add(opening, child_opening)
             for day, amount in child_events.items():
+                check_deadline(deadline)
                 events[day] = add(events.get(day, 0), amount)
         return opening, events
 
     def at(opening, events, cutoff):
         total = exact(opening)
         for day in sorted(events):
+            check_deadline(deadline)
             if day <= cutoff:
                 total = add(total, events[day])
         return total
 
     nodes = {}
     for r in records:
+        check_deadline(deadline)
         node = dict((key, r[key]) for key in ('id', 'name', 'type', 'currency', 'inactive', 'included'))
         node.update({'children': [], 'openingBalanceCents': None, 'closingBalanceCents': None, 'balanceTimeline': None})
         if r['included']:
@@ -220,6 +264,7 @@ def build_snapshot(records, instant, source_version):
             sidebar = exact(at(opening, events, boundary) * sign)
             points = [{'date': boundary, 'ownBalanceCents': own, 'sidebarBalanceCents': sidebar}]
             for day in sorted(set(events) | set(r['daily'])):
+                check_deadline(deadline)
                 if day <= boundary:
                     continue
                 own = add(own, exact(r['daily'].get(day, 0) * sign))
@@ -235,14 +280,18 @@ def build_snapshot(records, instant, source_version):
     # of retained nodes; prune after balance checks so valuation cannot be hidden.
     retained = set(r['id'] for r in records if r['type'] != 'SECURITY')
     for entry in emitted_entries:
+        check_deadline(deadline)
         retained.update(a['accountId'] for a in entry['allocations'])
     for aid in list(retained):
+        check_deadline(deadline)
         parent_id = by_id[aid]['parentId']
         while parent_id is not None and parent_id not in retained:
             retained.add(parent_id)
             parent_id = by_id[parent_id]['parentId']
     for aid in retained:
+        check_deadline(deadline)
         nodes[aid]['children'] = [nodes[child] for child in children[aid] if child in retained]
+    check_deadline(deadline)
     return {'schemaVersion': 1, 'exportDate': instant.isoformat() + 'Z',
             'sourceVersion': source_version, 'balanceStartDate': boundary,
             'accounts': nodes[roots[0]], 'entries': emitted_entries}
@@ -271,8 +320,10 @@ def atomic_save(snapshot, target):
 
 
 class CaptureOnUIThread(Runnable):
-    def __init__(self, book):
+    def __init__(self, book, deadline=None):
         self.book = book
+        self.deadline = deadline
+        self.done = CountDownLatch(1)
         self.result = None
         self.error = None
 
@@ -280,12 +331,39 @@ class CaptureOnUIThread(Runnable):
         try:
             # UI edits cannot interleave on the EDT. Compare full detached captures
             # (including source stamps) to detect background changes; reject edits.
-            first = capture(self.book)
-            second = capture(self.book)
+            check_deadline(self.deadline)
+            first = capture(self.book, self.deadline)
+            second = capture(self.book, self.deadline)
             require(first == second, 'SOURCE_CHANGED_DURING_CAPTURE')
+            check_deadline(self.deadline)
             self.result = first
         except (Exception, JavaException) as error:
             self.error = error
+        finally:
+            self.book = None
+            self.done.countDown()
+
+
+def capture_stable(book, deadline):
+    """Bounded EDT handoff; returns detached records, never a retained book."""
+    deadline.check()
+    operation = CaptureOnUIThread(book, deadline)
+    if SwingUtilities.isEventDispatchThread():
+        operation.run()
+    else:
+        SwingUtilities.invokeLater(operation)
+        while not getattr(operation.done, 'await')(20, TimeUnit.MILLISECONDS):
+            try:
+                deadline.check()
+            except ExportError:
+                deadline.cancel()
+                # A queued operation checks cancellation before any source access.
+                # A running call may finish later; its result is never consumed.
+                raise
+    deadline.check()
+    if operation.error is not None:
+        raise operation.error
+    return operation.result
 
 
 def main():

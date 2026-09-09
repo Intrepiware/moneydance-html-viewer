@@ -1,21 +1,21 @@
 # Tasks: Encrypted Snapshot Delivery
 
 Input: spec.md, plan.md, research.md, data-model.md, contracts/ and quickstart.md.
-Tests are required by FR-018 and SC-001–008. All tasks are pending; prior probe
+Tests are required by FR-018 and SC-001–008. Phases 1/2 local implementation is recorded below; prior probe
 evidence does not complete production implementation tasks. Paths are repo-relative.
 
 ## Phase 1: Setup
 
-- [ ] T001 Verify official DevKit packaging/signing instructions and record exact runtime/tool versions and genuine key-generation commands in scripts/extension-validation.md; do not fabricate signing artifacts.
-- [ ] T002 Establish extension/ packaging layout, resource import paths and private artifact exclusions in .gitignore; keep keys, configuration and private exports out of packages and source control.
+- [X] T001 Verify official DevKit packaging/signing instructions and record exact runtime/tool versions and genuine key-generation commands in scripts/extension-validation.md; do not fabricate signing artifacts.
+- [X] T002 Establish extension/ packaging layout, resource import paths and private artifact exclusions in .gitignore; keep keys, configuration and private exports out of packages and source control.
 
 ## Phase 2: Foundational
 
 Goal: establish shared source and wire contracts before user-story integration.
 
-- [ ] T003 Extend export_json.py with shared callable capture/build entry points and cooperative monotonic deadline checks in source loops and transformation; preserve standalone chooser and library-only behavior without duplicating financial logic.
-- [ ] T004 Verify stable capture, source immutability, timeout/cancellation and unchanged standalone output in tests/runtime/export_deadline_test.py and scripts/extension-validation.md using actual Jython plus controlled source references.
-- [ ] T005 Create synthetic fixed envelope/Unicode known-answer vectors and native JVM-to-WebCrypto verification in tests/fixtures/encryption/ and tests/runtime/encryption_test.py, including invalid header, tampering and oversize cases per contracts/encrypted-snapshot.md.
+- [X] T003 Extend export_json.py with shared callable capture/build entry points and cooperative monotonic deadline checks in source loops and transformation; preserve standalone chooser and library-only behavior without duplicating financial logic.
+- [X] T004 Verify stable capture, source immutability, timeout/cancellation and unchanged standalone output in tests/runtime/export_deadline_test.py and scripts/extension-validation.md using actual Jython plus controlled source references.
+- [X] T005 Create synthetic fixed envelope/Unicode known-answer vectors and native JVM-to-WebCrypto verification in tests/fixtures/encryption/ and tests/runtime/encryption_test.py, including invalid header, tampering and oversize cases per contracts/encrypted-snapshot.md.
 
 Checkpoint: source contract and vectors available; native compatibility must pass as crypto implementations arrive. No private cloud delivery yet.
 
@@ -99,3 +99,8 @@ FR-013–017/019: T022–T027/T029; FR-018: T011/T017/T021/T027–T030.
 SC-001: T011/T021; SC-002/003: T016/T017/T021/T028;
 SC-004/007: T026/T027; SC-005: T028; SC-006: T011/T017/T029;
 SC-008: T020/T021/T028.
+
+
+## Phase 1/2 execution evidence
+
+T001/T002: packaging research and allowlist layout documented in extension/README.md and scripts/extension-validation.md; secrets/package outputs excluded. No DevKit, keys or package generated. T003: shared exporter gains cooperative deadlines and canceled queued EDT capture while preserving default manual behavior. T005: six synthetic OpenSSL/JCA/Web Crypto known answers and malformed-input contract tests pass. T004 completed 2026-09-09: user reported DEADLINE_SOURCE_PASS (18 entries, stable/outputEqual/timeoutRejected true); standalone synthetic export validated and all reference comparisons passed after user-confirmed probe additions were reconciled in the private reference. Local evidence: 40 Node tests, 5 deadline tests, 1 JCA test covering all six vectors and 9 probe regression tests pass. No Phase 3+ production code implemented.
