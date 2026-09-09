@@ -1,5 +1,8 @@
 # Phase 3 Moneydance installation check
 
+Historical build-1 checklist. Current manual publication checks are in
+[phase4-publish.md](phase4-publish.md); build 2 enables Publish Snapshot.
+
 This build stores settings only. It does not export, encrypt financial records,
 upload, or publish at shutdown. Publish Snapshot explicitly reports that limitation.
 

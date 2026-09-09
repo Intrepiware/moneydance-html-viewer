@@ -1,15 +1,17 @@
 # Extension staging layout
 
-Identity: `snapshot_delivery`. Phase 3 includes persistent settings and menus.
-Publish Snapshot explains that publication is not yet enabled; no capture, network
-delivery or close hook is active in this build.
+Identity: `snapshot_delivery`. Module build 3 includes Phase 4 manual publication and red credential warnings:
+Publish Snapshot captures, validates, encrypts and uploads to the configured blob.
+Automatic close/exit publication is not enabled. Start with the synthetic checks
+in [phase4-publish.md](../scripts/phase4-publish.md).
 
 The packager stages an explicit allowlist, not the repository:
 
 - MXT root: script_info.dict, snapshot_extension.py and required Python modules.
 - MXT root: export_json.py copied from the repository's shared source, never a fork.
 - com/moneydance/modules/features/snapshot_delivery/meta_info.dict: metadata.
-- protect-secrets.ps1: bundled helper resource when implemented in US1.
+- configuration.py, encryption.py, azure_upload.py, delivery.py and protect-secrets.ps1:
+  bundled settings, crypto, upload, pipeline and secret-helper resources.
 
 Class initializer and metadata are implemented in T007, packaging in T010.
 Packaged code cannot assume __file__ exists;

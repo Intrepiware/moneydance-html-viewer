@@ -28,9 +28,9 @@ keys; ordinary rebuilds do not need key generation or downloads.
    protected configuration file.
 
 For exporter changes, also run the relevant synthetic export/validation checks in
-[export-validation.md](export-validation.md). This Phase 3 extension loads the
-exporter resource but does not yet publish snapshots, so installation alone does
-not verify a changed export's financial output.
+[export-validation.md](export-validation.md), then the synthetic publication checks
+in [phase4-publish.md](phase4-publish.md). Installation alone does not verify a
+changed export's financial output.
 
 ## Prerequisites and first build on a new setup
 

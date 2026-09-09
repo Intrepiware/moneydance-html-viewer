@@ -1,5 +1,95 @@
 # Extension validation evidence
 
+## Installed expiry checks and red warning update — 2026-09-09
+
+User confirmed the Azure policy permits the current 23-month SAS. With expiry
+2028-08-10, actual Moneydance restarts showed no warning on July 9/10 (32/31 days),
+and a gray warning on July 11/13 and August 3/9 (30/28/7/1 days). After the expiry
+time on August 10, August 11, and August 11 of 2029, the text said credentials
+have expired. These are user-reported installed checks using changed system time.
+This closes the policy/lifetime and installed warning-boundary evidence gaps.
+User then verified build 3 with system dates 2028-08-03 and 2028-08-11: warnings
+were red in both cases, the latter said "have expired", and attempting Publish
+Snapshot with expired credentials produced the expected error. T017 is complete.
+
+Build 3 makes credential warnings red (#d32f2f) using escaped HTML in the public
+status-text URI; normal progress remains plain text. Read-only inspection of the
+installed MainFrame/AccountPanel status methods confirmed forwarding to JLabel.setText.
+No internal component or shared color is changed. The targeted Jython boundary/
+warning markup/save-suppression test passed. User confirmed the actual red appearance.
+
+Rebuilt `dist/snapshot_delivery.mxt` with existing personal KeyAdmin keys. SHA256:
+`5AAF174993C017503EC23BF6D5C76A445554735AB052CE0803F42AF4629533AC`.
+
+## Phase 4 local implementation — 2026-09-09
+
+Module build 2: `dist/snapshot_delivery.mxt`, SHA256
+`CACB171787944A3DF06989117FBDC46A878F9B954F9E219865D51650D14C49AC`.
+Built with `./scripts/package-extension.ps1` using the existing personal KeyAdmin
+signing material. The allowlist now includes nine resources plus signing metadata.
+No extension installation or Azure write was performed by the agent.
+
+T012–T016 local implementation is complete. Two native encryption tests pass,
+including all six fixed vectors through production encryption, fresh salt/IV and
+size/password rejection. Seven delivery tests pass under bundled Java/Jython:
+actual Java HTTP client sends one fixed-length body to a synthetic loopback endpoint,
+rejects redirects and reports response loss; injected transport timeout/quarantine;
+stage failures, busy requests, frozen settings, cancellation and deadline rejection;
+safe status persistence, serializer ceiling, expiry warnings and inactive save/exit
+callbacks. Native source-fixture build/encryption is also decrypted by the actual
+Node/Web Crypto utility and validated with the existing financial validator.
+Failed-publication readability tests use synthetic simulated storage; they do not
+prove live Azure behavior. Two targeted settings/resource regression tests pass.
+
+`npm test`: 41 tests passed. Test discovery is now explicitly scoped to tests/unit
+and tests/contract because whole-repository discovery failed on protected signing
+and prior DPAPI-test directories. It retains every existing Node test. The previously
+observed TLSSocket listener warnings still appear; no related test failed.
+
+Upload uses native Java HttpClient, HTTP/1.1, no redirects, no application retries,
+and a one-subscription body to prevent platform replay. SAS requests explicitly
+select API version 2023-11-03 without changing signed authorization version `sv`;
+headers specify BlockBlob, fixed length and no-store. A lost response/uncertain server
+error is unknown; if local transport termination cannot be confirmed, further
+attempts in that session are blocked. No previous blob is deleted first. Operations
+share one cooperative 60-second budget; noninterruptible JVM/source calls and real
+runtime timing remain acceptance obligations. Status text uses Moneydance's public
+setprogress URI, with no component interception or polling.
+
+Sources checked during implementation:
+[Put Blob](https://learn.microsoft.com/en-us/rest/api/storageservices/put-blob),
+[service versions](https://learn.microsoft.com/en-us/rest/api/storageservices/versioning-for-the-azure-storage-services),
+[Java HttpClient](https://docs.oracle.com/en/java/javase/21/docs/api/java.net.http/java/net/http/HttpClient.html),
+[Moneydance progress URI](https://moneydance.com/dev/urischeme).
+
+**T017 and Phase 4 are complete**. Installed expired-credential publication
+blocking and red warning confirmation are recorded above.
+Follow [phase4-publish.md](phase4-publish.md). No real-data publication, automatic
+exit integration or viewer unlock has been enabled as an acceptance claim.
+
+### Phase 4 manual results — user reported
+
+- Build 2 installed successfully; actual Azure settings saved and SAS paste updated
+  issue/expiry dates as expected.
+- Three initial publications succeeded; the last measured 1.56 seconds. The first
+  two felt similar but were not timed. Azure modification dates updated.
+- Downloaded ciphertext rejected an incorrect password and decrypted with the
+  correct password. All preflight comparisons passed.
+- A new synthetic transaction appeared with the expected changes after another
+  publication/download/decryption and before/after JSON comparison.
+- Airplane-mode publication showed an error and the Azure blob date stayed unchanged.
+  Poisoned SAS input produced an error; restored credentials allowed publication.
+- Password-change decryption initially appeared to fail because the output file
+  already existed. After removing it, decryption succeeded. This was a utility
+  output-file error, not a demonstrated encryption failure.
+- The utility now rejects existing output before prompting. User verified that
+  error and successful decryption to a new filename. Two targeted utility tests pass.
+
+Later confirmation of actual credential lifetime/policy and installed warning
+presentation and expired-credential publication blocking is recorded above.
+Busy-request handling and ordinary-save suppression have local automated coverage;
+the user has not separately reported the optional installed checks from the guide.
+
 ## Settings convenience update — 2026-09-09
 
 Added best-effort SAS expiry autofill for tokens and full SAS URLs, current UTC

@@ -35,12 +35,12 @@ Independent test: install once, restart three times and retain masked working se
 Independent test: publish synthetic data from the menu, decrypt with a test utility
 and compare source references without requiring the finished viewer UI.
 
-- [ ] T012 [P] [US2] Implement native JCA envelope encryption in extension/encryption.py and pass T005 vectors, exact password encoding, fresh salt/IV, authentication and 128 MiB ceiling checks.
-- [ ] T013 [P] [US2] Implement one HTTPS BlockBlob PUT with explicit supported service version, fixed length, no redirects, no-store and cancellable deadlines in extension/azure_upload.py; distinguish 201, rejected requests and ambiguous response loss.
-- [ ] T014 [US2] Implement serialized capture/validate/encrypt/upload pipeline and sanitized persisted outcomes in extension/delivery.py; enforce one 60-second budget, no plaintext staging and no overlapping or blind older retries.
-- [ ] T015 [US2] Wire manual publication, progress and plain expiry warning directing to Snapshot Settings in extension/snapshot_extension.py; ordinary save callbacks must not export.
-- [ ] T016 [US2] Add a synthetic-only decrypt/validate utility and failure-injection coverage in tests/runtime/delivery_test.py and tests/tools/decrypt-synthetic.mjs; record its runnable commands in quickstart.md. Cover stage failures, busy requests, response loss and previous-publication readability.
-- [ ] T017 [US2] Record controlled Azure policy/lifetime checks, blob-scoped write SAS issuance, actual manual synthetic upload, financial comparison and warning boundaries/menu navigation in scripts/extension-validation.md; do not mark unknown issuance as verified.
+- [X] T012 [P] [US2] Implement native JCA envelope encryption in extension/encryption.py and pass T005 vectors, exact password encoding, fresh salt/IV, authentication and 128 MiB ceiling checks.
+- [X] T013 [P] [US2] Implement one HTTPS BlockBlob PUT with explicit supported service version, fixed length, no redirects, no-store and cancellable deadlines in extension/azure_upload.py; distinguish 201, rejected requests and ambiguous response loss.
+- [X] T014 [US2] Implement serialized capture/validate/encrypt/upload pipeline and sanitized persisted outcomes in extension/delivery.py; enforce one 60-second budget, no plaintext staging and no overlapping or blind older retries.
+- [X] T015 [US2] Wire manual publication, progress and plain expiry warning directing to Snapshot Settings in extension/snapshot_extension.py; ordinary save callbacks must not export.
+- [X] T016 [US2] Add a synthetic-only decrypt/validate utility and failure-injection coverage in tests/runtime/delivery_test.py and tests/tools/decrypt-synthetic.mjs; record its runnable commands in quickstart.md. Cover stage failures, busy requests, response loss and previous-publication readability.
+- [X] T017 [US2] Record controlled Azure policy/lifetime checks, blob-scoped write SAS issuance, actual manual synthetic upload, financial comparison and warning boundaries/menu navigation in scripts/extension-validation.md; do not mark unknown issuance as verified.
 
 ## Phase 5: US3 — Publish on normal exit (P1)
 
@@ -117,3 +117,25 @@ verification remains pending rebuild/reinstallation; original T011 evidence belo
 is unchanged.
 
 T006-T010 implemented 2026-09-09: settings-only persistent initializer/resources, masked settings UI, native DPAPI helper, protected atomic configuration and official KeyAdmin packaging. Five native Jython configuration tests passed; initial and repeat genuine signing succeeded. See scripts/extension-validation.md for package hash and evidence. T011 completed by user confirmation: installation accepted after the signature warning; menus, saved settings, separate invalid-URL/blank-password rejection and canceled edits verified. At least three restart cycles using File > Quit/window X preserved installation and settings; installation also survived book switching. This verifies persistence, not trusted signature validation or publication. Publish Snapshot explicitly reports not enabled; no automatic publication or Phase 4+ work is active.
+
+## Phase 4 execution evidence
+
+T012–T016 implemented 2026-09-09. Build 2 enables manual capture/build, native
+encryption and serialized single-PUT publication with progress, credential warnings
+and sanitized status. Automatic exit publication remains disabled. Two encryption
+tests (including six production known-answer vectors), seven delivery tests and
+two targeted settings/resource tests pass under bundled Jython; all 41 Node tests
+pass. Actual Java HTTP loopback and JVM-to-WebCrypto financial fixture checks pass.
+These are synthetic/local results, not actual source-book/Azure acceptance.
+
+The signed MXT and evidence are recorded in scripts/extension-validation.md.
+T017 completed by user verification: installed synthetic Azure publication (one timed at
+1.56 seconds), decryption/password rejection, passing financial comparisons, new
+transaction propagation, offline/bad-SAS failure and recovery, password-change
+decryption, and utility output-file guard. User also confirmed the permitted 23-month
+SAS and installed warning boundaries from 32 days before expiry through 366 days
+after expiry. On build 3, user confirmed red warning text at 2028-08-03 and
+2028-08-11, expired wording on the latter, and the expected error when attempting
+publication with expired credentials. Phase 4 is complete; Phase 5 is not started.
+Follow scripts/phase4-publish.md; detailed results are in
+scripts/extension-validation.md.

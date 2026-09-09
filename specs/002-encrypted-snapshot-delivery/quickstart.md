@@ -1,6 +1,6 @@
 # Validation guide: Encrypted Snapshot Delivery
 
-This is the planned validation sequence, not evidence that the extension exists.
+Phases 1–4 have local implementation; live Phase 4 Azure acceptance remains pending.
 Record results in scripts/extension-validation.md as implementation proceeds.
 Use synthetic data first; do not commit private logs, keys, configurations or exports.
 
@@ -40,6 +40,27 @@ menus and protected configuration persist without Developer Console loading.
 Invalid settings must prevent delivery. Inspect only sanitized results, not secrets.
 
 ## Manual encrypted delivery (US2)
+
+Follow [the manual Phase 4 checklist](../../scripts/phase4-publish.md), including
+actual storage policy and service-SAS lifetime verification. Install module build 2.
+After downloading the synthetic ciphertext through the Azure portal:
+
+```powershell
+node tests/tools/decrypt-synthetic.mjs --synthetic --input UI/data/published.synthetic.enc --output UI/data/decrypted.synthetic.json
+node scripts/compare-preflight.mjs UI/data/decrypted.synthetic.json UI/data/preflight-reference.private.json
+```
+
+The password prompt is hidden; no password argument is supported. The optional
+output is synthetic plaintext and refuses overwrite. Local runtime checks:
+
+```powershell
+& 'C:/Program Files/Moneydance/jre/bin/java.exe' '-Dpython.cachedir.skip=true' -cp 'C:/Program Files/Moneydance/lib/*' org.python.util.jython -B tests/runtime/encryption_test.py
+& 'C:/Program Files/Moneydance/jre/bin/java.exe' '-Dpython.cachedir.skip=true' -cp 'C:/Program Files/Moneydance/lib/*' org.python.util.jython -B tests/runtime/delivery_test.py
+npm test
+```
+
+Loopback HTTP and injected responses are local tests, not Azure policy/TLS or
+installed Moneydance acceptance. Automatic close publication remains Phase 5.
 
 Publish a known synthetic book with Publish Snapshot. Confirm HTTP success, fetch
 the ciphertext, decrypt with the contract test utility and compare the inner v1

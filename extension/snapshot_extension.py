@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Persistent Phase 3 extension: settings only; no capture or publication hooks."""
+"""Persistent manual snapshot delivery; automatic exit delivery is not enabled."""
 import threading
 import datetime
 from urlparse import urlsplit, parse_qs
+from urllib import quote
+from java.util.concurrent import CountDownLatch, TimeUnit
 from javax.swing.event import DocumentListener
 from java.lang import Runnable, System, Exception as JavaException
 from java.awt import GridLayout
@@ -71,6 +73,9 @@ class SnapshotExtension(object):
         self.stopped = False
         self.busy = False
         self.dialog = None
+        self.delivery = None
+        self.exporter = None
+        self.publishing = False
 
     def getName(self): return 'Snapshot Delivery'
 
@@ -84,8 +89,18 @@ class SnapshotExtension(object):
         # Validate shared resource can load without running the standalone chooser.
         shared = {'__name__':'snapshot_delivery_export','_EXPORT_LIBRARY_ONLY':True}
         exec compile(read_resource(extension_object,'export_json.py').encode('utf-8'), 'export_json.py', 'exec') in shared
+        self.exporter = shared
+        modules = {}
+        for name in ('encryption','azure_upload','delivery'):
+            module = {'__name__':'snapshot_delivery_'+name}
+            exec compile(read_resource(extension_object,name+'.py').encode('utf-8'), name+'.py', 'exec') in module
+            modules[name] = module
+        status = modules['delivery']['StatusStore'](self.store.directory,namespace['restrict'])
+        self.delivery = modules['delivery']['Delivery'](shared,namespace['validate'],
+            modules['encryption']['encrypt'],modules['azure_upload']['upload'],status)
         context.registerFeature(extension_object,'snapshot_settings',None,'Snapshot Settings')
         context.registerFeature(extension_object,'snapshot_publish',None,'Publish Snapshot')
+        self.later(self.check_warning)
 
     def later(self, action):
         def guarded():
@@ -107,7 +122,7 @@ class SnapshotExtension(object):
             self.later(lambda: self.invoke(uri)); return
         command = unicode(uri).split(':',1)[0].split('?',1)[0]
         if command == 'snapshot_publish':
-            self.notice('Publication is not enabled in this Phase 3 build. Use Snapshot Settings to configure the extension.')
+            self.publish()
         elif command == 'snapshot_settings':
             if self.busy:
                 self.notice('Settings are already open or being saved.'); return
@@ -119,6 +134,7 @@ class SnapshotExtension(object):
             def load():
                 try:
                     current = store.load(book_id)
+                    self.later(lambda: self.warn(current or {}))
                     self.later(lambda: self.edit(book_id,current or {}))
                 except (Exception, JavaException):
                     self.later(lambda: self.failed('Unable to load settings. Open the configured book and use the same Windows user. A damaged settings file must be restored or removed before reconfiguration.'))
@@ -148,7 +164,7 @@ class SnapshotExtension(object):
         panel.add(JLabel('Renew in Azure: create a blob-scoped service SAS with Write and HTTPS only.'))
         panel.add(JLabel('Use 23 months if policy permits (required range: 22-24 months).'))
         panel.add(JLabel('Pasting a SAS fills its expiry and sets issued time to now; adjust issuance if older.'))
-        panel.add(JLabel('This build stores settings only; it does not upload or test Azure access.'))
+        panel.add(JLabel('Save stores settings only. Use Publish Snapshot to export, encrypt and upload.'))
         pane = JOptionPane(panel,JOptionPane.PLAIN_MESSAGE,JOptionPane.OK_CANCEL_OPTION)
         dialog = pane.createDialog(None,'Snapshot Settings')
         self.dialog = dialog
@@ -187,6 +203,7 @@ class SnapshotExtension(object):
                 store.save(value,book_id)
                 def complete():
                     self.busy=False
+                    self.check_warning()
                     self.notice('Settings saved for this book. They will be available after restarting Moneydance.')
                 self.later(complete)
             except (Exception, JavaException):
@@ -194,12 +211,124 @@ class SnapshotExtension(object):
             finally: value.clear()
         worker=threading.Thread(target=save); worker.daemon=True; worker.start()
 
+    def status(self, text, meter=None, warning=False):
+        if self.stopped: return
+        try:
+            if warning:
+                escaped = text.replace('&','&amp;').replace('<','&lt;').replace('>','&gt;')
+                text = '<html><font color="#d32f2f">'+escaped+'</font></html>'
+            uri = 'moneydance:setprogress?label='+quote(text.encode('utf-8'))
+            if meter is not None: uri += '&meter='+str(meter)
+            self.context.showURL(uri)
+        except (Exception, JavaException): pass
+
+    def warn(self, config):
+        state = self.config_api['expiry_state'](config)
+        if state in ('warning','expired','unknown'):
+            label = {'warning':'expire soon','expired':'have expired','unknown':'have unknown expiry'}[state]
+            self.status('Upload credentials '+label+' - Extensions > Snapshot Settings',warning=True)
+
+    def check_warning(self):
+        if self.stopped or self.publishing: return
+        store = self.store
+        def load():
+            try:
+                current = store.load()
+                if current:
+                    warning = {'credentialExpiresAt':current.get('credentialExpiresAt')}
+                    current.clear()
+                    self.later(lambda: self.warn(warning))
+            except (Exception, JavaException):
+                self.later(lambda: self.status('Upload settings unavailable - Extensions > Snapshot Settings'))
+        worker=threading.Thread(target=load); worker.daemon=True; worker.start()
+
+    def capture_current(self, book_id, deadline):
+        # Resolve the live book on the EDT at capture time, not in a retained worker closure.
+        done, result = CountDownLatch(1), {}
+        exporter, context = self.exporter, self.context
+        def capture():
+            book = None
+            try:
+                deadline.check()
+                book = context.getCurrentAccountBook()
+                if book is None or unicode(book.getRootAccount().getUUID()) != book_id:
+                    raise ValueError('SOURCE_BOOK_CHANGED')
+                result['records'] = exporter['capture_stable'](book,deadline)
+                if context.getCurrentAccountBook() != book: raise ValueError('SOURCE_BOOK_CHANGED')
+            except (Exception, JavaException) as error: result['error'] = error
+            finally:
+                book = None
+                done.countDown()
+        SwingUtilities.invokeLater(OnEDT(capture))
+        while not getattr(done,'await')(20,TimeUnit.MILLISECONDS):
+            try: deadline.check()
+            except Exception:
+                deadline.cancel()
+                raise
+        deadline.check()
+        if 'error' in result: raise result['error']
+        return result['records']
+
+    def publish(self):
+        if self.publishing:
+            self.notice('A snapshot publication is already in progress.'); return
+        book_id = self.book_id()
+        if not book_id:
+            self.notice('Open the configured book before publishing.',True); return
+        self.publishing = True
+        store, delivery = self.store, self.delivery
+        source_version = 'Moneydance build %d' % int(self.context.getBuild())
+        def progress(stage):
+            labels = {'capture':('Capturing snapshot...',0.1),'validate':('Validating snapshot...',0.35),
+                      'encrypt':('Encrypting snapshot...',0.6),'upload':('Uploading snapshot...',0.8)}
+            label,meter = labels[stage]
+            self.later(lambda: self.status(label,meter))
+        def work():
+            current = None
+            try:
+                current = store.load(book_id)
+                if not current: raise ValueError('CONFIGURATION_REQUIRED')
+                warning = {'credentialExpiresAt':current.get('credentialExpiresAt')}
+                self.later(lambda: self.warn(warning))
+                result = delivery.run(current,book_id,lambda deadline: self.capture_current(book_id,deadline),source_version,progress)
+            except (Exception, JavaException):
+                result = {'outcome':'failure','stage':'capture','code':'CONFIGURATION_FAILED'}
+            finally:
+                if current is not None: current.clear()
+            self.later(lambda: self.publish_finished(result))
+        worker=threading.Thread(target=work); worker.daemon=True; worker.start()
+
+    def publish_finished(self, result):
+        self.publishing = False
+        if result['outcome'] == 'success':
+            message = 'Snapshot encrypted and published successfully.'
+        elif result['outcome'] == 'unknown':
+            message = 'Upload outcome unknown. Azure may have received the complete snapshot. Verify the remote file before publishing again.'
+        else:
+            guidance = {'CONFIGURATION_FAILED':'Check credentials and dates in Extensions > Snapshot Settings.',
+                'CAPTURE_FAILED':'Finish editing, keep the configured book open, and try again.',
+                'VALIDATION_FAILED':'Run the standalone exporter and validation checks against this book.',
+                'ENCRYPTION_FAILED':'Check the encryption password and bundled Java runtime.',
+                'UPLOAD_REJECTED':'Check blob permissions, credential expiry and storage policy in Snapshot Settings.',
+                'UPLOAD_NOT_SENT':'Check your network connection and destination in Snapshot Settings.',
+                'EXPORT_TIMEOUT':'The 60-second budget expired. Check source size and network performance.',
+                'EXPORT_TOO_LARGE':'The snapshot exceeds the 128 MiB limit. History was not truncated.',
+                'EXPORT_CANCELLED':'The operation was canceled.',
+                'DELIVERY_UNAVAILABLE':'A prior transport could not be drained. Verify the remote file and restart Moneydance.',
+                'BUSY':'A snapshot publication is already in progress.'}
+            message = 'Snapshot publication failed at %s: %s' % (result.get('stage','upload'),guidance.get(result['code'],'Check settings and try again.'))
+        if result.get('statusSaved') is False: message += ' The local status record could not be saved.'
+        self.status(message)
+        self.notice(message,result['outcome'] != 'success')
+        self.check_warning()
+
     def handle_event(self, event):
-        # Automatic capture/publication and expiry presentation are later phases.
-        pass
+        if unicode(event) == 'file:opened': self.later(self.check_warning)
+        # Ordinary saves and close/exit notifications do not publish in Phase 4.
 
     def unload(self):
         self.stopped=True
+        if self.delivery is not None: self.delivery.cancel()
         dialog = self.dialog
         if dialog is not None:
             SwingUtilities.invokeLater(OnEDT(lambda: dialog.dispose()))
@@ -207,6 +336,7 @@ class SnapshotExtension(object):
         self.wrapper=None
         self.store=None
         self.config_api=None
+        self.exporter=None
 
 
 moneydance_extension = SnapshotExtension()

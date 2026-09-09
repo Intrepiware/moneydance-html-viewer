@@ -72,6 +72,8 @@ class ConfigTests(unittest.TestCase):
             def __init__(self): self.actions=[]
             def registerFeature(self,wrapper,command,icon,label): self.actions.append((command,label))
         extension=namespace['SnapshotExtension']()
+        # Resource loading must not read the developer's real protected settings.
+        extension.check_warning=lambda: None
         context=Context()
         extension.initialize(context,Wrapper())
         self.assertEqual(context.actions,[('snapshot_settings','Snapshot Settings'),('snapshot_publish','Publish Snapshot')])
