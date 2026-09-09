@@ -1,5 +1,20 @@
 # Part 2 Research
 
+## Implementation update — Phase 3 packaging, 2026-09-09
+
+The advertised DevKit 6.0 archive was unavailable (404). The main vendor developer
+site still links the downloadable 5.1 kit. Its supplied build.xml uses KeyAdmin
+genkey/signextjar; scripts/package-extension.ps1 invokes those same official tools
+directly for Python packaging, avoiding an extra Ant or Gradle dependency. Genuine
+personal keys and signed MXT were produced; see scripts/extension-validation.md
+for hashes and commands. This supersedes the earlier proposed Gradle acquisition
+path. Persistent Moneydance acceptance is still pending, not inferred from signing.
+
+Native DPAPI helper and settings tests passed under the Windows user account.
+The whole configuration payload is protected (including metadata), a conservative
+implementation of the required secret protection. Actual menus, masked settings
+and recovery across three Moneydance restarts remain T011 validation obligations.
+
 **Date**: 2026-09-08  
 **Status**: User approved capture on book close and plain expiry status text directing to an Extensions-menu settings action. Early exit detection and clickable-status API discovery are no longer design blockers. Persistent installation, full-book shutdown deadlines and end-to-end acceptance remain unverified. Phase 1 artifacts and tasks are now generated; the remaining checks are assigned to implementation and release acceptance. Earlier probe entries below are historical evidence; the latest accepted decisions supersede their blockers.
 

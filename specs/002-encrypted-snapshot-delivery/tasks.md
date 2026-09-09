@@ -23,12 +23,12 @@ Checkpoint: source contract and vectors available; native compatibility must pas
 
 Independent test: install once, restart three times and retain masked working settings.
 
-- [ ] T006 [P] [US1] Implement hidden stdin/stdout DPAPI CurrentUser helper with bounded execution and sanitized failures in extension/protect-secrets.ps1 per contracts/interfaces.md.
-- [ ] T007 [P] [US1] Create persistent Jython initializer, safe unload and registered Publish Snapshot/Snapshot Settings actions in extension/snapshot_extension.py and extension/meta_info.dict / extension/script_info.dict using the verified DevKit layout.
-- [ ] T008 [US1] Implement atomic user-restricted protected configuration, stable book identity, HTTPS/SAS validation, frozen attempt settings and issuance/expiry rules in extension/configuration.py; depend on T006.
-- [ ] T009 [US1] Integrate masked settings UI and renewal instructions into extension/snapshot_extension.py; provide actionable invalid-settings errors without exposing secrets.
-- [ ] T010 [US1] Implement scripts/package-extension.ps1 using T001's official tools, include shared exporter/resources, exclude secrets, verify genuine package output and record the exact reproducible command in quickstart.md.
-- [ ] T011 [US1] Verify DPAPI recovery/error paths, private-file permissions, invalid config and three installed restart cycles in tests/runtime/configuration_test.py and scripts/extension-validation.md; distinguish real runtime evidence from mocks.
+- [X] T006 [P] [US1] Implement hidden stdin/stdout DPAPI CurrentUser helper with bounded execution and sanitized failures in extension/protect-secrets.ps1 per contracts/interfaces.md.
+- [X] T007 [P] [US1] Create persistent Jython initializer, safe unload and registered Publish Snapshot/Snapshot Settings actions in extension/snapshot_extension.py and extension/meta_info.dict / extension/script_info.dict using the verified DevKit layout.
+- [X] T008 [US1] Implement atomic user-restricted protected configuration, stable book identity, HTTPS/SAS validation, frozen attempt settings and issuance/expiry rules in extension/configuration.py; depend on T006.
+- [X] T009 [US1] Integrate masked settings UI and renewal instructions into extension/snapshot_extension.py; provide actionable invalid-settings errors without exposing secrets.
+- [X] T010 [US1] Implement scripts/package-extension.ps1 using T001's official tools, include shared exporter/resources, exclude secrets, verify genuine package output and record the exact reproducible command in quickstart.md.
+- [X] T011 [US1] Verify DPAPI recovery/error paths, private-file permissions, invalid config and three installed restart cycles in tests/runtime/configuration_test.py and scripts/extension-validation.md; distinguish real runtime evidence from mocks.
 
 ## Phase 4: US2 — Publish on demand (P1)
 
@@ -104,3 +104,8 @@ SC-008: T020/T021/T028.
 ## Phase 1/2 execution evidence
 
 T001/T002: packaging research and allowlist layout documented in extension/README.md and scripts/extension-validation.md; secrets/package outputs excluded. No DevKit, keys or package generated. T003: shared exporter gains cooperative deadlines and canceled queued EDT capture while preserving default manual behavior. T005: six synthetic OpenSSL/JCA/Web Crypto known answers and malformed-input contract tests pass. T004 completed 2026-09-09: user reported DEADLINE_SOURCE_PASS (18 entries, stable/outputEqual/timeoutRejected true); standalone synthetic export validated and all reference comparisons passed after user-confirmed probe additions were reconciled in the private reference. Local evidence: 40 Node tests, 5 deadline tests, 1 JCA test covering all six vectors and 9 probe regression tests pass. No Phase 3+ production code implemented.
+
+
+## Phase 3 execution evidence
+
+T006-T010 implemented 2026-09-09: settings-only persistent initializer/resources, masked settings UI, native DPAPI helper, protected atomic configuration and official KeyAdmin packaging. Five native Jython configuration tests passed; initial and repeat genuine signing succeeded. See scripts/extension-validation.md for package hash and evidence. T011 completed by user confirmation: installation accepted after the signature warning; menus, saved settings, separate invalid-URL/blank-password rejection and canceled edits verified. At least three restart cycles using File > Quit/window X preserved installation and settings; installation also survived book switching. This verifies persistence, not trusted signature validation or publication. Publish Snapshot explicitly reports not enabled; no automatic publication or Phase 4+ work is active.

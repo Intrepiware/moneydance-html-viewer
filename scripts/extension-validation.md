@@ -1,5 +1,54 @@
 # Extension validation evidence
 
+## Phase 3 implementation — 2026-09-09
+
+Built `dist/snapshot_delivery.mxt`, SHA256
+`1477B95B021FAFBB5BEAB92B3FFB53D7E43D0F916AC699455604A0EA47D0B46D`.
+This is genuinely personally signed by the official KeyAdmin tool; it is not
+vendor-reviewed. The user installed it by accepting Moneydance's signature warning;
+this establishes installation with explicit override, not trusted signature validation.
+Run the manual checklist in [phase3-install.md](phase3-install.md).
+
+The 6.0 URL linked from the test documentation returned 404. Downloaded the kit
+linked from the main official developer site instead:
+https://infinitekind.com/dev/moneydance-devkit-5.1.tar.gz
+Archive SHA256: 0314F04863EE924A2DD12B038374C90342533E4E787607E300000A76ACD32382.
+Its src/build.xml specifies these actual tool calls:
+
+```text
+java -cp <devkit>/lib/* com.moneydance.admin.KeyAdmin genkey <priv_key> <pub_key>
+java -cp <devkit>/lib/* com.moneydance.admin.KeyAdmin signextjar <priv_key> 99 snapshot_delivery <unsigned.mxt>
+```
+
+scripts/package-extension.ps1 uses those tools directly, an explicit six-resource
+archive allowlist and signed-output checks. No Ant/Gradle installation is required
+for Python packaging. It refuses to overwrite keys, generates a random passphrase,
+protects that passphrase with CurrentUser DPAPI, and keeps it and the genuine keys
+in the user-restricted ignored .workspace/tools/snapshot-signing directory. No
+passphrase in arguments or logs. Initial generation and a repeat build succeeded.
+
+Five configuration tests passed under bundled Jython, executed as the actual
+Windows user because sandbox impersonation cannot use DPAPI reliably. Tests cover
+native protection round-trip in separate helpers, corrupted input, timeout and
+malformed helper output; settings recovery in a fresh store, restrictive ACL,
+wrong-book rejection and rejected-update preservation; settings scope/date/expiry
+rules; initializer resource loading without __file__ and teardown. The first runs
+found and corrected Java write overloads and Unicode resource compilation. These
+are local tests with synthetic credentials and a fake extension wrapper, not an
+installed Moneydance restart result.
+
+T006–T011 complete. User confirmed both menus, saving/reopening settings, separate
+invalid-URL and blank-password rejection, and cancel discarding unsaved edits.
+At least three actual restarts using File > Quit and window X preserved the
+extension and saved settings; book switching also preserved installation.
+Moneydance displayed an invalid-or-missing/untrusted-signature warning, and the
+user chose to continue. The warning does not establish which signature condition
+caused it, and override acceptance is not proof of cryptographic trust.
+These are user-reported Moneydance results, separate from the local tests above.
+No Phase 4+
+delivery, shutdown capture or viewer decryption is enabled. The separate three
+publishing restart cycles still belong to Phase 5.
+
 ## Phase 1: packaging research (T001/T002)
 
 Reviewed 2026-09-08: [official Python guide](https://test.infinitekind.com/developer-python)

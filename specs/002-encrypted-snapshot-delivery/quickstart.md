@@ -19,8 +19,20 @@ scripts/extension-preflight.md. It does not validate persistent installation.
 
 ## Install and configure (US1)
 
-Use the official DevKit packaging/signing procedure recorded by T001/T010 in
-tasks.md; implementation must add the exact verified packaging command here.
+Use the official DevKit packaging/signing procedure recorded in
+scripts/extension-validation.md. From PowerShell at the repository root:
+
+```powershell
+# Only for a fresh signing setup (refuses to overwrite existing keys):
+./scripts/package-extension.ps1 -GenerateKeys
+# Subsequent builds with the same signing identity:
+./scripts/package-extension.ps1
+```
+
+The current workspace already has generated signing keys; use the second command.
+Output is dist/snapshot_delivery.mxt. DevKit 5.1 KeyAdmin is used directly because
+the advertised 6.0 download returned 404. This is genuine personal signing, not
+vendor-reviewed signing. Keep the signing directory private.
 Install the resulting MXT through Moneydance's extension manager. Use the synthetic
 book and genuine synthetic-destination credentials. Set encryption password and
 blob destination in Extensions > Snapshot Settings. Restart three times, checking

@@ -1,0 +1,9 @@
+{
+  "id" = "snapshot_delivery"
+  "extension_type" = "python"
+  "vendor" = "Personal Moneydance Viewer"
+  "module_build" = "1"
+  "minbuild" = "5253"
+  "module_name" = "Snapshot Delivery"
+  "module_desc" = "Personal snapshot delivery settings. Phase 3: publication is not enabled."
+}
