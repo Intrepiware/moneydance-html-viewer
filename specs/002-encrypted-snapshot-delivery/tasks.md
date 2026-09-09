@@ -108,4 +108,12 @@ T001/T002: packaging research and allowlist layout documented in extension/READM
 
 ## Phase 3 execution evidence
 
+Follow-up: manual rebuild/reinstallation instructions are in scripts/build-extension.md.
+Settings now derive expiry from a pasted SAS token/URL when parseable and set
+issuance to current UTC on SAS edits (editable for older tokens). Invalid expiry
+leaves the existing expiry unchanged; reopening preserves saved dates. Two targeted
+Jython tests passed, including real Swing document events. Updated installed UI
+verification remains pending rebuild/reinstallation; original T011 evidence below
+is unchanged.
+
 T006-T010 implemented 2026-09-09: settings-only persistent initializer/resources, masked settings UI, native DPAPI helper, protected atomic configuration and official KeyAdmin packaging. Five native Jython configuration tests passed; initial and repeat genuine signing succeeded. See scripts/extension-validation.md for package hash and evidence. T011 completed by user confirmation: installation accepted after the signature warning; menus, saved settings, separate invalid-URL/blank-password rejection and canceled edits verified. At least three restart cycles using File > Quit/window X preserved installation and settings; installation also survived book switching. This verifies persistence, not trusted signature validation or publication. Publish Snapshot explicitly reports not enabled; no automatic publication or Phase 4+ work is active.

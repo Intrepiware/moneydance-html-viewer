@@ -23,6 +23,37 @@ def config():
 
 
 class ConfigTests(unittest.TestCase):
+    def test_sas_date_autofill_on_edt(self):
+        ui=runpy.run_path(os.path.join(ROOT,'extension','snapshot_extension.py'))
+        from javax.swing import JTextField, JPasswordField, SwingUtilities
+        failures=[]
+        def check():
+            try:
+                fields={'serviceSas':JPasswordField(), 'credentialIssuedAt':JTextField('saved-issued'),
+                        'credentialExpiresAt':JTextField('saved-expiry')}
+                fields['serviceSas'].setText('saved-token')
+                listener=ui['SasDateListener'](fields)
+                fields['serviceSas'].getDocument().addDocumentListener(listener)
+                self.assertEqual(fields['credentialIssuedAt'].getText(),'saved-issued')
+                token=config()['serviceSas']
+                for text in [token, '?'+token, config()['destination']+'?'+token]:
+                    fields['serviceSas'].setText(text)
+                    self.assertEqual(fields['credentialExpiresAt'].getText(),config()['credentialExpiresAt'])
+                    self.assertEqual(ui['sas_query'](text),token)
+                    issued=api['utc'](unicode(fields['credentialIssuedAt'].getText()))
+                    self.assertTrue(0 <= (datetime.datetime.utcnow()-issued).total_seconds() < 5)
+                for text in ['', 'broken', 'se=bad', 'se=2028-02-30T00:00:00Z',
+                             token+'&se=2029-01-01T00:00:00Z', 'https://[broken']:
+                    fields['serviceSas'].setText(text)
+                    self.assertEqual(fields['credentialExpiresAt'].getText(),config()['credentialExpiresAt'])
+                fields['serviceSas'].getDocument().removeDocumentListener(listener)
+                fields['credentialIssuedAt'].setText('unchanged-on-cleanup')
+                fields['serviceSas'].setText('')
+                self.assertEqual(fields['credentialIssuedAt'].getText(),'unchanged-on-cleanup')
+            except BaseException as failure: failures.append(failure)
+        SwingUtilities.invokeAndWait(ui['OnEDT'](check))
+        if failures: raise failures[0]
+
     def test_helper_timeout_and_malformed_response_fail_closed(self):
         self.assertRaises(api['ConfigError'],api['protect_call'],'Start-Sleep -Seconds 10','protect','SYNTHETIC',1)
         self.assertRaises(api['ConfigError'],api['protect_call'],"[Console]::Out.WriteLine('invalid-json')",'protect','SYNTHETIC')

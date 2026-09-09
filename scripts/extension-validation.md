@@ -1,5 +1,20 @@
 # Extension validation evidence
 
+## Settings convenience update — 2026-09-09
+
+Added best-effort SAS expiry autofill for tokens and full SAS URLs, current UTC
+issuance on SAS edits, and preservation of saved dates on dialog opening. Invalid,
+missing or duplicate expiry values leave the existing expiry untouched. Issuance
+remains manually editable for older credentials; Save retains strict validation.
+The separately configured destination is not replaced by a pasted SAS URL.
+
+Two targeted tests passed under bundled Jython: actual Swing document events on
+the EDT (token/URL parsing, malformed dates, issuance updates and listener cleanup),
+and packaged initializer/resource-loading regression. Installed dialog verification
+for this update remains manual; the earlier package hash and installation results
+below describe the original Phase 3 build. Rebuild/reinstall using
+[build-extension.md](build-extension.md) to try the updated source.
+
 ## Phase 3 implementation — 2026-09-09
 
 Built `dist/snapshot_delivery.mxt`, SHA256

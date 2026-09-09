@@ -20,6 +20,12 @@ upload, or publish at shutdown. Publish Snapshot explicitly reports that limitat
    This token is deliberately fake; no network request is made in Phase 3. Real
    publication later requires an actual Azure-issued token and verified policy.
 5. Save, reopen Settings, and confirm values persist with password and SAS masked.
+   On the updated build, editing the SAS fills the expiry from `se` when valid
+   and sets issuance to current UTC. Test a token, a token prefixed with `?`, and
+   a full SAS URL; the separate Blob URL is unchanged. Invalid/missing expiry
+   must leave the existing expiry unchanged without a parsing error. Issuance
+   still updates. Correct issuance manually if using an older token. Reopening
+   saved settings must preserve both dates. Cancel these trial edits.
 6. Try an invalid URL or blank password. It must explain that settings were not
    saved, and reopening must show the previous valid settings. Cancel a settings
    edit and check that it also preserves the previous values.

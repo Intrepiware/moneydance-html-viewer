@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """Persistent Phase 3 extension: settings only; no capture or publication hooks."""
 import threading
+import datetime
+from urlparse import urlsplit, parse_qs
+from javax.swing.event import DocumentListener
 from java.lang import Runnable, System, Exception as JavaException
 from java.awt import GridLayout
 from javax.swing import SwingUtilities, JPanel, JLabel, JTextField, JPasswordField, JOptionPane
@@ -23,6 +26,40 @@ def read_resource(wrapper, name):
 class OnEDT(Runnable):
     def __init__(self, action): self.action = action
     def run(self): self.action()
+
+
+def sas_query(value):
+    value = value.strip()
+    return urlsplit(value).query if '://' in value else value.lstrip('?')
+
+
+def sas_expiry(value):
+    """Best-effort date hint only; Save still validates the credential."""
+    try:
+        fields = parse_qs(sas_query(value), keep_blank_values=True, strict_parsing=True)
+        values = fields.get('se', [])
+        if len(values) != 1: return None
+        expiry = datetime.datetime.strptime(values[0], '%Y-%m-%dT%H:%M:%SZ')
+        return expiry.strftime('%Y-%m-%dT%H:%M:%SZ')
+    except (ValueError, TypeError):
+        return None
+
+
+class SasDateListener(DocumentListener):
+    def __init__(self, fields): self.fields = fields
+
+    def update(self, event):
+        from java.lang import String
+        from java.util import Arrays
+        self.fields['credentialIssuedAt'].setText(datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'))
+        chars = self.fields['serviceSas'].getPassword()
+        try: expiry = sas_expiry(unicode(String(chars)))
+        finally: Arrays.fill(chars, u'\x00')
+        if expiry is not None: self.fields['credentialExpiresAt'].setText(expiry)
+
+    def insertUpdate(self, event): self.update(event)
+    def removeUpdate(self, event): self.update(event)
+    def changedUpdate(self, event): self.update(event)
 
 
 class SnapshotExtension(object):
@@ -97,7 +134,7 @@ class SnapshotExtension(object):
         panel = JPanel(GridLayout(0,1,4,4))
         fields = {}
         labels = [('destination','Blob URL (HTTPS, no SAS query)'),
-            ('encryptionPassword','Encryption password'), ('serviceSas','Blob SAS token (write only, HTTPS)'),
+            ('encryptionPassword','Encryption password'), ('serviceSas','Blob SAS token or SAS URL (write only, HTTPS)'),
             ('credentialIssuedAt','Credential issued at (UTC: YYYY-MM-DDTHH:MM:SSZ)'),
             ('credentialExpiresAt','Credential expires at (UTC: YYYY-MM-DDTHH:MM:SSZ)')]
         for key,label in labels:
@@ -105,9 +142,12 @@ class SnapshotExtension(object):
             field = JPasswordField(48) if key in ('encryptionPassword','serviceSas') else JTextField(48)
             field.setText(current.get(key,''))
             panel.add(field); fields[key]=field
+        # Attach after populating saved values so reopening does not change dates.
+        sas_listener = SasDateListener(fields)
+        fields['serviceSas'].getDocument().addDocumentListener(sas_listener)
         panel.add(JLabel('Renew in Azure: create a blob-scoped service SAS with Write and HTTPS only.'))
         panel.add(JLabel('Use 23 months if policy permits (required range: 22-24 months).'))
-        panel.add(JLabel('Record actual issuance time, paste the new SAS/expiry here, and Save.'))
+        panel.add(JLabel('Pasting a SAS fills its expiry and sets issued time to now; adjust issuance if older.'))
         panel.add(JLabel('This build stores settings only; it does not upload or test Azure access.'))
         pane = JOptionPane(panel,JOptionPane.PLAIN_MESSAGE,JOptionPane.OK_CANCEL_OPTION)
         dialog = pane.createDialog(None,'Snapshot Settings')
@@ -118,6 +158,7 @@ class SnapshotExtension(object):
         finally:
             self.dialog = None
             dialog.dispose()
+            fields['serviceSas'].getDocument().removeDocumentListener(sas_listener)
         value = {'version':1,'configuredBookId':book_id}
         if not self.stopped and outcome == JOptionPane.OK_OPTION:
             from java.lang import String
@@ -128,6 +169,9 @@ class SnapshotExtension(object):
                     from java.util import Arrays
                     Arrays.fill(chars, u'\x00')
                 else: value[key]=unicode(field.getText()).strip()
+            # Accept a pasted SAS URL while retaining the separately configured destination.
+            try: value['serviceSas'] = sas_query(value['serviceSas'])
+            except (ValueError, TypeError): pass  # Normal Save validation reports invalid input.
         for field in fields.values(): field.setText('')
         current.clear()
         if self.stopped or outcome != JOptionPane.OK_OPTION:

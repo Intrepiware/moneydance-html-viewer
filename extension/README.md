@@ -24,6 +24,9 @@ download was unavailable). Output is dist/snapshot_delivery.mxt. Signing private
 key and its DPAPI-protected passphrase stay in .workspace/tools/snapshot-signing;
 never publish that directory. Keys are personal/unverified, not vendor approval.
 
+See [manual build and reinstall instructions](../scripts/build-extension.md) for
+rebuilding after editing the shared `export_json.py` or extension resources.
+
 Settings are stored atomically as a single DPAPI-protected configuration payload
 under the user's .moneydance-snapshot-delivery directory. Protecting the complete
 payload also protects destination/book metadata. Only the creating Windows user
