@@ -1,0 +1,5 @@
+{
+  "actions" = (
+    { "type" = "initializer" "script_file" = "snapshot_extension.py" }
+  )
+}

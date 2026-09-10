@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Moneydance Viewer</title>
+    <script>
+      // Select presentation before first paint; real mode keeps autofill discoverable.
+      if (new URLSearchParams(location.search).get('test') === 'true') {
+        document.documentElement.dataset.testMode = 'true';
+      }
+    </script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -75,6 +81,20 @@
 
         <div class="content-body">
           <p id="load-status" class="is-loading" role="status">Loading accounts…</p>
+          <form id="unlock-form" name="snapshot-login" class="glass-card" autocomplete="on">
+            <!-- Keeper filled the password only when a username field was present.
+                 Keep this optional, ignored field in the form for autofill detection.
+                 Visually conceal it rather than using hidden/type="hidden"/display:none;
+                 verify that Keeper still fills on desktop and mobile after this change. -->
+            <div class="autofill-username" aria-hidden="true">
+              <label for="snapshot-username">Username</label>
+              <input id="snapshot-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" tabindex="-1" />
+            </div>
+            <label for="snapshot-password">Snapshot password</label>
+            <input id="snapshot-password" name="password" type="password" autocomplete="current-password" required />
+            <button id="unlock-button" type="submit" disabled>Unlock</button>
+            <p id="unlock-status" role="status" aria-live="polite"></p>
+          </form>
           <a id="test-data-link" hidden>View test data</a>
           <div class="summary-cards">
             <div id="balance-card" class="card glass-card" hidden>

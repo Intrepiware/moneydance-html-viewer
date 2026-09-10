@@ -21,3 +21,16 @@ __pycache__/
 *.tmp
 .DS_Store
 Thumbs.db
+
+# Extension tooling, packages and secrets (use an explicit packaging allowlist)
+/.workspace/tools/
+/extension/private/
+*.mxt
+*.jar
+*.key
+*.keystore
+*.p12
+*.pfx
+*.jks
+*.private.json
+*.dpapi

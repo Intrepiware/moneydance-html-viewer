@@ -26,17 +26,17 @@ test('server isolates selected snapshots and refuses private paths/traversal', a
   });
   try {
     assert.equal((await get('/')).status, 200);
-    assert.equal((await get('/data/snapshot.json')).status, 404);
+    assert.equal((await get('/data/snapshot.enc')).status, 404);
     assert.equal((await get('/data/test-snapshot.json?test=true')).body, '{"test":true}');
     assert.equal((await get('/tests/browser/hidden-ancestor.json')).body, '{"synthetic":true}');
     assert.equal((await get('/tests/browser/register-pages.json')).body, '{"register":true}');
     assert.equal((await get('/tests/browser/loading-fixtures/empty.json')).body, '{"empty":true}');
     assert.equal((await get('/tests/browser/loading-fixtures/unknown.json')).status, 404);
     assert.equal((await get('/tests/fixtures/hidden-ancestor-v1.json')).status, 404);
-    await writeFile(join(root, 'UI/data/snapshot.json'), '{"real":true}');
-    assert.equal((await get('/data/snapshot.json')).body, '{"real":true}');
-    assert.equal((await get('/data/snapshot.json', 'HEAD')).body, '');
-    assert.equal((await get('/data/snapshot.json')).headers['cache-control'], 'no-store');
+    await writeFile(join(root, 'UI/data/snapshot.enc'), '{"real":true}');
+    assert.equal((await get('/data/snapshot.enc')).body, '{"real":true}');
+    assert.equal((await get('/data/snapshot.enc', 'HEAD')).body, '');
+    assert.equal((await get('/data/snapshot.enc')).headers['cache-control'], 'no-store');
     for (const path of ['/data/private.json', '/.git/config', '/export_json.py', '/data.json']) {
       assert.equal((await get(path)).status, 404);
     }

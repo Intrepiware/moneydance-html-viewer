@@ -22,7 +22,7 @@ async function checkClient(file, mode, code) {
   }finally{client?.dispose();}
 }
 export async function run(report) {
-  for(const mode of ['false','true']) {
+  for(const mode of ['true']) {
     for(const file of ['timestamp-missing.json','timestamp-null.json','timestamp-type.json','timestamp-bad.json'])await checkClient(file,mode,'INVALID_SNAPSHOT');
   }
   await checkClient('empty.json','true');
@@ -30,7 +30,7 @@ export async function run(report) {
   await checkClient('balance.json','true','INVALID_SNAPSHOT');
   await checkClient('does-not-exist.json','false','LOAD_FAILED');
   await checkClient('/tests/browser/index.html','true','INVALID_SNAPSHOT');
-  report('PASS loading contracts: timestamps in real/test modes, empty/version/financial failure, invalid query, reload-only retry');
+  report('PASS loading contracts: plaintext timestamps, empty/version/financial failure, invalid query, reload-only retry');
   const frame=document.createElement('iframe');frame.style.cssText='width:412px;height:850px';
   frame.srcdoc=(await(await fetch('/index.html')).text()).replace('<head>','<head><base href="/">').replace(/<script type="module" src="app.js"><\/script>/,'');
   await new Promise(resolve=>{frame.onload=resolve;document.querySelector('#view').append(frame);});

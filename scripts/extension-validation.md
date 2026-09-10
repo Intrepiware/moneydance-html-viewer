@@ -1,0 +1,508 @@
+# Extension validation evidence
+
+## Final acceptance — 2026-09-10
+
+The user approved closing Phase 7 with the remaining verification gaps accepted.
+The feature is accepted with limitations, not certified as having passed every
+originally specified check. The one Pixel load trial (3.30s), ten search samples
+(including the accepted 2.73s result), and reported real-book timing and cache
+results are the actual evidence. Reduced sampling, ordinary-save verification and
+private historical-log review are explicitly waived. Previously accepted unavailable
+cancellation, non-reproducible offline delay, iOS Chrome zoom behavior, and untested
+LastPass/Safari remain documented limitations. Installed book-switch coverage remains
+limited to prior reports and deterministic tests; no new live test is claimed.
+Earlier pending-status statements are historical and superseded by this decision.
+No code change, rebuild, additional test run or quality-checklist modification was
+needed to record acceptance.
+
+
+
+## Phase 7 submitted evidence — 2026-09-10
+
+Reviewed scripts/phase7-acceptance-results.md, selected non-secret response headers
+from the supplied HAR, and both Cloudflare cache-rule screenshots. Did not print
+HAR cookies, request authorization or payloads, or contact the deployed site.
+
+Pixel 8 Brave 1.94.121 / Chromium 152.0.7977.83: one combined encrypted load trial
+was 2.21 + 1.09 = 3.30 seconds. Ten searches were reported, nine below two seconds
+and one at 2.73 seconds; the user explicitly accepts that outlier without further
+investigation. No crashes, memory warnings or missing history were reported. Other
+asset cache state is unknown. This is one load and ten searches, not the originally
+specified five/twenty samples; acceptance of the reduced sample count is pending.
+
+Real-book last-delivery record: PUBLISHED, operation 22.990 seconds, close cycle
+24.176 seconds. Five wall-clock exits without the extension: 63/34/47/52/44 seconds;
+with it: 61/45/33/33/39 seconds. Both measured extension durations are below sixty
+seconds. Variable baseline shutdown already exceeds sixty seconds in one trial;
+these unpaired runs do not support attributing the 61-second total to extension
+delay or claiming the extension speeds up shutdown. Reported backup latency is a
+possible explanation, not an established diagnosis.
+
+Azure Cache-Control confirmed no-store by user. Screenshot rule matches this site's
+/data/* and selects edge Bypass cache and browser Bypass cache. This also covers
+synthetic data, but does not bypass static UI assets. Screenshots show the edit form,
+not all deployed rules. The HAR independently shows one encrypted GET with HTTP 200,
+Cache-Control: no-store, CF-Cache-Status: DYNAMIC, no Age header, Content-Length
+36,049,515 bytes, ETag and Last-Modified present. It is consistent with uncached
+delivery; it is not a before/after pair or proof of every rule's precedence. Prior
+user-reported replacement/new-transaction checks supply functional freshness evidence.
+Deployed data directory confirmed to contain only snapshot.enc and test-snapshot.json.
+Historical local log review and ordinary-save behavior were not explicitly reported.
+
+Recovery/renewal section is operating guidance, not a request to repeat the already
+completed Phase 4 password/SAS/failure/recovery checks. No new code tests or rebuild
+are needed for this evidence review. T028/T030 remain pending sample-count disposition
+and final reconciliation; T029 has cache/asset evidence with the limits above.
+
+## Phase 7 local review — 2026-09-10
+
+All 48 Node tests pass. Bundled Jython: deadline 5, encryption 2, delivery 7,
+lifecycle 13 and configuration 6 pass (33 total). Two configuration DPAPI checks
+failed under the sandbox and passed in the actual Windows-user context; this is
+recorded rather than counted as an unexplained application failure. Existing Node
+TLS listener warnings remain. Phase 6 browser harness pass is user-reported evidence;
+no new browser execution or Pixel measurement was performed by the agent.
+
+Read-only package inspection: build 4 SHA256
+559AAF0DAFFBE6DBE0BD1BA798365C01F60164DFBB1624977929BFC8256A690F.
+Eight packaged code/resource files match source hashes. Public metadata fields
+match source (the packaged metadata has different serialized bytes). Archive contains
+only the nine expected resources, signature metadata and a directory entry; no
+snapshot, private keys or configuration bundle. This is an inventory/source-match
+review, not a new cryptographic signature-verifier run. No rebuild was performed.
+
+Source review: viewer config contains only same-origin relative reader/test paths;
+worker fetch uses no-store and rejects redirects/cross-origin URLs. Password and
+financial data are not written to browser storage; localStorage is used only for
+theme. Renderer receives data only after authentication and validation. Upload sets
+both request Cache-Control and stored blob Cache-Control to no-store. Status uses
+fixed sanitized fields; arbitrary request exceptions are not logged. No private
+book/configuration, installed historical logs or cloud assets were read in this
+review. Pinned external Handlebars and external font/style assets remain unchanged;
+this review is not a dependency security audit or proof of live CDN integrity.
+
+Acceptance reconciliation:
+
+| Criteria | Evidence / remaining work |
+| --- | --- |
+| FR-001/003/009/010/012; SC-006 | Installed persistence, protected config, signed build, approved 23-month SAS and warning boundaries recorded earlier |
+| FR-002/004/007/008; SC-002/003 | Native tests, synthetic source comparisons and reported real financial/publication checks; full-book final-exit measurements pending |
+| FR-005/006/011; SC-001/008 | Three installed exit cycles, status, deterministic overlap/duplicates; full-book timing pending; unavailable cancellation and non-reproducible offline delay accepted |
+| FR-013–016; SC-004/007 | 48 Node tests, user harness pass and real unlock/retry/data checks; iOS Chrome zoom accepted |
+| FR-017/018; SC-005 | Live cache/deployed-artifact review and encrypted Pixel timing still required |
+| FR-019 | Keeper reported working; LastPass/iOS Safari explicitly left untested by user |
+
+T028–T030 remain open for the specific live evidence/final reconciliation, not
+because implementation is missing. Follow phase7-acceptance.md. The specification
+quality checklist remains unchanged under the implement skill's read-only rule;
+acceptance is recorded here rather than changing quality-review checkboxes.
+
+
+## Phase 6 closed with accepted gaps — 2026-09-10
+
+User explicitly chose to leave LastPass and iOS Safari autofill untested and
+continue. T027 is closed by this scope decision, not by a claim of compatibility.
+Keeper and reported desktop/mobile results stand; the iOS Chrome zoom limitation
+remains accepted with pinch-to-zoom recovery. Earlier pending LastPass/Safari
+statements are superseded. Phase 6 is closed; Phase 7 acceptance remains outstanding.
+
+## Accepted iOS Chrome limitation — 2026-09-10
+
+After the mobile focus/viewport adjustments and 16px minimum login/search input
+fonts, the user reports remaining keyboard-related zoom/viewport instability on
+iOS Chrome. Pinching to undo the zoom is a usable workaround. The user explicitly
+accepts this gap; it no longer blocks acceptance of the reported iOS Chrome use.
+This is an accepted limitation, not a verified fix. No further zoom restriction
+or corrective implementation is requested. Earlier requests for an iOS layout
+recheck are superseded by this disposition. Unreported LastPass/Safari autofill
+checks remain separate from this acceptance.
+
+## Mobile layout follow-up — 2026-09-10
+
+User confirmed test=true no longer flashes the password form and normal mode
+still prompts and unlocks correctly. Actual iOS Chrome usage showed initial page
+scroll offset and an inaccessible As of footer. Removed automatic password focus
+on mobile; desktop focus now requests preventScroll. App and mobile sidebar use
+dynamic viewport height, with a shrinkable account list, nonshrinking header/footer
+and bottom safe-area padding. These address plausible focus/viewport causes;
+actual iOS Chrome recheck is pending. The user's target is iOS Chrome, not Safari;
+this report is not Safari autofill evidence.
+
+## Phase 6 user acceptance — 2026-09-10
+
+User reports the browser harness passed all tests (summary supplied, no detailed
+harness output attached). Local wrong-password rejection followed by successful
+unlock and correct transactions/accounts passed. Exact test=true loaded test data,
+with a brief password-form flash noted. Fixed by selecting test presentation in
+the document head before first paint; normal encrypted mode still exposes the
+password field during download for autofill. Visual recheck of that fix is pending.
+
+User published a real encrypted snapshot to Azure, verified wrong-password feedback,
+saved the site/password in Keeper, reloaded and confirmed autofill. Accounts,
+balances and transactions matched. Earlier username-field testing established
+Keeper filling on desktop and mobile; the latest report confirms filling following
+the visually concealed username change without separately listing device results.
+Renaming the Azure object produced the expected 404 and working test-data link.
+New Accountbook transactions appeared after publication and reload.
+
+T026 is complete based on the local automated tests and user-reported harness pass.
+T027 remains open only for outstanding device-specific/password-manager evidence,
+including LastPass and iOS Safari, which were not reported. These results do not
+substitute for Phase 7 repeated performance and cache-policy checks.
+
+## Phase 6 viewer implementation — 2026-09-09
+
+Production viewer now parses the fixed envelope and uses Web Crypto PBKDF2/AES-GCM
+in the worker, with a counted 128 MiB-plus-header download limit. Explicit encrypted
+mode has no plaintext fallback. Authentication failures retain ciphertext for a
+serialized retry; successful validation releases ciphertext and clears the input.
+Disposal suppresses late unlock results; existing request IDs and effectiveDate remain.
+
+All 48 Node tests pass, including six new encrypted-viewer tests. Production Web
+Crypto passed all six existing known-answer vectors and decrypted a synthetic
+financial fixture freshly generated by production extension/encryption.py under
+Moneydance's bundled Jython/Java. That fixture is tests/browser/synthetic-snapshot.enc
+(public password synthetic-password). This establishes native-encryption/viewer
+interoperability, not installed device acceptance. Existing TLS listener warnings
+remain; no test failed. Browser module syntax checks pass.
+
+Browser harness now includes real worker/form unlock and retry, submit-time input
+reading, cleared password, balance and persisted lifecycle checks. Browser execution
+was unavailable: the browser tool reported no available browser. T026 remains open
+for that run; T027 remains open for real desktop/Pixel and Keeper/LastPass/iOS Safari
+autofill. Instructions: scripts/phase6-viewer.md. No extension rebuild, cloud write,
+new dependency or Phase 7 acceptance is included in this change.
+
+## Phase 5 disposition — user-approved progression
+
+Repeated additional attempts could not reproduce the slow offline shutdown. No
+effective normal-UI shutdown cancellation path could be found. The user approved
+moving on: these cases no longer block Phase 6. Record them as non-reproducible
+and unavailable respectively, not passing tests. No forced termination is required.
+Earlier pending statements below are historical. Remaining installed evidence and
+full-book timing still belong to final acceptance; no timeout policy changed.
+
+## Phase 5 installed results — 2026-09-09
+
+User installed build 4 and reported successful publication on an unchanged-book
+exit, then three distinct transaction-add/close cycles. Each completed in under
+two seconds, updated the Azure modification date, decrypted successfully and showed
+the expected success message on reopening. The user reported confirming the new
+file; exact per-cycle financial balance comparisons were not separately supplied.
+Subsequent manual publication also updated Azure and decrypted with verified contents.
+
+Changing the blob destination to invalidate the SAS produced the expected manual
+error. Exit showed no error dialog; reopening correctly reported upload failure.
+During an airplane-mode exit after a new transaction, Moneydance remained on
+"Finished saving data" for over a minute. Reopening reported upload outcome unknown.
+Two further offline edit/exit attempts completed normally (under five seconds for
+the first; normal speed reported for the next). The initial delay remains unresolved;
+it is not dismissed as a fluke or attributed conclusively to Moneydance itself.
+
+Code inspection: the HTTP request uses the remaining shared 60-second budget,
+with a connection timeout capped at ten seconds and polling of the async result.
+Thus the extension can consume most of a minute on an unresolved network request.
+The observed screen alone does not isolate Moneydance save/backup time from extension
+time. Capture elapsedMs, shutdownElapsedMs and code from last-delivery.json immediately
+after recurrence, before another publication overwrites it, alongside wall time.
+No timeout-policy change is made solely from this observation.
+
+User started manual publication and immediately pressed Alt+F4. Exit completed
+without error, Azure updated, reopening reported success, and the decrypted result
+matched the previous export except exportDate. This verifies the attempted overlap
+workflow, but does not prove that the short manual attempt was still active when
+closing began; deterministic overlap coverage remains separate.
+
+The red X on the closing screen did not cancel either of two attempts; both
+published. No effective canceled-exit path has been demonstrated. T019 remains open
+for that verification. T021 remains open for the offline timing anomaly and remaining
+ordinary-save/book-switch and financial-value evidence; normal exit success is now
+installed evidence, not merely simulated coverage.
+
+## Phase 5 local implementation — 2026-09-09
+
+Built module 4 with `./scripts/package-extension.ps1` and existing personal KeyAdmin
+keys. `dist/snapshot_delivery.mxt` SHA256:
+`559AAF0DAFFBE6DBE0BD1BA798365C01F60164DFBB1624977929BFC8256A690F`.
+This build enables automatic exit publication. No installation, live close test or
+cloud write was performed by the agent. Use [phase5-exit.md](phase5-exit.md).
+
+Thirteen local lifecycle tests passed together under bundled Jython. They cover duplicate closing before
+and after capture and during upload; single publication; opening/other-book/reset/
+unload; missing/failed save confirmation; shutdown deadline including waiting;
+capture deadline retained until exit; cancellation/draining of manual work; unknown
+manual outcomes; actual prefixed event routing; EDT capture with no book at exit;
+EDT draining of a canceled queued manual capture; status reload, stale manual-result
+suppression and next-launch display. Cancellation reset is a simulation, not evidence
+of a Moneydance cancel callback. Seven existing native delivery tests and two targeted
+settings/resource tests passed. `npm test`: all 42 tests passed; the previously noted
+TLSSocket listener warnings remain unrelated to test failures.
+
+Build 5253 method inspection found postsave can follow a failed save, so publication
+also requires file:closed. A repeated presave after capture begins makes the candidate
+ambiguous and fails closed. No invented canceled-exit event, stack-name heuristic,
+source mutation, periodic export or plaintext staging was introduced. Opening or
+unload resets state. Settings load and manual drain count against the original
+60-second closing budget. Source capture uses the EDT directly when already there;
+the normal observed off-EDT exit callback completes detached work synchronously.
+No EDT callback is required by the exit pipeline. Actual full-book timing remains
+T028 acceptance; cooperative checks cannot forcibly interrupt arbitrary JVM calls.
+
+T018 and T020 local implementation are complete. T019's normal lifecycle wiring is
+implemented, but its actual cancellation-notification verification remains open.
+T021 remains open for three installed distinct-edit exit publications, source-value
+comparisons, next-launch results, offline/overlap/switch checks and any available
+cancel path. No full Phase 5 acceptance is claimed from these local tests.
+
+## Installed expiry checks and red warning update — 2026-09-09
+
+User confirmed the Azure policy permits the current 23-month SAS. With expiry
+2028-08-10, actual Moneydance restarts showed no warning on July 9/10 (32/31 days),
+and a gray warning on July 11/13 and August 3/9 (30/28/7/1 days). After the expiry
+time on August 10, August 11, and August 11 of 2029, the text said credentials
+have expired. These are user-reported installed checks using changed system time.
+This closes the policy/lifetime and installed warning-boundary evidence gaps.
+User then verified build 3 with system dates 2028-08-03 and 2028-08-11: warnings
+were red in both cases, the latter said "have expired", and attempting Publish
+Snapshot with expired credentials produced the expected error. T017 is complete.
+
+Build 3 makes credential warnings red (#d32f2f) using escaped HTML in the public
+status-text URI; normal progress remains plain text. Read-only inspection of the
+installed MainFrame/AccountPanel status methods confirmed forwarding to JLabel.setText.
+No internal component or shared color is changed. The targeted Jython boundary/
+warning markup/save-suppression test passed. User confirmed the actual red appearance.
+
+Rebuilt `dist/snapshot_delivery.mxt` with existing personal KeyAdmin keys. SHA256:
+`5AAF174993C017503EC23BF6D5C76A445554735AB052CE0803F42AF4629533AC`.
+
+## Phase 4 local implementation — 2026-09-09
+
+Module build 2: `dist/snapshot_delivery.mxt`, SHA256
+`CACB171787944A3DF06989117FBDC46A878F9B954F9E219865D51650D14C49AC`.
+Built with `./scripts/package-extension.ps1` using the existing personal KeyAdmin
+signing material. The allowlist now includes nine resources plus signing metadata.
+No extension installation or Azure write was performed by the agent.
+
+T012–T016 local implementation is complete. Two native encryption tests pass,
+including all six fixed vectors through production encryption, fresh salt/IV and
+size/password rejection. Seven delivery tests pass under bundled Java/Jython:
+actual Java HTTP client sends one fixed-length body to a synthetic loopback endpoint,
+rejects redirects and reports response loss; injected transport timeout/quarantine;
+stage failures, busy requests, frozen settings, cancellation and deadline rejection;
+safe status persistence, serializer ceiling, expiry warnings and inactive save/exit
+callbacks. Native source-fixture build/encryption is also decrypted by the actual
+Node/Web Crypto utility and validated with the existing financial validator.
+Failed-publication readability tests use synthetic simulated storage; they do not
+prove live Azure behavior. Two targeted settings/resource regression tests pass.
+
+`npm test`: 41 tests passed. Test discovery is now explicitly scoped to tests/unit
+and tests/contract because whole-repository discovery failed on protected signing
+and prior DPAPI-test directories. It retains every existing Node test. The previously
+observed TLSSocket listener warnings still appear; no related test failed.
+
+Upload uses native Java HttpClient, HTTP/1.1, no redirects, no application retries,
+and a one-subscription body to prevent platform replay. SAS requests explicitly
+select API version 2023-11-03 without changing signed authorization version `sv`;
+headers specify BlockBlob, fixed length and no-store. A lost response/uncertain server
+error is unknown; if local transport termination cannot be confirmed, further
+attempts in that session are blocked. No previous blob is deleted first. Operations
+share one cooperative 60-second budget; noninterruptible JVM/source calls and real
+runtime timing remain acceptance obligations. Status text uses Moneydance's public
+setprogress URI, with no component interception or polling.
+
+Sources checked during implementation:
+[Put Blob](https://learn.microsoft.com/en-us/rest/api/storageservices/put-blob),
+[service versions](https://learn.microsoft.com/en-us/rest/api/storageservices/versioning-for-the-azure-storage-services),
+[Java HttpClient](https://docs.oracle.com/en/java/javase/21/docs/api/java.net.http/java/net/http/HttpClient.html),
+[Moneydance progress URI](https://moneydance.com/dev/urischeme).
+
+**T017 and Phase 4 are complete**. Installed expired-credential publication
+blocking and red warning confirmation are recorded above.
+Follow [phase4-publish.md](phase4-publish.md). No real-data publication, automatic
+exit integration or viewer unlock has been enabled as an acceptance claim.
+
+### Phase 4 manual results — user reported
+
+- Build 2 installed successfully; actual Azure settings saved and SAS paste updated
+  issue/expiry dates as expected.
+- Three initial publications succeeded; the last measured 1.56 seconds. The first
+  two felt similar but were not timed. Azure modification dates updated.
+- Downloaded ciphertext rejected an incorrect password and decrypted with the
+  correct password. All preflight comparisons passed.
+- A new synthetic transaction appeared with the expected changes after another
+  publication/download/decryption and before/after JSON comparison.
+- Airplane-mode publication showed an error and the Azure blob date stayed unchanged.
+  Poisoned SAS input produced an error; restored credentials allowed publication.
+- Password-change decryption initially appeared to fail because the output file
+  already existed. After removing it, decryption succeeded. This was a utility
+  output-file error, not a demonstrated encryption failure.
+- The utility now rejects existing output before prompting. User verified that
+  error and successful decryption to a new filename. Two targeted utility tests pass.
+
+Later confirmation of actual credential lifetime/policy and installed warning
+presentation and expired-credential publication blocking is recorded above.
+Busy-request handling and ordinary-save suppression have local automated coverage;
+the user has not separately reported the optional installed checks from the guide.
+
+## Settings convenience update — 2026-09-09
+
+Added best-effort SAS expiry autofill for tokens and full SAS URLs, current UTC
+issuance on SAS edits, and preservation of saved dates on dialog opening. Invalid,
+missing or duplicate expiry values leave the existing expiry untouched. Issuance
+remains manually editable for older credentials; Save retains strict validation.
+The separately configured destination is not replaced by a pasted SAS URL.
+
+Two targeted tests passed under bundled Jython: actual Swing document events on
+the EDT (token/URL parsing, malformed dates, issuance updates and listener cleanup),
+and packaged initializer/resource-loading regression. Installed dialog verification
+for this update remains manual; the earlier package hash and installation results
+below describe the original Phase 3 build. Rebuild/reinstall using
+[build-extension.md](build-extension.md) to try the updated source.
+
+## Phase 3 implementation — 2026-09-09
+
+Built `dist/snapshot_delivery.mxt`, SHA256
+`1477B95B021FAFBB5BEAB92B3FFB53D7E43D0F916AC699455604A0EA47D0B46D`.
+This is genuinely personally signed by the official KeyAdmin tool; it is not
+vendor-reviewed. The user installed it by accepting Moneydance's signature warning;
+this establishes installation with explicit override, not trusted signature validation.
+Run the manual checklist in [phase3-install.md](phase3-install.md).
+
+The 6.0 URL linked from the test documentation returned 404. Downloaded the kit
+linked from the main official developer site instead:
+https://infinitekind.com/dev/moneydance-devkit-5.1.tar.gz
+Archive SHA256: 0314F04863EE924A2DD12B038374C90342533E4E787607E300000A76ACD32382.
+Its src/build.xml specifies these actual tool calls:
+
+```text
+java -cp <devkit>/lib/* com.moneydance.admin.KeyAdmin genkey <priv_key> <pub_key>
+java -cp <devkit>/lib/* com.moneydance.admin.KeyAdmin signextjar <priv_key> 99 snapshot_delivery <unsigned.mxt>
+```
+
+scripts/package-extension.ps1 uses those tools directly, an explicit six-resource
+archive allowlist and signed-output checks. No Ant/Gradle installation is required
+for Python packaging. It refuses to overwrite keys, generates a random passphrase,
+protects that passphrase with CurrentUser DPAPI, and keeps it and the genuine keys
+in the user-restricted ignored .workspace/tools/snapshot-signing directory. No
+passphrase in arguments or logs. Initial generation and a repeat build succeeded.
+
+Five configuration tests passed under bundled Jython, executed as the actual
+Windows user because sandbox impersonation cannot use DPAPI reliably. Tests cover
+native protection round-trip in separate helpers, corrupted input, timeout and
+malformed helper output; settings recovery in a fresh store, restrictive ACL,
+wrong-book rejection and rejected-update preservation; settings scope/date/expiry
+rules; initializer resource loading without __file__ and teardown. The first runs
+found and corrected Java write overloads and Unicode resource compilation. These
+are local tests with synthetic credentials and a fake extension wrapper, not an
+installed Moneydance restart result.
+
+T006–T011 complete. User confirmed both menus, saving/reopening settings, separate
+invalid-URL and blank-password rejection, and cancel discarding unsaved edits.
+At least three actual restarts using File > Quit and window X preserved the
+extension and saved settings; book switching also preserved installation.
+Moneydance displayed an invalid-or-missing/untrusted-signature warning, and the
+user chose to continue. The warning does not establish which signature condition
+caused it, and override acceptance is not proof of cryptographic trust.
+These are user-reported Moneydance results, separate from the local tests above.
+No Phase 4+
+delivery, shutdown capture or viewer decryption is enabled. The separate three
+publishing restart cycles still belong to Phase 5.
+
+## Phase 1: packaging research (T001/T002)
+
+Reviewed 2026-09-08: [official Python guide](https://test.infinitekind.com/developer-python)
+and [Developer Kit resources](https://test.infinitekind.com/developer).
+The documented sample command, run inside the extracted official DevKit, is:
+
+```text
+./gradlew clean genkeys mypythonextension
+```
+
+`genkeys` is a one-time genuine signing-key operation, not required on every build.
+The resulting sample is dist/mypythonextension.mxt. Personal unverified signing is
+supported; vendor-reviewed signing is separate. Install via Extensions > Manage
+Extensions > Add from File. A packaged class uses an initializer in script_info.dict.
+Python files/script_info go at archive root; meta_info.dict goes under
+com/moneydance/modules/features/<extension-id>/. Packaged classes cannot assume
+__file__; the wrapper provides getResourceAsStream on this build. Use an isolated
+namespace for shared exporter library loading. See extension/README.md for staging.
+
+No DevKit downloaded, keys generated, package built or installed in Phases 1/2.
+The exact Windows wrapper invocation and DevKit version must be recorded when
+T010 acquires the kit; do not substitute jarsigner/keytool or invent an executable.
+No global gradle/javac found on PATH. Existing PATH java points to an Oracle Java8
+shim, so local tests explicitly use Moneydance's Java. These facts are not a claim
+that all build tools are absent elsewhere.
+
+Local runtime: bundled Temurin 21.0.5+11-LTS; Moneydance user probes build 5253,
+Jython 2.7.2; Node v20.9.0. Gradle/DevKit version and packaging remain US1 checks.
+No production dependency added. Git exclusions protect packages, keystores and
+private config; future packaging must use an allowlist, not rely on gitignore.
+
+## Phase 2: local validation and commands
+
+Run from repo root:
+
+```powershell
+& 'C:/Program Files/Moneydance/jre/bin/java.exe' '-Dpython.cachedir.skip=true' -cp 'C:/Program Files/Moneydance/lib/*' org.python.util.jython -B tests/runtime/export_deadline_test.py
+& 'C:/Program Files/Moneydance/jre/bin/java.exe' '-Dpython.cachedir.skip=true' -cp 'C:/Program Files/Moneydance/lib/*' org.python.util.jython -B tests/runtime/encryption_test.py
+& 'C:/Program Files/Moneydance/jre/bin/java.exe' '-Dpython.cachedir.skip=true' -cp 'C:/Program Files/Moneydance/lib/*' org.python.util.jython -B tests/runtime/extension_probe_test.py
+node --test tests/unit/encryption-vectors.test.mjs
+npm test
+```
+
+The deadline suite uses fake source objects: expiration/cancellation, source stamp
+change rejection, equivalent financial output and queued-EDT timeout with zero
+source reads. A running Java call cannot be forcibly interrupted; checks are
+cooperative. No hard shutdown bound is claimed before actual full-book acceptance.
+
+Encryption known answers are generated by Node/OpenSSL and committed as synthetic
+fixtures. JCA verifies exact keys and ciphertext; Node Web Crypto verifies decryption
+and malformed inputs. This is real native crypto execution, not browser-device
+acceptance. Contract parsers here are test-only oracles, not production components.
+Production T012/T022 must pass the same vectors. No upload/decryption UI implemented.
+
+Executed locally: 40 Node tests passed, five exporter deadline tests passed, one
+JCA test passed for all six vectors, and nine existing probe tests passed. The
+Node runner emitted MaxListenersExceededWarning for TLSSocket close listeners;
+there were no test failures. Its origin has not been diagnosed in this phase.
+Git whitespace checks passed; private/package ignore examples were verified.
+
+## User source validation (T004 passed 2026-09-09)
+
+User ran the deadline validation in Moneydance and reported DEADLINE_SOURCE_PASS:
+18 entries, stable=true, outputEqual=true, timeoutRejected=true, normal completion.
+Standalone snapshot.synthetic.json validated with 118 accounts and 18 entries.
+Initial Case 1 reference failures were traced to three additions made for the
+shutdown probes. The user confirmed those additions and the intentional 2036 date.
+The private reference was updated from that confirmation, including independently
+calculated running/closing balances and current/future date checkpoints. Re-running
+both validators returned VALID and REFERENCE_COMPARISONS_PASS. Earlier dates outside
+compact coverage retain the prior source-preflight evidence; they were not retested.
+No source records were changed. Chooser cancellation was not newly reported in this
+run; the earlier cancellation result remains the evidence for that unchanged path.
+
+Reproduction instructions:
+
+1. Open the original synthetic book in Moneydance; finish any row edits.
+2. Run scripts/export-deadline-validation.py in Developer Console. Expect
+   DEADLINE_SOURCE_PASS with stable/outputEqual/timeoutRejected true. Share its
+   single sanitized result. It reads the book but writes neither records nor JSON.
+3. Run the updated export_json.py normally. Save a new synthetic snapshot and run:
+
+```powershell
+node scripts/validate-snapshot.mjs UI/data/snapshot.json
+node scripts/compare-preflight.mjs UI/data/snapshot.json UI/data/preflight-reference.private.json
+```
+
+Use the path actually saved. Expect VALID and REFERENCE_COMPARISONS_PASS; retain
+existing compact-coverage exclusions. Also confirm chooser cancellation still
+reports EXPORT_CANCELLED. Do not alter references to make an unexplained failure pass.
+Local fake-source checks do not complete this required actual-source validation.
+
+## Later acceptance
+
+US1 persistent restart/settings and US2 synthetic Azure delivery/warnings have
+user-reported acceptance recorded above. US3 installed final-edit/shutdown checks
+remain pending; follow scripts/phase5-exit.md. US4 browser/password-manager/Pixel
+checks belong to later phases and remain unrun.

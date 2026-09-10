@@ -11,7 +11,7 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
   const page = new URL(pageUrl);
   const testMode = page.searchParams.get('test') === 'true';
   const effectiveDate = localPageDate(now);
-  let worker, loaded = false, ready = false, disposed = false, sequence = 0, currentRequest = 0;
+  let worker, loaded = false, ready = false, disposed = false, sequence = 0, currentRequest = 0, locked = false, unlocking = false;
   const workerFailed = () => {
     if (disposed) return;
     disposed = true; ready = false; worker?.terminate();
@@ -40,7 +40,8 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
         worker = workerFactory();
         worker.onmessage = event => {
           if (!disposed && event.data?.requestId === currentRequest) {
-            if (event.data.type === 'ready') ready = true;
+            if (event.data.type === 'ready') { ready = true; locked = false; unlocking = false; }
+            if (['locked','unlockError'].includes(event.data.type)) { locked=true; unlocking=false; }
             if (event.data.type === 'error') { ready = false; disposed = true; worker.terminate(); }
             onMessage(event.data);
           }
@@ -48,7 +49,12 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
         worker.onerror = event => { event.preventDefault?.(); workerFailed(); };
         worker.onmessageerror = workerFailed;
       } catch { workerFailed(); return; }
-      return send({ type: 'load', url: url.href, effectiveDate });
+      return send({ type: 'load', mode: testMode ? 'test' : 'encrypted', url: url.href, effectiveDate });
+    },
+    unlock(password) {
+      if (!locked || unlocking || disposed) throw new Error('Snapshot is not ready for unlock.');
+      unlocking=true;
+      return send({type:'unlock',password});
     },
     // Invalidate immediately on input, before the debounced request is sent.
     invalidatePending() { if (ready && !disposed) currentRequest = ++sequence; },

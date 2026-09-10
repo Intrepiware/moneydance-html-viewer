@@ -63,6 +63,7 @@ body {
 #app {
     display: flex;
     height: 100vh;
+    height: 100dvh;
     width: 100vw;
 }
 
@@ -89,6 +90,7 @@ body {
 }
 
 .sidebar-header {
+    flex-shrink: 0;
     padding: 20px;
     border-bottom: 1px solid var(--border-color);
     display: flex;
@@ -159,6 +161,7 @@ body {
 
 .sidebar-content {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
     padding: 20px;
 }
@@ -173,7 +176,9 @@ body {
 }
 
 .sidebar-footer {
+    flex-shrink: 0;
     padding: 15px 20px;
+    padding-bottom: calc(15px + env(safe-area-inset-bottom, 0px));
     border-top: 1px solid var(--border-color);
     font-size: 0.85rem;
     color: var(--text-muted);
@@ -624,6 +629,9 @@ tbody tr:hover {
 
     .sidebar {
         position: fixed;
+        height: 100vh;
+        height: 100dvh;
+        max-width: 100%;
         left: 0;
         top: 0;
         bottom: 0;
@@ -829,3 +837,16 @@ body.light-mode #transactions-body tr.future-entry { background-color: #fffde8; 
 }
 body.light-mode #future-summary { background: #fffde8; }
 #future-summary:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+
+#unlock-form { max-width: 420px; margin: 1rem auto; padding: 1.5rem; }
+html[data-test-mode="true"] #unlock-form { display: none; }
+#unlock-form label { display: block; margin-bottom: .5rem; }
+#snapshot-username, #snapshot-password { width: 100%; box-sizing: border-box; padding: .75rem; font: inherit; }
+/* Prevent iOS focus zoom on editable fields; preserve user-controlled pinch zoom. */
+@media (max-width: 768px) {
+    #snapshot-username, #snapshot-password, #search-input { font-size: max(16px, 1rem); }
+}
+#snapshot-username { margin-bottom: 1rem; }
+.autofill-username { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+#unlock-button { display: block; margin: .75rem auto 0; padding: .65rem 1.5rem; cursor: pointer; font: inherit; }
+#unlock-status { margin-top: .75rem; }

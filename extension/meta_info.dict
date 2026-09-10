@@ -1,0 +1,9 @@
+{
+  "id" = "snapshot_delivery"
+  "extension_type" = "python"
+  "vendor" = "Personal Moneydance Viewer"
+  "module_build" = "4"
+  "minbuild" = "5253"
+  "module_name" = "Snapshot Delivery"
+  "module_desc" = "Export, encrypt and publish a snapshot manually or on normal Moneydance exit."
+}

@@ -35,6 +35,18 @@ export class App {
     });
     this.headerObserver.observe(this.el['transactions-table'].querySelector('thead'));
     this.client = createSnapshotClient({ pageUrl, config, workerFactory, onMessage: message => this.receive(message) });
+    this.unlockForm = document.getElementById('unlock-form');
+    this.passwordInput = document.getElementById('snapshot-password');
+    this.unlockButton = document.getElementById('unlock-button');
+    this.unlockStatus = document.getElementById('unlock-status');
+    this.unlockForm.addEventListener('submit', event => {
+      event.preventDefault();
+      if (this.unlockButton.disabled) return;
+      this.unlockButton.disabled = true;
+      this.unlockStatus.textContent = 'Unlocking…';
+      this.document.getElementById('app').dataset.state = 'unlocking';
+      this.client.unlock(this.passwordInput.value);
+    }, {signal:this.handles.signal});
     const listen = (element, action) => element.addEventListener('click', action, { signal: this.handles.signal });
     listen(this.el['account-tree'], event => {
       const header = event.target.closest('.account-header');
@@ -83,6 +95,11 @@ export class App {
   }
 
   start() {
+    // Keep the password field discoverable while the encrypted file downloads.
+    // Preserve any value filled before load completes; unlock still requires locked.
+    this.unlockForm.hidden = this.client.testMode;
+    this.unlockButton.disabled = true;
+    this.unlockStatus.textContent = 'Downloading snapshot…';
     this.document.getElementById('app').dataset.state = 'loading';
     this.el['as-of-date'].hidden = true;
     this.el['as-of-date'].textContent = '';
@@ -104,7 +121,18 @@ export class App {
   }
 
   receive(message) {
-    if (message.type === 'ready') {
+    if (message.type === 'locked' || message.type === 'unlockError') {
+      this.document.getElementById('app').dataset.state = 'locked';
+      this.el['load-status'].hidden = true;
+      this.unlockForm.hidden = false;
+      this.unlockButton.disabled = false;
+      this.unlockStatus.textContent = message.type === 'unlockError' ? message.message : 'Enter your password to view this snapshot.';
+      // Let mobile users open the keyboard themselves; automatic focus can pan
+      // the iOS viewport away from the menu even before the user interacts.
+      if (!this.mobileLayout.matches) this.passwordInput.focus({ preventScroll: true });
+    } else if (message.type === 'ready') {
+      this.passwordInput.value = '';
+      this.unlockForm.hidden = true;
       this.snapshotEmpty = message.totalCount === 0;
       this.document.getElementById('app').dataset.state = this.snapshotEmpty ? 'empty' : 'ready';
       this.el['as-of-date'].textContent = formatExportDate(message.metadata.exportDate);
@@ -123,6 +151,7 @@ export class App {
     } else if (message.type === 'page') {
       this.renderPage(message);
     } else if (message.type === 'error') {
+      this.passwordInput.value = ''; this.unlockForm.hidden = true;
       this.document.getElementById('app').dataset.state = 'error';
       this.el['as-of-date'].hidden = true;
       this.el['as-of-date'].textContent = '';
@@ -236,7 +265,7 @@ export class App {
     try { this.window.localStorage.setItem('theme', light ? 'light' : 'dark'); } catch { /* optional preference */ }
   }
 
-  dispose() { this.window.clearTimeout(this.searchTimer); this.client.dispose(); this.handles.abort(); this.headerObserver.disconnect(); }
+  dispose() { this.passwordInput.value = '';  this.window.clearTimeout(this.searchTimer); this.client.dispose(); this.handles.abort(); this.headerObserver.disconnect(); }
 }
 
 // Use the same bootstrap in production and lifecycle regression scenarios.
