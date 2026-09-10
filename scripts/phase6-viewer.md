@@ -56,7 +56,5 @@ The local --snapshot option maps a selected encrypted file to /data/snapshot.enc
    files must fail without showing financial data. Authentication failure may mean
    either a wrong password or damaged ciphertext; retries reuse those same bytes.
 
-T027 remains pending actual device/autofill evidence. Browser harness execution is
-also pending in T026 because no browser was available to the agent. Private full-book
-performance and live cache/freshness checks remain Phase 7; do not equate synthetic
-or Node results with those acceptance checks.
+Phase 6 is closed with the accepted exceptions above. The browser harness passed
+by user report. Continue with phase7-acceptance.md for final measurements and review.

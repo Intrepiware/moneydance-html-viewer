@@ -145,3 +145,29 @@ As the user, I want to enter my encryption password on the desktop or Pixel 8 an
 - Select supported Azure authorization and viewer read-access arrangements. Verify lifetime constraints and service policy for any user-maintained expiring secret. Do not promise that an unverified authentication option supports 22–24 months.
 - Measure the combined full-history load/decrypt workflow; Part 1's passing plaintext load times do not establish this feature's target.
 - Constitution v1.1.0 applies. Its deferred-work boundary is explicitly revisable and Part 2 advances that scope; no principle exception is requested. Dependency adoption still requires evidence and justification, including transitive footprint. Technical feasibility gates remain open for planning, not hidden claims of completed research.
+
+## Accepted validation exceptions and final status — 2026-09-10
+
+The user accepted the non-reproducible offline shutdown delay and unavailable
+normal-UI cancellation case as non-blocking, and accepted iOS Chrome keyboard/zoom
+behavior with pinch-to-zoom recovery. LastPass and iOS Safari autofill testing was
+explicitly waived; FR-019 compatibility for those managers is unverified, not passed.
+Keeper and user-reported desktop/mobile workflows passed. These exceptions do not
+waive full-book encrypted Pixel timing, normal shutdown timing or live cache-policy
+checks. Phase 7 local review is complete; outstanding evidence and the FR/SC mapping
+are recorded in scripts/extension-validation.md and scripts/phase7-acceptance.md.
+
+## Final acceptance — 2026-09-10
+
+The user approved closing Phase 7 with the remaining verification gaps accepted.
+The feature is accepted with limitations, not certified as having passed every
+originally specified check. The one Pixel load trial (3.30s), ten search samples
+(including the accepted 2.73s result), and reported real-book timing and cache
+results are the actual evidence. Reduced sampling, ordinary-save verification and
+private historical-log review are explicitly waived. Previously accepted unavailable
+cancellation, non-reproducible offline delay, iOS Chrome zoom behavior, and untested
+LastPass/Safari remain documented limitations. Installed book-switch coverage remains
+limited to prior reports and deterministic tests; no new live test is claimed.
+Earlier pending-status statements are historical and superseded by this decision.
+No code change, rebuild, additional test run or quality-checklist modification was
+needed to record acceptance.

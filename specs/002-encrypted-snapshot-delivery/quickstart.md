@@ -1,10 +1,8 @@
 # Validation guide: Encrypted Snapshot Delivery
 
-Phases 1–4 are complete. Phase 5's three installed close/reopen cycles succeeded.
-The user accepted the non-reproducible offline delay and unavailable cancellation
-path as non-blocking. Phase 6 can proceed; remaining acceptance evidence is tracked
-in tasks.md for final reconciliation.
-Record results in scripts/extension-validation.md as implementation proceeds.
+Phases 1–7 are closed by user acceptance on 2026-09-10, with documented
+verification gaps and limitations. See scripts/extension-validation.md for the
+final disposition; the procedures below remain reference instructions.
 Use synthetic data first; do not commit private logs, keys, configurations or exports.
 
 ## Existing baseline
@@ -137,3 +135,9 @@ timing can stand in for this encrypted acceptance run.
 See [the Phase 6 guide](../../scripts/phase6-viewer.md) for encrypted local serving,
 synthetic password, browser harness and actual password-manager/device acceptance.
 The default real URL is now ./data/snapshot.enc; test=true remains plaintext.
+
+## Phase 7 final checks
+
+Follow [final acceptance](../../scripts/phase7-acceptance.md) for remaining encrypted
+Pixel timings, real-book shutdown measurements, live cache checks and recovery.
+Local tests and package review passed; live acceptance is not yet complete.

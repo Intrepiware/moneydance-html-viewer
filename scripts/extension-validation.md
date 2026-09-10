@@ -1,5 +1,103 @@
 # Extension validation evidence
 
+## Final acceptance — 2026-09-10
+
+The user approved closing Phase 7 with the remaining verification gaps accepted.
+The feature is accepted with limitations, not certified as having passed every
+originally specified check. The one Pixel load trial (3.30s), ten search samples
+(including the accepted 2.73s result), and reported real-book timing and cache
+results are the actual evidence. Reduced sampling, ordinary-save verification and
+private historical-log review are explicitly waived. Previously accepted unavailable
+cancellation, non-reproducible offline delay, iOS Chrome zoom behavior, and untested
+LastPass/Safari remain documented limitations. Installed book-switch coverage remains
+limited to prior reports and deterministic tests; no new live test is claimed.
+Earlier pending-status statements are historical and superseded by this decision.
+No code change, rebuild, additional test run or quality-checklist modification was
+needed to record acceptance.
+
+
+
+## Phase 7 submitted evidence — 2026-09-10
+
+Reviewed scripts/phase7-acceptance-results.md, selected non-secret response headers
+from the supplied HAR, and both Cloudflare cache-rule screenshots. Did not print
+HAR cookies, request authorization or payloads, or contact the deployed site.
+
+Pixel 8 Brave 1.94.121 / Chromium 152.0.7977.83: one combined encrypted load trial
+was 2.21 + 1.09 = 3.30 seconds. Ten searches were reported, nine below two seconds
+and one at 2.73 seconds; the user explicitly accepts that outlier without further
+investigation. No crashes, memory warnings or missing history were reported. Other
+asset cache state is unknown. This is one load and ten searches, not the originally
+specified five/twenty samples; acceptance of the reduced sample count is pending.
+
+Real-book last-delivery record: PUBLISHED, operation 22.990 seconds, close cycle
+24.176 seconds. Five wall-clock exits without the extension: 63/34/47/52/44 seconds;
+with it: 61/45/33/33/39 seconds. Both measured extension durations are below sixty
+seconds. Variable baseline shutdown already exceeds sixty seconds in one trial;
+these unpaired runs do not support attributing the 61-second total to extension
+delay or claiming the extension speeds up shutdown. Reported backup latency is a
+possible explanation, not an established diagnosis.
+
+Azure Cache-Control confirmed no-store by user. Screenshot rule matches this site's
+/data/* and selects edge Bypass cache and browser Bypass cache. This also covers
+synthetic data, but does not bypass static UI assets. Screenshots show the edit form,
+not all deployed rules. The HAR independently shows one encrypted GET with HTTP 200,
+Cache-Control: no-store, CF-Cache-Status: DYNAMIC, no Age header, Content-Length
+36,049,515 bytes, ETag and Last-Modified present. It is consistent with uncached
+delivery; it is not a before/after pair or proof of every rule's precedence. Prior
+user-reported replacement/new-transaction checks supply functional freshness evidence.
+Deployed data directory confirmed to contain only snapshot.enc and test-snapshot.json.
+Historical local log review and ordinary-save behavior were not explicitly reported.
+
+Recovery/renewal section is operating guidance, not a request to repeat the already
+completed Phase 4 password/SAS/failure/recovery checks. No new code tests or rebuild
+are needed for this evidence review. T028/T030 remain pending sample-count disposition
+and final reconciliation; T029 has cache/asset evidence with the limits above.
+
+## Phase 7 local review — 2026-09-10
+
+All 48 Node tests pass. Bundled Jython: deadline 5, encryption 2, delivery 7,
+lifecycle 13 and configuration 6 pass (33 total). Two configuration DPAPI checks
+failed under the sandbox and passed in the actual Windows-user context; this is
+recorded rather than counted as an unexplained application failure. Existing Node
+TLS listener warnings remain. Phase 6 browser harness pass is user-reported evidence;
+no new browser execution or Pixel measurement was performed by the agent.
+
+Read-only package inspection: build 4 SHA256
+559AAF0DAFFBE6DBE0BD1BA798365C01F60164DFBB1624977929BFC8256A690F.
+Eight packaged code/resource files match source hashes. Public metadata fields
+match source (the packaged metadata has different serialized bytes). Archive contains
+only the nine expected resources, signature metadata and a directory entry; no
+snapshot, private keys or configuration bundle. This is an inventory/source-match
+review, not a new cryptographic signature-verifier run. No rebuild was performed.
+
+Source review: viewer config contains only same-origin relative reader/test paths;
+worker fetch uses no-store and rejects redirects/cross-origin URLs. Password and
+financial data are not written to browser storage; localStorage is used only for
+theme. Renderer receives data only after authentication and validation. Upload sets
+both request Cache-Control and stored blob Cache-Control to no-store. Status uses
+fixed sanitized fields; arbitrary request exceptions are not logged. No private
+book/configuration, installed historical logs or cloud assets were read in this
+review. Pinned external Handlebars and external font/style assets remain unchanged;
+this review is not a dependency security audit or proof of live CDN integrity.
+
+Acceptance reconciliation:
+
+| Criteria | Evidence / remaining work |
+| --- | --- |
+| FR-001/003/009/010/012; SC-006 | Installed persistence, protected config, signed build, approved 23-month SAS and warning boundaries recorded earlier |
+| FR-002/004/007/008; SC-002/003 | Native tests, synthetic source comparisons and reported real financial/publication checks; full-book final-exit measurements pending |
+| FR-005/006/011; SC-001/008 | Three installed exit cycles, status, deterministic overlap/duplicates; full-book timing pending; unavailable cancellation and non-reproducible offline delay accepted |
+| FR-013–016; SC-004/007 | 48 Node tests, user harness pass and real unlock/retry/data checks; iOS Chrome zoom accepted |
+| FR-017/018; SC-005 | Live cache/deployed-artifact review and encrypted Pixel timing still required |
+| FR-019 | Keeper reported working; LastPass/iOS Safari explicitly left untested by user |
+
+T028–T030 remain open for the specific live evidence/final reconciliation, not
+because implementation is missing. Follow phase7-acceptance.md. The specification
+quality checklist remains unchanged under the implement skill's read-only rule;
+acceptance is recorded here rather than changing quality-review checkboxes.
+
+
 ## Phase 6 closed with accepted gaps — 2026-09-10
 
 User explicitly chose to leave LastPass and iOS Safari autofill untested and

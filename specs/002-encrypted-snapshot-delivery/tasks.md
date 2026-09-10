@@ -4,6 +4,24 @@ Input: spec.md, plan.md, research.md, data-model.md, contracts/ and quickstart.m
 Tests are required by FR-018 and SC-001–008. Phases 1/2 local implementation is recorded below; prior probe
 evidence does not complete production implementation tasks. Paths are repo-relative.
 
+## Final acceptance — 2026-09-10
+
+The user approved closing Phase 7 with the remaining verification gaps accepted.
+The feature is accepted with limitations, not certified as having passed every
+originally specified check. The one Pixel load trial (3.30s), ten search samples
+(including the accepted 2.73s result), and reported real-book timing and cache
+results are the actual evidence. Reduced sampling, ordinary-save verification and
+private historical-log review are explicitly waived. Previously accepted unavailable
+cancellation, non-reproducible offline delay, iOS Chrome zoom behavior, and untested
+LastPass/Safari remain documented limitations. Installed book-switch coverage remains
+limited to prior reports and deterministic tests; no new live test is claimed.
+Earlier pending-status statements are historical and superseded by this decision.
+No code change, rebuild, additional test run or quality-checklist modification was
+needed to record acceptance.
+
+Closure markers for T019/T021/T028–T030 include the accepted verification gaps
+above; they do not relabel waived or unrun checks as passes.
+
 ## Phase 1: Setup
 
 - [X] T001 Verify official DevKit packaging/signing instructions and record exact runtime/tool versions and genuine key-generation commands in scripts/extension-validation.md; do not fabricate signing artifacts.
@@ -47,16 +65,16 @@ and compare source references without requiring the finished viewer UI.
 Independent test: final synthetic edit survives exit, encrypted publication and reopen.
 
 - [X] T018 [US3] Add deterministic close/save/duplicate/open/canceled-exit and ongoing-manual-attempt scenarios in tests/runtime/lifecycle_delivery_test.py; exercise duplicate closing before capture, after capture and during publication, plus waiting before capture against the shutdown deadline. Verify ordinary saves never capture, switches never publish and other books never reach the destination.
-- [ ] T019 [US3] Implement configured-book close arm and one postsave capture in extension/snapshot_extension.py; detach source values and preserve the arm/candidate on duplicate closing within an active cycle. Opening, confirmed cancellation or unload ends the cycle and invalidates its candidate; only a subsequent new cycle rearms capture. Verify the actual cancellation-detection mechanism rather than invent a callback. Publish only at app:exiting without stack/thread heuristics.
+- [X] T019 [US3] Implement configured-book close arm and one postsave capture in extension/snapshot_extension.py; detach source values and preserve the arm/candidate on duplicate closing within an active cycle. Opening, confirmed cancellation or unload ends the cycle and invalidates its candidate; only a subsequent new cycle rearms capture. Verify the actual cancellation-detection mechanism rather than invent a callback. Publish only at app:exiting without stack/thread heuristics.
 - [X] T020 [US3] Integrate shutdown serialization, canceled queued EDT work, safe unknown outcomes and next-launch status in extension/delivery.py. Start the 60-second shutdown deadline at the first configured-book closing notification, including waiting for earlier manual work before capture; retain each operation's capture-start 60-second budget and enforce whichever deadline expires first. Never reset deadlines on duplicates/exit or substitute a stale manual snapshot.
-- [ ] T021 [US3] Verify installed synthetic final-edit equivalence, window-X/menu exit, offline/duplicate/overlap/switch behavior and any available canceled-exit path in scripts/extension-validation.md. Perform three normal close/reopen cycles after one installation, making a distinct synthetic edit before each close; retrieve/decrypt each publication and verify that edit and expected financial values, persistent settings and next-launch result. Record simulations separately and gate full-data acceptance on source correctness and bounded completion.
+- [X] T021 [US3] Verify installed synthetic final-edit equivalence, window-X/menu exit, offline/duplicate/overlap/switch behavior and any available canceled-exit path in scripts/extension-validation.md. Perform three normal close/reopen cycles after one installation, making a distinct synthetic edit before each close; retrieve/decrypt each publication and verify that edit and expected financial values, persistent settings and next-launch result. Record simulations separately and gate full-data acceptance on source correctness and bounded completion.
 
 ## Phase 6: US4 — Unlock existing viewer (P1)
 
 Phase 5 progression decision: the user approved moving on after repeated offline
 attempts could not reproduce the slow shutdown and no normal-UI abort path was
 available. These two verification gaps are accepted as non-blocking, not passed.
-T019/T021 retain unchecked markers to preserve incomplete acceptance evidence;
+T019/T021 originally retained unchecked markers to preserve incomplete acceptance evidence;
 reconcile their documented limitations and remaining installed checks in T030.
 Three installed edit/exit cycles succeeded. T028 full-book timing remains required.
 
@@ -72,9 +90,16 @@ plaintext test mode and Part 1 behavior remain intact, even without live Azure.
 
 ## Phase 7: Cross-cutting acceptance
 
-- [ ] T028 Verify real-book final saved values privately, five full-history Pixel load/decrypt/render trials below ten seconds, twenty searches below two seconds, and full-book operation/incremental shutdown times within 60 seconds in scripts/extension-validation.md; include cache/network/browser/size metadata and memory observations.
-- [ ] T029 Verify origin no-store/Cloudflare bypass and actual replaced-ciphertext freshness; inspect package, website assets and logs for secret/plaintext exposure, and document scoped provisioning/renewal/recovery in scripts/extension-validation.md and quickstart.md.
-- [ ] T030 Run npm test and updated browser/runtime suites, reconcile evidence with all FR/SC criteria and update specs/002-encrypted-snapshot-delivery/checklists/requirements.md; keep failed or unrun acceptance checks explicitly open.
+Submitted evidence (2026-09-10): Pixel combined load 3.30s (one trial); ten searches,
+one at 2.73s explicitly accepted by user. Real-book operation/close cycle
+22.990s/24.176s. HAR confirms no-store/DYNAMIC; screenshots show /data/* bypass;
+deployed data directory contains encrypted real and plaintext test files only.
+Five-load/twenty-search sampling remains incomplete, not a failure of the measured
+load. See extension-validation.md for evidence limits and outstanding disposition.
+
+- [X] T028 Verify real-book final saved values privately, five full-history Pixel load/decrypt/render trials below ten seconds, twenty searches below two seconds, and full-book operation/incremental shutdown times within 60 seconds in scripts/extension-validation.md; include cache/network/browser/size metadata and memory observations.
+- [X] T029 Verify origin no-store/Cloudflare bypass and actual replaced-ciphertext freshness; inspect package, website assets and logs for secret/plaintext exposure, and document scoped provisioning/renewal/recovery in scripts/extension-validation.md and quickstart.md.
+- [X] T030 Run npm test and updated browser/runtime suites, reconcile evidence with all FR/SC criteria and update specs/002-encrypted-snapshot-delivery/checklists/requirements.md; keep failed or unrun acceptance checks explicitly open.
 
 ## Dependencies and parallel opportunities
 
@@ -163,3 +188,14 @@ marked fixed. T027's unreported LastPass/Safari autofill evidence is unchanged.
 Phase 6 closed by user decision on 2026-09-10. LastPass and iOS Safari remain
 untested and their checks are waived; earlier pending statements are historical.
 Phase 7 (T028–T030) remains outstanding.
+
+## Phase 7 execution evidence — 2026-09-10
+
+48 Node and 33 native Jython tests pass; configuration tests required the real
+Windows-user context for DPAPI. Build-4 package inventory/source match and viewer/
+upload storage/logging review completed. T028 needs actual encrypted Pixel and
+real-book timing. T029 needs live origin/Cloudflare and deployed-artifact/log review.
+T030 needs final reconciliation after those results; reuse the reported Phase 6
+harness pass unless further code changes require a rerun. The quality checklist
+is read-only per implement skill; FR/SC acceptance mapping is in extension-validation.md.
+Use scripts/phase7-acceptance.md; no rebuild or new dependency was introduced.

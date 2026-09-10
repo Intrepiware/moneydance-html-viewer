@@ -105,3 +105,29 @@ FR-001/012 → G1 and official packaging; FR-002 → shared exporter/source refe
 ## Post-design constitution review
 
 All six principles remain satisfied by design: unchanged financial contract, Jython 2.7, protected secrets and synthetic evidence, no framework or periodic export, explicit actual-runtime/device checks, and native dependencies. Detailed wire/session contracts add no dataset version tracking. A 128 MiB safety ceiling fails visibly rather than trimming history and requires review if source growth exceeds it. No new principle exception. All production acceptance tasks remain unchecked.
+
+## Accepted validation exceptions and final status — 2026-09-10
+
+The user accepted the non-reproducible offline shutdown delay and unavailable
+normal-UI cancellation case as non-blocking, and accepted iOS Chrome keyboard/zoom
+behavior with pinch-to-zoom recovery. LastPass and iOS Safari autofill testing was
+explicitly waived; FR-019 compatibility for those managers is unverified, not passed.
+Keeper and user-reported desktop/mobile workflows passed. These exceptions do not
+waive full-book encrypted Pixel timing, normal shutdown timing or live cache-policy
+checks. Phase 7 local review is complete; outstanding evidence and the FR/SC mapping
+are recorded in scripts/extension-validation.md and scripts/phase7-acceptance.md.
+
+## Final acceptance — 2026-09-10
+
+The user approved closing Phase 7 with the remaining verification gaps accepted.
+The feature is accepted with limitations, not certified as having passed every
+originally specified check. The one Pixel load trial (3.30s), ten search samples
+(including the accepted 2.73s result), and reported real-book timing and cache
+results are the actual evidence. Reduced sampling, ordinary-save verification and
+private historical-log review are explicitly waived. Previously accepted unavailable
+cancellation, non-reproducible offline delay, iOS Chrome zoom behavior, and untested
+LastPass/Safari remain documented limitations. Installed book-switch coverage remains
+limited to prior reports and deterministic tests; no new live test is claimed.
+Earlier pending-status statements are historical and superseded by this decision.
+No code change, rebuild, additional test run or quality-checklist modification was
+needed to record acceptance.
