@@ -8,7 +8,7 @@ import { parseArgs } from 'node:util';
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8',
-  '.json': 'application/json; charset=utf-8' };
+  '.json': 'application/json; charset=utf-8', '.enc': 'application/octet-stream' };
 const inside = (root, path) => {
   const rel = relative(root, path);
   return rel !== '..' && !rel.startsWith('..\\') && !rel.startsWith('../') && !isAbsolute(rel);
@@ -24,7 +24,7 @@ const loadingFixtures = {
 };
 
 // Only the selected private snapshot and explicit public routes are exposed.
-export function createViewerServer({ root = repo, snapshot = resolve(root, 'UI/data/snapshot.json') } = {}) {
+export function createViewerServer({ root = repo, snapshot = resolve(root, 'UI/data/snapshot.enc') } = {}) {
   return createServer(async (req, res) => {
     res.setHeader('Cache-Control', 'no-store');
     res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -37,7 +37,7 @@ export function createViewerServer({ root = repo, snapshot = resolve(root, 'UI/d
       fail(400); return;
     }
     let target, allowedRoot;
-    if (path === '/data/snapshot.json') {
+    if (path === '/data/snapshot.enc') {
       target = resolve(snapshot); // Explicitly selected CLI file may be outside the repository.
     } else if (path === '/data/test-snapshot.json') {
       allowedRoot = resolve(root, 'UI/data'); target = resolve(allowedRoot, 'test-snapshot.json');

@@ -131,3 +131,9 @@ searches including debounce, each below two seconds. Observe crashes/memory warn
 Verify Azure/Cloudflare serves a replaced object without stale edge caching and
 that website assets/configuration contain no upload credential. No Part 1 plaintext
 timing can stand in for this encrypted acceptance run.
+
+## Phase 6 viewer implementation
+
+See [the Phase 6 guide](../../scripts/phase6-viewer.md) for encrypted local serving,
+synthetic password, browser harness and actual password-manager/device acceptance.
+The default real URL is now ./data/snapshot.enc; test=true remains plaintext.

@@ -63,12 +63,12 @@ Three installed edit/exit cycles succeeded. T028 full-book timing remains requir
 Independent test: fixed encrypted synthetic fixture unlocks on desktop/Pixel while
 plaintext test mode and Part 1 behavior remain intact, even without live Azure.
 
-- [ ] T022 [US4] Implement strict envelope parsing and Web Crypto decryption in UI/src/encrypted-snapshot.mjs; pass T005 vectors against actual JVM output and reject invalid sizes/version/password encoding before costly work.
-- [ ] T023 [US4] Extend UI/src/snapshot-worker.mjs for explicit encrypted/test modes, counted single download, locked/unlockError/ready states, authentication-before-validation, serialized retries and disposal during unlock; preserve effectiveDate and existing query contract.
-- [ ] T024 [US4] Extend UI/src/worker-client.mjs with unlock requests and nonterminal authentication errors, stale-response protection and final disposal while retaining request IDs and one-fetch behavior.
-- [ ] T025 [US4] Add stable password-manager-compatible form, submit-time input reading, safe loading/error states and clearing after success in UI/index.html, UI/app.js and UI/styles.css; configure encrypted real URL in UI/config.js and preserve exact plaintext test=true.
-- [ ] T026 [US4] Expand tests/browser/ and tests/unit/worker.test.mjs for wrong-password one-fetch retry, tampering/truncation/version/financial errors, missing-file test link, stale unlock, BFCache/disposal and full Part 1 regression; publish runnable harness instructions in quickstart.md.
-- [ ] T027 [US4] Record Keeper, LastPass and iOS Safari normal autofill plus desktop/Pixel synthetic unlock results in scripts/extension-validation.md; do not substitute manual typing or browser emulation for device acceptance.
+- [X] T022 [US4] Implement strict envelope parsing and Web Crypto decryption in UI/src/encrypted-snapshot.mjs; pass T005 vectors against actual JVM output and reject invalid sizes/version/password encoding before costly work.
+- [X] T023 [US4] Extend UI/src/snapshot-worker.mjs for explicit encrypted/test modes, counted single download, locked/unlockError/ready states, authentication-before-validation, serialized retries and disposal during unlock; preserve effectiveDate and existing query contract.
+- [X] T024 [US4] Extend UI/src/worker-client.mjs with unlock requests and nonterminal authentication errors, stale-response protection and final disposal while retaining request IDs and one-fetch behavior.
+- [X] T025 [US4] Add stable password-manager-compatible form, submit-time input reading, safe loading/error states and clearing after success in UI/index.html, UI/app.js and UI/styles.css; configure encrypted real URL in UI/config.js and preserve exact plaintext test=true.
+- [X] T026 [US4] Expand tests/browser/ and tests/unit/worker.test.mjs for wrong-password one-fetch retry, tampering/truncation/version/financial errors, missing-file test link, stale unlock, BFCache/disposal and full Part 1 regression; publish runnable harness instructions in quickstart.md.
+- [X] T027 [US4] Record reported Keeper and desktop/mobile unlock results in scripts/extension-validation.md. User accepted iOS Chrome zoom behavior and explicitly waived LastPass/iOS Safari testing on 2026-09-10; those managers remain untested, not verified compatible.
 
 ## Phase 7: Cross-cutting acceptance
 
@@ -146,3 +146,20 @@ after expiry. On build 3, user confirmed red warning text at 2028-08-03 and
 publication with expired credentials. Phase 4 is complete; Phase 5 is not started.
 Follow scripts/phase4-publish.md; detailed results are in
 scripts/extension-validation.md.
+
+## Phase 6 local implementation
+
+T022–T025 implemented: native Web Crypto, counted encrypted download, explicit
+encrypted/test modes, one-at-a-time password retries, disposal/stale reply handling
+and stable submit-time password form. No new dependencies or extension changes.
+T026 complete: user reported all browser harness tests passing on 2026-09-10.
+T027 has successful Keeper evidence; remaining manager/device checks stay open. Run
+scripts/phase6-viewer.md. Phase 7 is not implemented by this change.
+
+2026-09-10: User accepted the remaining iOS Chrome keyboard/zoom behavior with
+pinch-to-zoom recovery as a workaround. This UI gap is non-blocking and is not
+marked fixed. T027's unreported LastPass/Safari autofill evidence is unchanged.
+
+Phase 6 closed by user decision on 2026-09-10. LastPass and iOS Safari remain
+untested and their checks are waived; earlier pending statements are historical.
+Phase 7 (T028–T030) remains outstanding.

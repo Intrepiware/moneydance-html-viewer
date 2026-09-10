@@ -7,7 +7,7 @@ import { once } from 'node:events';
 import { createSnapshotHandler } from '../../UI/src/snapshot-worker.mjs';
 import { createSnapshotClient } from '../../UI/src/worker-client.mjs';
 const fixture = await readFile(new URL('../fixtures/valid-snapshot-v1.json', import.meta.url), 'utf8');
-const load = { type: 'load', requestId: 1, url: 'http://localhost/snapshot.json', effectiveDate: '2026-09-06' };
+const load = { type: 'load', mode: 'test', requestId: 1, url: 'http://localhost/snapshot.json', effectiveDate: '2026-09-06' };
 test('load-once handler reports missing file, blocks retries and cross-origin requests', async () => {
   const messages = []; let fetches = 0;
   const handler = createSnapshotHandler({ baseUrl: load.url, postMessage: m => messages.push(m), fetchSnapshot: async () => { fetches++; return { ok: false, status: 404 }; } });
