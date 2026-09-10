@@ -1,5 +1,8 @@
 # Phase 4: manual encrypted publication
 
+Historical build-2/3 checklist. Build 4 adds automatic exit publication; see
+[phase5-exit.md](phase5-exit.md). Its ordinary-save behavior remains unchanged.
+
 Use a synthetic Moneydance book and a dedicated test blob. Automatic close/exit
 publication and the viewer's password screen are not enabled in this build.
 

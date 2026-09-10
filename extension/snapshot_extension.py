@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Persistent manual snapshot delivery; automatic exit delivery is not enabled."""
+"""Persistent manual delivery and one detached publication at normal exit."""
 import threading
 import datetime
 from urlparse import urlsplit, parse_qs
@@ -76,12 +76,14 @@ class SnapshotExtension(object):
         self.delivery = None
         self.exporter = None
         self.publishing = False
+        self.startup_status_shown = False
 
     def getName(self): return 'Snapshot Delivery'
 
     def initialize(self, context, extension_object):
         self.context, self.wrapper = context, extension_object
         self.stopped = False
+        self.startup_status_shown = False
         namespace = {'__name__':'snapshot_delivery_configuration'}
         exec compile(read_resource(extension_object,'configuration.py').encode('utf-8'), 'configuration.py', 'exec') in namespace
         self.config_api = namespace
@@ -164,7 +166,7 @@ class SnapshotExtension(object):
         panel.add(JLabel('Renew in Azure: create a blob-scoped service SAS with Write and HTTPS only.'))
         panel.add(JLabel('Use 23 months if policy permits (required range: 22-24 months).'))
         panel.add(JLabel('Pasting a SAS fills its expiry and sets issued time to now; adjust issuance if older.'))
-        panel.add(JLabel('Save stores settings only. Use Publish Snapshot to export, encrypt and upload.'))
+        panel.add(JLabel('Publishes manually or on normal exit. Save here changes settings only.'))
         pane = JOptionPane(panel,JOptionPane.PLAIN_MESSAGE,JOptionPane.OK_CANCEL_OPTION)
         dialog = pane.createDialog(None,'Snapshot Settings')
         self.dialog = dialog
@@ -222,22 +224,36 @@ class SnapshotExtension(object):
             self.context.showURL(uri)
         except (Exception, JavaException): pass
 
-    def warn(self, config):
+    def warn(self, config, previous=None):
         state = self.config_api['expiry_state'](config)
         if state in ('warning','expired','unknown'):
             label = {'warning':'expire soon','expired':'have expired','unknown':'have unknown expiry'}[state]
-            self.status('Upload credentials '+label+' - Extensions > Snapshot Settings',warning=True)
+            message = 'Upload credentials '+label+' - Extensions > Snapshot Settings'
+            if previous: message = previous+' | '+message
+            self.status(message,warning=True)
+        elif previous: self.status(previous)
 
     def check_warning(self):
         if self.stopped or self.publishing: return
         store = self.store
+        status_store = self.delivery.status_store
+        show_previous = not self.startup_status_shown
+        self.startup_status_shown = True
         def load():
+            previous = None
+            if show_previous:
+                try:
+                    result = status_store.load()
+                    if result:
+                        previous = 'Last snapshot (%s): %s' % (result['completedAt'],self.result_message(result))
+                except (Exception, JavaException): previous = 'Previous snapshot status unavailable.'
             try:
                 current = store.load()
                 if current:
                     warning = {'credentialExpiresAt':current.get('credentialExpiresAt')}
                     current.clear()
-                    self.later(lambda: self.warn(warning))
+                    self.later(lambda: self.warn(warning,previous))
+                elif previous: self.later(lambda: self.status(previous))
             except (Exception, JavaException):
                 self.later(lambda: self.status('Upload settings unavailable - Extensions > Snapshot Settings'))
         worker=threading.Thread(target=load); worker.daemon=True; worker.start()
@@ -259,7 +275,8 @@ class SnapshotExtension(object):
             finally:
                 book = None
                 done.countDown()
-        SwingUtilities.invokeLater(OnEDT(capture))
+        if SwingUtilities.isEventDispatchThread(): capture()
+        else: SwingUtilities.invokeLater(OnEDT(capture))
         while not getattr(done,'await')(20,TimeUnit.MILLISECONDS):
             try: deadline.check()
             except Exception:
@@ -300,6 +317,14 @@ class SnapshotExtension(object):
 
     def publish_finished(self, result):
         self.publishing = False
+        # A canceled/drained manual attempt must not show a modal during shutdown.
+        if self.delivery.cycle is not None: return
+        message = self.result_message(result)
+        self.status(message)
+        self.notice(message,result['outcome'] != 'success')
+        self.check_warning()
+
+    def result_message(self, result):
         if result['outcome'] == 'success':
             message = 'Snapshot encrypted and published successfully.'
         elif result['outcome'] == 'unknown':
@@ -318,13 +343,31 @@ class SnapshotExtension(object):
                 'BUSY':'A snapshot publication is already in progress.'}
             message = 'Snapshot publication failed at %s: %s' % (result.get('stage','upload'),guidance.get(result['code'],'Check settings and try again.'))
         if result.get('statusSaved') is False: message += ' The local status record could not be saved.'
-        self.status(message)
-        self.notice(message,result['outcome'] != 'success')
-        self.check_warning()
+        return message
 
     def handle_event(self, event):
-        if unicode(event) == 'file:opened': self.later(self.check_warning)
-        # Ordinary saves and close/exit notifications do not publish in Phase 4.
+        if self.stopped or self.delivery is None: return
+        name = unicode(event)
+        if name.startswith('md:'): name = name[3:]
+        if name in ('file:opening','file:opened'):
+            self.delivery.reset_close()
+            if name == 'file:opened': self.later(self.check_warning)
+        elif name == 'file:closing':
+            shutdown = self.exporter['Deadline'](60)
+            book_id = self.book_id()
+            if book_id:
+                self.delivery.start_close(book_id,self.store.load,
+                    'Moneydance build %d' % int(self.context.getBuild()),shutdown)
+        elif name == 'file:presave': self.delivery.before_save()
+        elif name == 'file:postsave':
+            cycle = self.delivery.cycle
+            if cycle is not None:
+                self.delivery.capture_close(lambda deadline:self.capture_current(cycle['bookId'],deadline))
+        elif name == 'file:closed': self.delivery.confirm_closed()
+        elif name == 'app:exiting':
+            # Synchronous callback hold: the detached pipeline must finish before
+            # Moneydance exits. It never needs a book or an EDT task at this point.
+            self.delivery.finish_close()
 
     def unload(self):
         self.stopped=True

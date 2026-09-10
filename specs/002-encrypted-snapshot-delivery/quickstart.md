@@ -1,6 +1,9 @@
 # Validation guide: Encrypted Snapshot Delivery
 
-Phases 1–4 have local implementation; live Phase 4 Azure acceptance remains pending.
+Phases 1–4 are complete. Phase 5's three installed close/reopen cycles succeeded.
+The user accepted the non-reproducible offline delay and unavailable cancellation
+path as non-blocking. Phase 6 can proceed; remaining acceptance evidence is tracked
+in tasks.md for final reconciliation.
 Record results in scripts/extension-validation.md as implementation proceeds.
 Use synthetic data first; do not commit private logs, keys, configurations or exports.
 
@@ -75,6 +78,17 @@ data must remain readable; ambiguous results must say unknown. Test warning at
 menu to renew without reinstalling. Check password changes affect only new exports.
 
 ## Normal exit (US3)
+
+Build 4 enables this behavior. Follow [phase5-exit.md](../../scripts/phase5-exit.md)
+for the three distinct synthetic close/reopen publications and failure checks.
+Run local lifecycle tests with:
+
+```powershell
+& 'C:/Program Files/Moneydance/jre/bin/java.exe' '-Dpython.cachedir.skip=true' -cp 'C:/Program Files/Moneydance/lib/*' org.python.util.jython -B tests/runtime/lifecycle_delivery_test.py
+```
+
+The actual cancellation notification remains unverified. Tests must distinguish
+normal UI cancellation (if offered) from an injected state-machine reset.
 
 Finish a final fictional edit, exit with window X, reopen, retrieve/decrypt and
 compare the final saved values. Repeat with menu Exit if available.

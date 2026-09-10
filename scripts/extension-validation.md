@@ -1,5 +1,86 @@
 # Extension validation evidence
 
+## Phase 5 disposition — user-approved progression
+
+Repeated additional attempts could not reproduce the slow offline shutdown. No
+effective normal-UI shutdown cancellation path could be found. The user approved
+moving on: these cases no longer block Phase 6. Record them as non-reproducible
+and unavailable respectively, not passing tests. No forced termination is required.
+Earlier pending statements below are historical. Remaining installed evidence and
+full-book timing still belong to final acceptance; no timeout policy changed.
+
+## Phase 5 installed results — 2026-09-09
+
+User installed build 4 and reported successful publication on an unchanged-book
+exit, then three distinct transaction-add/close cycles. Each completed in under
+two seconds, updated the Azure modification date, decrypted successfully and showed
+the expected success message on reopening. The user reported confirming the new
+file; exact per-cycle financial balance comparisons were not separately supplied.
+Subsequent manual publication also updated Azure and decrypted with verified contents.
+
+Changing the blob destination to invalidate the SAS produced the expected manual
+error. Exit showed no error dialog; reopening correctly reported upload failure.
+During an airplane-mode exit after a new transaction, Moneydance remained on
+"Finished saving data" for over a minute. Reopening reported upload outcome unknown.
+Two further offline edit/exit attempts completed normally (under five seconds for
+the first; normal speed reported for the next). The initial delay remains unresolved;
+it is not dismissed as a fluke or attributed conclusively to Moneydance itself.
+
+Code inspection: the HTTP request uses the remaining shared 60-second budget,
+with a connection timeout capped at ten seconds and polling of the async result.
+Thus the extension can consume most of a minute on an unresolved network request.
+The observed screen alone does not isolate Moneydance save/backup time from extension
+time. Capture elapsedMs, shutdownElapsedMs and code from last-delivery.json immediately
+after recurrence, before another publication overwrites it, alongside wall time.
+No timeout-policy change is made solely from this observation.
+
+User started manual publication and immediately pressed Alt+F4. Exit completed
+without error, Azure updated, reopening reported success, and the decrypted result
+matched the previous export except exportDate. This verifies the attempted overlap
+workflow, but does not prove that the short manual attempt was still active when
+closing began; deterministic overlap coverage remains separate.
+
+The red X on the closing screen did not cancel either of two attempts; both
+published. No effective canceled-exit path has been demonstrated. T019 remains open
+for that verification. T021 remains open for the offline timing anomaly and remaining
+ordinary-save/book-switch and financial-value evidence; normal exit success is now
+installed evidence, not merely simulated coverage.
+
+## Phase 5 local implementation — 2026-09-09
+
+Built module 4 with `./scripts/package-extension.ps1` and existing personal KeyAdmin
+keys. `dist/snapshot_delivery.mxt` SHA256:
+`559AAF0DAFFBE6DBE0BD1BA798365C01F60164DFBB1624977929BFC8256A690F`.
+This build enables automatic exit publication. No installation, live close test or
+cloud write was performed by the agent. Use [phase5-exit.md](phase5-exit.md).
+
+Thirteen local lifecycle tests passed together under bundled Jython. They cover duplicate closing before
+and after capture and during upload; single publication; opening/other-book/reset/
+unload; missing/failed save confirmation; shutdown deadline including waiting;
+capture deadline retained until exit; cancellation/draining of manual work; unknown
+manual outcomes; actual prefixed event routing; EDT capture with no book at exit;
+EDT draining of a canceled queued manual capture; status reload, stale manual-result
+suppression and next-launch display. Cancellation reset is a simulation, not evidence
+of a Moneydance cancel callback. Seven existing native delivery tests and two targeted
+settings/resource tests passed. `npm test`: all 42 tests passed; the previously noted
+TLSSocket listener warnings remain unrelated to test failures.
+
+Build 5253 method inspection found postsave can follow a failed save, so publication
+also requires file:closed. A repeated presave after capture begins makes the candidate
+ambiguous and fails closed. No invented canceled-exit event, stack-name heuristic,
+source mutation, periodic export or plaintext staging was introduced. Opening or
+unload resets state. Settings load and manual drain count against the original
+60-second closing budget. Source capture uses the EDT directly when already there;
+the normal observed off-EDT exit callback completes detached work synchronously.
+No EDT callback is required by the exit pipeline. Actual full-book timing remains
+T028 acceptance; cooperative checks cannot forcibly interrupt arbitrary JVM calls.
+
+T018 and T020 local implementation are complete. T019's normal lifecycle wiring is
+implemented, but its actual cancellation-notification verification remains open.
+T021 remains open for three installed distinct-edit exit publications, source-value
+comparisons, next-launch results, offline/overlap/switch checks and any available
+cancel path. No full Phase 5 acceptance is claimed from these local tests.
+
 ## Installed expiry checks and red warning update — 2026-09-09
 
 User confirmed the Azure policy permits the current 23-month SAS. With expiry
@@ -248,7 +329,7 @@ Local fake-source checks do not complete this required actual-source validation.
 
 ## Later acceptance
 
-US1 persistent restart/settings, US2 actual synthetic Azure delivery and warnings,
-US3 final-edit/shutdown timing, and US4 browser/password-manager/Pixel checks remain
-unrun. Follow specs/002-encrypted-snapshot-delivery/quickstart.md as those phases
-are implemented. No repeated production probe or real cloud action is requested now.
+US1 persistent restart/settings and US2 synthetic Azure delivery/warnings have
+user-reported acceptance recorded above. US3 installed final-edit/shutdown checks
+remain pending; follow scripts/phase5-exit.md. US4 browser/password-manager/Pixel
+checks belong to later phases and remain unrun.

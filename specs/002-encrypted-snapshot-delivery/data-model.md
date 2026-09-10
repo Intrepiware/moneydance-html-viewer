@@ -70,8 +70,22 @@ check. Actual runtime bounds remain a release gate, not a claimed guarantee from
 the diagnostic's five-second wait.
 
 Persist only last outcome, stage, safe code, completion UTC and elapsed duration.
+For exit results, `elapsedMs` measures capture-to-completion and `shutdownElapsedMs`
+measures first-closing-to-completion, including settings loading and manual drain.
 Never persist payload, password, SAS, full URL, source names or raw exception text.
 Response loss after transmission is unknown, not proven remote failure.
+
+### Build 5253 lifecycle implementation evidence
+
+Actual event names have the `md:` prefix. `postsave` is not proof of a successful
+save: inspection found it is emitted even on the failed-save return path. Require
+the subsequent `file:closed` before consuming a candidate at `app:exiting`. Another
+presave before closed, after capture has started, makes the candidate ambiguous;
+fail closed instead of recapturing or publishing it. Opening/unload resets the cycle.
+No dedicated canceled-exit event was established. Immediate reset on an independently
+confirmed cancellation is tested as a state transition, but its actual runtime
+notification remains unverified; do not infer cancellation from duplicate closing.
+An aborted save may require reopening the configured book before a fresh close cycle.
 
 ## Viewer session
 

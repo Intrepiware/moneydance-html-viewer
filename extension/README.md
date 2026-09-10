@@ -1,9 +1,9 @@
 # Extension staging layout
 
-Identity: `snapshot_delivery`. Module build 3 includes Phase 4 manual publication and red credential warnings:
-Publish Snapshot captures, validates, encrypts and uploads to the configured blob.
-Automatic close/exit publication is not enabled. Start with the synthetic checks
-in [phase4-publish.md](../scripts/phase4-publish.md).
+Identity: `snapshot_delivery`. Module build 4 includes manual and normal-exit
+publication, red credential warnings and next-launch status. Capture occurs once
+after a closing-associated save; publication waits for confirmed close and app exit.
+Start with the synthetic checks in [phase5-exit.md](../scripts/phase5-exit.md).
 
 The packager stages an explicit allowlist, not the repository:
 

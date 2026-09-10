@@ -46,12 +46,19 @@ and compare source references without requiring the finished viewer UI.
 
 Independent test: final synthetic edit survives exit, encrypted publication and reopen.
 
-- [ ] T018 [US3] Add deterministic close/save/duplicate/open/canceled-exit and ongoing-manual-attempt scenarios in tests/runtime/lifecycle_delivery_test.py; exercise duplicate closing before capture, after capture and during publication, plus waiting before capture against the shutdown deadline. Verify ordinary saves never capture, switches never publish and other books never reach the destination.
+- [X] T018 [US3] Add deterministic close/save/duplicate/open/canceled-exit and ongoing-manual-attempt scenarios in tests/runtime/lifecycle_delivery_test.py; exercise duplicate closing before capture, after capture and during publication, plus waiting before capture against the shutdown deadline. Verify ordinary saves never capture, switches never publish and other books never reach the destination.
 - [ ] T019 [US3] Implement configured-book close arm and one postsave capture in extension/snapshot_extension.py; detach source values and preserve the arm/candidate on duplicate closing within an active cycle. Opening, confirmed cancellation or unload ends the cycle and invalidates its candidate; only a subsequent new cycle rearms capture. Verify the actual cancellation-detection mechanism rather than invent a callback. Publish only at app:exiting without stack/thread heuristics.
-- [ ] T020 [US3] Integrate shutdown serialization, canceled queued EDT work, safe unknown outcomes and next-launch status in extension/delivery.py. Start the 60-second shutdown deadline at the first configured-book closing notification, including waiting for earlier manual work before capture; retain each operation's capture-start 60-second budget and enforce whichever deadline expires first. Never reset deadlines on duplicates/exit or substitute a stale manual snapshot.
+- [X] T020 [US3] Integrate shutdown serialization, canceled queued EDT work, safe unknown outcomes and next-launch status in extension/delivery.py. Start the 60-second shutdown deadline at the first configured-book closing notification, including waiting for earlier manual work before capture; retain each operation's capture-start 60-second budget and enforce whichever deadline expires first. Never reset deadlines on duplicates/exit or substitute a stale manual snapshot.
 - [ ] T021 [US3] Verify installed synthetic final-edit equivalence, window-X/menu exit, offline/duplicate/overlap/switch behavior and any available canceled-exit path in scripts/extension-validation.md. Perform three normal close/reopen cycles after one installation, making a distinct synthetic edit before each close; retrieve/decrypt each publication and verify that edit and expected financial values, persistent settings and next-launch result. Record simulations separately and gate full-data acceptance on source correctness and bounded completion.
 
 ## Phase 6: US4 — Unlock existing viewer (P1)
+
+Phase 5 progression decision: the user approved moving on after repeated offline
+attempts could not reproduce the slow shutdown and no normal-UI abort path was
+available. These two verification gaps are accepted as non-blocking, not passed.
+T019/T021 retain unchecked markers to preserve incomplete acceptance evidence;
+reconcile their documented limitations and remaining installed checks in T030.
+Three installed edit/exit cycles succeeded. T028 full-book timing remains required.
 
 Independent test: fixed encrypted synthetic fixture unlocks on desktop/Pixel while
 plaintext test mode and Part 1 behavior remain intact, even without live Azure.

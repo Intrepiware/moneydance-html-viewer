@@ -1,5 +1,34 @@
 # Part 2 Research
 
+## Phase 5 lifecycle inspection — 2026-09-09
+
+Read-only inspection of installed build 5253 controller methods found that
+Main.shutdown calls setCurrentBook(null), stops on a false return, and fires
+`md:app:exiting` only after a successful close. setCurrentBook fires `md:file:closing`,
+calls saveCurrentAccount, stops on a false result, then fires `md:file:closed`.
+saveCurrentAccount emits `md:file:postsave` on its failed-save path too. Consequently,
+postsave alone is not proof of a completed closing save. Build 4 captures at postsave
+but requires file:closed before publication at app:exiting. A further presave before
+closed invalidates an earlier capture rather than silently publishing stale data.
+
+The temporary inspection used bundled ASM with an in-memory class-version header
+adjustment for the older reader; no Moneydance classes were modified on disk or
+executed as modified classes. No live book was opened or financial data read.
+Actual prefixed events were already observed in the prior compatibility probes.
+
+No dedicated cancel notification was established by documentation or this inspection.
+Opening/unload clears state; cancellation before closing leaves no candidate. A
+direct reset for independently confirmed cancellation is tested synthetically, but
+is not bound to an invented event. Late aborted saves fail closed; reopening the
+configured book resets that cycle. Actual available cancel UI paths remain part of
+T019/T021 verification. Do not label injected cancellation as actual runtime evidence.
+
+For overlap, closing cancels the manual attempt and drains its lock within the
+original closing deadline before a fresh capture. Any unknown manual upload blocks
+automatic follow-on publication in that session. Existing explicit manual recovery
+remains available after remote verification/reset. Exit status adds shutdownElapsedMs
+alongside capture-to-completion elapsedMs; both clocks are monotonic.
+
 ## Implementation update — Phase 3 packaging, 2026-09-09
 
 The advertised DevKit 6.0 archive was unavailable (404). The main vendor developer
