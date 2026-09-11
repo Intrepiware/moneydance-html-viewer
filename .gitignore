@@ -34,3 +34,4 @@ Thumbs.db
 *.jks
 *.private.json
 *.dpapi
+/.workspace/screenshots/
