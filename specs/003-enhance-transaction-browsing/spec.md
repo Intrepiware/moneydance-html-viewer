@@ -8,6 +8,14 @@
 
 **Input**: Items 1–5 of Part 1 in [.workspace/future-enhancements.md](../../.workspace/future-enhancements.md), including the referenced desktop layout screenshot. Builds on accepted features 001 and 002.
 
+## Clarifications
+
+### Session 2026-09-11
+
+- Q: Should a selected parent category include its subcategories in grouped transactions and totals? → A: No. Without search, include only transactions assigned directly to the selected category. Search retains existing descendant scope.
+
+- Q: Should split details show the whole original transaction or only the selected register entry’s allocations? → A: Only the selected entry’s allocations, totaling its signed amount. A -$1,000 Rainy Day Savings entry shows its $1,000 transfer allocation, not the separate $4,000 Home Savings withdrawal.
+
 ## User Scenarios & Testing *(mandatory)*
 
 All five stories have equal business priority (P1). Their order reflects estimated increasing implementation difficulty, not relative value. Planning must still respect dependencies; transfer navigation from split details is completed with US4.
@@ -50,7 +58,7 @@ As the viewer user, I want to open a transaction's category details and understa
 
 **Acceptance Scenarios**:
 
-1. **Given** a transaction with multiple allocations, **When** its category label is activated, **Then** a dismissible details view shows all allocations, their signed amounts, full category/account paths and memos, including repeated allocations to the same category.
+1. **Given** a transaction with multiple allocations, **When** its category label is activated, **Then** a dismissible details view shows only that selected register entry’s allocations, whose signed amounts total the selected entry’s amount, along with full category/account paths and memos, including repeated allocations to the same category.
 2. **Given** a nested category, **When** details are opened, **Then** the complete path is readable, such as Personal:Dining:Convenient; leaf names alone do not obscure its identity.
 3. **Given** a single-category or uncategorized transaction, **When** details are opened, **Then** the single allocation or an explicit uncategorized state is shown without invented amounts or categories.
 4. **Given** long paths, memos or many splits on a phone, **When** details are read and dismissed, **Then** all content is reachable, the close control remains accessible, and the prior account, search, page and scroll position are preserved.
@@ -96,6 +104,7 @@ As the user, I want ordinary account navigation to omit income/expense categorie
 - Several categories share a leaf name: display their full ancestry in details.
 - A transfer has equal-and-opposite rows, repeated allocations or more than one counterpart: preserve source relationships and every legitimate entry; do not identify by amount/date/description alone.
 - Referenced accounts are inactive, excluded, unsupported or lack exported rows: show known allocation details, but clearly explain unavailable navigation.
+- Split details are scoped to the selected register entry, not the whole parent transaction. For a -$1,000 Rainy Day Savings withdrawal funding part of a $5,000 repair, show only that entry’s -$1,000 allocation; omit the separate -$4,000 Home Savings withdrawal.
 - A source amount or memo is absent: do not invent a value or turn an unavailable amount into zero. Required supported allocation amounts must be verified against source; unavailable unsupported counterpart amounts are explicitly labeled.
 - A future target becomes visible through navigation: preserve the fixed page-load date and existing reset-to-hidden behavior on subsequent ordinary account selection.
 - A category period crosses a year boundary, spans pages, contains refunds or nets to zero: labels, signed sums and grouping remain correct.
@@ -106,7 +115,7 @@ As the user, I want ordinary account navigation to omit income/expense categorie
 
 ### Functional Requirements
 
-- **FR-001**: Activating a transaction category MUST open a mobile-friendly, dismissible breakdown (a modal is the preferred presentation) with all allocations, source-consistent signed amounts, complete paths and memos.
+- **FR-001**: Activating a transaction category MUST open a mobile-friendly, dismissible breakdown (a modal is the preferred presentation) with only the selected register entry’s allocations, source-consistent signed amounts, complete paths and memos. Signed allocation amounts MUST total the selected entry’s amount when all amounts are available; other source-account portions of the original transaction MUST NOT be included.
 - **FR-002**: Breakdown content MUST distinguish uncategorized entries, absent memos and unavailable amounts without fabricating data. Repeated splits MUST remain distinct.
 - **FR-003**: Supported transfer destinations in the breakdown MUST navigate to the corresponding destination register entries. Excluded/unavailable destinations MUST be identified without misleading navigation.
 - **FR-004**: Clicking the account label beneath a search-result description MUST open that account's register at the selected entry. Identity MUST be independent of display text and monetary coincidence.
@@ -114,7 +123,7 @@ As the user, I want ordinary account navigation to omit income/expense categorie
 - **FR-006**: Closing details without navigation MUST preserve account, search, grouping, pagination and scroll context and return keyboard focus to the activating control. Details MUST support keyboard dismissal and usable phone touch controls.
 - **FR-007**: Rows MUST show all exported tags as literal text in ordinary registers and search results. Empty tags MUST NOT produce placeholders. This feature does not add tag search or tag reports.
 - **FR-008**: Default Accounts navigation MUST omit income/expense categories and provide an icon-only Accounts/Categories switch beneath the sidebar title. Each option MUST have an accessible name, a descriptive tooltip, keyboard operation, a visible selected state and a mobile-friendly touch target. Switching options changes only the sidebar list until an account/category is selected. Category hierarchy, existing included/excluded eligibility and the As Of footer MUST be preserved.
-- **FR-009**: Selecting a category MUST display its transactions grouped monthly by default, with a user control to switch to annual grouping. Monthly labels MUST distinguish the year; periods and their rows follow newest-first ordering with existing same-day order preserved.
+- **FR-009**: Selecting a category MUST display only transactions assigned directly to that category when no search is active, grouped monthly by default, with a user control to switch to annual grouping. Monthly labels MUST distinguish the year; periods and their rows follow newest-first ordering with existing same-day order preserved.
 - **FR-010**: Each period MUST show an exact signed USD sum of all matching category-register entries under the current search and future-disclosure state, independent of pagination. Opening balances and duplicate account-side representations MUST NOT be added. These activity sums MUST NOT replace source running balances or account sidebar balances.
 - **FR-011**: Empty category results MUST have an explicit empty state. Period labels and totals MUST remain associated with their rows, including continued periods on another page.
 - **FR-012**: Desktop category text MUST receive at least 25% of the combined description/category width; amount, balance and date remain readable and sticky headers remain aligned. Existing mobile transaction density MUST be preserved except where added tag content requires wrapping.
@@ -135,7 +144,7 @@ As the user, I want ordinary account navigation to omit income/expense categorie
 
 ### Measurable Outcomes
 
-- **SC-001**: In source-referenced synthetic cases covering single, multiple, repeated and transfer allocations, all expected split paths, amounts and memos are displayed with no omitted or invented allocations.
+- **SC-001**: In source-referenced synthetic cases covering single, multiple, repeated and transfer allocations, all expected selected-entry split paths, amounts and memos are displayed with no omitted or invented allocations. Where amounts are available, their signed sum equals the selected row’s amount; unrelated source-account portions are absent.
 - **SC-002**: Every tested search-result and supported transfer link reveals the correct destination entries, including off-page and future targets; unavailable targets never focus an unrelated row. In an already unlocked session, these actions cause zero page reloads, zero additional snapshot downloads and zero unlock prompts.
 - **SC-003**: All tags in the test cases are readable on desktop and at 360px and 412px phone widths, without horizontal page overflow or obscured amounts.
 - **SC-004**: All monthly and annual totals exactly match independently calculated signed activity totals, including refunds, zero-net periods, search, future disclosure and page-spanning periods; annual totals equal the relevant monthly totals for the same set.
@@ -149,7 +158,7 @@ As the user, I want ordinary account navigation to omit income/expense categorie
 
 - “Items 1–5 only” means the five numbered items in Part 1; Parts 2 and 3 remain out of scope. The private screenshot guides column proportions only; its financial content is not copied into fixtures or this spec.
 - Category breakdown is read-only. A modal is preferred, as requested, but the detailed interaction design belongs in planning.
-- Category registers retain the existing direct-account scope when not searching; searches retain existing descendant scope. Totals are labeled as matching activity when filtered. No new parent rollup or aggregate income/expense report is introduced.
+- Confirmed category scope: category registers retain the existing direct-account scope when not searching; searches retain existing descendant scope. Totals are labeled as matching activity when filtered. No new parent rollup or aggregate income/expense report is introduced.
 - Monthly is the initial grouping. The user's grouping choice lasts within the page session across category selection, resets to monthly on reload, and does not change ordinary account register grouping.
 - All Accounts retains its existing history/search population. Hiding categories from default navigation is not a new financial exclusion rule.
 - Context navigation clears search and reveals the exact target rather than preserving a filter that hides it. Ordinary selection later restores existing future-hiding behavior. No separate back-stack or persistent navigation history is required.
