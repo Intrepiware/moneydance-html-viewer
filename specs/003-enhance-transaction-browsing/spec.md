@@ -99,6 +99,26 @@ As the user, I want ordinary account navigation to omit income/expense categorie
 6. **Given** a category search or future-transaction disclosure change, **When** results update, **Then** period totals use the complete matching set under that search and disclosure state, and that scope is evident to the user. Clearing search restores the unfiltered category totals.
 7. **Given** a category with no matching transactions, **When** selected or filtered, **Then** a clear empty state is shown without fabricated activity periods.
 
+### Additional visual requirement - Google Material icons
+
+Added 2026-09-17. Replace Font Awesome throughout the viewer with Google Material icons, including existing utility controls. This is a small visual addition to US1; the five story IDs and their order remain unchanged.
+
+| Location/account type | Required icon |
+|---|---|
+| Top-left branding and All Accounts | `checkbook` |
+| Checking/Savings (BANK) | `account_balance` |
+| Credit cards | `credit_card` |
+| Expenses | `sell` |
+| Income | `paid` |
+| Loan | `payment_arrow_down` |
+| Assets | `money_bag` |
+
+**Acceptance scenarios**:
+
+1. **Given** branding, All Accounts and each listed account/category type, **When** displayed, **Then** the exact mapped Google Material icon appears consistently wherever that type is represented.
+2. **Given** existing utility controls or an account type without an explicit mapping, **When** displayed, **Then** an appropriate Google Material icon replaces Font Awesome without changing control behavior, accessible names or touch targets.
+3. **Given** desktop/mobile and light/dark themes, **When** icons render, **Then** they remain legible and aligned without clipping or reducing transaction readability; no Font Awesome assets are loaded.
+
 ### Edge Cases
 
 - Several categories share a leaf name: display their full ancestry in details.
@@ -130,7 +150,8 @@ As the user, I want ordinary account navigation to omit income/expense categorie
 - **FR-013**: All features MUST operate on the already loaded, validated snapshot without additional downloads, page reloads or repeated unlock prompts for navigation, details, grouping or tags. Encrypted unlock, plaintext test mode, fixed effective date and export-time footer MUST retain their accepted behavior.
 - **FR-014**: Financial signs, full included history, source running balances, hidden-account contributions and existing search matching MUST remain unchanged. Category separation MUST NOT silently alter the existing All Accounts result population or introduce an All Accounts balance.
 - **FR-015**: Any source export changes found necessary during planning MUST preserve Moneydance/Jython 2.7 compatibility and read-only source behavior. No new financial records may be synthesized to compensate for missing source relationships.
-- **FR-016**: Scope MUST remain limited to Part 1 items 1–5 of the enhancement list. Investments, positions, price downloads, net worth, reports, historical charts and additional Safari/iOS viewport remediation are excluded, as are transaction editing, new delivery scheduling and tag filtering.
+- **FR-016**: Scope MUST remain limited to Part 1 items 1–5 of the enhancement list plus the user-requested Google Material icon replacement. Investments, positions, price downloads, net worth, reports, historical charts and additional Safari/iOS viewport remediation are excluded, as are transaction editing, new delivery scheduling and tag filtering.
+- **FR-017**: The viewer MUST replace Font Awesome throughout with Google Material icons using the exact mapping in the additional visual requirement. Remaining control/account icons MUST use suitable icons from the same family. Preserve accessible control names, decorative-icon semantics, existing colors and usable layout/touch targets; remove the Font Awesome asset dependency.
 
 ### Key Entities
 
@@ -151,12 +172,13 @@ As the user, I want ordinary account navigation to omit income/expense categorie
 - **SC-005**: At 1280px and 1440px desktop widths, category content receives at least 25% of combined description/category width; date/amount/balance and sticky headers remain readable and aligned.
 - **SC-006**: On desktop and Pixel 8 with the current full-history dataset, five representative details/navigation/grouping actions each complete within two seconds after activation, without another snapshot download. Measure and report actual device results; earlier accepted performance exceptions do not establish this feature's performance.
 - **SC-007**: Existing financial, encrypted unlock, test-mode and search acceptance scenarios continue to pass, subject only to the explicitly changed category navigation/grouping and previously recorded accepted limitations.
+- **SC-008**: All seven specified icon mappings and remaining utility controls render correctly in light/dark themes at the existing desktop and phone test widths, with no Font Awesome asset requests and no loss of control accessibility or functionality.
 
 ## Assumptions
 
 - Confirmed sidebar design: icon-only Accounts and Categories options in a compact switch. Its layout should accommodate a third Investments option in a later feature. No Investments option, placeholder, investment data or routing is included now; this is a layout consideration, not a requirement for a general navigation framework.
 
-- “Items 1–5 only” means the five numbered items in Part 1; Parts 2 and 3 remain out of scope. The private screenshot guides column proportions only; its financial content is not copied into fixtures or this spec.
+- “Items 1–5 only” means the five numbered items in Part 1, supplemented by the icon replacement requested on 2026-09-17; Parts 2 and 3 remain out of scope. The private screenshot guides column proportions only; its financial content is not copied into fixtures or this spec.
 - Category breakdown is read-only. A modal is preferred, as requested, but the detailed interaction design belongs in planning.
 - Confirmed category scope: category registers retain the existing direct-account scope when not searching; searches retain existing descendant scope. Totals are labeled as matching activity when filtered. No new parent rollup or aggregate income/expense report is introduced.
 - Monthly is the initial grouping. The user's grouping choice lasts within the page session across category selection, resets to monthly on reload, and does not change ordinary account register grouping.
