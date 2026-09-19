@@ -9,15 +9,16 @@ description: "Task list template for feature implementation"
 
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: Select meaningful automated checks according to the constitution and feature requirements. Manual acceptance tasks are mandatory for each story unless an explicit justified exception is recorded. Include reproducible setup, actions, expected results and an acceptance-record path. Mark complete only after a person executes and passes the steps, recording tester/date/environment/results and defect retests.
 
-**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+**Organization**: Group tasks by user story. Implement stories in listed order; all manual tasks of every preceding story must pass before beginning the next story, including its implementation tests/fixtures. Independent testability does not permit parallel story implementation.
 
 ## Format: `[ID] [P?] [Story] Description`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
 - Include exact file paths in descriptions
+- Manual tasks use: - [ ] [Manual Test] <ID> [USn] <setup, actions, expected result, evidence path>. Record justified omissions and remaining gaps explicitly; unavailable required checks remain pending.
 
 ## Path Conventions
 
@@ -70,7 +71,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T008 Configure error handling and logging infrastructure
 - [ ] T009 Setup environment configuration management
 
-**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+**Checkpoint**: Foundation ready — US1 implementation can begin.
 
 ---
 
@@ -96,7 +97,9 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T016 [US1] Add validation and error handling
 - [ ] T017 [US1] Add logging for user story 1 operations
 
-**Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
+- [ ] [Manual Test] MT01 [US1] [Reproducible setup; main happy path, relevant failure/edge cases; expected results; acceptance evidence path]
+
+**Blocking checkpoint**: US2 implementation waits for all US1 manual tasks to pass.
 
 ---
 
@@ -118,7 +121,9 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
 - [ ] T023 [US2] Integrate with User Story 1 components (if needed)
 
-**Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
+- [ ] [Manual Test] MT02 [US2] [Reproducible setup; story-specific actions and expected results with minimal repeated flows; acceptance evidence path]
+
+**Blocking checkpoint**: US3 implementation waits for all US1 and US2 manual tasks to pass.
 
 ---
 
@@ -139,7 +144,9 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T027 [US3] Implement [Service] in src/services/[service].py
 - [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
 
-**Checkpoint**: All user stories should now be independently functional
+- [ ] [Manual Test] MT03 [US3] [Reproducible setup; story-specific actions and expected results; acceptance evidence path]
+
+**Blocking checkpoint**: All preceding and current story manual tasks must pass before the next story begins.
 
 ---
 
@@ -167,15 +174,15 @@ Examples of foundational tasks (adjust based on your project):
 - **Setup (Phase 1)**: No dependencies - can start immediately
 - **Foundational (Phase 2)**: Depends on Setup completion - BLOCKS all user stories
 - **User Stories (Phase 3+)**: All depend on Foundational phase completion
-  - User stories can then proceed in parallel (if staffed)
-  - Or sequentially in priority order (P1 → P2 → P3)
+  - User stories proceed sequentially through their manual acceptance gates
+  - Document the chosen story order (normally P1 → P2 → P3)
 - **Polish (Final Phase)**: Depends on all desired user stories being complete
 
 ### User Story Dependencies
 
 - **User Story 1 (P1)**: Can start after Foundational (Phase 2) - No dependencies on other stories
-- **User Story 2 (P2)**: Can start after Foundational (Phase 2) - May integrate with US1 but should be independently testable
-- **User Story 3 (P3)**: Can start after Foundational (Phase 2) - May integrate with US1/US2 but should be independently testable
+- **User Story 2 (P2)**: Starts after all US1 manual tasks pass; remains independently testable
+- **User Story 3 (P3)**: Starts after all US1/US2 manual tasks pass; remains independently testable
 
 ### Within Each User Story
 
@@ -189,10 +196,10 @@ Examples of foundational tasks (adjust based on your project):
 
 - All Setup tasks marked [P] can run in parallel
 - All Foundational tasks marked [P] can run in parallel (within Phase 2)
-- Once Foundational phase completes, all user stories can start in parallel (if team capacity allows)
+- After Foundational completion, only the first story may begin
 - All tests for a user story marked [P] can run in parallel
 - Models within a story marked [P] can run in parallel
-- Different user stories can be worked on in parallel by different team members
+- Parallel implementation is limited to independent tasks within the current unblocked story
 
 ---
 
@@ -228,16 +235,9 @@ Task: "Create [Entity2] model in src/models/[entity2].py"
 4. Add User Story 3 → Test independently → Deploy/Demo
 5. Each story adds value without breaking previous stories
 
-### Parallel Team Strategy
+### Team Strategy
 
-With multiple developers:
-
-1. Team completes Setup + Foundational together
-2. Once Foundational is done:
-   - Developer A: User Story 1
-   - Developer B: User Story 2
-   - Developer C: User Story 3
-3. Stories complete and integrate independently
+Complete foundations together, then collaborate within the current unblocked story. Pass and record its manual checks before starting the next story. Later-story documentation/planning may proceed; implementation may not.
 
 ---
 

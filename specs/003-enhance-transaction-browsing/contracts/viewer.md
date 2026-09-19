@@ -48,7 +48,7 @@ _Context: These are the visible results of clicking and browsing in the app. A â
 - Switching list does not select a register. Selecting a category uses month grouping initially; month/year choice persists in page memory. No future Investments or Reports control.
 - Category totals visibly describe current scope: direct category activity without search; matching category/descendant activity during search; future included/excluded according to disclosure. Future summary remains available while future rows are hidden.
 - Complete period total repeats on continued pages. Ordinary accounts and All Accounts retain existing register behavior and population; no overall balance is added.
-- Desktop category receives >=25% of combined description/category width. Sticky header geometry matches rows; mobile keeps readable money and no page-wide overflow.
+- Desktop date is 90px with reduced horizontal padding; category is 180px; amount/balance remain 120px each. Description takes remaining space. Description/category use single-line ellipses with full hover text. Sticky header geometry matches rows; mobile sizing/wrapping is unchanged.
 
 ## Acceptance boundaries
 

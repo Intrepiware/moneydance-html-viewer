@@ -17,10 +17,6 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="light-mode">
@@ -28,9 +24,9 @@
       <!-- Sidebar -->
       <aside id="sidebar" class="sidebar">
         <div class="sidebar-header">
-          <h2><i class="fa-solid fa-wallet"></i> Finance View</h2>
-          <button id="close-sidebar" class="mobile-only icon-btn">
-            <i class="fa-solid fa-xmark"></i>
+          <h2><span class="mi mi-checkbook" aria-hidden="true"></span> Finance View</h2>
+          <button id="close-sidebar" class="mobile-only icon-btn" aria-label="Close navigation">
+            <span class="mi mi-close" aria-hidden="true"></span>
           </button>
         </div>
         <div class="sidebar-content">
@@ -49,8 +45,8 @@
       <main id="main-content" class="main-content">
         <header class="topbar">
           <div class="topbar-left">
-            <button id="open-sidebar" class="mobile-only icon-btn">
-              <i class="fa-solid fa-bars"></i>
+            <button id="open-sidebar" class="mobile-only icon-btn" aria-label="Open navigation">
+              <span class="mi mi-menu" aria-hidden="true"></span>
             </button>
             <h1 id="current-account-name">All Accounts</h1>
           </div>
@@ -59,7 +55,7 @@
             style="display: flex; align-items: center; gap: 15px"
           >
             <div class="search-container">
-              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <span class="mi mi-search search-icon" aria-hidden="true"></span>
               <input
                 type="text"
                 id="search-input"
@@ -76,15 +72,16 @@
                 title="Clear search"
                 hidden
               >
-                ×
+                <span class="mi mi-close" aria-hidden="true"></span>
               </button>
             </div>
             <button
               id="theme-toggle"
               class="icon-btn"
               title="Toggle Light/Dark Mode"
+              aria-label="Toggle Light/Dark Mode"
             >
-              <i class="fa-solid fa-sun"></i>
+              <span class="mi mi-light_mode" aria-hidden="true"></span>
             </button>
           </div>
         </header>
@@ -174,17 +171,17 @@
                 </tbody>
               </table>
               <div id="no-results" class="no-results hidden">
-                <i class="fa-regular fa-folder-open"></i>
+                <span class="mi mi-folder_open" aria-hidden="true"></span>
                 <p>No transactions found.</p>
               </div>
 
               <div id="pagination-controls" class="pagination-controls hidden">
                 <button id="prev-page" class="pagination-btn">
-                  <i class="fa-solid fa-chevron-left"></i> Prev
+                  <span class="mi mi-chevron_left" aria-hidden="true"></span> Prev
                 </button>
                 <span id="page-info">Page 1 of 1</span>
                 <button id="next-page" class="pagination-btn">
-                  Next <i class="fa-solid fa-chevron-right"></i>
+                  Next <span class="mi mi-chevron_right" aria-hidden="true"></span>
                 </button>
               </div>
             </div>
@@ -204,10 +201,10 @@
       <div class="account-item">
         <div class="account-header" data-id="{{id}}">
           <div class="account-toggle {{#unless children.length}}empty{{/unless}} {{#if isOpen}}open{{/if}}">
-            <i class="fa-solid fa-chevron-right"></i>
+            <span class="mi mi-chevron_right" aria-hidden="true"></span>
           </div>
           <div class="account-icon">
-            <i class="fa-solid {{getAccountIcon type}}"></i>
+            <span class="mi mi-{{getAccountIcon type}}" aria-hidden="true"></span>
           </div>
           <div class="account-name">{{name}}</div>
           {{#unless isAll}}
@@ -250,10 +247,10 @@
               {{#if memo}}<span class="memo-text">{{memo}}</span>{{/if}}
             </div>
             {{#if ../isRoot}}
-              <div class="transaction-account"><i class="fa-solid fa-building-columns"></i> {{accountName}}</div>
+              <div class="transaction-account"><span class="mi mi-{{accountIcon}}" aria-hidden="true"></span> {{accountName}}</div>
             {{/if}}
           </td>
-          <td class="hide-mobile"><span class="badge">{{category}}</span></td>
+          <td class="hide-mobile category-cell"><span class="badge" title="{{category}}">{{category}}</span></td>
           <td class="amount-col amount {{#if (isNegative amountCents)}}negative{{else}}positive{{/if}}">{{formatCurrency amountCents}}<span class="mobile-running-balance">Balance: {{formatCurrency runningBalanceCents}}</span></td>
           <td class="amount-col hide-mobile">{{formatCurrency runningBalanceCents}}</td>
         </tr>

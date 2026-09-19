@@ -7,6 +7,14 @@
 
 **Format**: `- [ ] Tnnn [P?] [USn?] Description with paths`. Paths are repository-relative; new files are explicitly named. `[P]` identifies independent work within a phase after its prerequisites, not permission to edit the same file concurrently.
 
+## Manual acceptance protocol
+
+Constitution 1.2.0 makes story order mandatory: US1 → US2 → US3 → US4 → US5. Implementation, including story-specific tests/fixtures, waits for all preceding stories' manual tasks to pass. Planning later stories does not authorize implementing them beyond the user's requested scope. Manual tasks use `- [ ] [Manual Test] Tnnn [USn] Description`.
+
+Run `npm run serve` from the repository root and open http://127.0.0.1:8080/?test=true. Follow [quickstart.md](quickstart.md) for source/device procedures. Each story's fixture/test tasks must supply a valid synthetic snapshot, explicitly served URL, independent expected values and a case list naming the account, row and search text for each scenario below. Document exact setup in `quickstart.md` before manual testing: preserve `UI/config.js`, temporarily select the served fixture with `testSnapshotUrl`, reload with `?test=true`, and restore config afterward. Never overwrite the user's `UI/data/test-snapshot.json` or private exports. For encrypted cases, supply the equivalent synthetic encrypted fixture with generation/password instructions, temporarily select its URL with `snapshotUrl`, and open without `?test=true`.
+
+Record tester/date, browser/version, viewport/device, fixture/case, expected and observed results in [acceptance.md](acceptance.md). Record defects and successful retests before checking a task. Automated passes alone cannot complete manual tasks. Required source/device checks remain pending when unavailable. Reuse evidence instead of repeating identical flows; keep private full-history records out of logs. No story is exempt. Exhaustive corrupt-message, arithmetic-overflow and race permutations remain automated checks because reproducible UI injection is impractical; representative user-visible unavailable and rapid-interaction cases are manual checks below.
+
 ## Phase 1: Setup
 
 **Purpose**: Establish the existing application's baseline without reinitializing it or installing packages.
@@ -17,23 +25,24 @@
 
 **Purpose**: Shared acceptance wiring only. Exporter and worker changes are story-specific and must not block the simple visual stories.
 
-- [ ] T002 Add a synthetic-only feature harness entry point in new `tests/browser/browsing.mjs` and wire it into `tests/browser/index.html`; establish shared fixture loading/cleanup using existing harness conventions, with no production behavior changes or new dependencies.
+- [X] T002 Add a synthetic-only feature harness entry point in new `tests/browser/browsing.mjs` and wire it into `tests/browser/index.html`; establish shared fixture loading/cleanup using existing harness conventions, with no production behavior changes or new dependencies.
 
 **Checkpoint**: Baseline and harness are ready. No new application architecture is needed before US1.
 
 ## Phase 3: US1 — Desktop readability and Material icons (P1, MVP)
 
 **Goal**: Wider readable desktop category text and complete icon replacement.
-**Independent test**: At 1280/1440px, category width is at least 25% of combined category/description space and sticky headers align. At 360/412px, money remains visible with no page overflow. All required icons and controls work in both themes without Font Awesome requests.
+**Independent test**: At 1280/1440px, date is 90px, category is 180px (1.5 times amount), amount/balance remain 120px each, description receives remaining width, long descriptions/categories use ellipses with full hover text, and sticky headers align. At 360/412px, money remains visible with no page overflow. All required icons and controls work in both themes without Font Awesome requests.
 
-- [ ] T003 [P] [US1] Add US1 browser assertions in `tests/browser/browsing.mjs` for desktop proportions/sticky alignment, mobile overflow, icon mappings, accessible controls and absence of Font Awesome requests; use synthetic rows only.
-- [ ] T004 [P] [US1] Vendor only required official Material Symbols Outlined SVGs under new `UI/assets/icons/`, with upstream revision/provenance and license in `UI/assets/icons/README.md` and `UI/assets/icons/LICENSE`; include checkbook, account_balance, credit_card, sell, paid, payment_arrow_down, money_bag, planned liability/fallback and utility symbols. Verify exact requested glyphs; do not silently substitute them.
-- [ ] T005 [US1] Serve the explicit icon asset directory and SVG MIME type in `scripts/serve-ui.mjs`, preserving traversal/private-file protections; add positive and forbidden-path checks in `tests/unit/server.test.mjs` after T004.
-- [ ] T006 [US1] Replace all static/dynamic Font Awesome markup and links in `UI/index.html` and `UI/app.js`; apply exact spec mappings to branding, All Accounts, sidebar and search-result account labels, plus semantic utility icons and planned liability/fallback defaults. Retain accessible button names and hide decorative icons from assistive technology.
+- [X] T003 [P] [US1] Add US1 browser assertions in `tests/browser/browsing.mjs` for desktop proportions/sticky alignment, mobile overflow, icon mappings, accessible controls and absence of Font Awesome requests; use synthetic rows only.
+- [X] T004 [P] [US1] Vendor only required official Material Symbols Outlined SVGs under new `UI/assets/icons/`, with upstream revision/provenance and license in `UI/assets/icons/README.md` and `UI/assets/icons/LICENSE`; include checkbook, account_balance, credit_card, sell, paid, payment_arrow_down, money_bag, planned liability/fallback and utility symbols. Verify exact requested glyphs; do not silently substitute them.
+- [X] T005 [US1] Serve the explicit icon asset directory and SVG MIME type in `scripts/serve-ui.mjs`, preserving traversal/private-file protections; add positive and forbidden-path checks in `tests/unit/server.test.mjs` after T004.
+- [X] T006 [US1] Replace all static/dynamic Font Awesome markup and links in `UI/index.html` and `UI/app.js`; apply exact spec mappings to branding, All Accounts, sidebar and search-result account labels, plus semantic utility icons and planned liability/fallback defaults. Retain accessible button names and hide decorative icons from assistive technology.
 - [ ] T007 [US1] Adjust category/description proportions and local SVG styling in `UI/styles.css`, preserving current colors, themes, touch targets, amount/balance visibility and sticky alignment; remove obsolete Font Awesome styling and run US1 checks.
-- [ ] T008 [US1] Perform the US1 width/theme/control walkthrough from `specs/003-enhance-transaction-browsing/quickstart.md` and record results in `specs/003-enhance-transaction-browsing/acceptance.md`, including icon network checks and any unverified device checks.
+- [ ] [Manual Test] T008 [US1] Follow the icon acceptance checklist in `quickstart.md` in both themes: exact branding/account/utility mappings in sidebar and search, including fallback. Use T003/T004 synthetic cases for account types absent from baseline data. Operate sidebar, search/clear and theme controls by keyboard and touch; verify accessible names and hidden decorative icons with the accessibility inspector. With Network open and cache disabled, reload: local SVGs load, no missing glyphs or Font Awesome requests. Record in `acceptance.md`.
+- [ ] [Manual Test] T035 [US1] At desktop widths 1280/1440px, inspect short and long descriptions/categories in register and search. Expect date 90px, category 180px, amount/balance 120px each, description taking remaining width, single-line ellipses and full hover text. Scroll: sticky headers align and dates/money remain readable. At 360/412px in both themes, expect usable existing mobile wrapping, unobscured money, unchanged touch targets and no horizontal page overflow. Record in `acceptance.md`.
 
-**Checkpoint**: US1 can be accepted independently; exporter, details and grouping are not required.
+**Blocking checkpoint**: US2 implementation waits for T008 and T035 to pass. Exporter, details and grouping are outside this gate.
 
 ## Phase 4: US2 — Transaction tags (P1)
 
@@ -44,7 +53,10 @@
 - [ ] T010 [US2] Add existing entry tags to page row projections in `UI/src/query.mjs` without changing search fields, source entry data or balances.
 - [ ] T011 [US2] Render escaped tags in `UI/index.html` and style wrapping labels in `UI/styles.css`; verify registers/search at desktop and 360/412px and record results in `specs/003-enhance-transaction-browsing/acceptance.md`.
 
-**Checkpoint**: US2 is usable with the existing export; it does not depend on allocation changes.
+- [ ] [Manual Test] T036 [US2] With T009's case list, inspect zero, one, many, long/unbroken and markup-like tags at desktop and 360/412px. Expect all literal text readable, no HTML execution or empty placeholder, wrapping without obscured money, and amounts/balances matching the reference. Record in `acceptance.md`.
+- [ ] [Manual Test] T037 [US2] Search those rows by description and memo: expect the same tags in results. Search a token found only in tags: expect no matches. Clear search and change page/account: expect correct tags without stale labels. Record in `acceptance.md`.
+
+**Blocking checkpoint**: US3 implementation waits for T036–T037 and all earlier manual tasks to pass. US2 uses the existing export without allocation changes.
 
 ## Phase 5: US3 — Selected-entry allocation details (P1)
 
@@ -61,7 +73,12 @@
 - [ ] T019 [US3] Add category activation and native details dialog in `UI/index.html`, `UI/app.js` and `UI/styles.css`; escape content, show full paths/amounts/memos and explicit unavailable values, provide bounded scrolling/accessible close/Escape, and restore account/search/page/grouping/scroll/focus without a reload.
 - [ ] T020 [US3] Complete details lifecycle/browser coverage in `tests/browser/browsing.mjs`, using an explicitly allowed synthetic fixture route in `scripts/serve-ui.mjs` if required; run desktop/phone dismissal and long-content checks and record results in `specs/003-enhance-transaction-browsing/acceptance.md`.
 
-**Checkpoint**: US3 requires T015's installed-source evidence, T016's revalidation/reference comparison of that export with the updated validator, and viewer checks. UI development can proceed with known synthetic fixtures while that evidence is pending, but US3 cannot be reported source-validated until it exists.
+- [ ] [Manual Test] T038 [US3] Follow the synthetic Moneydance setup/reference and installed-extension instructions delivered by T012/T015. Compare source, export and displayed amounts/signs, full paths and memos for expense, refund, parent/split, repeated destinations and the $4,000/$1,000 repair. Rainy Day shows only its -$1,000 portion; excluded destinations retain known amounts. Confirm unchanged source/balances and passing T015/T016 comparison/revalidation. Record actual Moneydance/installed-extension evidence in `acceptance.md`.
+- [ ] [Manual Test] T039 [US3] Open T013's legacy absent/null amount, empty/uncategorized, missing memo and excluded-destination cases. Expect explicit unavailable/uncategorized states without invented amounts, literal text, ordered repeated allocations and no unrelated sibling allocations. Close and open a normal row: details still work. Record in `acceptance.md`.
+- [ ] [Manual Test] T040 [US3] On desktop keyboard and phone, open long/many-allocation details from a scrolled later register page and from search. Expect bounded scrolling, readable full paths/memos, accessible dialog name and focus inside it. Escape and close-button dismissal restore account/search/page/scroll/invoking focus. Open then immediately close another row: a late reply must not reopen the dialog. Grouping restoration waits for US5. Record in `acceptance.md`.
+- [ ] [Manual Test] T041 [US3] With the full-history setup in `quickstart.md`, time opening many-allocation details on desktop and actual Pixel 8. Expect under two seconds and no extra snapshot fetch/unlock. Record timings/environment for reuse in T033; unavailable device/data leaves this task pending.
+
+**Blocking checkpoint**: US4 implementation waits for T038–T041 and all earlier manual tasks to pass. Within US3, UI development can proceed with synthetic fixtures while T015 source evidence is pending; that evidence and T016 revalidation must pass before accepting US3 or starting US4.
 
 ## Phase 6: US4 — Navigate to related register entries (P1)
 
@@ -72,9 +89,13 @@
 - [ ] T022 [US4] Build account/transaction-to-entry-index lookup in `UI/src/snapshot.mjs`; implement exact and transfer locate operations in `UI/src/query.mjs`, using unfiltered direct-register display order, all legitimate related IDs, first target page and required future disclosure without adding export fields.
 - [ ] T023 [US4] Integrate locate messages into the view lane in `UI/src/snapshot-worker.mjs` and `UI/src/worker-client.mjs`; tie follow-up page replies to still-current navigation intent and add invalid/stale/worker-failure cases in `tests/unit/worker.test.mjs`, preserving the current register on unavailable targets.
 - [ ] T024 [US4] Wire search-result account buttons and supported non-category transfer actions in `UI/index.html` and `UI/app.js`; clear search, close modal/mobile sidebar, select destination/page, reveal future targets, scroll/focus and highlight related rows using `UI/styles.css`. Preserve highlights across pagination; clear them on ordinary selection/search/new navigation, and restore ordinary selection's future-hiding behavior.
-- [ ] T025 [US4] Run navigation acceptance in encrypted and plaintext test modes through `tests/browser/browsing.mjs`, including pending-dialog replies and one-fetch/no-reunlock assertions; record desktop/mobile walkthrough results in `specs/003-enhance-transaction-browsing/acceptance.md`.
+- [ ] T025 [US4] Run navigation acceptance in encrypted and plaintext test modes through `tests/browser/browsing.mjs`, including pending-dialog replies and one-fetch/no-reunlock assertions; document plaintext/encrypted fixture setup for T042–T043 and record automated results in `specs/003-enhance-transaction-browsing/acceptance.md`.
 
-**Checkpoint**: US4 completes transfer navigation previously deferred from US3. Category destinations still use existing register presentation until US5 adds grouping.
+- [ ] [Manual Test] T042 [US4] Use T021's documented cases with >100 destination rows, look-alikes, multiple related rows across pages and mixed past/future counterparts. Follow a search-result account label and a transfer from details. Expect exact destination, cleared search, closed modal/sidebar, first target page scrolled/focused, future targets revealed and only related rows highlighted. Later pages retain related highlights; ordinary selection/search/new navigation clears old highlights, and ordinary selection restores future hiding. Record in `acceptance.md`.
+- [ ] [Manual Test] T043 [US4] Missing/excluded destinations show unavailable navigation without guessing or losing the current register. Perform two different navigation actions rapidly and navigate with details pending: only latest intent survives. Repeat representative search/transfer navigation on phone and after synthetic encrypted unlock using T025's documented fixture setup. Network shows no reload, extra snapshot fetch or password prompt after initial load. Record in `acceptance.md`.
+- [ ] [Manual Test] T044 [US4] On desktop and actual Pixel 8 with full history, time off-page search navigation and future-transfer navigation per `quickstart.md`. Each finishes under two seconds without another fetch/unlock. Record evidence for reuse in T033.
+
+**Blocking checkpoint**: US5 implementation waits for T042–T044 and all earlier manual tasks to pass. Category destinations retain existing presentation until US5.
 
 ## Phase 7: US5 — Category navigation and period activity (P1)
 
@@ -86,14 +107,19 @@
 - [ ] T028 [US5] Extend `UI/src/query.mjs` and query messaging in `UI/src/snapshot-worker.mjs` with validated category month/year grouping; aggregate complete matching disclosed sets using checked cents before pagination, retain current same-day ordering, and return full period totals/continuation metadata without counting headers as entries.
 - [ ] T029 [US5] Project eligible Accounts/Categories lists in `UI/app.js` using existing hierarchy metadata; add icon-only named/tooled/keyboard-operable switch controls and >=44px touch targets in `UI/index.html` and `UI/styles.css`. Default to Accounts, preserve footer/ancestor promotion, and leave register selection unchanged when switching lists. Add no Investments/Reports placeholder.
 - [ ] T030 [US5] Render category month/year controls, scoped activity labels, complete/continued period headers and explicit empty states in `UI/index.html`, `UI/app.js` and `UI/styles.css`; retain grouping across category selection only for the page session, preserve running/sidebar balances and future summary/reset behavior, and use the correct sidebar section/grouping when US4 navigates to a category.
-- [ ] T031 [US5] Run category unit/browser scenarios and manually compare totals against independent references; verify unchanged All Accounts population, no overall balance, ordinary-register behavior and modal grouping/scroll restoration; record evidence in `specs/003-enhance-transaction-browsing/acceptance.md`.
+- [ ] T031 [US5] Run category unit/browser scenarios and prepare independent references for manual tasks T045–T047; record evidence in `specs/003-enhance-transaction-browsing/acceptance.md`.
 
-**Checkpoint**: All five stories are implemented and individually verifiable, subject to source/device evidence remaining open.
+- [ ] [Manual Test] T045 [US5] Using T026/T027's documented hierarchy cases, reload: Accounts is default and excludes categories. Switch lists by mouse, keyboard and phone touch: named controls work, targets are >=44px, register selection is unchanged, hierarchy/ancestor promotion and As Of footer remain correct. Select a category: monthly default; choose yearly then another category: preference persists for the session. Reload: default resets. Record in `acceptance.md`.
+- [ ] [Manual Test] T046 [US5] Compare monthly/yearly headers with T026's independent reference for >100-row periods across pages, year boundaries, refunds and zero-net periods. Continued headers retain complete totals; opening balances/opposite-side entries are excluded. Compare direct category with descendant search and scope labels. Clear search and toggle future disclosure: totals match disclosed scope. No matches produce no fabricated periods; future-only hidden rows retain the reveal bar and gain correct rows/totals when revealed. Record in `acceptance.md`.
+- [ ] [Manual Test] T047 [US5] Follow search/transfer navigation into a category: correct sidebar section/register/grouping. Open/close details from a scrolled grouped page: grouping/scroll/focus restored. Compare ordinary account and All Accounts population/balances with references: unchanged, no overall balance introduced. Repeat representative category/group/detail controls at phone width: readable totals and no page overflow. Record in `acceptance.md`.
+- [ ] [Manual Test] T048 [US5] On desktop and actual Pixel 8 with full history, time opening a large category and switching month/year per `quickstart.md`. Each finishes under two seconds without another snapshot fetch/unlock. Record evidence for reuse in T033.
+
+**Blocking checkpoint**: All story manual tasks must pass before story acceptance and Phase 8. Source/device checks cannot remain pending past their story gate.
 
 ## Phase 8: Cross-cutting acceptance and documentation
 
 - [ ] T032 Run `npm test` and the complete `/tests/browser/` harness, including existing balances, hidden hierarchy, search, unlock, test-mode, failure and persisted-page lifecycle scenarios; record outcomes in `specs/003-enhance-transaction-browsing/acceptance.md` and fix regressions in their owning modules before acceptance.
-- [ ] T033 Measure the five actions specified by `specs/003-enhance-transaction-browsing/quickstart.md` on desktop and actual Pixel 8 with current full history: many-split details, off-page navigation, future transfer, large category, month/year toggle. Record all timings, browser/date/data size and one-fetch/no-reunlock evidence in `specs/003-enhance-transaction-browsing/acceptance.md`; each action must be under two seconds. Optimize only demonstrated failures without dropping data; record unrun checks as pending.
+- [ ] T033 Consolidate passing story-gate measurements from T041/T044/T048; rerun only when later changes invalidate them. Measure any remaining gaps for the five actions specified by `specs/003-enhance-transaction-browsing/quickstart.md` on desktop and actual Pixel 8 with current full history: many-split details, off-page navigation, future transfer, large category, month/year toggle. Record all timings, browser/date/data size and one-fetch/no-reunlock evidence in `specs/003-enhance-transaction-browsing/acceptance.md`; each action must be under two seconds. Optimize only demonstrated failures without dropping data; record unrun checks as pending.
 - [ ] T034 Reconcile actual commands, icon provenance, source comparison instructions and acceptance gaps in `specs/003-enhance-transaction-browsing/quickstart.md`, `specs/003-enhance-transaction-browsing/acceptance.md` and `scripts/moneydance-preflight.md`; review all six constitutional principles and mark only evidenced tasks complete in `specs/003-enhance-transaction-browsing/tasks.md`. Preserve existing accepted iOS limitations without claiming remediation.
 
 ## Dependencies and execution order
@@ -103,7 +129,7 @@ Phase 1 -> Phase 2 -> US1 -> US2 -> US3 -> US4 -> US5 -> Phase 8
                                   source evidence ^
 ```
 
-The chain is the requested delivery order, not a claim that tags technically require icon changes. US1 and US2 have no financial-source dependency. US3 owns the export and details primitives; US4 depends on those identities/details and adds links; US5 integrates category presentation with US4. Shared UI/query files make sequential story implementation the default.
+The chain is the mandatory delivery order under constitution 1.2.0, not a claim that tags technically require icon changes. Each story transition requires all preceding manual gates to pass. US1 and US2 have no financial-source dependency. US3 owns the export and details primitives; US4 depends on those identities/details and adds links; US5 integrates category presentation with US4.
 
 Within US3, T012 and T013 can proceed independently; T014 follows their reference/test definition. T015 follows T014 and requires actual Moneydance evidence. Implementation in T016–T020 can proceed on independently known synthetic values while T015 is pending, but cannot substitute for it. T016's final revalidation depends on the captured T015 export and must pass before US3 acceptance. T017 follows validation design in T016; T018 and T019 follow details projection. Within US1, T003 and T004 can proceed together; serving/replacement depend on assets. Within US5, T026 and T027 precede implementation.
 
@@ -133,3 +159,9 @@ These examples identify optional work scheduling, not a requirement to launch ag
 ## Implementation strategy
 
 Deliver Phase 3 (US1: width and icons) as the first independently useful increment after the lightweight setup. Add tags, then details with source verification, then navigation, then categories. At each checkpoint run that story's focused checks and preserve preceding behavior. Do not expand into reports, investments, tag search, routing/history, new scheduling or iOS remediation. Task generation itself neither changes application code nor establishes acceptance.
+
+## US1-only implementation status (2026-09-19)
+
+**Current manual gate**: T008 and T035 remain pending; US2 implementation is blocked. This documentation update executes no manual tests and implements no later-story behavior.
+
+User scope: User Story 1 and Material icons only, after rollback of the previous implementation. T002–T006 are complete. T001 has a passing 48-test baseline and acceptance record, but browser execution is pending. T007 CSS is implemented; its browser checks and T008 visual walkthrough remain pending because no browser is connected. US2–US5 remain unimplemented and unchecked. See [acceptance.md](acceptance.md) for the local checks and exact remaining validation.

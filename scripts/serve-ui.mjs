@@ -8,7 +8,7 @@ import { parseArgs } from 'node:util';
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8',
-  '.json': 'application/json; charset=utf-8', '.enc': 'application/octet-stream' };
+  '.json': 'application/json; charset=utf-8', '.enc': 'application/octet-stream', '.svg': 'image/svg+xml' };
 const inside = (root, path) => {
   const rel = relative(root, path);
   return rel !== '..' && !rel.startsWith('..\\') && !rel.startsWith('../') && !isAbsolute(rel);
@@ -43,6 +43,8 @@ export function createViewerServer({ root = repo, snapshot = resolve(root, 'UI/d
       allowedRoot = resolve(root, 'UI/data'); target = resolve(allowedRoot, 'test-snapshot.json');
     } else if (['/', '/index.html', '/app.js', '/styles.css', '/config.js'].includes(path)) {
       allowedRoot = resolve(root, 'UI'); target = resolve(allowedRoot, path === '/' ? 'index.html' : path.slice(1));
+    } else if (/^\/assets\/icons\/[a-z_]+\.svg$/.test(path)) {
+      allowedRoot = resolve(root, 'UI/assets/icons'); target = resolve(allowedRoot, path.slice('/assets/icons/'.length));
     } else if (path.startsWith('/src/') && ['.js', '.mjs'].includes(extname(path))) {
       allowedRoot = resolve(root, 'UI/src'); target = resolve(root, 'UI', path.slice(1));
     } else if (path === '/tests/browser/hidden-ancestor.json') {

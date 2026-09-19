@@ -12,6 +12,9 @@ test('server isolates selected snapshots and refuses private paths/traversal', a
   await writeFile(join(root, 'UI/index.html'), '<h1>Fixture</h1>');
   await writeFile(join(root, 'UI/data/test-snapshot.json'), '{"test":true}');
   await writeFile(join(root, 'UI/data/private.json'), 'never serve');
+  await mkdir(join(root, 'UI/assets/icons'), { recursive: true });
+  await writeFile(join(root, 'UI/assets/icons/checkbook.svg'), '<svg xmlns="http://www.w3.org/2000/svg"/>');
+  await writeFile(join(root, 'UI/assets/icons/private.json'), 'never serve');
   await mkdir(join(root, 'tests/fixtures'), { recursive: true });
   await writeFile(join(root, 'tests/fixtures/hidden-ancestor-v1.json'), '{"synthetic":true}');
   await writeFile(join(root, 'tests/fixtures/register-pages-v1.json'), '{"register":true}');
@@ -26,6 +29,15 @@ test('server isolates selected snapshots and refuses private paths/traversal', a
   });
   try {
     assert.equal((await get('/')).status, 200);
+    const icon = await get('/assets/icons/checkbook.svg');
+    assert.equal(icon.status, 200);
+    assert.equal(icon.headers['content-type'], 'image/svg+xml');
+    assert.equal(icon.body, '<svg xmlns="http://www.w3.org/2000/svg"/>');
+    assert.equal((await get('/assets/icons/checkbook.svg', 'HEAD')).body, '');
+    for (const path of ['/assets/icons/private.json', '/assets/icons/missing.svg', '/assets/other.svg'])
+      assert.equal((await get(path)).status, 404);
+    for (const path of ['/assets/icons/../private.svg', '/assets/icons/%2e%2e/private.svg', '/assets/icons/%5cprivate.svg'])
+      assert.equal((await get(path)).status, 400);
     assert.equal((await get('/data/snapshot.enc')).status, 404);
     assert.equal((await get('/data/test-snapshot.json?test=true')).body, '{"test":true}');
     assert.equal((await get('/tests/browser/hidden-ancestor.json')).body, '{"synthetic":true}');

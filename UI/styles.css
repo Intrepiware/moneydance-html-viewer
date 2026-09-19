@@ -462,6 +462,29 @@ table {
     width: 120px;
 }
 
+/* Desktop only: description takes the remaining space after fixed columns. */
+@media (min-width: 769px) {
+    .date-col { width: 90px; }
+    th.date-col, #transactions-body tr[data-entry-id] > td:first-child {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .category-col { width: 180px; }
+    #transactions-body .desc-main {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    #transactions-body .category-cell .badge {
+        display: inline-block;
+        max-width: 100%;
+        vertical-align: middle;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
 .amount-col {
     width: 120px;
     text-align: right;
@@ -520,7 +543,7 @@ tbody tr:hover {
     transition: color 0.3s;
 }
 
-.no-results i {
+.no-results .mi {
     font-size: 3rem;
     margin-bottom: 15px;
     opacity: 0.5;
@@ -850,3 +873,31 @@ html[data-test-mode="true"] #unlock-form { display: none; }
 .autofill-username { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 #unlock-button { display: block; margin: .75rem auto 0; padding: .65rem 1.5rem; cursor: pointer; font: inherit; }
 #unlock-status { margin-top: .75rem; }
+
+/* Official local Material Symbols; masks inherit the existing theme color. */
+.mi {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask: var(--icon) center / contain no-repeat;
+    mask: var(--icon) center / contain no-repeat;
+}
+.mi-checkbook { --icon: url('assets/icons/checkbook.svg'); }
+.mi-account_balance { --icon: url('assets/icons/account_balance.svg'); }
+.mi-credit_card { --icon: url('assets/icons/credit_card.svg'); }
+.mi-sell { --icon: url('assets/icons/sell.svg'); }
+.mi-paid { --icon: url('assets/icons/paid.svg'); }
+.mi-payment_arrow_down { --icon: url('assets/icons/payment_arrow_down.svg'); }
+.mi-money_bag { --icon: url('assets/icons/money_bag.svg'); }
+.mi-receipt_long { --icon: url('assets/icons/receipt_long.svg'); }
+.mi-menu { --icon: url('assets/icons/menu.svg'); }
+.mi-close { --icon: url('assets/icons/close.svg'); }
+.mi-search { --icon: url('assets/icons/search.svg'); }
+.mi-light_mode { --icon: url('assets/icons/light_mode.svg'); }
+.mi-dark_mode { --icon: url('assets/icons/dark_mode.svg'); }
+.mi-chevron_left { --icon: url('assets/icons/chevron_left.svg'); }
+.mi-chevron_right { --icon: url('assets/icons/chevron_right.svg'); }
+.mi-folder_open { --icon: url('assets/icons/folder_open.svg'); }

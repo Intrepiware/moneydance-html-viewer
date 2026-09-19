@@ -10,6 +10,10 @@
 
 ## Clarifications
 
+### Session 2026-09-19
+
+- Desktop layout revision: use a 90px date column with reduced horizontal padding, 180px category column (1.5 times the 120px amount column), and unchanged 120px amount/balance columns. Description receives all remaining space. Description and category stay single-line with ellipses and full text on hover. This supersedes the earlier 25% category minimum; mobile is unchanged.
+
 ### Session 2026-09-11
 
 - Q: Should a selected parent category include its subcategories in grouped transactions and totals? → A: No. Without search, include only transactions assigned directly to the selected category. Search retains existing descendant scope.
@@ -30,8 +34,8 @@ As the user, I want category text to have enough space on desktop instead of bei
 
 **Acceptance Scenarios**:
 
-1. **Given** a desktop register, **When** rendered, **Then** the category column receives at least one quarter of the combined description/category space, without clipping date, amount or balance columns.
-2. **Given** long description and category content, **When** viewed on desktop, **Then** text remains readable through wrapping or the existing details affordance, and table headers align with their columns while scrolling.
+1. **Given** a desktop register, **When** rendered, **Then** date uses 90px with reduced horizontal padding, category uses 180px (1.5 times amount), amount and balance retain 120px each, and description receives all remaining space.
+2. **Given** long description and category content, **When** viewed on desktop, **Then** description and category remain single-line, overflow uses ellipses, full text is available on hover, and table headers align with their columns while scrolling.
 3. **Given** a mobile viewport, **When** the same data is displayed, **Then** the desktop redistribution does not reduce existing amount/balance visibility or cause page-wide horizontal overflow.
 
 ### User Story 2 - Read transaction tags (Priority: P1)
@@ -146,7 +150,7 @@ Added 2026-09-17. Replace Font Awesome throughout the viewer with Google Materia
 - **FR-009**: Selecting a category MUST display only transactions assigned directly to that category when no search is active, grouped monthly by default, with a user control to switch to annual grouping. Monthly labels MUST distinguish the year; periods and their rows follow newest-first ordering with existing same-day order preserved.
 - **FR-010**: Each period MUST show an exact signed USD sum of all matching category-register entries under the current search and future-disclosure state, independent of pagination. Opening balances and duplicate account-side representations MUST NOT be added. These activity sums MUST NOT replace source running balances or account sidebar balances.
 - **FR-011**: Empty category results MUST have an explicit empty state. Period labels and totals MUST remain associated with their rows, including continued periods on another page.
-- **FR-012**: Desktop category text MUST receive at least 25% of the combined description/category width; amount, balance and date remain readable and sticky headers remain aligned. Existing mobile transaction density MUST be preserved except where added tag content requires wrapping.
+- **FR-012**: Desktop MUST use a compact 90px date column with reduced horizontal padding, a 180px category column, and unchanged 120px amount and balance columns. Description MUST receive the remaining flexible width. Description and category MUST remain single-line with ellipsis overflow and full text on hover. Date/money remain readable and sticky headers aligned. This layout change MUST NOT alter mobile sizing or wrapping.
 - **FR-013**: All features MUST operate on the already loaded, validated snapshot without additional downloads, page reloads or repeated unlock prompts for navigation, details, grouping or tags. Encrypted unlock, plaintext test mode, fixed effective date and export-time footer MUST retain their accepted behavior.
 - **FR-014**: Financial signs, full included history, source running balances, hidden-account contributions and existing search matching MUST remain unchanged. Category separation MUST NOT silently alter the existing All Accounts result population or introduce an All Accounts balance.
 - **FR-015**: Any source export changes found necessary during planning MUST preserve Moneydance/Jython 2.7 compatibility and read-only source behavior. No new financial records may be synthesized to compensate for missing source relationships.
@@ -169,7 +173,7 @@ Added 2026-09-17. Replace Font Awesome throughout the viewer with Google Materia
 - **SC-002**: Every tested search-result and supported transfer link reveals the correct destination entries, including off-page and future targets; unavailable targets never focus an unrelated row. In an already unlocked session, these actions cause zero page reloads, zero additional snapshot downloads and zero unlock prompts.
 - **SC-003**: All tags in the test cases are readable on desktop and at 360px and 412px phone widths, without horizontal page overflow or obscured amounts.
 - **SC-004**: All monthly and annual totals exactly match independently calculated signed activity totals, including refunds, zero-net periods, search, future disclosure and page-spanning periods; annual totals equal the relevant monthly totals for the same set.
-- **SC-005**: At 1280px and 1440px desktop widths, category content receives at least 25% of combined description/category width; date/amount/balance and sticky headers remain readable and aligned.
+- **SC-005**: At 1280px and 1440px desktop widths, date is 90px, category is 180px (1.5 times the 120px amount column), balance remains 120px, and description is the widest column and absorbs remaining space. Long descriptions/categories use one-line ellipses and expose full text on hover; sticky headers remain aligned.
 - **SC-006**: On desktop and Pixel 8 with the current full-history dataset, five representative details/navigation/grouping actions each complete within two seconds after activation, without another snapshot download. Measure and report actual device results; earlier accepted performance exceptions do not establish this feature's performance.
 - **SC-007**: Existing financial, encrypted unlock, test-mode and search acceptance scenarios continue to pass, subject only to the explicitly changed category navigation/grouping and previously recorded accepted limitations.
 - **SC-008**: All seven specified icon mappings and remaining utility controls render correctly in light/dark themes at the existing desktop and phone test widths, with no Font Awesome asset requests and no loss of control accessibility or functionality.
@@ -185,5 +189,5 @@ Added 2026-09-17. Replace Font Awesome throughout the viewer with Google Materia
 - All Accounts retains its existing history/search population. Hiding categories from default navigation is not a new financial exclusion rule.
 - Context navigation clears search and reveals the exact target rather than preserving a filter that hides it. Ordinary selection later restores existing future-hiding behavior. No separate back-stack or persistent navigation history is required.
 - Unknown or unsupported allocation values remain explicitly unavailable. Planning must verify that exported relationships and amounts support complete details for included USD transactions; this spec does not presume the current snapshot carries every necessary source detail.
-- Desktop width allocation of 25% is a reviewable default for “much more room,” not a request for a general redesign.
+- The confirmed desktop revision replaces the former 25% category minimum with fixed date/category/money widths and a flexible description column. Mobile remains unchanged.
 - Established personal/read-only/USD boundaries, encryption and credential protections remain in force. No new framework, dependency or exporter schema design is selected here.

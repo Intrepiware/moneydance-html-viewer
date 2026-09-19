@@ -2,8 +2,8 @@ import { createSnapshotClient } from './src/worker-client.mjs';
 import { formatUsd } from './src/money.mjs';
 import { formatExportDate, transactionDateParts } from './src/format.mjs';
 
-const getAccountIcon = type => ({ BANK: 'fa-building-columns', CREDIT_CARD: 'fa-credit-card',
-  LOAN: 'fa-hand-holding-dollar', ASSET: 'fa-sack-dollar', LIABILITY: 'fa-file-invoice-dollar' }[type] || 'fa-wallet');
+const getAccountIcon = type => ({ ROOT: 'checkbook', BANK: 'account_balance', CREDIT_CARD: 'credit_card',
+  EXPENSE: 'sell', INCOME: 'paid', LOAN: 'payment_arrow_down', ASSET: 'money_bag', LIABILITY: 'receipt_long' }[type] || 'account_balance');
 
 export class App {
   constructor({ document = globalThis.document, handlebars = globalThis.Handlebars,
@@ -235,7 +235,8 @@ export class App {
       const {year, month, day} = transactionDateParts(row.date);
       const showYearDivider = year !== previousYear;
       previousYear = year;
-      return { ...row, year, month, day, showYearDivider, isFuture: row.date > this.metadata.effectiveDate };
+      return { ...row, year, month, day, showYearDivider, isFuture: row.date > this.metadata.effectiveDate,
+        accountIcon: getAccountIcon(this.nodes.get(row.accountId)?.type) };
     });
     this.el['transactions-body'].innerHTML = this.transactionsTemplate({ paginatedTransactions: rows, isRoot: this.currentAccount.isAll || Boolean(this.searchText.trim()),
       columnCount: this.mobileLayout.matches ? 3 : 5 });
@@ -261,7 +262,7 @@ export class App {
 
   toggleTheme(light = !this.document.body.classList.contains('light-mode')) {
     this.document.body.classList.toggle('light-mode', light);
-    this.el['theme-toggle'].innerHTML = light ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+    this.el['theme-toggle'].innerHTML = `<span class="mi mi-${light ? 'dark_mode' : 'light_mode'}" aria-hidden="true"></span>`;
     try { this.window.localStorage.setItem('theme', light ? 'light' : 'dark'); } catch { /* optional preference */ }
   }
 

@@ -36,7 +36,7 @@ The reference file must match the current synthetic book. Existing comparison sc
 
 | Story | Actions and expected result |
 |---|---|
-| US1 | At 1280/1440px inspect long descriptions/categories and scroll; category >=25% of combined space, aligned headers. At 360/412px no page overflow or obscured money. |
+| US1 | At 1280/1440px inspect long descriptions/categories and scroll; date 90px, category 180px, amount/balance 120px each, remaining width assigned to description; single-line ellipses with full hover text and aligned headers. At 360/412px no page overflow or obscured money. |
 | US2 | Zero, one and many long/markup-like tags in registers/search; all literal and readable, empty case has no placeholder. |
 | US3 | Open all source-reference cases; inspect repeats, full paths, memos, unavailable values and selected-row sums. Keyboard/Escape/phone close restores account/search/page/scroll/focus. |
 | US4 | Follow off-page search rows and transfers with look-alike unrelated rows, future targets and repeated counterpart rows. Correct targets highlighted; first scrolled into view; later pages retain related highlights. Search clears, sidebar/modal closes, no new unlock/download/reload. Unavailable destinations never guess. Rapid changes show latest intent only. |
