@@ -2,12 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
     <title>Moneydance Viewer</title>
     <script>
       // Select presentation before first paint; real mode keeps autofill discoverable.
-      if (new URLSearchParams(location.search).get('test') === 'true') {
-        document.documentElement.dataset.testMode = 'true';
+      if (new URLSearchParams(location.search).get("test") === "true") {
+        document.documentElement.dataset.testMode = "true";
       }
     </script>
     <link
@@ -60,9 +63,21 @@
               <input
                 type="text"
                 id="search-input"
-                placeholder="Search transactions..." disabled aria-label="Search descriptions, memos, or amounts" aria-keyshortcuts="Control+f Meta+f" title="Search (Ctrl+F / Command+F)"
+                placeholder="Search transactions..."
+                disabled
+                aria-label="Search descriptions, memos, or amounts"
+                aria-keyshortcuts="Control+f Meta+f"
+                title="Search (Ctrl+F / Command+F)"
               />
-              <button id="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>×</button>
+              <button
+                id="clear-search"
+                type="button"
+                aria-label="Clear search"
+                title="Clear search"
+                hidden
+              >
+                ×
+              </button>
             </div>
             <button
               id="theme-toggle"
@@ -74,24 +89,49 @@
           </div>
         </header>
 
-        <div id="mobile-balance-bar" class="mobile-only mobile-balance-bar" hidden>
+        <div
+          id="mobile-balance-bar"
+          class="mobile-only mobile-balance-bar"
+          hidden
+        >
           <span>Total Balance</span>
           <span id="mobile-total-balance" class="amount"></span>
         </div>
 
         <div class="content-body">
-          <p id="load-status" class="is-loading" role="status">Loading accounts…</p>
-          <form id="unlock-form" name="snapshot-login" class="glass-card" autocomplete="on">
+          <p id="load-status" class="is-loading" role="status">
+            Loading accounts…
+          </p>
+          <form
+            id="unlock-form"
+            name="snapshot-login"
+            class="glass-card"
+            autocomplete="on"
+          >
             <!-- Keeper filled the password only when a username field was present.
                  Keep this optional, ignored field in the form for autofill detection.
                  Visually conceal it rather than using hidden/type="hidden"/display:none;
                  verify that Keeper still fills on desktop and mobile after this change. -->
             <div class="autofill-username" aria-hidden="true">
               <label for="snapshot-username">Username</label>
-              <input id="snapshot-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" tabindex="-1" />
+              <input
+                id="snapshot-username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                autocapitalize="none"
+                spellcheck="false"
+                tabindex="-1"
+              />
             </div>
             <label for="snapshot-password">Snapshot password</label>
-            <input id="snapshot-password" name="password" type="password" autocomplete="current-password" required />
+            <input
+              id="snapshot-password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            />
             <button id="unlock-button" type="submit" disabled>Unlock</button>
             <p id="unlock-status" role="status" aria-live="polite"></p>
           </form>
@@ -113,7 +153,12 @@
             </div>
             <div class="table-responsive">
               <p id="register-status" role="status" hidden></p>
-              <button id="future-summary" type="button" aria-controls="transactions-body" hidden></button>
+              <button
+                id="future-summary"
+                type="button"
+                aria-controls="transactions-body"
+                hidden
+              ></button>
               <table id="transactions-table" class="hidden">
                 <thead>
                   <tr>
