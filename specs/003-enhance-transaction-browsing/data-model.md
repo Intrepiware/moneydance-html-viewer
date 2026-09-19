@@ -13,6 +13,8 @@ Existing accounts, entries, balances, timelines, dates and identities retain the
 
 For a parent row, use each split's parent amount times owning account sign. For a split row, use its own value times owning sign for its parent allocation. Preserve repeated allocations and array order. Validate exact sum equals entry.amountCents when the nonempty allocation set is complete. Empty allocations mean uncategorized, not an invented zero allocation. Missing/null legacy values remain unavailable; partial sums must not be labeled complete. Unsafe amounts/sums fail financial validation. Source validation must establish supported USD completeness.
 
+An excluded or unavailable destination does not by itself make an allocation amount unavailable. Export the amount whenever it can be established reliably in the selected row's USD units and sign convention. Determine navigation availability separately; a known amount remains displayable even when its destination cannot be opened.
+
 No new counterpart ID is required: navigation intentionally finds all destination entries sharing the parent transaction.
 
 ## Worker indexes
