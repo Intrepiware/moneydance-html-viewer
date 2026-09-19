@@ -199,3 +199,15 @@ T030 needs final reconciliation after those results; reuse the reported Phase 6
 harness pass unless further code changes require a rerun. The quality checklist
 is read-only per implement skill; FR/SC acceptance mapping is in extension-validation.md.
 Use scripts/phase7-acceptance.md; no rebuild or new dependency was introduced.
+
+## Direct-export maintenance amendment (2026-09-19)
+
+Explicit user scope: optional password on direct Moneybot execution only. This is maintenance of the existing export workflow, not authorization to implement later browsing stories. Existing story gates remain in force.
+
+- [X] M001 Implement masked optional-password/save dialogs on the Swing EDT in `export_json.py`; blank means plaintext, cancel means no output, whitespace-only passwords require correction. Keep all interaction behind the existing standalone entry guard.
+- [X] M002 Save encrypted envelope v1 atomically without plaintext temporary files or fallback; retain a self-contained Jython script. Keep extension modules/configuration unchanged. Check standalone and extension encryption against common vectors in `tests/runtime/encryption_test.py`.
+- [ ] [Manual Test] M003 In actual Moneydance with the synthetic book from `scripts/preflight-test-book.md`, follow `scripts/export-validation.md`: verify the explicit plaintext notice and masked password, cancel/close the password modal and cancel the save chooser without output changes. Blank input saves valid JSON matching the source reference; whitespace-only input is rejected. Record tester/date/runtime/results in `specs/003-enhance-transaction-browsing/acceptance.md`.
+- [ ] [Manual Test] M004 In the same book, export with a nonblank password (also test surrounding spaces). Expect default `snapshot.enc`, successful viewer unlock only with the exact password and financial values matching the plaintext export. Test an unwritable destination as described in `scripts/export-validation.md`; expect a sanitized failure and unchanged previous file. Record evidence without secrets in the acceptance record.
+- [ ] [Manual Test] M005 Follow `scripts/build-extension.md` and `scripts/extension-validation.md` to rebuild/install in the controlled environment. Existing configured on-demand and normal-exit delivery must remain encrypted and use saved settings, with no new password/save dialog or plaintext option. Record actual installed-extension evidence; source inspection/runtime unit tests do not complete this task.
+
+**Manual gate**: M003–M005 remain pending until performed by a person; no subsequent story implementation is authorized by this amendment.

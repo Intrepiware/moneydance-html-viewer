@@ -12,6 +12,8 @@
 
 ### Session 2026-09-19
 
+- Transaction summary counts use comma thousands separators (for example, `2,963`) in accounts, All Accounts and search, including mobile. Keep existing heading/value alignment unchanged; counts remain numeric internally.
+
 - Desktop layout revision: use a 90px date column with reduced horizontal padding, 180px category column (1.5 times the 120px amount column), and unchanged 120px amount/balance columns. Description receives all remaining space. Description and category stay single-line with ellipses and full text on hover. This supersedes the earlier 25% category minimum; mobile is unchanged.
 
 ### Session 2026-09-11

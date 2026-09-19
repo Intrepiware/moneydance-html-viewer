@@ -143,7 +143,7 @@ export class App {
       const index = node => { this.nodes.set(node.id, node); node.children.forEach(index); };
       index(root);
       this.el['account-tree'].innerHTML = this.treeTemplate(root);
-      this.el['total-transactions'].textContent = String(message.totalCount);
+      this.el['total-transactions'].textContent = message.totalCount.toLocaleString('en-US');
       this.el['load-status'].hidden = !this.snapshotEmpty;
       this.el['load-status'].textContent = this.snapshotEmpty ? 'Snapshot loaded. No transactions in this export.' : '';
       this.el['load-status'].classList.remove('is-loading');
@@ -225,7 +225,7 @@ export class App {
   renderPage(message) {
     this.page = message.page;
     this.el['register-status'].hidden = true;
-    this.el['total-transactions'].textContent = String(message.totalMatches);
+    this.el['total-transactions'].textContent = message.totalMatches.toLocaleString('en-US');
     const future = message.future;
     this.el['future-summary'].hidden = this.includeFuture || !future.count;
     this.el['future-summary'].textContent = `${future.count} Future Transaction${future.count === 1 ? '' : 's'}: ${future.amountCents > 0 ? '+' : ''}${formatUsd(future.amountCents)}`;

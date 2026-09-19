@@ -5,7 +5,10 @@ Use the same seven-case test book; no new transactions are required.
 1. Run the updated repository-root `export_json.py` inside Moneydance's script
    facility. Keep editing/import/sync idle during capture. The UI may pause while
    the two source captures run. This initial validation is for the small test book.
-2. In the save dialog choose `UI/data/snapshot.json` in this repository. It is
+2. In the password modal, leave the field empty and select OK for plaintext
+   validation. The modal explicitly explains that empty means unencrypted JSON.
+   Cancel/close aborts; whitespace-only input must be corrected or cleared.
+   In the save dialog choose `UI/data/snapshot.json` in this repository. It is
    ignored by Git. The script reports `EXPORT_OK` with an entry count, or a safe
    error code; return any error without changing test data to work around it.
 3. From the repository root, run:
@@ -37,6 +40,29 @@ delete-and-retry fallback is used.
 After controlled-book validation, a fresh full private-book export and its CLI
 validation are required before full-data acceptance. Keep that file local and do
 not paste its contents. Worker/UI integration and Pixel 8 trials are later tasks.
+
+## Optional encryption for direct Moneybot execution
+
+Open the repository-root `export_json.py` using Moneydance's **Window → Show
+Moneybot Console → Open Script**, then **Run Script** with a synthetic book open.
+The script is self-contained; it does not require installing/rebuilding the extension.
+Supply a password to default to `snapshot.enc`, or leave empty to default to
+`snapshot.json`. Passwords are not stored and surrounding spaces in a nonblank
+password are significant. Cancel either modal to save nothing. Encryption errors
+abort rather than falling back to plaintext. Only ciphertext reaches temporary
+files when a password was supplied.
+
+For encrypted validation, save a synthetic file as `UI/data/snapshot.enc` (preserve
+any existing file first), serve with `npm run serve`, and open the viewer without
+`?test=true`. Try a wrong password, then the correct one. Expect failed unlock then
+the same financial data as the plaintext reference. Restore any pre-existing file.
+Do not include passwords or private records in the acceptance report.
+
+The extension loads this script with `_EXPORT_LIBRARY_ONLY=True`, bypassing both
+standalone dialogs. Its configured encryption, publication and shutdown behavior
+are unchanged. Rebuild/install validation must use the existing documented process
+in `build-extension.md` and `extension-validation.md`; no installation is performed
+by this source edit.
 
 ## Troubleshooting validation
 

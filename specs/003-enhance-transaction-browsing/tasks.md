@@ -42,7 +42,7 @@ Record tester/date, browser/version, viewport/device, fixture/case, expected and
 - [ ] [Manual Test] T008 [US1] Follow the icon acceptance checklist in `quickstart.md` in both themes: exact branding/account/utility mappings in sidebar and search, including fallback. Use T003/T004 synthetic cases for account types absent from baseline data. Operate sidebar, search/clear and theme controls by keyboard and touch; verify accessible names and hidden decorative icons with the accessibility inspector. With Network open and cache disabled, reload: local SVGs load, no missing glyphs or Font Awesome requests. Record in `acceptance.md`.
 - [ ] [Manual Test] T035 [US1] At desktop widths 1280/1440px, inspect short and long descriptions/categories in register and search. Expect date 90px, category 180px, amount/balance 120px each, description taking remaining width, single-line ellipses and full hover text. Scroll: sticky headers align and dates/money remain readable. At 360/412px in both themes, expect usable existing mobile wrapping, unobscured money, unchanged touch targets and no horizontal page overflow. Record in `acceptance.md`.
 
-**Blocking checkpoint**: US2 implementation waits for T008 and T035 to pass. Exporter, details and grouping are outside this gate.
+**Blocking checkpoint**: US2 implementation waits for T008, T035 and T050 to pass. Exporter, details and grouping are outside this gate.
 
 ## Phase 4: US2 — Transaction tags (P1)
 
@@ -162,6 +162,11 @@ Deliver Phase 3 (US1: width and icons) as the first independently useful increme
 
 ## US1-only implementation status (2026-09-19)
 
-**Current manual gate**: T008 and T035 remain pending; US2 implementation is blocked. This documentation update executes no manual tests and implements no later-story behavior.
+### US1 count-format amendment (2026-09-19)
+
+- [X] T049 [US1] Format the summary transaction count with en-US comma grouping in `UI/app.js`; preserve existing alignment and numeric data.
+- [ ] [Manual Test] T050 [US1] In account, All Accounts and search views, check counts below and above 1,000 (for example 0, 999, 1,000 and 2,963), using a synthetic fixture with enough matching rows. Expect comma grouping without decimals, accurate filtered counts and unchanged heading/value alignment on desktop and mobile. Record in `acceptance.md`. This joins T008/T035 as a blocking US1 gate before US2.
+
+**Current manual gate**: T008, T035 and T050 remain pending; US2 implementation is blocked. This documentation update executes no manual tests and implements no later-story behavior.
 
 User scope: User Story 1 and Material icons only, after rollback of the previous implementation. T002–T006 are complete. T001 has a passing 48-test baseline and acceptance record, but browser execution is pending. T007 CSS is implemented; its browser checks and T008 visual walkthrough remain pending because no browser is connected. US2–US5 remain unimplemented and unchecked. See [acceptance.md](acceptance.md) for the local checks and exact remaining validation.

@@ -60,3 +60,17 @@ local SVG assets only, no packages or new external runtime requests.
 
 `.specify/extensions.yml` contains `hooks: {}`; no pre/post hooks to dispatch.
 Task markers record only evidenced completion; visual acceptance remains open.
+
+## Count formatting and direct Moneybot amendment (2026-09-19)
+
+Implemented comma-grouped summary counts in both ready and page-render paths without alignment changes. Browser harness now covers 0, 999, 1,000, 2,963 and 1,234,567 and unchanged alignment; browser execution and manual T050 remain pending.
+
+Standalone exporter now prompts for an optional masked password and clearly states that blank saves plaintext JSON. Cancel saves nothing; nonempty input uses the existing encrypted envelope. Extension entry guard and extension modules remain unchanged. No extension was rebuilt or installed.
+
+Automated evidence using bundled Moneydance Java/Jython (synthetic data, not actual source-runtime acceptance):
+- `tests/runtime/encryption_test.py`: 6 passed, including independent vectors for both encryption helpers, ciphertext round-trip, plaintext save, failure preservation, and mocked modal blank/cancel/whitespace cases on the Swing EDT.
+- `tests/runtime/export_deadline_test.py`: 5 passed.
+- `tests/runtime/delivery_test.py`: 7 passed, including the real builder/encryption pipeline and prior-ciphertext preservation.
+- `node --test tests/unit/encryption-vectors.test.mjs tests/unit/encrypted-viewer.test.mjs`: 9 passed.
+
+Actual Moneybot dialogs/source comparison, visual count acceptance and rebuilt installed-extension behavior remain unverified. M003–M005 in feature 002 and T050 in feature 003 remain unchecked. No later browsing story was implemented. No full-suite pass is claimed; the pre-existing edited test-snapshot fixture mismatch remains outside this change.

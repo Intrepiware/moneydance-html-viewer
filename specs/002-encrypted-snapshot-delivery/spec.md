@@ -7,6 +7,14 @@
 
 ## User Scenarios & Testing _(mandatory)_
 
+### Direct Moneybot export amendment (2026-09-19)
+
+Running repository-root `export_json.py` directly in Moneydance's Moneybot console prompts for an optional masked encryption password. The modal explicitly states that leaving it blank saves unencrypted plaintext JSON. Cancel/close aborts without creating or replacing a file. Whitespace-only input is rejected rather than silently selecting plaintext; nonempty passwords are used exactly as entered and are not persisted or logged.
+
+Blank input defaults to `snapshot.json`; a supplied password defaults to `snapshot.enc` and saves the existing viewer-compatible envelope v1. Encryption failure must never fall back to plaintext. Both formats retain atomic replacement and preserve the last good file on failure. The script remains a standalone Jython 2.7 file using bundled JVM APIs.
+
+This amendment is explicitly requested maintenance of direct export, not implementation of browsing US2–US5. The installed extension continues loading the exporter with `_EXPORT_LIBRARY_ONLY=True`: no password/save prompt, no plaintext option, and unchanged configured encryption/publication, including after rebuilding/reinstalling.
+
 ### User Story 1 - Install and configure once (Priority: P1)
 
 As the sole user, I want an installed Moneydance extension whose settings and availability survive restarting Moneydance, so I do not have to load a script each session.

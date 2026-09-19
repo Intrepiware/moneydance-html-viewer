@@ -97,6 +97,13 @@ export async function run(report) {
       doc.querySelector('#clear-search').click();
       assert(search.value==='','clear search works');
       assert(!win.performance.getEntriesByType('resource').some(r=>/font-awesome/i.test(r.name)),'no Font Awesome requests');
+      await waitFor(()=>doc.querySelector('#total-transactions').textContent!=='—','cleared search completes');
+      const countAlignment=win.getComputedStyle(doc.querySelector('#total-transactions')).textAlign;
+      for(const [totalMatches,expected] of [[0,'0'],[999,'999'],[1000,'1,000'],[2963,'2,963'],[1234567,'1,234,567']]) {
+        app.renderPage({page:1,pageSize:100,totalMatches,rows:[],future:{count:0,amountCents:0}});
+        assert(doc.querySelector('#total-transactions').textContent===expected,'summary count grouping');
+        assert(win.getComputedStyle(doc.querySelector('#total-transactions')).textAlign===countAlignment,'count alignment unchanged');
+      }
       report(`PASS US1 ${width}px: both themes, columns, money, icons and controls`);
     } finally {app?.dispose();frame.remove();}
   }
