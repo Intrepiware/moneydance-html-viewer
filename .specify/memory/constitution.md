@@ -1,16 +1,15 @@
 <!--
 Sync Impact Report
-Version: 1.0.0 → 1.1.0 (expanded scope discipline and dependency governance)
-Principles modified:
-- IV. Simple, Purposeful User Experience: explicit minimum-scope and maintainability rule
-Principles added:
-- VI. Restrained, Trusted Dependencies
+Version: 1.1.0 → 1.2.0 (manual acceptance gates between user stories)
+Principles modified/added: none
+Sections modified: Development and Review — Manual Testing Gate
 Sections removed: none
 Deferred placeholders: none
-Follow-up: Existing feature documents describe the constitution as a placeholder.
-Re-evaluate their constitution checks, dependency choices, and scope against this version during the next planning/review
-step. Templates and feature artifacts were not modified by this command.
+Dependent artifacts reconciled: .specify/templates/tasks-template.md and
+specs/003-enhance-transaction-browsing/tasks.md (manual steps and sequential gates).
+No manual/source/device checks were executed by this documentation update.
 -->
+
 # Moneydance Personal Viewer Constitution
 
 ## Core Principles
@@ -128,6 +127,13 @@ Detailed design remains revisable. Keeping a document internally consistent does
 retaining unnecessary complexity. When actual evidence contradicts a design assumption,
 record the finding and revise the approach while preserving confirmed requirements.
 
+### Rule: Manual Testing Gate
+
+1. **Mandatory Inclusion in tasks.md:** Every user story MUST include at least one explicit manual testing task under its execution tasks, or an explicit story-level exception with justification in `tasks.md`. Cover the main happy path, relevant failure paths and material edge cases, minimizing repetition. A flow may be omitted when setup is impractical; record the specific obstacle, uncovered behavior and alternative evidence (or remaining gap). Non-obvious but feasible setups MUST have detailed, reproducible instructions. Unavailable equipment or an unrun required test remains pending, not an implicit exception.
+2. **Task Formatting:** Manual testing tasks MUST use `- [ ] [Manual Test] <description>`; task IDs and story labels may follow the tag. Specify actions and expected results, with setup instructions included or linked.
+3. **Completion Evidence:** Mark a manual task `[x]` only after a person executes its steps and the expected results pass. Record tester, date, environment, observed results and defects/retest evidence in the feature's acceptance record. Automated passes alone do not complete manual tasks. Failed or unrun steps remain unchecked.
+4. **Sequential Blocking Gate:** Follow the user-story order in `tasks.md`. Implementation of the next story MUST NOT begin until all `[Manual Test]` tasks for every preceding story are complete (`[x]`). This includes the next story's implementation tests and fixtures. Documentation/planning for later stories and fixes/retests within the current story may continue. Justified omissions remain visible at the checkpoint and are not reported as passed tests.
+
 ## Governance
 
 This is the first adopted constitution; the previous file was an unfilled template. Explicit
@@ -145,4 +151,4 @@ conflicts. Template examples are not project rules. Constitution updates do not 
 implement features or authorize deployment. Dependent documents MUST be reviewed when an
 amendment affects them, without rewriting unrelated templates or source files as a side effect.
 
-**Version**: 1.1.0 | **Ratified**: 2026-09-06 | **Last Amended**: 2026-09-06
+**Version**: 1.2.0 | **Ratified**: 2026-09-06 | **Last Amended**: 2026-09-19
