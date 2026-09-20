@@ -55,6 +55,7 @@ export function createRegisterQuery(model, effectiveDate) {
       rows.push({ id: entry.id, transactionId: entry.transactionId, accountId: entry.accountId,
         accountName: model.accountsById.get(entry.accountId).name,
         date: entry.date, description: entry.description, memo: entry.memo, checkNum: entry.checkNum,
+        tags: entry.tags.slice(),
         category: entry.allocations.length === 0 ? 'Uncategorized' : entry.allocations.length === 1 ? entry.allocations[0].name : 'Split',
         categoryTitle: entry.allocations.length === 0 ? 'Uncategorized' : entry.allocations.length === 1 ? categoryTitle(entry.allocations[0]) : 'Split',
         amountCents: entry.amountCents, runningBalanceCents: entry.runningBalanceCents });

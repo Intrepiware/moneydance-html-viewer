@@ -96,6 +96,25 @@ def memo(txn):
     return text(txn.getDescription())
 
 
+def entry_tags(txn, parent, deadline=None):
+    """Parent rows include split tags; split rows exclude sibling tags."""
+    def tag_nodes():
+        yield parent
+        if text(txn.getUUID()) != text(parent.getUUID()):
+            yield txn
+        else:
+            for index in range(txn.getOtherTxnCount()):
+                check_deadline(deadline)
+                yield txn.getOtherTxn(index)
+    tags = set()
+    for node in tag_nodes():
+        check_deadline(deadline)
+        for tag in (node.getKeywords() or []):
+            check_deadline(deadline)
+            tags.add(text(tag))
+    return sorted(tags)
+
+
 def capture(book, deadline=None):
     """Copy relevant source data to Python values; never retain mutable Java nodes."""
     check_deadline(deadline)
@@ -165,7 +184,7 @@ def capture(book, deadline=None):
                                     'name': text(other.getAccount().getAccountName()),
                                     'memo': memo(txn) if split else memo(other),
                                     'amountCents': None})
-            tags = sorted(set(text(t) for node in (parent, txn) for t in (node.getKeywords() or [])))
+            tags = entry_tags(txn, parent, deadline)
             record['rows'].append({'id': eid, 'transactionId': text(parent.getUUID()),
                                    'accountId': aid, 'date': date_text(txn.getDateInt()),
                                    'registerOrder': order, 'raw': long(txn.getValue()),

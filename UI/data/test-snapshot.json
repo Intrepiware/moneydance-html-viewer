@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "balanceStartDate": "2026-09-19",
   "sourceVersion": "Moneydance build 5253",
-  "exportDate": "2026-09-20T04:10:27.131000Z",
+  "exportDate": "2026-09-20T13:58:11.259000Z",
   "entries": [
     {
       "date": "2026-09-01",
@@ -168,7 +168,7 @@
       "date": "2026-09-09",
       "clearedStatus": "UNCLEARED",
       "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 3***",
+      "description": "Online Purchase",
       "memo": "",
       "transactionId": "5d2c8997-673c-405b-acca-6a50c3a23404",
       "registerOrder": 5,
@@ -177,10 +177,10 @@
       "amountCents": -1200,
       "allocations": [
         {
-          "memo": "***NEW TRANSACTION TEST 3***",
-          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "memo": "Online Purchase",
+          "accountId": "3503b121-58fe-4fa0-b2b6-39451c3b5f8b",
           "amountCents": null,
-          "name": "ATM Withdrawal"
+          "name": "Furnishing"
         }
       ],
       "runningBalanceCents": 17800,
@@ -190,199 +190,45 @@
       "date": "2026-09-09",
       "clearedStatus": "UNCLEARED",
       "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 10***",
-      "memo": "",
-      "transactionId": "a53b4e0c-3d45-4676-9f57-624335261ece",
-      "registerOrder": 6,
-      "tags": [],
-      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-      "amountCents": -5,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 10***",
-          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-          "amountCents": null,
-          "name": "ATM Withdrawal"
-        }
-      ],
-      "runningBalanceCents": 17795,
-      "id": "a53b4e0c-3d45-4676-9f57-624335261ece"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 5***",
-      "memo": "",
-      "transactionId": "bfd2786a-3df3-4bb1-825b-87ffa9ee41f6",
-      "registerOrder": 7,
-      "tags": [],
-      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-      "amountCents": -1400,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 5***",
-          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-          "amountCents": null,
-          "name": "ATM Withdrawal"
-        }
-      ],
-      "runningBalanceCents": 16395,
-      "id": "bfd2786a-3df3-4bb1-825b-87ffa9ee41f6"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 2***",
+      "description": "Department Store",
       "memo": "",
       "transactionId": "7ce65c3a-e8da-4fd0-a798-221ae94cecac",
-      "registerOrder": 8,
+      "registerOrder": 6,
       "tags": [],
       "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
       "amountCents": -1100,
       "allocations": [
         {
-          "memo": "***NEW TRANSACTION TEST 2***",
-          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "memo": "Department Store",
+          "accountId": "88adf9bb-e3db-4c83-9e32-7dbd38ae688b",
           "amountCents": null,
-          "name": "ATM Withdrawal"
+          "name": "Misc"
         }
       ],
-      "runningBalanceCents": 15295,
+      "runningBalanceCents": 16700,
       "id": "7ce65c3a-e8da-4fd0-a798-221ae94cecac"
     },
     {
       "date": "2026-09-09",
       "clearedStatus": "UNCLEARED",
       "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 1***",
+      "description": "Gas Station",
       "memo": "",
       "transactionId": "e242f857-e9f8-4336-b6b9-88c3b3c2145f",
-      "registerOrder": 9,
+      "registerOrder": 7,
       "tags": [],
       "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
       "amountCents": -1000,
       "allocations": [
         {
-          "memo": "***NEW TRANSACTION TEST 1***",
-          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "memo": "Gas Station",
+          "accountId": "3e20a90b-5ccf-4304-983e-36684dae48ec",
           "amountCents": null,
-          "name": "ATM Withdrawal"
+          "name": "Fuel"
         }
       ],
-      "runningBalanceCents": 14295,
+      "runningBalanceCents": 15700,
       "id": "e242f857-e9f8-4336-b6b9-88c3b3c2145f"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 8***",
-      "memo": "",
-      "transactionId": "c4054abb-ab55-49a8-8482-b7a7bfe5a024",
-      "registerOrder": 10,
-      "tags": [],
-      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-      "amountCents": -3,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 8***",
-          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-          "amountCents": null,
-          "name": "ATM Withdrawal"
-        }
-      ],
-      "runningBalanceCents": 14292,
-      "id": "c4054abb-ab55-49a8-8482-b7a7bfe5a024"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "**NEW TRANSACTION TEST 7***",
-      "memo": "",
-      "transactionId": "f21a087c-0727-4011-a120-8dfb1d260034",
-      "registerOrder": 11,
-      "tags": [],
-      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-      "amountCents": -2,
-      "allocations": [
-        {
-          "memo": "**NEW TRANSACTION TEST 7***",
-          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-          "amountCents": null,
-          "name": "ATM Withdrawal"
-        }
-      ],
-      "runningBalanceCents": 14290,
-      "id": "f21a087c-0727-4011-a120-8dfb1d260034"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "**NEW TRANSACTION TEST 6***",
-      "memo": "",
-      "transactionId": "0a577bf0-be36-4389-b01d-4fd7847d1947",
-      "registerOrder": 12,
-      "tags": [],
-      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-      "amountCents": -1,
-      "allocations": [
-        {
-          "memo": "**NEW TRANSACTION TEST 6***",
-          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-          "amountCents": null,
-          "name": "ATM Withdrawal"
-        }
-      ],
-      "runningBalanceCents": 14289,
-      "id": "0a577bf0-be36-4389-b01d-4fd7847d1947"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 9***",
-      "memo": "",
-      "transactionId": "9c813d37-b96b-4f1d-bea7-bac179cd9ebe",
-      "registerOrder": 13,
-      "tags": [],
-      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-      "amountCents": -4,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 9***",
-          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-          "amountCents": null,
-          "name": "ATM Withdrawal"
-        }
-      ],
-      "runningBalanceCents": 14285,
-      "id": "9c813d37-b96b-4f1d-bea7-bac179cd9ebe"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 4***",
-      "memo": "",
-      "transactionId": "ce8ed596-8091-4222-a4f0-1c97399c0459",
-      "registerOrder": 14,
-      "tags": [],
-      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-      "amountCents": -1300,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 4***",
-          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-          "amountCents": null,
-          "name": "ATM Withdrawal"
-        }
-      ],
-      "runningBalanceCents": 12985,
-      "id": "ce8ed596-8091-4222-a4f0-1c97399c0459"
     },
     {
       "date": "2036-09-08",
@@ -391,7 +237,7 @@
       "description": "McDonald's",
       "memo": "",
       "transactionId": "1b897164-eb3f-4d0c-a64e-318e8cc88dd0",
-      "registerOrder": 15,
+      "registerOrder": 8,
       "tags": [],
       "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
       "amountCents": -1500,
@@ -403,30 +249,8 @@
           "name": "Dining"
         }
       ],
-      "runningBalanceCents": 11485,
+      "runningBalanceCents": 14200,
       "id": "1b897164-eb3f-4d0c-a64e-318e8cc88dd0"
-    },
-    {
-      "date": "2026-09-11",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "Deposit",
-      "memo": "",
-      "transactionId": "1c3a5a3c-fa08-437c-a4a5-35186f982c7a",
-      "registerOrder": 0,
-      "tags": [],
-      "accountId": "bcfa9bdb-b78d-495d-8564-829a929e7dc2",
-      "amountCents": 1000,
-      "allocations": [
-        {
-          "memo": "Deposit",
-          "accountId": "2109b947-e998-4a5e-97d1-c94def78b718",
-          "amountCents": null,
-          "name": "Other Income"
-        }
-      ],
-      "runningBalanceCents": 1000,
-      "id": "1c3a5a3c-fa08-437c-a4a5-35186f982c7a"
     },
     {
       "date": "2026-09-02",
@@ -561,226 +385,6 @@
       "id": "ad7406b1-4409-4a54-ac3f-0a76ef3a28e5"
     },
     {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 1***",
-      "memo": "",
-      "transactionId": "e242f857-e9f8-4336-b6b9-88c3b3c2145f",
-      "registerOrder": 1,
-      "tags": [],
-      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-      "amountCents": 1000,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 1***",
-          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-          "amountCents": null,
-          "name": "Misc Spending Budget"
-        }
-      ],
-      "runningBalanceCents": 500,
-      "id": "9bed69e1-bbb9-42a8-86e3-a6318e0c5951"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 10***",
-      "memo": "",
-      "transactionId": "a53b4e0c-3d45-4676-9f57-624335261ece",
-      "registerOrder": 2,
-      "tags": [],
-      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-      "amountCents": 5,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 10***",
-          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-          "amountCents": null,
-          "name": "Misc Spending Budget"
-        }
-      ],
-      "runningBalanceCents": 505,
-      "id": "6be6c310-5585-4667-b7cf-a84b843fc2e3"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 4***",
-      "memo": "",
-      "transactionId": "ce8ed596-8091-4222-a4f0-1c97399c0459",
-      "registerOrder": 3,
-      "tags": [],
-      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-      "amountCents": 1300,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 4***",
-          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-          "amountCents": null,
-          "name": "Misc Spending Budget"
-        }
-      ],
-      "runningBalanceCents": 1805,
-      "id": "d802f510-1ae6-48f1-8c08-3c0401ead391"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 9***",
-      "memo": "",
-      "transactionId": "9c813d37-b96b-4f1d-bea7-bac179cd9ebe",
-      "registerOrder": 4,
-      "tags": [],
-      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-      "amountCents": 4,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 9***",
-          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-          "amountCents": null,
-          "name": "Misc Spending Budget"
-        }
-      ],
-      "runningBalanceCents": 1809,
-      "id": "749ac949-a5df-429f-9b33-6f19f1405857"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 2***",
-      "memo": "",
-      "transactionId": "7ce65c3a-e8da-4fd0-a798-221ae94cecac",
-      "registerOrder": 5,
-      "tags": [],
-      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-      "amountCents": 1100,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 2***",
-          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-          "amountCents": null,
-          "name": "Misc Spending Budget"
-        }
-      ],
-      "runningBalanceCents": 2909,
-      "id": "9f8eb428-2d4c-44e3-8228-c1e8592aa35e"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 8***",
-      "memo": "",
-      "transactionId": "c4054abb-ab55-49a8-8482-b7a7bfe5a024",
-      "registerOrder": 6,
-      "tags": [],
-      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-      "amountCents": 3,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 8***",
-          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-          "amountCents": null,
-          "name": "Misc Spending Budget"
-        }
-      ],
-      "runningBalanceCents": 2912,
-      "id": "46be2ed2-f38e-407d-ad0e-65406123b44c"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 5***",
-      "memo": "",
-      "transactionId": "bfd2786a-3df3-4bb1-825b-87ffa9ee41f6",
-      "registerOrder": 7,
-      "tags": [],
-      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-      "amountCents": 1400,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 5***",
-          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-          "amountCents": null,
-          "name": "Misc Spending Budget"
-        }
-      ],
-      "runningBalanceCents": 4312,
-      "id": "a42c69af-9cd6-4a5f-886d-6790a723fdd2"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "**NEW TRANSACTION TEST 7***",
-      "memo": "",
-      "transactionId": "f21a087c-0727-4011-a120-8dfb1d260034",
-      "registerOrder": 8,
-      "tags": [],
-      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-      "amountCents": 2,
-      "allocations": [
-        {
-          "memo": "**NEW TRANSACTION TEST 7***",
-          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-          "amountCents": null,
-          "name": "Misc Spending Budget"
-        }
-      ],
-      "runningBalanceCents": 4314,
-      "id": "069f51ea-6f59-48c9-b57e-aa34c3664d20"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "***NEW TRANSACTION TEST 3***",
-      "memo": "",
-      "transactionId": "5d2c8997-673c-405b-acca-6a50c3a23404",
-      "registerOrder": 9,
-      "tags": [],
-      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-      "amountCents": 1200,
-      "allocations": [
-        {
-          "memo": "***NEW TRANSACTION TEST 3***",
-          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-          "amountCents": null,
-          "name": "Misc Spending Budget"
-        }
-      ],
-      "runningBalanceCents": 5514,
-      "id": "e43d1c9f-22da-4ddf-8347-eccd99f34be6"
-    },
-    {
-      "date": "2026-09-09",
-      "clearedStatus": "UNCLEARED",
-      "checkNum": "",
-      "description": "**NEW TRANSACTION TEST 6***",
-      "memo": "",
-      "transactionId": "0a577bf0-be36-4389-b01d-4fd7847d1947",
-      "registerOrder": 10,
-      "tags": [],
-      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
-      "amountCents": 1,
-      "allocations": [
-        {
-          "memo": "**NEW TRANSACTION TEST 6***",
-          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
-          "amountCents": null,
-          "name": "Misc Spending Budget"
-        }
-      ],
-      "runningBalanceCents": 5515,
-      "id": "ccf1888a-5171-43c5-bf42-dbdb39fec1a4"
-    },
-    {
       "date": "2026-09-06",
       "clearedStatus": "UNCLEARED",
       "checkNum": "",
@@ -801,6 +405,50 @@
       ],
       "runningBalanceCents": 200,
       "id": "2617496c-d259-432a-a725-64e787bb9215"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Gas Station",
+      "memo": "",
+      "transactionId": "e242f857-e9f8-4336-b6b9-88c3b3c2145f",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "3e20a90b-5ccf-4304-983e-36684dae48ec",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "memo": "Gas Station",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 1000,
+      "id": "9bed69e1-bbb9-42a8-86e3-a6318e0c5951"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Online Purchase",
+      "memo": "",
+      "transactionId": "5d2c8997-673c-405b-acca-6a50c3a23404",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "3503b121-58fe-4fa0-b2b6-39451c3b5f8b",
+      "amountCents": 1200,
+      "allocations": [
+        {
+          "memo": "Online Purchase",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 1200,
+      "id": "e43d1c9f-22da-4ddf-8347-eccd99f34be6"
     },
     {
       "date": "2026-09-06",
@@ -869,26 +517,26 @@
       "id": "8c3d6f25-9f6c-4943-95d9-a659795e786a"
     },
     {
-      "date": "2026-09-11",
+      "date": "2026-09-09",
       "clearedStatus": "UNCLEARED",
       "checkNum": "",
-      "description": "Deposit",
+      "description": "Department Store",
       "memo": "",
-      "transactionId": "1c3a5a3c-fa08-437c-a4a5-35186f982c7a",
+      "transactionId": "7ce65c3a-e8da-4fd0-a798-221ae94cecac",
       "registerOrder": 0,
-      "tags": [],
-      "accountId": "2109b947-e998-4a5e-97d1-c94def78b718",
-      "amountCents": 1000,
+      "tags": ["Christmas 2026", "Gift"],
+      "accountId": "88adf9bb-e3db-4c83-9e32-7dbd38ae688b",
+      "amountCents": 1100,
       "allocations": [
         {
-          "memo": "Deposit",
-          "accountId": "bcfa9bdb-b78d-495d-8564-829a929e7dc2",
+          "memo": "Department Store",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
           "amountCents": null,
-          "name": "Dummy Account"
+          "name": "Misc Spending Budget"
         }
       ],
-      "runningBalanceCents": 1000,
-      "id": "2a11c5c8-e1e3-4536-b12e-d1872e66468b"
+      "runningBalanceCents": 1100,
+      "id": "9f8eb428-2d4c-44e3-8228-c1e8592aa35e"
     },
     {
       "date": "2026-09-02",
@@ -947,12 +595,12 @@
           "points": [
             {
               "date": "2026-09-19",
-              "sidebarBalanceCents": 302985,
+              "sidebarBalanceCents": 305700,
               "ownBalanceCents": 290000
             },
             {
               "date": "2036-09-08",
-              "sidebarBalanceCents": 301485,
+              "sidebarBalanceCents": 304200,
               "ownBalanceCents": 290000
             }
           ]
@@ -967,17 +615,17 @@
               "points": [
                 {
                   "date": "2026-09-19",
-                  "sidebarBalanceCents": 12985,
-                  "ownBalanceCents": 12985
+                  "sidebarBalanceCents": 15700,
+                  "ownBalanceCents": 15700
                 },
                 {
                   "date": "2036-09-08",
-                  "sidebarBalanceCents": 11485,
-                  "ownBalanceCents": 11485
+                  "sidebarBalanceCents": 14200,
+                  "ownBalanceCents": 14200
                 }
               ]
             },
-            "closingBalanceCents": 11485,
+            "closingBalanceCents": 14200,
             "type": "BANK",
             "openingBalanceCents": 0,
             "inactive": false,
@@ -991,26 +639,6 @@
         "name": "Checking",
         "currency": "USD",
         "id": "451b4ed0-da63-48fa-943a-05ddc2777b51",
-        "included": true
-      },
-      {
-        "balanceTimeline": {
-          "points": [
-            {
-              "date": "2026-09-19",
-              "sidebarBalanceCents": 1000,
-              "ownBalanceCents": 1000
-            }
-          ]
-        },
-        "closingBalanceCents": 1000,
-        "type": "BANK",
-        "openingBalanceCents": 0,
-        "inactive": false,
-        "children": [],
-        "name": "Dummy Account",
-        "currency": "USD",
-        "id": "bcfa9bdb-b78d-495d-8564-829a929e7dc2",
         "included": true
       },
       {
@@ -1144,12 +772,12 @@
           "points": [
             {
               "date": "2026-09-19",
-              "sidebarBalanceCents": 5515,
-              "ownBalanceCents": 5515
+              "sidebarBalanceCents": -500,
+              "ownBalanceCents": -500
             }
           ]
         },
-        "closingBalanceCents": 5515,
+        "closingBalanceCents": -500,
         "type": "EXPENSE",
         "openingBalanceCents": 0,
         "inactive": false,
@@ -1205,7 +833,7 @@
           "points": [
             {
               "date": "2026-09-19",
-              "sidebarBalanceCents": 200,
+              "sidebarBalanceCents": 1200,
               "ownBalanceCents": 200
             }
           ]
@@ -1220,12 +848,12 @@
               "points": [
                 {
                   "date": "2026-09-19",
-                  "sidebarBalanceCents": 0,
-                  "ownBalanceCents": 0
+                  "sidebarBalanceCents": 1000,
+                  "ownBalanceCents": 1000
                 }
               ]
             },
-            "closingBalanceCents": 0,
+            "closingBalanceCents": 1000,
             "type": "EXPENSE",
             "openingBalanceCents": 0,
             "inactive": false,
@@ -1831,7 +1459,7 @@
           "points": [
             {
               "date": "2026-09-19",
-              "sidebarBalanceCents": 0,
+              "sidebarBalanceCents": 1200,
               "ownBalanceCents": 0
             }
           ]
@@ -1846,12 +1474,12 @@
               "points": [
                 {
                   "date": "2026-09-19",
-                  "sidebarBalanceCents": 0,
-                  "ownBalanceCents": 0
+                  "sidebarBalanceCents": 1200,
+                  "ownBalanceCents": 1200
                 }
               ]
             },
-            "closingBalanceCents": 0,
+            "closingBalanceCents": 1200,
             "type": "EXPENSE",
             "openingBalanceCents": 0,
             "inactive": false,
@@ -2155,12 +1783,12 @@
           "points": [
             {
               "date": "2026-09-19",
-              "sidebarBalanceCents": 1300,
+              "sidebarBalanceCents": 2400,
               "ownBalanceCents": 0
             },
             {
               "date": "2036-09-08",
-              "sidebarBalanceCents": 2800,
+              "sidebarBalanceCents": 3900,
               "ownBalanceCents": 0
             }
           ]
@@ -2340,12 +1968,12 @@
               "points": [
                 {
                   "date": "2026-09-19",
-                  "sidebarBalanceCents": 0,
-                  "ownBalanceCents": 0
+                  "sidebarBalanceCents": 1100,
+                  "ownBalanceCents": 1100
                 }
               ]
             },
-            "closingBalanceCents": 0,
+            "closingBalanceCents": 1100,
             "type": "EXPENSE",
             "openingBalanceCents": 0,
             "inactive": false,
@@ -2950,12 +2578,12 @@
           "points": [
             {
               "date": "2026-09-19",
-              "sidebarBalanceCents": 1000,
-              "ownBalanceCents": 1000
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
             }
           ]
         },
-        "closingBalanceCents": 1000,
+        "closingBalanceCents": 0,
         "type": "INCOME",
         "openingBalanceCents": 0,
         "inactive": false,

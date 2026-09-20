@@ -1,4 +1,142 @@
-# US1 implementation and acceptance
+# Transaction browsing implementation and acceptance
+
+## US2 source-tag defect and correction (2026-09-20)
+
+After successful UI acceptance, the user reported a real transaction with a tag stored under split `0.tags` in Moneydance Raw Details, but an empty exported parent-row tags array. Inspection of `export_json.py` found that tag collection used `(parent, txn)`; for a parent row these are the same transaction, so child-split tags were skipped. This occurs before encryption. The raw excerpt supplied in chat was sufficient; the user's large export was not read, and no private transaction values or IDs were copied into tests or documentation.
+
+Corrected capture to collect distinct parent plus child-split tags for parent rows, while split rows retain parent plus selected-split tags only. Output remains sorted, literal and deduplicated. Deadline checks cover traversal. Moneydance's [AbstractTxn API](https://infinitekind.com/dev/apidoc/com/infinitekind/moneydance/model/AbstractTxn.html) documents that a parent's other transactions are its splits, while a split's other transaction is its parent. No balances, amounts, encryption or UI rendering behavior changed. Direct execution uses the corrected source immediately; an installed extension needs a later rebuild/reinstall to receive it.
+
+Validation: `tests/runtime/export_tags_test.py` (5), `tests/runtime/export_deadline_test.py` (5) and `tests/runtime/delivery_test.py` (7) all passed with the bundled Moneydance Java/Jython runtime. The tag cases use synthetic source doubles to cover split-only tags, parent/split scope, duplicate handling, Unicode/literal text, unchanged source tag lists, wrapper identity and cancellation. These tests supplement but do not establish actual Account Book acceptance. `git diff --check` passed.
+
+T052 is complete; T053 actual-Moneydance verification remains pending. The detailed procedure is in `quickstart.md` under “T053 — Source correction for split-stored tags.” Prior T036/T037 UI acceptance remains valid; the new source defect reopens US2's gate until T053 passes. US3 has not started.
+
+### T053 user verification — pending
+
+- Date and Moneydance version:
+- Reported transaction after fresh plaintext/encrypted direct exports:
+- Synthetic split-only, sibling-isolation and duplicate cases:
+- Unchanged source records, amounts and running balances:
+- Pass/fail and any defects:
+
+## US2 implementation and completed acceptance (2026-09-20)
+
+The user invoked speckit-implement after completing the US1 gate. US2 now copies exported tags into page rows and displays escaped wrapping badges beneath description/memo/check details with a Tags label. Empty tag arrays render no container. Search fields, financial amounts/balances, exporter, extension and schema remain unchanged. No US3–US5 implementation was started.
+
+T009–T011 and manual tasks T036–T037 are complete. The user supplied full harness passes on desktop and Pixel 8, including all four US2 widths, and detailed manual results with no defects observed. The US2 manual gate is satisfied. No pre/post implementation hooks are registered (`hooks: {}`). The requirements checklist remains read-only, with all 16 items checked.
+
+Evidence:
+
+- New tag projection/search tests failed before implementation because rows omitted tags, then passed after implementation. All 12 focused register/search tests passed, covering exact tag order/text, paging, source immutability, unchanged money and tag-only nonmatching.
+- Full `npm test`: **50/51 passed**. The only failure is the previously documented `synthetic budget fixture preserves the requested financial scenario` comparison of the locally customized `UI/data/test-snapshot.json` with the canonical synthetic fixture. Neither data file was overwritten. Existing TLS listener warnings also occurred. No full-suite pass is claimed.
+- New `tests/fixtures/tags-v1.json` validates: 4 accounts, 105 entries. Independent financial reference: $200 opening balance minus 105 × $1 produces $95 closing balance; each displayed row retains its original running balance. No source-Moneydance validation claim is made for this constructed fixture.
+- An ephemeral local server served the manual preview and browser modules successfully; its dedicated tag JSON route loaded and validated all 105 entries and the $95 closing balance. Server regression tests also verify the explicit fixture route without opening the fixture directory generally.
+- Browser module syntax checks and `git diff --check` passed during implementation. No browser was connected for agent execution; the user subsequently ran the complete harness successfully on desktop and Pixel 8, as recorded below. These user-executed results supersede the earlier pending browser status.
+
+Manual setup and exact cases are documented in [quickstart.md](quickstart.md#transaction-tags--us2-manual-acceptance). Restart `npm run serve`, run `/tests/browser/`, then inspect `/tests/browser/tags.html` at the required widths/in both themes and on Pixel 8. The preview uses a fixed synthetic fixture and does not change application configuration or demo data.
+
+Constitution review: monetary/reference tests preserve financial fidelity; no exporter/runtime changes; synthetic-only shared fixtures and no private diagnostic output; existing templates/query flow retained; automated and unrun browser/device evidence distinguished; no new dependencies.
+
+Acceptance review: the reported environments are Brave 1.95.104 desktop at 1920 × 917 and Brave 1.95.102 on Pixel 8 at 411 × 760, both tested on 2026-09-20. Manual tag cases, source-reference amounts/balances, search exclusion, paging and account changes passed. The harness additionally covers 1280/1440/360/412px. This completes US2 acceptance without claiming later-story full-history performance or a fresh full Node-suite pass. No application changes or further test runs were needed for this review; US3 has not started.
+
+### US2 Test Harness results (desktop):
+
+http://127.0.0.1:8080/tests/browser/:
+
+```
+Viewer acceptance tests
+Uses synthetic data only. Run with the local viewer server.
+
+Running…
+PASS real worker/client: exact test selection, missing real/test, invalid test, no fallback
+PASS real app DOM: missing link, test indicator, account selection, $1,045, no All Accounts total
+PASS hidden hierarchy DOM: active descendant accessible, excluded ancestor absent, source parent total
+PASS register fixture loaded
+PASS register DOM: paging, direct scope, future dates, categories, checks, memo, escaped text, mobile balance, stale replies
+PASS search DOM: descriptions/memos/allocations, descendant scope, clear, paging, future disclosure, rapid changes and balances
+Synthetic search timings including debounce (ms): 101, 114, 116, 115, 101, 103, 133, 104, 108, 116, 119, 119, 115, 118, 114, 117, 106, 113, 117, 118. Real-data Pixel 8 timing remains a separate check.
+PASS loading contracts: plaintext timestamps, empty/version/financial failure, invalid query, reload-only retry
+PASS loading DOM: empty/error states, export footer, stale content removal, actual worker failure, cross-origin rejection
+PASS lifecycle DOM: repeated persisted hide/show, account/search/paging, one fetch, fixed dates, final disposal
+PASS unlock DOM: actual Jython fixture, wrong-password one-fetch retry, submit-time value, cleared password, balances, persisted lifecycle
+PASS US1 1280px: both themes, columns, money, icons and controls
+PASS US1 1440px: both themes, columns, money, icons and controls
+PASS US1 360px: both themes, columns, money, icons and controls
+PASS US1 412px: both themes, columns, money, icons and controls
+PASS US2 1280px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 1440px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 360px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 412px: tags, escaping, wrapping, money, search and page/account changes
+ALL PASS
+```
+
+### US2 Test Harness results (Pixel 8):
+
+http://127.0.0.1:8080/tests/browser/:
+
+```
+Viewer acceptance tests
+Uses synthetic data only. Run with the local viewer server.
+
+Running…
+PASS real worker/client: exact test selection, missing real/test, invalid test, no fallback
+PASS real app DOM: missing link, test indicator, account selection, $1,045, no All Accounts total
+PASS hidden hierarchy DOM: active descendant accessible, excluded ancestor absent, source parent total
+PASS register fixture loaded
+PASS register DOM: paging, direct scope, future dates, categories, checks, memo, escaped text, mobile balance, stale replies
+PASS search DOM: descriptions/memos/allocations, descendant scope, clear, paging, future disclosure, rapid changes and balances
+Synthetic search timings including debounce (ms): 108, 106, 112, 116, 113, 109, 112, 112, 112, 109, 108, 112, 110, 111, 111, 110, 117, 111, 112, 111. Real-data Pixel 8 timing remains a separate check.
+PASS loading contracts: plaintext timestamps, empty/version/financial failure, invalid query, reload-only retry
+PASS loading DOM: empty/error states, export footer, stale content removal, actual worker failure, cross-origin rejection
+PASS lifecycle DOM: repeated persisted hide/show, account/search/paging, one fetch, fixed dates, final disposal
+PASS unlock DOM: actual Jython fixture, wrong-password one-fetch retry, submit-time value, cleared password, balances, persisted lifecycle
+PASS US1 1280px: both themes, columns, money, icons and controls
+PASS US1 1440px: both themes, columns, money, icons and controls
+PASS US1 360px: both themes, columns, money, icons and controls
+PASS US1 412px: both themes, columns, money, icons and controls
+PASS US2 1280px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 1440px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 360px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 412px: tags, escaping, wrapping, money, search and page/account changes
+ALL PASS
+```
+
+### US2 manual results — desktop
+
+- Tester/date/browser version/device or viewport: 20 Sep 2026, Brave 1.95.104 desktop, 1920 x 917
+- Browser harness result (including four PASS US2 lines): All pass, see above
+- T036 tags/literal text/layout: Inspected transactions created as per T036 and described in quickstart.md:
+  - Text readable on all lines
+  - No tags: displayed as expected
+  - One tag: transaction displays with single tag
+  - Many tags: all 10 tags displayed in exact specified order
+  - Long tag: wraps to next line
+  - Markup tag: rendered with literal markup/handlebars code (not translated to actual HTML or handlebars)
+- T037 search/paging/account changes:
+  - Markup tag: one search result, same three tags, amount -$1, running balance $99
+  - memo-103: rendered with tagonly-orchid tag, -$1 amount, balance $96, Check Num \#007
+  - Confirmed tagonly-orchid unsearchable
+  - Cleared search, results returned. Results paged as expected. Found later-page-tag transaction, -$1 amount, $199 balance. No tag leakage.
+  - Empty Savings account contains no transactions or orphaned tag displays. Selecting All Accounts shows tagged rows again. Selecting Tag Test Checking also displays tagged rows.
+- Defects and retest results: no defects observed
+
+### US2 manual results — mobile
+
+- Tester/date/browser version/device or viewport: 20 Sep 2026, Brave 1.95.102 Pixel 8, 411 x 760
+- Browser harness result (including four PASS US2 lines): All pass, see above
+- T036 tags/literal text/layout: Inspected transactions created as per T036 and described in quickstart.md:
+  - Text readable on all lines
+  - No tags: displayed as expected
+  - One tag: transaction displays with single tag
+  - Many tags: all 10 tags displayed in exact specified order
+  - Long tag: wraps to next line
+  - Markup tag: rendered with literal markup/handlebars code (not translated to actual HTML or handlebars)
+- T037 search/paging/account changes:
+  - Markup tag: one search result, same three tags, amount -$1, running balance $99
+  - memo-103: rendered with tagonly-orchid tag, -$1 amount, balance $96, Check Num \#007
+  - Confirmed tagonly-orchid unsearchable
+  - Cleared search, results returned. Results paged as expected. Found later-page-tag transaction, -$1 amount, $199 balance. No tag leakage.
+  - Empty Savings account contains no transactions or orphaned tag displays. Selecting All Accounts shows tagged rows again. Selecting Tag Test Checking also displays tagged rows.
+- Defects and retest results: no defects observed
 
 ## T001 harness failure and fixture isolation fix
 

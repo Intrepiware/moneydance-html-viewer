@@ -31,6 +31,8 @@ Build once on validated load. Excluded retained metadata may supply paths but ne
 
 Row DTO retains existing fields and adds tags as an array of strings. Rendering escapes every tag and allocation/path/memo value.
 
+Source-tag correction (2026-09-20): parent rows collect distinct tags from the parent and its child splits; split rows collect parent plus selected-split tags only. Preserve sorted output and do not import sibling-only tags into a split row. Snapshot version 1 and the tags array contract are unchanged.
+
 Details DTO contains selected account/entry identity, selected amount and ordered allocations with path, memo, nullable amount, amount availability and destination availability. Unavailable destination has a reason suitable for display, not a guessed row. Only transfer allocations to supported non-category account destinations offer transfer navigation; category details remain readable. Full source objects never enter errors or routine logs.
 
 ## Navigation target/result

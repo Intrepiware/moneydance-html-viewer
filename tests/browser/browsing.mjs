@@ -1,4 +1,4 @@
-// US1 only. Real controller/templates with synthetic register data.
+// US1 and US2. Real controller/templates with synthetic register data.
 import { App } from '/app.js';
 const assert = (value, message) => { if (!value) throw new Error(`US1: ${message}`); };
 async function waitFor(predicate, label) {
@@ -113,6 +113,84 @@ export async function run(report) {
         assert(win.getComputedStyle(doc.querySelector('#total-transactions')).textAlign===countAlignment,'count alignment unchanged');
       }
       report(`PASS US1 ${width}px: both themes, columns, money, icons and controls`);
+    } finally {app?.dispose();frame.remove();}
+  }
+  await runTags(report, markup);
+}
+
+async function runTags(report, markup) {
+  const check = (value, message) => { if (!value) throw new Error(`US2: ${message}`); };
+  for (const width of [1280,1440,360,412]) {
+    const frame=document.createElement('iframe');
+    frame.style.cssText=`width:${width}px;height:850px;border:0;display:block`;
+    frame.srcdoc=markup;
+    let app;
+    try {
+      await new Promise(resolve=>{frame.onload=resolve;document.querySelector('#view').append(frame);});
+      const doc=frame.contentDocument, win=frame.contentWindow;
+      app=new App({document:doc,handlebars:win.Handlebars,pageUrl:location.origin+'/?test=true',
+        config:{testSnapshotUrl:'/tests/browser/tags.json'}});
+      check((await app.start()).type==='ready','fixture loads');
+      app.selectAccount(app.nodes.get('tags-bank'));
+      const row=id=>doc.querySelector(`[data-entry-id="${id}"]`);
+      const tags=id=>[...row(id).querySelectorAll('.transaction-tag')].map(node=>node.textContent);
+      await waitFor(()=>row('tag-104'),'US2 first page');
+      const expectedMarkup=['<img src=x onerror="window.tagExecuted=true">','Quotes " & < >','{{notATemplate}}'];
+      for(const light of [true,false]) {
+        app.toggleTheme(light);
+        check(!row('tag-104').querySelector('.transaction-tags'),'empty array has no tag container');
+        check(JSON.stringify(tags('tag-103'))===JSON.stringify(['tagonly-orchid']),'single tag');
+        check(tags('tag-102').length===10,'all ten tags appear');
+        check(tags('tag-101')[0]==='LongTag'+'abcdefghij'.repeat(16),'long unbroken tag is complete');
+        check(JSON.stringify(tags('tag-100'))===JSON.stringify(expectedMarkup),'markup stays literal and ordered');
+        check(!row('tag-100').querySelector('.transaction-tags img, .transaction-tags script'),'no injected elements');
+        check(!win.tagExecuted,'no tag script executed');
+        check(row('tag-103').querySelector('.desc-main').textContent==='One tag','description retained');
+        check(row('tag-103').querySelector('.memo-text').textContent==='memo-103','memo retained');
+        check(row('tag-103').querySelector('.desc-extra .badge').textContent==='#007','check number retained');
+        for(const id of ['tag-104','tag-103','tag-102','tag-101','tag-100']) {
+          const current=row(id), money=current.querySelector('td.amount-col');
+          const moneyRect=money.getBoundingClientRect();
+          check(money.firstChild.textContent.trim()==='-$1.00','amount unchanged');
+          check(current.children[4].textContent==='$'+(19900-Number(id.slice(4))*100)/100+'.00','running balance unchanged');
+          check(moneyRect.right<=width+1 && moneyRect.width>=100,'money visible');
+          for(const tag of current.querySelectorAll('.transaction-tag')) {
+            const rect=tag.getBoundingClientRect();
+            check(tag.scrollWidth<=tag.clientWidth+1,'tag text does not overflow its badge');
+            check(rect.right<=moneyRect.left+1,'tags do not overlap money');
+            check(win.getComputedStyle(tag).whiteSpace!=='nowrap','tags can wrap');
+          }
+        }
+        const longTag=row('tag-101').querySelector('.transaction-tag');
+        check(longTag.getBoundingClientRect().height>25,'long tag wraps to multiple lines');
+        check(doc.documentElement.scrollWidth<=width+1,'no page-wide horizontal overflow');
+      }
+      const search=doc.querySelector('#search-input');
+      const searchFor=async(text,expected)=>{
+        search.value=text;search.dispatchEvent(new win.Event('input',{bubbles:true}));
+        await waitFor(()=>doc.querySelector('#total-transactions').textContent===String(expected) &&
+          doc.querySelector('#register-status').hidden,`US2 search ${text}`);
+      };
+      await searchFor('Markup tag',1);
+      check(JSON.stringify(tags('tag-100'))===JSON.stringify(expectedMarkup),'search displays escaped tags');
+      // Wait for a fresh page reply even when the previous search has the same count.
+      search.value='memo-103';search.dispatchEvent(new win.Event('input',{bubbles:true}));
+      await waitFor(()=>row('tag-103') && !row('tag-100'),'US2 memo search');
+      check(tags('tag-103')[0]==='tagonly-orchid','memo result retains tags');
+      await searchFor('tagonly-orchid',0);
+      check(!doc.querySelector('.transaction-tags'),'tag-only term does not match');
+      doc.querySelector('#clear-search').click();
+      await waitFor(()=>row('tag-104'),'US2 clear restores rows');
+      doc.querySelector('#next-page').click();
+      await waitFor(()=>row('tag-000'),'US2 later page');
+      check(JSON.stringify(tags('tag-000'))===JSON.stringify(['later-page-tag']),'later-page tag');
+      app.selectAccount(app.nodes.get('tags-empty'));
+      await waitFor(()=>!doc.querySelector('#no-results').classList.contains('hidden'),'US2 empty account');
+      check(!doc.querySelector('.transaction-tags'),'account change leaves no stale tags');
+      app.selectAccount(app.nodes.get(''));
+      await waitFor(()=>row('tag-103'),'US2 All Accounts');
+      check(tags('tag-103')[0]==='tagonly-orchid','All Accounts retains tags');
+      report(`PASS US2 ${width}px: tags, escaping, wrapping, money, search and page/account changes`);
     } finally {app?.dispose();frame.remove();}
   }
 }

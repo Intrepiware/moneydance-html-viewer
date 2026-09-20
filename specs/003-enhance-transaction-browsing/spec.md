@@ -10,6 +10,10 @@
 
 ## Clarifications
 
+### Session 2026-09-20 — split-stored tags
+
+- A real-book report showed tags stored on a split while the parent had none. Export parent-account rows with the distinct union of parent and all child-split tags. Export a split-account row with its own tags and any parent tags, excluding sibling-only tags. Preserve the existing sorted/deduplicated representation and literal tag text. This corrects source capture for US2; previously accepted tag-rendering tests remain valid but do not prove that all source tag locations were captured. Verify the correction in actual Moneydance before proceeding to US3.
+
 ### Session 2026-09-19
 
 - Category hover titles show the full colon-separated ancestry, excluding the root book name (for example `Personal:Dining:Dining Out`), in registers and search. Preserve short visible labels and existing overflow truncation. Split/uncategorized rows retain their respective labels; this does not introduce allocation details or category-path search.

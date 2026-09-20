@@ -246,6 +246,12 @@
               <span class="badge hide-desktop">{{category}}</span>
               {{#if memo}}<span class="memo-text">{{memo}}</span>{{/if}}
             </div>
+            {{#if tags.length}}
+              <div class="transaction-tags">
+                <span class="tag-label">Tags:</span>
+                {{#each tags}}<span class="badge transaction-tag">{{this}}</span>{{/each}}
+              </div>
+            {{/if}}
             {{#if ../isRoot}}
               <div class="transaction-account"><span class="mi mi-{{accountIcon}}" aria-hidden="true"></span> {{accountName}}</div>
             {{/if}}

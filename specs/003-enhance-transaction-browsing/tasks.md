@@ -49,14 +49,16 @@ Record tester/date, browser/version, viewport/device, fixture/case, expected and
 **Goal**: Show every exported tag as readable literal text in registers and search.
 **Independent test**: Zero, one, many, long and markup-like tags render correctly without empty placeholders or obscured money; tag-only text does not become searchable.
 
-- [ ] T009 [US2] Add tag projection and unchanged-matching expectations to `tests/unit/register.test.mjs` and `tests/unit/search.test.mjs`, and escaped/wrapping/empty-tag browser cases to `tests/browser/browsing.mjs`.
-- [ ] T010 [US2] Add existing entry tags to page row projections in `UI/src/query.mjs` without changing search fields, source entry data or balances.
-- [ ] T011 [US2] Render escaped tags in `UI/index.html` and style wrapping labels in `UI/styles.css`; verify registers/search at desktop and 360/412px and record results in `specs/003-enhance-transaction-browsing/acceptance.md`.
+- [X] T009 [US2] Add tag projection and unchanged-matching expectations to `tests/unit/register.test.mjs` and `tests/unit/search.test.mjs`, and escaped/wrapping/empty-tag browser cases to `tests/browser/browsing.mjs`. Added dedicated `tests/fixtures/tags-v1.json` and `/tests/browser/tags.html` manual preview; see the US2 setup and case table in `quickstart.md`. Node tests demonstrated missing-tag failures before implementation, then passed. User reported the full browser harness ALL PASS on desktop and Pixel 8 on 2026-09-20.
+- [X] T010 [US2] Add existing entry tags to page row projections in `UI/src/query.mjs` without changing search fields, source entry data or balances. Tags are copied per page row; tests cover every tag, source immutability, paging, description/memo search and tag-only nonmatching.
+- [X] T011 [US2] Render escaped tags in `UI/index.html` and style wrapping labels in `UI/styles.css`; verify registers/search at desktop and 360/412px and record results in `specs/003-enhance-transaction-browsing/acceptance.md`.
 
-- [ ] [Manual Test] T036 [US2] With T009's case list, inspect zero, one, many, long/unbroken and markup-like tags at desktop and 360/412px. Expect all literal text readable, no HTML execution or empty placeholder, wrapping without obscured money, and amounts/balances matching the reference. Record in `acceptance.md`.
-- [ ] [Manual Test] T037 [US2] Search those rows by description and memo: expect the same tags in results. Search a token found only in tags: expect no matches. Clear search and change page/account: expect correct tags without stale labels. Record in `acceptance.md`.
+T011 implementation and verification are complete: escaped tag badges appear beneath row details with a Tags label, empty arrays produce no container, and long/unbroken tags wrap. The user recorded all four US2 harness widths passing on desktop and Pixel 8, plus manual results with no defects.
 
-**Blocking checkpoint**: US3 implementation waits for T036–T037 and all earlier manual tasks to pass. US2 uses the existing export without allocation changes.
+- [x] [Manual Test] T036 [US2] With T009's case list, inspect zero, one, many, long/unbroken and markup-like tags at desktop and 360/412px. Expect all literal text readable, no HTML execution or empty placeholder, wrapping without obscured money, and amounts/balances matching the reference. Record in `acceptance.md`. Passed: user manual results on Brave desktop and Pixel 8, with the specified width checks covered by the passing harness.
+- [x] [Manual Test] T037 [US2] Search those rows by description and memo: expect the same tags in results. Search a token found only in tags: expect no matches. Clear search and change page/account: expect correct tags without stale labels. Record in `acceptance.md`. Passed: user confirmed all cases on desktop and Pixel 8, with no defects observed.
+
+**Checkpoint reopened for source correction**: T036–T037 passed, but the subsequently reported split-stored tag defect adds T053 below. US3 waits for T053's actual-Moneydance verification; earlier UI acceptance results remain valid.
 
 ## Phase 5: US3 — Selected-entry allocation details (P1)
 
@@ -172,3 +174,14 @@ Deliver Phase 3 (US1: width and icons) as the first independently useful increme
 User scope: User Story 1 and Material icons only, after rollback of the previous implementation. T001–T008 and the US1 amendment tasks T035/T049–T051 are complete. Baseline evidence, manual desktop/Pixel 8 results and the full browser harness pass are recorded in [acceptance.md](acceptance.md). US2–US5 remain unimplemented and unchecked. Separate Moneybot/installed-extension validation and later-story full-history performance requirements are not established by the US1 harness pass.
 
 - [X] T051 [US1] Derive full category hover titles from existing destination ancestry in UI/src/query.mjs and render escaped title text in UI/index.html; preserve visible labels/truncation and search matching. Covered by register tests and the completed T035 visual gate.
+
+## US2 implementation status (2026-09-20)
+
+Subsequent source defect: the real-book report identified missing split-stored tags on parent rows. T052 implements the correction; T053 reopens US2's source acceptance gate. The original UI acceptance below is retained as historical evidence.
+
+T009–T011 and T036–T037 are complete. The user recorded full browser harness passes and successful manual checks on Brave 1.95.104 desktop (1920 × 917) and Brave 1.95.102 Pixel 8 (411 × 760) on 2026-09-20, with no defects observed. US2's manual gate is satisfied. The latest Node suite remains 50/51 passing, with the pre-existing demo/canonical-fixture equality failure separately recorded; no fresh Node run is implied. This acceptance review makes no application changes and starts no US3 implementation.
+
+### US2 split-stored tag correction
+
+- [X] T052 [US2] Correct `export_json.py` tag capture: parent rows aggregate parent/split tags; split rows exclude sibling-only tags. Verify sorted uniqueness, literal text, source preservation and deadlines in `tests/runtime/export_tags_test.py`, and rerun exporter/delivery regressions. Do not read the user's large export without explicit permission. Five tag tests, five exporter/deadline tests and seven delivery tests passed using bundled Jython; actual-Moneydance acceptance remains T053.
+- [ ] [Manual Test] T053 [US2] Follow the split-stored tag correction steps in `quickstart.md` inside actual Moneydance: verify the reported real-book parent row now exports/displays its split tag; use a controlled synthetic two-split transaction to verify parent union, split isolation and duplicate handling. Confirm unchanged amounts/balances and source data. Record Moneydance version, date and pass/fail without copying private records. Test plaintext and encrypted exports from the corrected direct script. Leave pending until user-run verification passes; US3 is blocked meanwhile.

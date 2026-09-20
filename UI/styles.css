@@ -827,6 +827,21 @@ body.light-mode #load-status.is-error {
 #register-status { padding: 1rem; color: var(--text-muted); }
 #transactions-body .desc-extra { flex-wrap: wrap; overflow: visible; }
 #transactions-body .memo-text { white-space: normal; overflow-wrap: anywhere; }
+#transactions-body .transaction-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px;
+    margin-top: 4px;
+}
+#transactions-body .tag-label { font-size: 0.75rem; color: var(--text-muted); }
+#transactions-body .transaction-tag {
+    min-width: 0;
+    max-width: 100%;
+    flex-shrink: 1;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
 #transactions-body .transaction-account { white-space: normal; overflow-wrap: anywhere; }
 .mobile-running-balance { display: none; }
 #transactions-body tr.future-entry { background-color: rgba(250, 204, 21, 0.10); }
