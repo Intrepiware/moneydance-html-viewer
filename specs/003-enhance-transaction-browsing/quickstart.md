@@ -13,6 +13,8 @@ npm run serve
 
 Open http://127.0.0.1:8080/tests/browser/ and http://127.0.0.1:8080/?test=true. The existing test dataset and harness are baseline checks; new feature assertions are required before they prove this feature. Normal mode uses the existing configured encrypted snapshot and unlock flow.
 
+The harness balance checks load `/tests/browser/baseline.json`, served from the canonical `tests/fixtures/valid-snapshot-v1.json`. Their expected Checking balance is $1,045.00. The interactive `?test=true` viewer continues using its configured demo file; changing that file must not change harness expectations. After a server-route update, stop the server with Ctrl+C, restart `npm run serve`, and reload `/tests/browser/`; tests start automatically. Do not replace your demo data to resolve a harness fixture mismatch.
+
 ## Source validation prerequisite for US3
 
 Extend the existing Moneydance synthetic probe/reference procedure in [moneydance-preflight.md](../../scripts/moneydance-preflight.md). Independently record expected selected-row allocations for:
@@ -34,13 +36,13 @@ The reference file must match the current synthetic book. Existing comparison sc
 
 ## Story acceptance
 
-| Story | Actions and expected result |
-|---|---|
-| US1 | At 1280/1440px inspect long descriptions/categories and scroll; date 90px, category 180px, amount/balance 120px each, remaining width assigned to description; single-line ellipses with full hover text and aligned headers. At 360/412px no page overflow or obscured money. |
-| US2 | Zero, one and many long/markup-like tags in registers/search; all literal and readable, empty case has no placeholder. |
-| US3 | Open all source-reference cases; inspect repeats, full paths, memos, unavailable values and selected-row sums. Keyboard/Escape/phone close restores account/search/page/scroll/focus. |
-| US4 | Follow off-page search rows and transfers with look-alike unrelated rows, future targets and repeated counterpart rows. Correct targets highlighted; first scrolled into view; later pages retain related highlights. Search clears, sidebar/modal closes, no new unlock/download/reload. Unavailable destinations never guess. Rapid changes show latest intent only. |
-| US5 | Default Accounts omits categories; icon switch changes only sidebar. Category selection groups direct rows monthly; annual choice persists across category selections. Test refunds, zero-net periods, year boundaries, >100-row periods, descendant search and future disclosure against independent cent totals. Empty results have no fabricated periods. |
+| Story | Actions and expected result                                                                                                                                                                                                                                                                                                                                            |
+| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| US1   | At 1280/1440px inspect long descriptions/categories and scroll; date 90px, category 180px, amount/balance 120px each, remaining width assigned to description; single-line ellipses with full hover text and aligned headers. At 360/412px no page overflow or obscured money.                                                                                         |
+| US2   | Zero, one and many long/markup-like tags in registers/search; all literal and readable, empty case has no placeholder.                                                                                                                                                                                                                                                 |
+| US3   | Open all source-reference cases; inspect repeats, full paths, memos, unavailable values and selected-row sums. Keyboard/Escape/phone close restores account/search/page/scroll/focus.                                                                                                                                                                                  |
+| US4   | Follow off-page search rows and transfers with look-alike unrelated rows, future targets and repeated counterpart rows. Correct targets highlighted; first scrolled into view; later pages retain related highlights. Search clears, sidebar/modal closes, no new unlock/download/reload. Unavailable destinations never guess. Rapid changes show latest intent only. |
+| US5   | Default Accounts omits categories; icon switch changes only sidebar. Category selection groups direct rows monthly; annual choice persists across category selections. Test refunds, zero-net periods, year boundaries, >100-row periods, descendant search and future disclosure against independent cent totals. Empty results have no fabricated periods.           |
 
 Rerun existing financial, hidden-hierarchy, search, encryption, test-mode, failure and persisted-page lifecycle harness checks. All Accounts population and source balances must remain unchanged. Confirm only one snapshot fetch in browser network tools throughout details/navigation/grouping; test after encrypted unlock as well as plaintext test mode.
 

@@ -23,6 +23,20 @@ export function createRegisterQuery(model, effectiveDate) {
   const summaries = new Map();
   const entries = model.entries;
   const fields = entries.map(searchFields);
+  const categoryTitles = new Map();
+  const categoryTitle = allocation => {
+    if (!categoryTitles.has(allocation.accountId)) {
+      const names = [];
+      let id = allocation.accountId;
+      while (id !== null) {
+        const account = model.accountsById.get(id);
+        if (account.type !== 'ROOT') names.unshift(account.name);
+        id = model.ancestry.get(id).parentId;
+      }
+      categoryTitles.set(allocation.accountId, names.join(':'));
+    }
+    return categoryTitles.get(allocation.accountId);
+  };
   let cachedSearch = null;
   const all = entries.map((_, i) => i).sort((a, b) => {
     const x = entries[a], y = entries[b];
@@ -42,6 +56,7 @@ export function createRegisterQuery(model, effectiveDate) {
         accountName: model.accountsById.get(entry.accountId).name,
         date: entry.date, description: entry.description, memo: entry.memo, checkNum: entry.checkNum,
         category: entry.allocations.length === 0 ? 'Uncategorized' : entry.allocations.length === 1 ? entry.allocations[0].name : 'Split',
+        categoryTitle: entry.allocations.length === 0 ? 'Uncategorized' : entry.allocations.length === 1 ? categoryTitle(entry.allocations[0]) : 'Split',
         amountCents: entry.amountCents, runningBalanceCents: entry.runningBalanceCents });
     }
     return { totalMatches, page, pageSize, rows, future };

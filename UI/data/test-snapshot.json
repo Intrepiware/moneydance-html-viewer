@@ -1,521 +1,3357 @@
 {
   "schemaVersion": 1,
-  "exportDate": "2026-09-06T23:00:00Z",
-  "sourceVersion": "2024.4",
-  "accounts": {
-    "id": "00000000-0000-4000-8000-000000000001",
-    "name": "Root",
-    "type": "ROOT",
-    "currency": "USD",
-    "inactive": false,
-    "included": false,
-    "openingBalanceCents": null,
-    "closingBalanceCents": null,
-    "balanceTimeline": null,
-    "children": [
-      {
-        "id": "00000000-0000-4000-8000-000000000002",
-        "name": "Checking",
-        "type": "BANK",
-        "currency": "USD",
-        "inactive": false,
-        "included": true,
-        "openingBalanceCents": 0,
-        "closingBalanceCents": 0,
-        "balanceTimeline": {
-          "points": [
-            {
-              "date": "2026-09-05",
-              "ownBalanceCents": 0,
-              "sidebarBalanceCents": 105000
-            },
-            {
-              "date": "2026-09-06",
-              "ownBalanceCents": 0,
-              "sidebarBalanceCents": 104500
-            }
-          ]
-        },
-        "children": [
-          {
-            "id": "00000000-0000-4000-8000-000000000003",
-            "name": "Mortgage Budget",
-            "type": "BANK",
-            "currency": "USD",
-            "inactive": false,
-            "included": true,
-            "openingBalanceCents": 0,
-            "closingBalanceCents": 0,
-            "balanceTimeline": {
-              "points": [
-                {
-                  "date": "2026-09-05",
-                  "ownBalanceCents": 0,
-                  "sidebarBalanceCents": 0
-                }
-              ]
-            },
-            "children": []
-          },
-          {
-            "id": "00000000-0000-4000-8000-000000000004",
-            "name": "Groceries Budget",
-            "type": "BANK",
-            "currency": "USD",
-            "inactive": false,
-            "included": true,
-            "openingBalanceCents": 0,
-            "closingBalanceCents": 65000,
-            "balanceTimeline": {
-              "points": [
-                {
-                  "date": "2026-09-05",
-                  "ownBalanceCents": 65000,
-                  "sidebarBalanceCents": 65000
-                }
-              ]
-            },
-            "children": []
-          },
-          {
-            "id": "00000000-0000-4000-8000-000000000005",
-            "name": "Electricity Budget",
-            "type": "BANK",
-            "currency": "USD",
-            "inactive": false,
-            "included": true,
-            "openingBalanceCents": 0,
-            "closingBalanceCents": 20000,
-            "balanceTimeline": {
-              "points": [
-                {
-                  "date": "2026-09-05",
-                  "ownBalanceCents": 20000,
-                  "sidebarBalanceCents": 20000
-                }
-              ]
-            },
-            "children": []
-          },
-          {
-            "id": "00000000-0000-4000-8000-000000000006",
-            "name": "Misc Spending Budget",
-            "type": "BANK",
-            "currency": "USD",
-            "inactive": false,
-            "included": true,
-            "openingBalanceCents": 0,
-            "closingBalanceCents": 19500,
-            "balanceTimeline": {
-              "points": [
-                {
-                  "date": "2026-09-05",
-                  "ownBalanceCents": 20000,
-                  "sidebarBalanceCents": 20000
-                },
-                {
-                  "date": "2026-09-06",
-                  "ownBalanceCents": 19500,
-                  "sidebarBalanceCents": 19500
-                }
-              ]
-            },
-            "children": []
-          }
-        ]
-      },
-      {
-        "id": "00000000-0000-4000-8000-000000000007",
-        "name": "Salary",
-        "type": "INCOME",
-        "currency": "USD",
-        "inactive": false,
-        "included": true,
-        "openingBalanceCents": 0,
-        "closingBalanceCents": 320000,
-        "balanceTimeline": {
-          "points": [
-            {
-              "date": "2026-09-05",
-              "ownBalanceCents": 320000,
-              "sidebarBalanceCents": 320000
-            }
-          ]
-        },
-        "children": []
-      },
-      {
-        "id": "00000000-0000-4000-8000-000000000008",
-        "name": "Mortgage",
-        "type": "EXPENSE",
-        "currency": "USD",
-        "inactive": false,
-        "included": true,
-        "openingBalanceCents": 0,
-        "closingBalanceCents": 200000,
-        "balanceTimeline": {
-          "points": [
-            {
-              "date": "2026-09-05",
-              "ownBalanceCents": 200000,
-              "sidebarBalanceCents": 200000
-            }
-          ]
-        },
-        "children": []
-      },
-      {
-        "id": "00000000-0000-4000-8000-000000000009",
-        "name": "Groceries",
-        "type": "EXPENSE",
-        "currency": "USD",
-        "inactive": false,
-        "included": true,
-        "openingBalanceCents": 0,
-        "closingBalanceCents": 15000,
-        "balanceTimeline": {
-          "points": [
-            {
-              "date": "2026-09-05",
-              "ownBalanceCents": 15000,
-              "sidebarBalanceCents": 15000
-            }
-          ]
-        },
-        "children": []
-      },
-      {
-        "id": "00000000-0000-4000-8000-000000000010",
-        "name": "Misc Exp",
-        "type": "EXPENSE",
-        "currency": "USD",
-        "inactive": false,
-        "included": true,
-        "openingBalanceCents": 0,
-        "closingBalanceCents": 500,
-        "balanceTimeline": {
-          "points": [
-            {
-              "date": "2026-09-05",
-              "ownBalanceCents": 0,
-              "sidebarBalanceCents": 0
-            },
-            {
-              "date": "2026-09-06",
-              "ownBalanceCents": 500,
-              "sidebarBalanceCents": 500
-            }
-          ]
-        },
-        "children": []
-      }
-    ]
-  },
+  "balanceStartDate": "2026-09-19",
+  "sourceVersion": "Moneydance build 5253",
+  "exportDate": "2026-09-20T04:10:27.131000Z",
   "entries": [
     {
-      "id": "00000000-0000-4000-8000-000000000100",
-      "transactionId": "00000000-0000-4000-8000-000000000100",
-      "accountId": "00000000-0000-4000-8000-000000000007",
       "date": "2026-09-01",
-      "registerOrder": 0,
-      "amountCents": 320000,
-      "runningBalanceCents": 320000,
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "ACH",
       "description": "Paycheck",
       "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
+      "transactionId": "7dd478af-d150-4759-bd97-cd4e20165f80",
+      "registerOrder": 0,
       "tags": [],
+      "accountId": "451b4ed0-da63-48fa-943a-05ddc2777b51",
+      "amountCents": 300000,
       "allocations": [
         {
-          "accountId": "00000000-0000-4000-8000-000000000003",
-          "name": "Mortgage Budget",
-          "memo": "",
-          "amountCents": 200000
+          "memo": "Paycheck",
+          "accountId": "6b63fccc-b824-44a6-a17b-1ffbbec59721",
+          "amountCents": null,
+          "name": "Salary"
         },
         {
-          "accountId": "00000000-0000-4000-8000-000000000004",
-          "name": "Groceries Budget",
           "memo": "",
-          "amountCents": 80000
-        },
-        {
-          "accountId": "00000000-0000-4000-8000-000000000005",
-          "name": "Electricity Budget",
-          "memo": "",
-          "amountCents": 20000
-        },
-        {
-          "accountId": "00000000-0000-4000-8000-000000000006",
-          "name": "Misc Spending Budget",
-          "memo": "",
-          "amountCents": 20000
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
         }
-      ]
+      ],
+      "runningBalanceCents": 300000,
+      "id": "7dd478af-d150-4759-bd97-cd4e20165f80"
     },
     {
-      "id": "00000000-0000-4000-8000-000000000101",
-      "transactionId": "00000000-0000-4000-8000-000000000100",
-      "accountId": "00000000-0000-4000-8000-000000000003",
+      "date": "2026-09-11",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "ACH",
+      "description": "Loan Payment",
+      "memo": "",
+      "transactionId": "73add894-992b-4e2c-8da3-bc62c8146848",
+      "registerOrder": 1,
+      "tags": [],
+      "accountId": "451b4ed0-da63-48fa-943a-05ddc2777b51",
+      "amountCents": -10000,
+      "allocations": [
+        {
+          "memo": "Loan Payment",
+          "accountId": "40948938-afdd-4b7c-81bf-04c0b3a0995b",
+          "amountCents": null,
+          "name": "Personal Loan"
+        }
+      ],
+      "runningBalanceCents": 290000,
+      "id": "73add894-992b-4e2c-8da3-bc62c8146848"
+    },
+    {
       "date": "2026-09-01",
-      "registerOrder": 0,
-      "amountCents": 200000,
-      "runningBalanceCents": 200000,
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
       "description": "Paycheck",
       "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
-      "tags": [],
-      "allocations": [
-        {
-          "accountId": "00000000-0000-4000-8000-000000000007",
-          "name": "Salary",
-          "memo": "",
-          "amountCents": 200000
-        }
-      ]
-    },
-    {
-      "id": "00000000-0000-4000-8000-000000000102",
-      "transactionId": "00000000-0000-4000-8000-000000000100",
-      "accountId": "00000000-0000-4000-8000-000000000004",
-      "date": "2026-09-01",
+      "transactionId": "7dd478af-d150-4759-bd97-cd4e20165f80",
       "registerOrder": 0,
-      "amountCents": 80000,
-      "runningBalanceCents": 80000,
-      "description": "Paycheck",
-      "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
       "tags": [],
-      "allocations": [
-        {
-          "accountId": "00000000-0000-4000-8000-000000000007",
-          "name": "Salary",
-          "memo": "",
-          "amountCents": 80000
-        }
-      ]
-    },
-    {
-      "id": "00000000-0000-4000-8000-000000000103",
-      "transactionId": "00000000-0000-4000-8000-000000000100",
-      "accountId": "00000000-0000-4000-8000-000000000005",
-      "date": "2026-09-01",
-      "registerOrder": 0,
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
       "amountCents": 20000,
+      "allocations": [
+        {
+          "memo": "",
+          "accountId": "451b4ed0-da63-48fa-943a-05ddc2777b51",
+          "amountCents": null,
+          "name": "Checking"
+        }
+      ],
       "runningBalanceCents": 20000,
-      "description": "Paycheck",
-      "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
-      "tags": [],
-      "allocations": [
-        {
-          "accountId": "00000000-0000-4000-8000-000000000007",
-          "name": "Salary",
-          "memo": "",
-          "amountCents": 20000
-        }
-      ]
+      "id": "b3243b07-d273-47e1-9081-7df5184ac57a"
     },
     {
-      "id": "00000000-0000-4000-8000-000000000104",
-      "transactionId": "00000000-0000-4000-8000-000000000100",
-      "accountId": "00000000-0000-4000-8000-000000000006",
-      "date": "2026-09-01",
-      "registerOrder": 0,
-      "amountCents": 20000,
-      "runningBalanceCents": 20000,
-      "description": "Paycheck",
-      "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
-      "tags": [],
-      "allocations": [
-        {
-          "accountId": "00000000-0000-4000-8000-000000000007",
-          "name": "Salary",
-          "memo": "",
-          "amountCents": 20000
-        }
-      ]
-    },
-    {
-      "id": "00000000-0000-4000-8000-000000000105",
-      "transactionId": "00000000-0000-4000-8000-000000000105",
-      "accountId": "00000000-0000-4000-8000-000000000003",
-      "date": "2026-09-03",
-      "registerOrder": 1,
-      "amountCents": -200000,
-      "runningBalanceCents": 0,
-      "description": "Mortgage Payment",
-      "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
-      "tags": [],
-      "allocations": [
-        {
-          "accountId": "00000000-0000-4000-8000-000000000008",
-          "name": "Mortgage",
-          "memo": "",
-          "amountCents": -200000
-        }
-      ]
-    },
-    {
-      "id": "00000000-0000-4000-8000-000000000106",
-      "transactionId": "00000000-0000-4000-8000-000000000105",
-      "accountId": "00000000-0000-4000-8000-000000000008",
-      "date": "2026-09-03",
-      "registerOrder": 0,
-      "amountCents": 200000,
-      "runningBalanceCents": 200000,
-      "description": "Mortgage Payment",
-      "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
-      "tags": [],
-      "allocations": [
-        {
-          "accountId": "00000000-0000-4000-8000-000000000003",
-          "name": "Mortgage Budget",
-          "memo": "",
-          "amountCents": 200000
-        }
-      ]
-    },
-    {
-      "id": "00000000-0000-4000-8000-000000000107",
-      "transactionId": "00000000-0000-4000-8000-000000000107",
-      "accountId": "00000000-0000-4000-8000-000000000004",
-      "date": "2026-09-05",
-      "registerOrder": 1,
-      "amountCents": -15000,
-      "runningBalanceCents": 65000,
-      "description": "Groceries Expense",
-      "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
-      "tags": [],
-      "allocations": [
-        {
-          "accountId": "00000000-0000-4000-8000-000000000009",
-          "name": "Groceries",
-          "memo": "",
-          "amountCents": -15000
-        }
-      ]
-    },
-    {
-      "id": "00000000-0000-4000-8000-000000000108",
-      "transactionId": "00000000-0000-4000-8000-000000000107",
-      "accountId": "00000000-0000-4000-8000-000000000009",
-      "date": "2026-09-05",
-      "registerOrder": 0,
-      "amountCents": 15000,
-      "runningBalanceCents": 15000,
-      "description": "Groceries Expense",
-      "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
-      "tags": [],
-      "allocations": [
-        {
-          "accountId": "00000000-0000-4000-8000-000000000004",
-          "name": "Groceries Budget",
-          "memo": "",
-          "amountCents": 15000
-        }
-      ]
-    },
-    {
-      "id": "00000000-0000-4000-8000-000000000109",
-      "transactionId": "00000000-0000-4000-8000-000000000109",
-      "accountId": "00000000-0000-4000-8000-000000000006",
       "date": "2026-09-06",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "VISA",
+      "description": "Parking",
+      "memo": "",
+      "transactionId": "39e36ac1-4835-429a-91ec-d59017478d94",
       "registerOrder": 1,
-      "amountCents": -300,
-      "runningBalanceCents": 19700,
-      "description": "Candy Bar",
-      "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
       "tags": [],
-      "allocations": [
-        {
-          "accountId": "00000000-0000-4000-8000-000000000010",
-          "name": "Misc Exp",
-          "memo": "",
-          "amountCents": -300
-        }
-      ]
-    },
-    {
-      "id": "00000000-0000-4000-8000-000000000110",
-      "transactionId": "00000000-0000-4000-8000-000000000109",
-      "accountId": "00000000-0000-4000-8000-000000000010",
-      "date": "2026-09-06",
-      "registerOrder": 0,
-      "amountCents": 300,
-      "runningBalanceCents": 300,
-      "description": "Candy Bar",
-      "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
-      "tags": [],
-      "allocations": [
-        {
-          "accountId": "00000000-0000-4000-8000-000000000006",
-          "name": "Misc Spending Budget",
-          "memo": "",
-          "amountCents": 300
-        }
-      ]
-    },
-    {
-      "id": "00000000-0000-4000-8000-000000000111",
-      "transactionId": "00000000-0000-4000-8000-000000000111",
-      "accountId": "00000000-0000-4000-8000-000000000006",
-      "date": "2026-09-06",
-      "registerOrder": 2,
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
       "amountCents": -200,
-      "runningBalanceCents": 19500,
-      "description": "Parking",
-      "memo": "",
-      "checkNum": "",
-      "clearedStatus": "UNCLEARED",
-      "tags": [],
       "allocations": [
         {
-          "accountId": "00000000-0000-4000-8000-000000000010",
-          "name": "Misc Exp",
-          "memo": "",
-          "amountCents": -200
+          "memo": "Parking",
+          "accountId": "66133f40-f107-4fc3-9571-f8371a0e3ce6",
+          "amountCents": null,
+          "name": "Automotive"
         }
-      ]
+      ],
+      "runningBalanceCents": 19800,
+      "id": "39e36ac1-4835-429a-91ec-d59017478d94"
     },
     {
-      "id": "00000000-0000-4000-8000-000000000112",
-      "transactionId": "00000000-0000-4000-8000-000000000111",
-      "accountId": "00000000-0000-4000-8000-000000000010",
       "date": "2026-09-06",
-      "registerOrder": 1,
-      "amountCents": 200,
-      "runningBalanceCents": 500,
-      "description": "Parking",
-      "memo": "",
-      "checkNum": "",
       "clearedStatus": "UNCLEARED",
+      "checkNum": "VISA",
+      "description": "Candy Bar",
+      "memo": "",
+      "transactionId": "e211f421-54f2-4dcc-8ce7-97494c08d2db",
+      "registerOrder": 2,
       "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -300,
       "allocations": [
         {
-          "accountId": "00000000-0000-4000-8000-000000000006",
-          "name": "Misc Spending Budget",
-          "memo": "",
-          "amountCents": 200
+          "memo": "Candy Bar",
+          "accountId": "61ef3a67-adde-45b8-8493-e22fb439ae36",
+          "amountCents": null,
+          "name": "Dining"
         }
-      ]
+      ],
+      "runningBalanceCents": 19500,
+      "id": "e211f421-54f2-4dcc-8ce7-97494c08d2db"
+    },
+    {
+      "date": "2026-09-08",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "ACH",
+      "description": "Venmo",
+      "memo": "Bob lunch reimbursement",
+      "transactionId": "45fedd02-f55f-4fa9-b306-aad1b4746a55",
+      "registerOrder": 3,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": 500,
+      "allocations": [
+        {
+          "memo": "Venmo",
+          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "amountCents": null,
+          "name": "ATM Withdrawal"
+        }
+      ],
+      "runningBalanceCents": 20000,
+      "id": "45fedd02-f55f-4fa9-b306-aad1b4746a55"
+    },
+    {
+      "date": "2026-09-08",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "VISA",
+      "description": "Burger King",
+      "memo": "",
+      "transactionId": "bb6523d4-91fc-4d24-8707-339fef657861",
+      "registerOrder": 4,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -1000,
+      "allocations": [
+        {
+          "memo": "Burger King",
+          "accountId": "61ef3a67-adde-45b8-8493-e22fb439ae36",
+          "amountCents": null,
+          "name": "Dining"
+        }
+      ],
+      "runningBalanceCents": 19000,
+      "id": "bb6523d4-91fc-4d24-8707-339fef657861"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 3***",
+      "memo": "",
+      "transactionId": "5d2c8997-673c-405b-acca-6a50c3a23404",
+      "registerOrder": 5,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -1200,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 3***",
+          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "amountCents": null,
+          "name": "ATM Withdrawal"
+        }
+      ],
+      "runningBalanceCents": 17800,
+      "id": "5d2c8997-673c-405b-acca-6a50c3a23404"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 10***",
+      "memo": "",
+      "transactionId": "a53b4e0c-3d45-4676-9f57-624335261ece",
+      "registerOrder": 6,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -5,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 10***",
+          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "amountCents": null,
+          "name": "ATM Withdrawal"
+        }
+      ],
+      "runningBalanceCents": 17795,
+      "id": "a53b4e0c-3d45-4676-9f57-624335261ece"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 5***",
+      "memo": "",
+      "transactionId": "bfd2786a-3df3-4bb1-825b-87ffa9ee41f6",
+      "registerOrder": 7,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -1400,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 5***",
+          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "amountCents": null,
+          "name": "ATM Withdrawal"
+        }
+      ],
+      "runningBalanceCents": 16395,
+      "id": "bfd2786a-3df3-4bb1-825b-87ffa9ee41f6"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 2***",
+      "memo": "",
+      "transactionId": "7ce65c3a-e8da-4fd0-a798-221ae94cecac",
+      "registerOrder": 8,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -1100,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 2***",
+          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "amountCents": null,
+          "name": "ATM Withdrawal"
+        }
+      ],
+      "runningBalanceCents": 15295,
+      "id": "7ce65c3a-e8da-4fd0-a798-221ae94cecac"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 1***",
+      "memo": "",
+      "transactionId": "e242f857-e9f8-4336-b6b9-88c3b3c2145f",
+      "registerOrder": 9,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -1000,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 1***",
+          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "amountCents": null,
+          "name": "ATM Withdrawal"
+        }
+      ],
+      "runningBalanceCents": 14295,
+      "id": "e242f857-e9f8-4336-b6b9-88c3b3c2145f"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 8***",
+      "memo": "",
+      "transactionId": "c4054abb-ab55-49a8-8482-b7a7bfe5a024",
+      "registerOrder": 10,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -3,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 8***",
+          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "amountCents": null,
+          "name": "ATM Withdrawal"
+        }
+      ],
+      "runningBalanceCents": 14292,
+      "id": "c4054abb-ab55-49a8-8482-b7a7bfe5a024"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "**NEW TRANSACTION TEST 7***",
+      "memo": "",
+      "transactionId": "f21a087c-0727-4011-a120-8dfb1d260034",
+      "registerOrder": 11,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -2,
+      "allocations": [
+        {
+          "memo": "**NEW TRANSACTION TEST 7***",
+          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "amountCents": null,
+          "name": "ATM Withdrawal"
+        }
+      ],
+      "runningBalanceCents": 14290,
+      "id": "f21a087c-0727-4011-a120-8dfb1d260034"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "**NEW TRANSACTION TEST 6***",
+      "memo": "",
+      "transactionId": "0a577bf0-be36-4389-b01d-4fd7847d1947",
+      "registerOrder": 12,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -1,
+      "allocations": [
+        {
+          "memo": "**NEW TRANSACTION TEST 6***",
+          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "amountCents": null,
+          "name": "ATM Withdrawal"
+        }
+      ],
+      "runningBalanceCents": 14289,
+      "id": "0a577bf0-be36-4389-b01d-4fd7847d1947"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 9***",
+      "memo": "",
+      "transactionId": "9c813d37-b96b-4f1d-bea7-bac179cd9ebe",
+      "registerOrder": 13,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -4,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 9***",
+          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "amountCents": null,
+          "name": "ATM Withdrawal"
+        }
+      ],
+      "runningBalanceCents": 14285,
+      "id": "9c813d37-b96b-4f1d-bea7-bac179cd9ebe"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 4***",
+      "memo": "",
+      "transactionId": "ce8ed596-8091-4222-a4f0-1c97399c0459",
+      "registerOrder": 14,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -1300,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 4***",
+          "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+          "amountCents": null,
+          "name": "ATM Withdrawal"
+        }
+      ],
+      "runningBalanceCents": 12985,
+      "id": "ce8ed596-8091-4222-a4f0-1c97399c0459"
+    },
+    {
+      "date": "2036-09-08",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "VISA",
+      "description": "McDonald's",
+      "memo": "",
+      "transactionId": "1b897164-eb3f-4d0c-a64e-318e8cc88dd0",
+      "registerOrder": 15,
+      "tags": [],
+      "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+      "amountCents": -1500,
+      "allocations": [
+        {
+          "memo": "McDonald's",
+          "accountId": "61ef3a67-adde-45b8-8493-e22fb439ae36",
+          "amountCents": null,
+          "name": "Dining"
+        }
+      ],
+      "runningBalanceCents": 11485,
+      "id": "1b897164-eb3f-4d0c-a64e-318e8cc88dd0"
+    },
+    {
+      "date": "2026-09-11",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Deposit",
+      "memo": "",
+      "transactionId": "1c3a5a3c-fa08-437c-a4a5-35186f982c7a",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "bcfa9bdb-b78d-495d-8564-829a929e7dc2",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "memo": "Deposit",
+          "accountId": "2109b947-e998-4a5e-97d1-c94def78b718",
+          "amountCents": null,
+          "name": "Other Income"
+        }
+      ],
+      "runningBalanceCents": 1000,
+      "id": "1c3a5a3c-fa08-437c-a4a5-35186f982c7a"
+    },
+    {
+      "date": "2026-09-02",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "DEPOSIT",
+      "description": "Reference Income",
+      "memo": "",
+      "transactionId": "8cd47f27-127c-4e72-b2f5-9220cb07bb59",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "509ec285-ba35-40db-907c-fd2ed2b69f4c",
+      "amountCents": 4000,
+      "allocations": [
+        {
+          "memo": "Reference Income",
+          "accountId": "fe662455-fc13-42c2-b47d-9a435c87ae07",
+          "amountCents": null,
+          "name": "Preflight Income"
+        }
+      ],
+      "runningBalanceCents": 14000,
+      "id": "8cd47f27-127c-4e72-b2f5-9220cb07bb59"
+    },
+    {
+      "date": "2026-09-07",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "skip",
+      "description": "Reference Envelope Transfer",
+      "memo": "",
+      "transactionId": "4b8261d0-8bef-4c57-889d-390c6261330b",
+      "registerOrder": 1,
+      "tags": [],
+      "accountId": "509ec285-ba35-40db-907c-fd2ed2b69f4c",
+      "amountCents": -1000,
+      "allocations": [
+        {
+          "memo": "Reference Envelope Transfer",
+          "accountId": "3c7a98ae-430a-4e80-b103-b57f0f7f94bc",
+          "amountCents": null,
+          "name": "Preflight Active Child"
+        }
+      ],
+      "runningBalanceCents": 13000,
+      "id": "4b8261d0-8bef-4c57-889d-390c6261330b"
+    },
+    {
+      "date": "2026-09-08",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "ACH",
+      "description": "Reference Investment Transfer",
+      "memo": "",
+      "transactionId": "80912df0-b8f5-4a40-a3e1-fe047c7b0676",
+      "registerOrder": 2,
+      "tags": [],
+      "accountId": "509ec285-ba35-40db-907c-fd2ed2b69f4c",
+      "amountCents": -2000,
+      "allocations": [
+        {
+          "memo": "Reference Investment Transfer",
+          "accountId": "0078c353-c079-4741-93f4-1fbecbc52e04",
+          "amountCents": null,
+          "name": "Preflight Investment"
+        }
+      ],
+      "runningBalanceCents": 11000,
+      "id": "80912df0-b8f5-4a40-a3e1-fe047c7b0676"
+    },
+    {
+      "date": "2026-09-07",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Reference Envelope Transfer",
+      "memo": "",
+      "transactionId": "4b8261d0-8bef-4c57-889d-390c6261330b",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "3c7a98ae-430a-4e80-b103-b57f0f7f94bc",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "memo": "Reference Envelope Transfer",
+          "accountId": "509ec285-ba35-40db-907c-fd2ed2b69f4c",
+          "amountCents": null,
+          "name": "Preflight Checking"
+        }
+      ],
+      "runningBalanceCents": 3500,
+      "id": "96c43e77-48d4-49f0-beb1-9014c91f30b6"
+    },
+    {
+      "date": "2026-09-11",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Loan Payment",
+      "memo": "",
+      "transactionId": "73add894-992b-4e2c-8da3-bc62c8146848",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "40948938-afdd-4b7c-81bf-04c0b3a0995b",
+      "amountCents": 10000,
+      "allocations": [
+        {
+          "memo": "Loan Payment",
+          "accountId": "451b4ed0-da63-48fa-943a-05ddc2777b51",
+          "amountCents": null,
+          "name": "Checking"
+        }
+      ],
+      "runningBalanceCents": -990000,
+      "id": "46a3654b-1507-4005-9c56-3b0d9f1bb14e"
+    },
+    {
+      "date": "2026-09-08",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Venmo",
+      "memo": "Bob lunch reimbursement",
+      "transactionId": "45fedd02-f55f-4fa9-b306-aad1b4746a55",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+      "amountCents": -500,
+      "allocations": [
+        {
+          "memo": "Venmo",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": -500,
+      "id": "ad7406b1-4409-4a54-ac3f-0a76ef3a28e5"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 1***",
+      "memo": "",
+      "transactionId": "e242f857-e9f8-4336-b6b9-88c3b3c2145f",
+      "registerOrder": 1,
+      "tags": [],
+      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 1***",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 500,
+      "id": "9bed69e1-bbb9-42a8-86e3-a6318e0c5951"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 10***",
+      "memo": "",
+      "transactionId": "a53b4e0c-3d45-4676-9f57-624335261ece",
+      "registerOrder": 2,
+      "tags": [],
+      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+      "amountCents": 5,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 10***",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 505,
+      "id": "6be6c310-5585-4667-b7cf-a84b843fc2e3"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 4***",
+      "memo": "",
+      "transactionId": "ce8ed596-8091-4222-a4f0-1c97399c0459",
+      "registerOrder": 3,
+      "tags": [],
+      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+      "amountCents": 1300,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 4***",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 1805,
+      "id": "d802f510-1ae6-48f1-8c08-3c0401ead391"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 9***",
+      "memo": "",
+      "transactionId": "9c813d37-b96b-4f1d-bea7-bac179cd9ebe",
+      "registerOrder": 4,
+      "tags": [],
+      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+      "amountCents": 4,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 9***",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 1809,
+      "id": "749ac949-a5df-429f-9b33-6f19f1405857"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 2***",
+      "memo": "",
+      "transactionId": "7ce65c3a-e8da-4fd0-a798-221ae94cecac",
+      "registerOrder": 5,
+      "tags": [],
+      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+      "amountCents": 1100,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 2***",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 2909,
+      "id": "9f8eb428-2d4c-44e3-8228-c1e8592aa35e"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 8***",
+      "memo": "",
+      "transactionId": "c4054abb-ab55-49a8-8482-b7a7bfe5a024",
+      "registerOrder": 6,
+      "tags": [],
+      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+      "amountCents": 3,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 8***",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 2912,
+      "id": "46be2ed2-f38e-407d-ad0e-65406123b44c"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 5***",
+      "memo": "",
+      "transactionId": "bfd2786a-3df3-4bb1-825b-87ffa9ee41f6",
+      "registerOrder": 7,
+      "tags": [],
+      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+      "amountCents": 1400,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 5***",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 4312,
+      "id": "a42c69af-9cd6-4a5f-886d-6790a723fdd2"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "**NEW TRANSACTION TEST 7***",
+      "memo": "",
+      "transactionId": "f21a087c-0727-4011-a120-8dfb1d260034",
+      "registerOrder": 8,
+      "tags": [],
+      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+      "amountCents": 2,
+      "allocations": [
+        {
+          "memo": "**NEW TRANSACTION TEST 7***",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 4314,
+      "id": "069f51ea-6f59-48c9-b57e-aa34c3664d20"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "***NEW TRANSACTION TEST 3***",
+      "memo": "",
+      "transactionId": "5d2c8997-673c-405b-acca-6a50c3a23404",
+      "registerOrder": 9,
+      "tags": [],
+      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+      "amountCents": 1200,
+      "allocations": [
+        {
+          "memo": "***NEW TRANSACTION TEST 3***",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 5514,
+      "id": "e43d1c9f-22da-4ddf-8347-eccd99f34be6"
+    },
+    {
+      "date": "2026-09-09",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "**NEW TRANSACTION TEST 6***",
+      "memo": "",
+      "transactionId": "0a577bf0-be36-4389-b01d-4fd7847d1947",
+      "registerOrder": 10,
+      "tags": [],
+      "accountId": "f609af1a-0b61-4e02-9771-acefc27854e5",
+      "amountCents": 1,
+      "allocations": [
+        {
+          "memo": "**NEW TRANSACTION TEST 6***",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 5515,
+      "id": "ccf1888a-5171-43c5-bf42-dbdb39fec1a4"
+    },
+    {
+      "date": "2026-09-06",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Parking",
+      "memo": "",
+      "transactionId": "39e36ac1-4835-429a-91ec-d59017478d94",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "66133f40-f107-4fc3-9571-f8371a0e3ce6",
+      "amountCents": 200,
+      "allocations": [
+        {
+          "memo": "Parking",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 200,
+      "id": "2617496c-d259-432a-a725-64e787bb9215"
+    },
+    {
+      "date": "2026-09-06",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Candy Bar",
+      "memo": "",
+      "transactionId": "e211f421-54f2-4dcc-8ce7-97494c08d2db",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "61ef3a67-adde-45b8-8493-e22fb439ae36",
+      "amountCents": 300,
+      "allocations": [
+        {
+          "memo": "Candy Bar",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 300,
+      "id": "3a8ce4e4-9a30-48c9-87ef-5bcd756b21fa"
+    },
+    {
+      "date": "2026-09-08",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Burger King",
+      "memo": "",
+      "transactionId": "bb6523d4-91fc-4d24-8707-339fef657861",
+      "registerOrder": 1,
+      "tags": [],
+      "accountId": "61ef3a67-adde-45b8-8493-e22fb439ae36",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "memo": "Burger King",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 1300,
+      "id": "b64f5b7c-9ab3-41ee-9e26-433cb343e4c3"
+    },
+    {
+      "date": "2036-09-08",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "McDonald's",
+      "memo": "",
+      "transactionId": "1b897164-eb3f-4d0c-a64e-318e8cc88dd0",
+      "registerOrder": 2,
+      "tags": [],
+      "accountId": "61ef3a67-adde-45b8-8493-e22fb439ae36",
+      "amountCents": 1500,
+      "allocations": [
+        {
+          "memo": "McDonald's",
+          "accountId": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+          "amountCents": null,
+          "name": "Misc Spending Budget"
+        }
+      ],
+      "runningBalanceCents": 2800,
+      "id": "8c3d6f25-9f6c-4943-95d9-a659795e786a"
+    },
+    {
+      "date": "2026-09-11",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Deposit",
+      "memo": "",
+      "transactionId": "1c3a5a3c-fa08-437c-a4a5-35186f982c7a",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "2109b947-e998-4a5e-97d1-c94def78b718",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "memo": "Deposit",
+          "accountId": "bcfa9bdb-b78d-495d-8564-829a929e7dc2",
+          "amountCents": null,
+          "name": "Dummy Account"
+        }
+      ],
+      "runningBalanceCents": 1000,
+      "id": "2a11c5c8-e1e3-4536-b12e-d1872e66468b"
+    },
+    {
+      "date": "2026-09-02",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Reference Income",
+      "memo": "",
+      "transactionId": "8cd47f27-127c-4e72-b2f5-9220cb07bb59",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "fe662455-fc13-42c2-b47d-9a435c87ae07",
+      "amountCents": 4000,
+      "allocations": [
+        {
+          "memo": "Reference Income",
+          "accountId": "509ec285-ba35-40db-907c-fd2ed2b69f4c",
+          "amountCents": null,
+          "name": "Preflight Checking"
+        }
+      ],
+      "runningBalanceCents": 4000,
+      "id": "3546c9c9-8657-4502-be11-31ceced4d3f2"
+    },
+    {
+      "date": "2026-09-01",
+      "clearedStatus": "UNCLEARED",
+      "checkNum": "",
+      "description": "Paycheck",
+      "memo": "",
+      "transactionId": "7dd478af-d150-4759-bd97-cd4e20165f80",
+      "registerOrder": 0,
+      "tags": [],
+      "accountId": "6b63fccc-b824-44a6-a17b-1ffbbec59721",
+      "amountCents": 320000,
+      "allocations": [
+        {
+          "memo": "Paycheck",
+          "accountId": "451b4ed0-da63-48fa-943a-05ddc2777b51",
+          "amountCents": null,
+          "name": "Checking"
+        }
+      ],
+      "runningBalanceCents": 320000,
+      "id": "bc149804-8dfa-4d55-b145-5b8624a11fe7"
     }
   ],
-  "balanceStartDate": "2026-09-05"
+  "accounts": {
+    "balanceTimeline": null,
+    "closingBalanceCents": null,
+    "type": "ROOT",
+    "openingBalanceCents": null,
+    "inactive": false,
+    "children": [
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 302985,
+              "ownBalanceCents": 290000
+            },
+            {
+              "date": "2036-09-08",
+              "sidebarBalanceCents": 301485,
+              "ownBalanceCents": 290000
+            }
+          ]
+        },
+        "closingBalanceCents": 290000,
+        "type": "BANK",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 12985,
+                  "ownBalanceCents": 12985
+                },
+                {
+                  "date": "2036-09-08",
+                  "sidebarBalanceCents": 11485,
+                  "ownBalanceCents": 11485
+                }
+              ]
+            },
+            "closingBalanceCents": 11485,
+            "type": "BANK",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Misc Spending Budget",
+            "currency": "USD",
+            "id": "28f697ba-bf32-4738-8102-c645c2e91cfb",
+            "included": true
+          }
+        ],
+        "name": "Checking",
+        "currency": "USD",
+        "id": "451b4ed0-da63-48fa-943a-05ddc2777b51",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 1000,
+              "ownBalanceCents": 1000
+            }
+          ]
+        },
+        "closingBalanceCents": 1000,
+        "type": "BANK",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [],
+        "name": "Dummy Account",
+        "currency": "USD",
+        "id": "bcfa9bdb-b78d-495d-8564-829a929e7dc2",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 19500,
+              "ownBalanceCents": 11000
+            }
+          ]
+        },
+        "closingBalanceCents": 11000,
+        "type": "BANK",
+        "openingBalanceCents": 10000,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": null,
+            "closingBalanceCents": null,
+            "type": "BANK",
+            "openingBalanceCents": null,
+            "inactive": true,
+            "children": [
+              {
+                "balanceTimeline": {
+                  "points": [
+                    {
+                      "date": "2026-09-19",
+                      "sidebarBalanceCents": 3500,
+                      "ownBalanceCents": 3500
+                    }
+                  ]
+                },
+                "closingBalanceCents": 3500,
+                "type": "BANK",
+                "openingBalanceCents": 2500,
+                "inactive": false,
+                "children": [],
+                "name": "Preflight Active Child",
+                "currency": "USD",
+                "id": "3c7a98ae-430a-4e80-b103-b57f0f7f94bc",
+                "included": true
+              }
+            ],
+            "name": "Preflight Hidden",
+            "currency": "USD",
+            "id": "85dbf49f-bf16-4b0c-bfc9-4bfd7485912c",
+            "included": false
+          }
+        ],
+        "name": "Preflight Checking",
+        "currency": "USD",
+        "id": "509ec285-ba35-40db-907c-fd2ed2b69f4c",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 1234,
+              "ownBalanceCents": 1234
+            }
+          ]
+        },
+        "closingBalanceCents": 1234,
+        "type": "BANK",
+        "openingBalanceCents": 1234,
+        "inactive": false,
+        "children": [],
+        "name": "Preflight Opening Only",
+        "currency": "USD",
+        "id": "3f59db8e-9112-4830-940f-c59c163f9f38",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "BANK",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [],
+        "name": "Savings",
+        "currency": "USD",
+        "id": "7a0f8b06-5c25-4f1c-9502-cd86cf2fce4e",
+        "included": true
+      },
+      {
+        "balanceTimeline": null,
+        "closingBalanceCents": null,
+        "type": "INVESTMENT",
+        "openingBalanceCents": null,
+        "inactive": false,
+        "children": [],
+        "name": "Preflight Investment",
+        "currency": "USD",
+        "id": "0078c353-c079-4741-93f4-1fbecbc52e04",
+        "included": false
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": -990000,
+              "ownBalanceCents": -990000
+            }
+          ]
+        },
+        "closingBalanceCents": -990000,
+        "type": "LIABILITY",
+        "openingBalanceCents": -1000000,
+        "inactive": false,
+        "children": [],
+        "name": "Personal Loan",
+        "currency": "USD",
+        "id": "40948938-afdd-4b7c-81bf-04c0b3a0995b",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 5515,
+              "ownBalanceCents": 5515
+            }
+          ]
+        },
+        "closingBalanceCents": 5515,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Cash",
+            "currency": "USD",
+            "id": "c2674954-1a22-4fbc-a4aa-80b9e7486a52",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Service Charge",
+            "currency": "USD",
+            "id": "4eaf100b-b9e9-472e-b555-d4d73bba9e88",
+            "included": true
+          }
+        ],
+        "name": "ATM Withdrawal",
+        "currency": "USD",
+        "id": "f609af1a-0b61-4e02-9771-acefc27854e5",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 200,
+              "ownBalanceCents": 200
+            }
+          ]
+        },
+        "closingBalanceCents": 200,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Fuel",
+            "currency": "USD",
+            "id": "3e20a90b-5ccf-4304-983e-36684dae48ec",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Misc",
+            "currency": "USD",
+            "id": "3621ba94-503c-4878-bb37-9136248dad31",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Service",
+            "currency": "USD",
+            "id": "c5cf9c07-684d-4f1e-ab8a-e461a9c6e14d",
+            "included": true
+          }
+        ],
+        "name": "Automotive",
+        "currency": "USD",
+        "id": "66133f40-f107-4fc3-9571-f8371a0e3ce6",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Interest Paid",
+            "currency": "USD",
+            "id": "c380415e-7186-437e-91e4-3a09fb83428a",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Service Charges",
+            "currency": "USD",
+            "id": "0df60c75-8457-4220-8c3a-cb0c3e38a4b8",
+            "included": true
+          }
+        ],
+        "name": "Bank Charge",
+        "currency": "USD",
+        "id": "8f0e040b-220f-4423-95d0-d6c8328ae9de",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Cable",
+            "currency": "USD",
+            "id": "3fcd41ef-4fb1-48fc-b7ed-1de5bf3d455a",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Electric",
+            "currency": "USD",
+            "id": "b25de986-9969-471b-a219-3d92d0b0bee1",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Garbage",
+            "currency": "USD",
+            "id": "34d5e8e3-ac3b-4ee9-9ba0-33df46469fca",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Gas",
+            "currency": "USD",
+            "id": "c88bc1b8-5720-4424-9ba5-855d760c8905",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Homeowners Dues",
+            "currency": "USD",
+            "id": "7b81c969-44a2-4d56-ae4d-2f837c0985e0",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Mortgage Interest",
+            "currency": "USD",
+            "id": "e96dc0b9-b1d4-4f9d-a337-32476b5d2485",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Phone",
+            "currency": "USD",
+            "id": "d2a1ec49-2b70-49fa-9c31-3cbf71aa692a",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Rent",
+            "currency": "USD",
+            "id": "b3f99c43-ed00-46dd-97cf-e37d280e98f0",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Water/Sewer",
+            "currency": "USD",
+            "id": "d60baab4-c64f-4dd8-843d-bde6436541f4",
+            "included": true
+          }
+        ],
+        "name": "Bills",
+        "currency": "USD",
+        "id": "5d50f2c6-9a84-4817-a22c-bba07cf00b41",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Non-Reimbursed Expense",
+            "currency": "USD",
+            "id": "f5867b56-ed49-4af5-a401-40ad2ff1d4e0",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Reimbursed Expense",
+            "currency": "USD",
+            "id": "87fe74b2-0e2c-4ae4-9662-a6caade2b872",
+            "included": true
+          }
+        ],
+        "name": "Business",
+        "currency": "USD",
+        "id": "a8c17d57-93d9-48da-a669-c08ee9357125",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [],
+        "name": "Childcare",
+        "currency": "USD",
+        "id": "721d68b0-b880-47e6-8416-71206a663d2f",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Books",
+            "currency": "USD",
+            "id": "57dc5dad-8309-47ca-a926-92f735b83973",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Fees",
+            "currency": "USD",
+            "id": "f79e8ad7-b24c-4cd2-90c2-8becc4253bf9",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Tuition",
+            "currency": "USD",
+            "id": "f2824d55-0a85-4c7f-ac9c-0ab5fa24cdcd",
+            "included": true
+          }
+        ],
+        "name": "Education",
+        "currency": "USD",
+        "id": "4102f270-afe5-4361-903a-f5401951434d",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Dental",
+            "currency": "USD",
+            "id": "3daf2be8-f60d-466e-9cc4-a02efe3ec29d",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Hospital",
+            "currency": "USD",
+            "id": "ed4352fc-1e4b-499e-873b-12ff6b56a056",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Physician",
+            "currency": "USD",
+            "id": "82c3fca8-501d-4a11-adb3-e28c67ef42d2",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Prescriptions",
+            "currency": "USD",
+            "id": "693dd2a4-a701-4fff-9abe-29921d2faa5b",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Vision",
+            "currency": "USD",
+            "id": "fc94b974-8d07-429b-8318-a9017d212dec",
+            "included": true
+          }
+        ],
+        "name": "Healthcare",
+        "currency": "USD",
+        "id": "7e26f056-7cf1-485e-8eec-328090f648b0",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Furnishing",
+            "currency": "USD",
+            "id": "3503b121-58fe-4fa0-b2b6-39451c3b5f8b",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Lawn & Garden",
+            "currency": "USD",
+            "id": "b65a90e1-613a-4c83-b053-2a914703c8e2",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Maintenance",
+            "currency": "USD",
+            "id": "b694ae01-ee77-4480-a9d7-53d402aa0b73",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Misc",
+            "currency": "USD",
+            "id": "351fec0b-e1f1-4bc4-8d90-3b6687bb9854",
+            "included": true
+          }
+        ],
+        "name": "Home",
+        "currency": "USD",
+        "id": "889e3f76-d7cd-43bf-b197-b950f74c4ea9",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Automobile",
+            "currency": "USD",
+            "id": "e875e0bb-9a0e-45e2-a992-56b4e975d926",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Health",
+            "currency": "USD",
+            "id": "b2705575-7ea4-4ebb-af8c-7d29c428f554",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Home",
+            "currency": "USD",
+            "id": "97d6981e-38af-4cc2-972b-478935f77fb9",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Life",
+            "currency": "USD",
+            "id": "d87e999f-a74a-4837-8560-a8b02a31352f",
+            "included": true
+          }
+        ],
+        "name": "Insurance",
+        "currency": "USD",
+        "id": "d267db43-e851-4781-87f6-0ed9a4310ac8",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Trading Commission",
+            "currency": "USD",
+            "id": "b201c8ef-bce4-4876-9bb4-6eed2263d5f0",
+            "included": true
+          }
+        ],
+        "name": "Investment",
+        "currency": "USD",
+        "id": "9020806e-80db-4dc4-a346-dfaa99e30a57",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Interest",
+            "currency": "USD",
+            "id": "3a0b7c92-78f2-4a50-8b3a-207f5b2b03d1",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Payment",
+            "currency": "USD",
+            "id": "f8328c54-27d1-4f0f-abc5-c88f65afd29c",
+            "included": true
+          }
+        ],
+        "name": "Loan",
+        "currency": "USD",
+        "id": "2a58e6df-b2f6-49be-8298-8e71b8d5f46f",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [],
+        "name": "Miscellaneous",
+        "currency": "USD",
+        "id": "060cf5c4-b68e-4b06-8980-04ab8d855c22",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 1300,
+              "ownBalanceCents": 0
+            },
+            {
+              "date": "2036-09-08",
+              "sidebarBalanceCents": 2800,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Books/Magazines",
+            "currency": "USD",
+            "id": "f246e9a8-a87b-47b1-9ef6-f61b43b67521",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Clothing",
+            "currency": "USD",
+            "id": "a7ac2da6-7086-4ee4-9494-1d0b33b79d5b",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Computer",
+            "currency": "USD",
+            "id": "8a33e023-3717-4a0b-9140-3db32b0a5593",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 1300,
+                  "ownBalanceCents": 1300
+                },
+                {
+                  "date": "2036-09-08",
+                  "sidebarBalanceCents": 2800,
+                  "ownBalanceCents": 2800
+                }
+              ]
+            },
+            "closingBalanceCents": 2800,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Dining",
+            "currency": "USD",
+            "id": "61ef3a67-adde-45b8-8493-e22fb439ae36",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Donations",
+            "currency": "USD",
+            "id": "a6dd7108-f951-478c-9644-d37615cc0498",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Entertainment",
+            "currency": "USD",
+            "id": "d11eb80f-8df6-49a5-9ea6-ff30cc0fd627",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Gifts",
+            "currency": "USD",
+            "id": "0562754f-e783-4fc5-961b-96c7deb855d7",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Groceries",
+            "currency": "USD",
+            "id": "755c92c3-7a7c-43f4-937f-e93658e7ce49",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Misc",
+            "currency": "USD",
+            "id": "88adf9bb-e3db-4c83-9e32-7dbd38ae688b",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Music",
+            "currency": "USD",
+            "id": "2d4bcca9-76f7-49b3-aca1-abd4e6c264ed",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Personal Care",
+            "currency": "USD",
+            "id": "e58e3d39-c751-4117-9125-e23b5166db6c",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Restaurant",
+            "currency": "USD",
+            "id": "043be3a7-1960-4670-bc85-aef89b4a1188",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Sporting Goods",
+            "currency": "USD",
+            "id": "2858bcda-f202-4f45-a932-e0f3dbe1a5c2",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Sports Events",
+            "currency": "USD",
+            "id": "0567e590-930e-43bb-8515-223dea9deed0",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Theatre",
+            "currency": "USD",
+            "id": "ebf45367-b0b4-412d-8ba2-0600c2f732d9",
+            "included": true
+          }
+        ],
+        "name": "Personal",
+        "currency": "USD",
+        "id": "87bb663b-a2cf-4bbf-9348-4270add8df41",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Food",
+            "currency": "USD",
+            "id": "736c9287-d193-4b92-92c6-7b49c0a08872",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Supplies",
+            "currency": "USD",
+            "id": "42230c4b-49e4-409a-8dee-7d056b61fe47",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Veterinarian",
+            "currency": "USD",
+            "id": "1f5080df-b141-40de-88ad-5a2277aa16f2",
+            "included": true
+          }
+        ],
+        "name": "Pet Care",
+        "currency": "USD",
+        "id": "579d8941-0831-4aa7-92de-a63e75c16cfb",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Federal Income Tax",
+            "currency": "USD",
+            "id": "d6404d94-95ac-4181-90a0-ce485022116b",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Local Income Tax",
+            "currency": "USD",
+            "id": "39c6a22a-c7cb-495f-924f-ceac1a24e600",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Local Tax",
+            "currency": "USD",
+            "id": "84f3d34a-a573-4969-870c-f2185285ae82",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Medicare Tax",
+            "currency": "USD",
+            "id": "b79050ee-4fee-4a2b-b61c-340bba92ea4f",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Misc Tax",
+            "currency": "USD",
+            "id": "7187e841-cad9-4e14-8d5f-472e5e560e4e",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Property Tax",
+            "currency": "USD",
+            "id": "456add33-5316-463d-945d-3e898fa5a151",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Social Security Tax",
+            "currency": "USD",
+            "id": "e8d63dac-3404-43fc-ba99-700ac65292ba",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "State Income Tax",
+            "currency": "USD",
+            "id": "c41634eb-13e8-46dc-a412-7c0dc965aa40",
+            "included": true
+          }
+        ],
+        "name": "Tax",
+        "currency": "USD",
+        "id": "418a4429-0fcb-44a7-99f8-51304942bd7d",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "EXPENSE",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Lodging",
+            "currency": "USD",
+            "id": "5ba090b4-3dcf-4aca-89e5-66cf28221313",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "EXPENSE",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Travel",
+            "currency": "USD",
+            "id": "019d55e2-6fe7-4f4f-a83b-4c90cb894e9f",
+            "included": true
+          }
+        ],
+        "name": "Vacation",
+        "currency": "USD",
+        "id": "089f6649-eea0-45bb-bc31-864ad3be3a09",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "INCOME",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [],
+        "name": "Initial Balance",
+        "currency": "USD",
+        "id": "15407c15-f4f3-4c7d-bf49-6bb9370b7297",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "INCOME",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Dividends",
+            "currency": "USD",
+            "id": "bdad1258-9555-493e-8965-cf8d6f3ede11",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Interest Received",
+            "currency": "USD",
+            "id": "a7357c7a-a0cf-4961-ae7b-1e2c53dccf30",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Long-Term Cap. Gains",
+            "currency": "USD",
+            "id": "0001da01-dfc8-4615-9db6-34a7042638c2",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Short-Term Cap. Gains",
+            "currency": "USD",
+            "id": "fa94d80b-7dac-4ea1-8d0d-0c2bbe9201f8",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Tax-Exempt Interest",
+            "currency": "USD",
+            "id": "a0024df0-bed6-4947-a7ce-674e27aa2140",
+            "included": true
+          }
+        ],
+        "name": "Investment",
+        "currency": "USD",
+        "id": "8fa3a37b-97f9-44d9-9b5e-eec11ff31326",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 1000,
+              "ownBalanceCents": 1000
+            }
+          ]
+        },
+        "closingBalanceCents": 1000,
+        "type": "INCOME",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Child Support",
+            "currency": "USD",
+            "id": "52ef2220-da7e-4288-a860-d544f2c9cbcd",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Consulting Payment",
+            "currency": "USD",
+            "id": "cbf015d4-0ffe-47f3-a8e3-7fbdfd3d9381",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Gifts Received",
+            "currency": "USD",
+            "id": "c4a5d9ad-6600-42d1-a373-8f12dd0f8a44",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Loan Principal Received",
+            "currency": "USD",
+            "id": "56d5a619-ab74-4438-b18d-ff0c5e170eaa",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Lotteries",
+            "currency": "USD",
+            "id": "cea0c290-85b7-4512-a714-839065081125",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Tax Refund",
+            "currency": "USD",
+            "id": "fa9b3c7f-2770-45b1-a493-e267de6789a0",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Unemployment Comp.",
+            "currency": "USD",
+            "id": "2bf925bf-dced-47b6-b687-2622cbf28043",
+            "included": true
+          }
+        ],
+        "name": "Other Income",
+        "currency": "USD",
+        "id": "2109b947-e998-4a5e-97d1-c94def78b718",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 4000,
+              "ownBalanceCents": 4000
+            }
+          ]
+        },
+        "closingBalanceCents": 4000,
+        "type": "INCOME",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [],
+        "name": "Preflight Income",
+        "currency": "USD",
+        "id": "fe662455-fc13-42c2-b47d-9a435c87ae07",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 0,
+              "ownBalanceCents": 0
+            }
+          ]
+        },
+        "closingBalanceCents": 0,
+        "type": "INCOME",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "IRA Distributions",
+            "currency": "USD",
+            "id": "f93ee3c9-8db2-47fd-9558-66ea07fa9644",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Pensions/Annuities",
+            "currency": "USD",
+            "id": "8b3e0e03-a43d-48d9-afe3-9893165902fd",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Social Security",
+            "currency": "USD",
+            "id": "0b805f00-14b2-4e4b-ab42-dede27a6447e",
+            "included": true
+          }
+        ],
+        "name": "Retirement Income",
+        "currency": "USD",
+        "id": "a17aee20-eb13-4d94-b5e6-dfde11fb7c85",
+        "included": true
+      },
+      {
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-19",
+              "sidebarBalanceCents": 320000,
+              "ownBalanceCents": 320000
+            }
+          ]
+        },
+        "closingBalanceCents": 320000,
+        "type": "INCOME",
+        "openingBalanceCents": 0,
+        "inactive": false,
+        "children": [
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Bonus",
+            "currency": "USD",
+            "id": "75ad92f6-c5fd-49b2-b90b-07370b2c944f",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Commission",
+            "currency": "USD",
+            "id": "168d1824-bc1f-49ea-9a03-5ee8f7c0bfa8",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Employer Matching",
+            "currency": "USD",
+            "id": "689d320a-d8b0-46ed-9e81-5fb61c9f46d3",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Overtime",
+            "currency": "USD",
+            "id": "65ef7676-4302-495a-8f24-d3a9a2d507b9",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Paycheck",
+            "currency": "USD",
+            "id": "4e3b2775-5df3-44af-b9fb-51d7b41ee828",
+            "included": true
+          },
+          {
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-19",
+                  "sidebarBalanceCents": 0,
+                  "ownBalanceCents": 0
+                }
+              ]
+            },
+            "closingBalanceCents": 0,
+            "type": "INCOME",
+            "openingBalanceCents": 0,
+            "inactive": false,
+            "children": [],
+            "name": "Travel Reimbursement",
+            "currency": "USD",
+            "id": "14c7556a-c181-4022-ab13-67eef28f3455",
+            "included": true
+          }
+        ],
+        "name": "Salary",
+        "currency": "USD",
+        "id": "6b63fccc-b824-44a6-a17b-1ffbbec59721",
+        "included": true
+      }
+    ],
+    "name": "Development (Test-01)",
+    "currency": "USD",
+    "id": "0ace1aa1-f3c7-475c-9bb7-055664969791",
+    "included": false
+  }
 }

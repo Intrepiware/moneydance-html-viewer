@@ -250,7 +250,7 @@
               <div class="transaction-account"><span class="mi mi-{{accountIcon}}" aria-hidden="true"></span> {{accountName}}</div>
             {{/if}}
           </td>
-          <td class="hide-mobile category-cell"><span class="badge" title="{{category}}">{{category}}</span></td>
+          <td class="hide-mobile category-cell"><span class="badge" title="{{categoryTitle}}">{{category}}</span></td>
           <td class="amount-col amount {{#if (isNegative amountCents)}}negative{{else}}positive{{/if}}">{{formatCurrency amountCents}}<span class="mobile-running-balance">Balance: {{formatCurrency runningBalanceCents}}</span></td>
           <td class="amount-col hide-mobile">{{formatCurrency runningBalanceCents}}</td>
         </tr>

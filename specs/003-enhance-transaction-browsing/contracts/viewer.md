@@ -38,6 +38,8 @@ Transfer lookup returns every destination entry with the source transactionId, r
 
 ## UI behavior
 
+US1 category hover amendment: page rows include `categoryTitle`, derived from allocation destination ancestry excluding ROOT, with colon separators. `category` remains the short visible label. Zero/multiple allocations retain `Uncategorized`/`Split` titles. Render titles with normal HTML escaping; do not add paths to search fields or change truncation.
+
 _Context: These are the visible results of clicking and browsing in the app. A “register” is the transaction list; a “modal” is the details dialog; “future disclosure” means showing or hiding future-dated rows. Category period totals are monthly/yearly transaction activity, not account balances._
 
 - Category text activates a button, not a page link. A native modal has an accessible title, visible close, Escape handling, bounded mobile scrolling and restored trigger focus/scroll on dismissal. Unknown values say unavailable; absent memo is distinct from an invented memo.

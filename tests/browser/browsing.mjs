@@ -34,7 +34,15 @@ export async function run(report) {
       const row=doc.querySelector('tr[data-entry-id]');
       assert(row.querySelector('.desc-main').title===row.querySelector('.desc-main').textContent,'description hover text');
       const categoryBadge=row.children[2].querySelector('.badge');
-      assert(categoryBadge.title===categoryBadge.textContent,'category hover text');
+      assert(categoryBadge.title==='Uncategorized','uncategorized hover text');
+      const categoryPreview=doc.createElement('tbody');
+      categoryPreview.innerHTML=app.transactionsTemplate({paginatedTransactions:[{
+        category:'Dining Out',categoryTitle:'Personal:Dining:Dining Out "special" <literal>',
+        amountCents:0,runningBalanceCents:0
+      }],columnCount:5});
+      assert(categoryPreview.querySelector('.category-cell .badge').title==='Personal:Dining:Dining Out "special" <literal>',
+        'full category title is escaped and preserved');
+      assert(categoryPreview.querySelector('.category-cell .badge').textContent==='Dining Out','visible category remains short');
       row.querySelector('.desc-main').textContent='A long synthetic description that truncates on one line rather than increasing the row height';
       categoryBadge.textContent='Personal:Household repairs and maintenance';
       for (const light of [true,false]) {
