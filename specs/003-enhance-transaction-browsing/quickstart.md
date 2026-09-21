@@ -82,13 +82,13 @@ Record T053 results, date and Moneydance version in `acceptance.md`. Existing UI
 
 At desktop widths 1280px and 1440px, inspect these named rows in both themes. Repeat the layout check at 360px and 412px using responsive mode, and on your Pixel 8 via the same ngrok origin with `/tests/browser/tags.html` appended. On mobile, each running balance is beneath the amount.
 
-| Row description | Expected tags | Expected running balance |
-|---|---|---:|
-| No tags | No Tags label, blank badge or tag container | $95.00 |
-| One tag | `tagonly-orchid`; also retains check number `#007` and memo `memo-103` | $96.00 |
-| Many tags | Home, Travel, Work, Reimbursable, Family, Annual, Shared, Review, Paid, Archived — all ten, in that order | $97.00 |
-| Long tag | One tag beginning `LongTag` followed by repeated `abcdefghij`; its entire text wraps without ellipses or clipping | $98.00 |
-| Markup tag | Three literal tags: `<img src=x onerror="window.tagExecuted=true">`, `Quotes " & < >`, and `{{notATemplate}}` | $99.00 |
+| Row description | Expected tags                                                                                                     | Expected running balance |
+| --------------- | ----------------------------------------------------------------------------------------------------------------- | -----------------------: |
+| No tags         | No Tags label, blank badge or tag container                                                                       |                   $95.00 |
+| One tag         | `tagonly-orchid`; also retains check number `#007` and memo `memo-103`                                            |                   $96.00 |
+| Many tags       | Home, Travel, Work, Reimbursable, Family, Annual, Shared, Review, Paid, Archived — all ten, in that order         |                   $97.00 |
+| Long tag        | One tag beginning `LongTag` followed by repeated `abcdefghij`; its entire text wraps without ellipses or clipping |                   $98.00 |
+| Markup tag      | Three literal tags: `<img src=x onerror="window.tagExecuted=true">`, `Quotes " & < >`, and `{{notATemplate}}`     |                   $99.00 |
 
 Expect tags on a separate line labeled **Tags:**, distinguishable from description, memo and check number. Long/multiple tags may increase row height but must not overlap money or cause horizontal page scrolling. The Markup tag row must show literal text, with no image or interpreted HTML. Short descriptions, category ellipses and full category hover titles retain US1 behavior.
 

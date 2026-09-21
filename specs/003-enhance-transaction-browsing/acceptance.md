@@ -8,15 +8,21 @@ Corrected capture to collect distinct parent plus child-split tags for parent ro
 
 Validation: `tests/runtime/export_tags_test.py` (5), `tests/runtime/export_deadline_test.py` (5) and `tests/runtime/delivery_test.py` (7) all passed with the bundled Moneydance Java/Jython runtime. The tag cases use synthetic source doubles to cover split-only tags, parent/split scope, duplicate handling, Unicode/literal text, unchanged source tag lists, wrapper identity and cancellation. These tests supplement but do not establish actual Account Book acceptance. `git diff --check` passed.
 
-T052 is complete; T053 actual-Moneydance verification remains pending. The detailed procedure is in `quickstart.md` under “T053 — Source correction for split-stored tags.” Prior T036/T037 UI acceptance remains valid; the new source defect reopens US2's gate until T053 passes. US3 has not started.
+T052 and T053 are complete. Actual-Moneydance verification confirms the missing-tag defect is fixed in plaintext export and encrypted viewer loading, parent rows collect and deduplicate split tags, individual split rows exclude sibling-only tags, and export leaves source records unchanged. Prior T036/T037 UI acceptance remains valid; US2's source-verification gate is satisfied. US3 has not started.
 
-### T053 user verification — pending
+### T053 user verification — passed
 
-- Date and Moneydance version:
-- Reported transaction after fresh plaintext/encrypted direct exports:
-- Synthetic split-only, sibling-isolation and duplicate cases:
-- Unchanged source records, amounts and running balances:
-- Pass/fail and any defects:
+- Date and Moneydance version: 20 Sep 2026, Moneydance 2024.4
+
+1. Exported the real Account Book to a file. Inspected contents, found expected tags in the export. Amount and balance are correct.
+2. Encrypted snapshot loads with tags as expected in the ui
+3. Created $15 transaction with two splits, $10 for Example.Travel and $5 for Example.Meals. Confirmed parent transaction did not have tags and raw details show the tags were saved to the splits as expected. Exported the data. Inspected the file, both tags saved to the parent transaction. Both tags loaded in the web ui.
+4. Changed the splits on previous transaction so both tagged Example.Travel. Inspected the exported file, confirmed one occurrence of "Example.Travel". Tag also appeared once in the web ui.
+
+5. Follow-up confirmation from the user: the other side of each split contains its correct tag, not its sibling's tag.
+6. Follow-up confirmation from the user: exporting leaves Moneydance source records unchanged.
+
+Review: the user-run results and follow-up confirmations complete T053 in Moneydance 2024.4 on 2026-09-20. The original missing-tag defect, parent union, deduplication, split isolation, correct amount/balance and source immutability are verified. No export file was read by the assistant during this review. No application changes or additional test runs were required to record acceptance.
 
 ## US2 implementation and completed acceptance (2026-09-20)
 

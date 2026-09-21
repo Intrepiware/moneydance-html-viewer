@@ -58,7 +58,7 @@ T011 implementation and verification are complete: escaped tag badges appear ben
 - [x] [Manual Test] T036 [US2] With T009's case list, inspect zero, one, many, long/unbroken and markup-like tags at desktop and 360/412px. Expect all literal text readable, no HTML execution or empty placeholder, wrapping without obscured money, and amounts/balances matching the reference. Record in `acceptance.md`. Passed: user manual results on Brave desktop and Pixel 8, with the specified width checks covered by the passing harness.
 - [x] [Manual Test] T037 [US2] Search those rows by description and memo: expect the same tags in results. Search a token found only in tags: expect no matches. Clear search and change page/account: expect correct tags without stale labels. Record in `acceptance.md`. Passed: user confirmed all cases on desktop and Pixel 8, with no defects observed.
 
-**Checkpoint reopened for source correction**: T036–T037 passed, but the subsequently reported split-stored tag defect adds T053 below. US3 waits for T053's actual-Moneydance verification; earlier UI acceptance results remain valid.
+**Checkpoint satisfied**: T036–T037 and T053 passed, including actual-Moneydance verification of the split-stored tag correction. US2's UI and source-verification gates are complete; US3 is eligible when implementation resumes.
 
 ## Phase 5: US3 — Selected-entry allocation details (P1)
 
@@ -177,11 +177,13 @@ User scope: User Story 1 and Material icons only, after rollback of the previous
 
 ## US2 implementation status (2026-09-20)
 
-Subsequent source defect: the real-book report identified missing split-stored tags on parent rows. T052 implements the correction; T053 reopens US2's source acceptance gate. The original UI acceptance below is retained as historical evidence.
+Subsequent source defect resolved: the real-book report identified missing split-stored tags on parent rows. T052 implements the correction and T053 now passes actual-Moneydance verification, closing the reopened source acceptance gate. The original UI acceptance below remains valid.
 
 T009–T011 and T036–T037 are complete. The user recorded full browser harness passes and successful manual checks on Brave 1.95.104 desktop (1920 × 917) and Brave 1.95.102 Pixel 8 (411 × 760) on 2026-09-20, with no defects observed. US2's manual gate is satisfied. The latest Node suite remains 50/51 passing, with the pre-existing demo/canonical-fixture equality failure separately recorded; no fresh Node run is implied. This acceptance review makes no application changes and starts no US3 implementation.
 
 ### US2 split-stored tag correction
 
 - [X] T052 [US2] Correct `export_json.py` tag capture: parent rows aggregate parent/split tags; split rows exclude sibling-only tags. Verify sorted uniqueness, literal text, source preservation and deadlines in `tests/runtime/export_tags_test.py`, and rerun exporter/delivery regressions. Do not read the user's large export without explicit permission. Five tag tests, five exporter/deadline tests and seven delivery tests passed using bundled Jython; actual-Moneydance acceptance remains T053.
-- [ ] [Manual Test] T053 [US2] Follow the split-stored tag correction steps in `quickstart.md` inside actual Moneydance: verify the reported real-book parent row now exports/displays its split tag; use a controlled synthetic two-split transaction to verify parent union, split isolation and duplicate handling. Confirm unchanged amounts/balances and source data. Record Moneydance version, date and pass/fail without copying private records. Test plaintext and encrypted exports from the corrected direct script. Leave pending until user-run verification passes; US3 is blocked meanwhile.
+- [x] [Manual Test] T053 [US2] Follow the split-stored tag correction steps in `quickstart.md` inside actual Moneydance: verify the reported real-book parent row now exports/displays its split tag; use a controlled synthetic two-split transaction to verify parent union, split isolation and duplicate handling. Confirm unchanged amounts/balances and source data. Record Moneydance version, date and pass/fail without copying private records. Test plaintext and encrypted exports from the corrected direct script. Passed based on the user's recorded results and follow-up confirmations.
+
+T053 evidence update: the user's 2026-09-20 Moneydance 2024.4 results confirm real-book tags, correct amount/balance, encrypted UI loading, parent union and deduplication. Follow-up confirmations establish split isolation and unchanged source records. T053 is complete; no large export was read and no US3 implementation began.
