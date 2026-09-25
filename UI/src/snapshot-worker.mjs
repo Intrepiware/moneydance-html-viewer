@@ -1,6 +1,6 @@
 import { readEnvelope, decryptEnvelope } from './encrypted-snapshot.mjs';
 import { validateSnapshot, validDate, visibleAccounts } from './snapshot.mjs';
-import { createRegisterQuery } from './query.mjs';
+import { createRegisterQuery, createDetailsQuery } from './query.mjs';
 
 // The same handler runs in a browser Worker and in isolated Node worker tests.
 export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fetch }) {
@@ -45,6 +45,13 @@ export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fe
       return;
     }
     if (message.type !== 'load') {
+      if (message.type === 'details') {
+        let result = null;
+        try { if (model) result = createDetailsQuery(model)(message); } catch { /* sanitized, nonterminal */ }
+        postMessage(result ? {type:'details',lane:'details',requestId,...result} :
+          {type:'detailsUnavailable',lane:'details',requestId,message:'Details are unavailable for this entry.'});
+        return;
+      }
       if (message.type !== 'query' || !query) {
         error(requestId, 'INVALID_QUERY', 'Snapshot is not ready or request is invalid.'); return;
       }

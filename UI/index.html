@@ -243,7 +243,7 @@
             <div class="desc-main" title="{{description}}">{{description}}</div>
             <div class="desc-extra">
               {{#if checkNum}}<span class="badge">#{{checkNum}}</span>{{/if}}
-              <span class="badge hide-desktop">{{category}}</span>
+              <button type="button" class="badge category-details hide-desktop" data-account-id="{{accountId}}" data-entry-id="{{id}}" title="{{categoryTitle}}">{{category}}</button>
               {{#if memo}}<span class="memo-text">{{memo}}</span>{{/if}}
             </div>
             {{#if tags.length}}
@@ -256,13 +256,25 @@
               <div class="transaction-account"><span class="mi mi-{{accountIcon}}" aria-hidden="true"></span> {{accountName}}</div>
             {{/if}}
           </td>
-          <td class="hide-mobile category-cell"><span class="badge" title="{{categoryTitle}}">{{category}}</span></td>
+          <td class="hide-mobile category-cell"><button type="button" class="badge category-details" data-account-id="{{accountId}}" data-entry-id="{{id}}" title="{{categoryTitle}}">{{category}}</button></td>
           <td class="amount-col amount {{#if (isNegative amountCents)}}negative{{else}}positive{{/if}}">{{formatCurrency amountCents}}<span class="mobile-running-balance">Balance: {{formatCurrency runningBalanceCents}}</span></td>
           <td class="amount-col hide-mobile">{{formatCurrency runningBalanceCents}}</td>
         </tr>
       {{/each}}
     </script>
 
+    <dialog id="split-details" aria-labelledby="split-details-title">
+      <div class="details-panel">
+        <header class="details-header">
+          <h2 id="split-details-title">Split details</h2>
+          <button type="button" id="details-close" aria-label="Close split details" autofocus><span class="mi mi-close" aria-hidden="true"></span></button>
+          <div class="details-summary"><div id="details-description"></div><div id="details-amount" class="details-money"></div></div>
+          <div id="details-context"></div>
+        </header>
+        <div id="details-body" tabindex="0" aria-label="Scrollable allocation details"></div>
+        <footer class="details-footer"><div class="details-total"><span>Total</span><span id="details-total" class="details-money"></span></div><p id="details-note"></p></footer>
+      </div>
+    </dialog>
     <script type="module" src="app.js"></script>
   </body>
 </html>

@@ -47,6 +47,9 @@ export function createViewerServer({ root = repo, snapshot = resolve(root, 'UI/d
       allowedRoot = resolve(root, 'UI/assets/icons'); target = resolve(allowedRoot, path.slice('/assets/icons/'.length));
     } else if (path.startsWith('/src/') && ['.js', '.mjs'].includes(extname(path))) {
       allowedRoot = resolve(root, 'UI/src'); target = resolve(root, 'UI', path.slice(1));
+    } else if (path === '/tests/browser/details.json') {
+      allowedRoot = resolve(root, 'tests/fixtures');
+      target = resolve(allowedRoot, 'browsing-allocations-v1.json');
     } else if (path === '/tests/browser/tags.json') {
       allowedRoot = resolve(root, 'tests/fixtures');
       target = resolve(allowedRoot, 'tags-v1.json');

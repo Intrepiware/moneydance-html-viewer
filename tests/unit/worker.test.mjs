@@ -8,6 +8,38 @@ import { createSnapshotHandler } from '../../UI/src/snapshot-worker.mjs';
 import { createSnapshotClient } from '../../UI/src/worker-client.mjs';
 const fixture = await readFile(new URL('../fixtures/valid-snapshot-v1.json', import.meta.url), 'utf8');
 const load = { type: 'load', mode: 'test', requestId: 1, url: 'http://localhost/snapshot.json', effectiveDate: '2026-09-06' };
+test('details lane preserves pending pages, drops closed/replaced replies and remains nonterminal', () => {
+  const sent=[],seen=[],worker={postMessage:m=>sent.push(m),terminate(){}};
+  const client=createSnapshotClient({pageUrl:'http://localhost/',workerFactory:()=>worker,onMessage:m=>seen.push(m)});
+  client.load();worker.onmessage({data:{type:'ready',requestId:1}});
+  const page=client.query(),old=client.details({accountId:'a',entryId:'old'});
+  const latest=client.details({accountId:'a',entryId:'new'});
+  worker.onmessage({data:{type:'details',requestId:old,lane:'details'}});
+  worker.onmessage({data:{type:'page',requestId:page}});
+  worker.onmessage({data:{type:'detailsUnavailable',requestId:latest,lane:'details'}});
+  assert.deepEqual(seen.map(m=>m.type),['ready','page','detailsUnavailable']);
+  const closed=client.details({accountId:'a',entryId:'closed'});client.invalidateDetails();
+  worker.onmessage({data:{type:'details',requestId:closed,lane:'details'}});
+  assert.equal(seen.length,3);assert.doesNotThrow(()=>client.query());
+  const changed=client.details({accountId:'a',entryId:'changed'});client.invalidatePending();
+  worker.onmessage({data:{type:'details',requestId:changed,lane:'details'}});assert.equal(seen.length,3);
+  client.dispose();
+});
+
+test('worker details are scoped by identity and do not cancel asynchronous search', async () => {
+  const messages=[],data=JSON.parse(fixture),entry=data.entries[0];let fetches=0;
+  const handler=createSnapshotHandler({baseUrl:load.url,postMessage:m=>messages.push(m),fetchSnapshot:async()=>{fetches++;return{ok:true,text:async()=>fixture}}});
+  await handler(load);
+  const pending=handler({type:'query',requestId:2,text:'candy'});
+  await handler({type:'details',requestId:3,accountId:entry.accountId,entryId:entry.id});await pending;
+  assert.ok(messages.some(m=>m.type==='page'&&m.requestId===2));
+  assert.equal(messages.find(m=>m.type==='details').entryId,entry.id);
+  await handler({type:'details',requestId:4,accountId:'missing',entryId:'missing'});
+  assert.equal(messages.at(-1).type,'detailsUnavailable');
+  await handler({type:'details',requestId:5,accountId:[],entryId:'bad'});
+  assert.equal(messages.at(-1).type,'detailsUnavailable');
+  await handler({type:'query',requestId:6});assert.equal(messages.at(-1).type,'page');assert.equal(fetches,1);
+});
 test('load-once handler reports missing file, blocks retries and cross-origin requests', async () => {
   const messages = []; let fetches = 0;
   const handler = createSnapshotHandler({ baseUrl: load.url, postMessage: m => messages.push(m), fetchSnapshot: async () => { fetches++; return { ok: false, status: 404 }; } });

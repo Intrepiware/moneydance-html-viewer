@@ -9,6 +9,7 @@ Existing accounts, entries, balances, timelines, dates and identities retain the
 | accountId | Existing source counterpart account identity |
 | name | Existing fallback label; full path derives from hierarchy |
 | memo | Existing selected-allocation memo; absent text remains absent |
+| tags | Planned optional allocation-specific string array; empty means known no tags; absent/null legacy field means unavailable, never copy the entry's combined tags |
 | amountCents | Safe integer in selected row's USD/sign convention, or null/unavailable |
 
 For a parent row, use each split's parent amount times owning account sign. For a split row, use its own value times owning sign for its parent allocation. Preserve repeated allocations and array order. Validate exact sum equals entry.amountCents when the nonempty allocation set is complete. Empty allocations mean uncategorized, not an invented zero allocation. Missing/null legacy values remain unavailable; partial sums must not be labeled complete. Unsafe amounts/sums fail financial validation. Source validation must establish supported USD completeness.
@@ -34,6 +35,8 @@ Row DTO retains existing fields and adds tags as an array of strings. Rendering 
 Source-tag correction (2026-09-20): parent rows collect distinct tags from the parent and its child splits; split rows collect parent plus selected-split tags only. Preserve sorted output and do not import sibling-only tags into a split row. Snapshot version 1 and the tags array contract are unchanged.
 
 Details DTO contains selected account/entry identity, selected amount and ordered allocations with path, memo, nullable amount, amount availability and destination availability. Unavailable destination has a reason suitable for display, not a guessed row. Only transfer allocations to supported non-category account destinations offer transfer navigation; category details remain readable. Full source objects never enter errors or routine logs.
+
+T054 amendment: the details DTO also carries each allocation's tags and tag availability. Expose a checked footer total only for complete nonempty allocations; otherwise it is unavailable. T012/T015 must establish source tag mapping: parent-row allocations use the corresponding split's own tags; split-row allocations use the selected split's tags, never sibling tags or a combined parent-row union. Parent-level tags remain entry context. This optional version-1 field requires exporter/schema/validator/fixture updates during US3; T054 only documents the design.
 
 ## Navigation target/result
 

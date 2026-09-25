@@ -5,7 +5,7 @@ const invalid = () => { const error = new Error('Invalid register query.'); erro
 
 // Keep text fields separate: matches must never span unrelated fields.
 export function searchFields(entry) {
-  return { text: [entry.description, entry.memo, ...entry.allocations.map(a => a.memo)].map(value => value.toLowerCase()),
+  return { text: [entry.description, entry.memo, ...entry.allocations.map(a => a.memo || '')].map(value => value.toLowerCase()),
     amount: formatUsd(entry.amountCents).replace(/[$,]/g, '') };
 }
 export function matchesSearch(fields, text) {
@@ -15,6 +15,42 @@ export function matchesSearch(fields, text) {
   const negative = needle.startsWith('-');
   const fragment = needle.replace(/[-$,]/g, '');
   return (!negative || fields.amount.startsWith('-')) && fields.amount.replace('-', '').includes(fragment);
+}
+
+export function accountPath(model, accountId) {
+  const names = [];
+  for (let id = accountId; id !== null; id = model.ancestry.get(id).parentId) {
+    const account = model.accountsById.get(id);
+    if (account.type !== 'ROOT') names.unshift(account.name);
+  }
+  return names.join(':');
+}
+
+export function createDetailsQuery(model) {
+  return ({ accountId, entryId } = {}) => {
+    if (typeof accountId !== 'string' || !accountId || typeof entryId !== 'string' || !entryId) invalid();
+    const index = model.entryIndex.get(JSON.stringify([accountId, entryId]));
+    if (index === undefined) return null;
+    const entry = model.entries[index];
+    let totalCents = 0, complete = entry.allocations.length > 0;
+    const allocations = entry.allocations.map(a => {
+      const destination = model.accountsById.get(a.accountId);
+      const amountCents = a.amountCents ?? null;
+      if (amountCents === null) complete = false;
+      else totalCents = addCents(totalCents, amountCents);
+      const category = ['INCOME', 'EXPENSE'].includes(destination.type);
+      const destinationAvailable = destination.included && (category || model.ownEntryIds.get(a.accountId)
+        .some(id => model.entries[id].transactionId === entry.transactionId));
+      return {accountId:a.accountId, path:accountPath(model,a.accountId) || a.name,
+        memo:a.memo || '', tags:a.tags?.slice() ?? null, amountCents,
+        destinationAvailable,
+        unavailableReason:destinationAvailable ? '' : destination.included ? 'Related entry unavailable in this export' : 'Account unavailable in this export',
+        isTransfer:!category};
+    });
+    return {accountId,entryId,transactionId:entry.transactionId,description:entry.description,
+      date:entry.date,accountPath:accountPath(model,accountId),amountCents:entry.amountCents,
+      allocations,totalCents:complete ? totalCents : null};
+  };
 }
 
 // Index once; page DTOs alone cross the worker boundary. Source entries stay intact.

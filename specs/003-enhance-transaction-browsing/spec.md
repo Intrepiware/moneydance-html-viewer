@@ -68,6 +68,10 @@ As the viewer user, I want to open a transaction's category details and understa
 
 **Independent Test**: Open a synthetic split transaction on desktop and phone, inspect all allocations, and close the details without losing the register position.
 
+**Presentation revision (2026-09-21)**: The modal omits Memo and Tags labels entirely. Memo text matches the regular register's memo color and size. Memos and tag pills remain on separate lines; missing/empty fields still render nothing.
+
+**Design amendment (2026-09-20)**: Each allocation displays its full category/account path, available memo, allocation-specific tags and signed amount. Empty or missing memos/tags omit both labels and placeholders; the model still distinguishes unknown tags from a known empty set. Amounts align on the right on desktop and mobile. The selected entry amount sits beside its description without a Selected transaction label. A total appears at the bottom without a matches-selected-transaction message: the complete nonempty allocation sum must equal the selected entry; incomplete or empty breakdowns explicitly show an unavailable total, never an invented zero or partial total. Review T054's [desktop/mobile mockup](mockups/split-details.html), including the user's bogus paycheck example, before dialog implementation; its proposed dimensions and styling remain subject to review. Plan eligible account actions for US4 without enabling navigation in US3.
+
 **Acceptance Scenarios**:
 
 1. **Given** a transaction with multiple allocations, **When** its category label is activated, **Then** a dismissible details view shows only that selected register entry’s allocations, whose signed amounts total the selected entry’s amount, along with full category/account paths and memos, including repeated allocations to the same category.

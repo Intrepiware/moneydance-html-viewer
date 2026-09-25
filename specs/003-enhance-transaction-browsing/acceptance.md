@@ -1,5 +1,103 @@
 # Transaction browsing implementation and acceptance
 
+## US3 source preflight (re-run)
+
+Acceptance review: Mike's 2026-09-24 results below complete **T015, T016 and T038**. The direct synthetic export passed validation (116 accounts, 11 entries) and all nine reference comparisons. All nine source probes pass in Moneydance build 5253 / Jython 2.7.2. The user rebuilt/reinstalled the extension, checked its encrypted output in desktop Chrome/mobile Brave against Moneydance and the test script, confirmed excluded-account behavior, and separately recorded all nine comparisons passing for the extension's export. `compare-preflight.mjs` calls `validateSnapshot` before comparing, so that pass also establishes validation of the extension output; no duplicate validator run is needed. The user explicitly confirmed unchanged source records/balances after export. This evidence supersedes the earlier failures and pending source-verification notes below. Browser interaction and full-history device gates remain pending; export/decryption timings do not substitute for T041's details-opening timing. No private export was read or tests rerun for this acceptance review.
+
+All Tests pass:
+
+```
+Beginning file C:\Working\Sandbox\moneydance\Export Json\scripts\moneydance-preflight.py at Thu Sep 24 19:42:22 CDT 2026
+
+Jython: 2.7.2
+Moneydance build: 5253
+Allocation case 1: PASS
+Allocation case 2: PASS
+Allocation case 3: PASS
+Allocation case 4: PASS
+Allocation case 5: PASS
+Allocation case 6: PASS
+Allocation case 7: PASS
+Allocation case 8: PASS
+Allocation case 9: PASS
+PREFLIGHT_REFERENCE_CHECKS_PASS: manually confirm coverage and source UI order; this is not viewer/device acceptance
+Finished running normally at Thu Sep 24 19:42:26 CDT 2026
+```
+
+Validation of the exported json also worked:
+
+```
+PS C:\Working\Sandbox\moneydance\Export Json> node scripts/validate-snapshot.mjs .workspace/private/us3-source.json
+{"status":"VALID","accounts":116,"entries":11}
+PS C:\Working\Sandbox\moneydance\Export Json> node scripts/compare-preflight.mjs .workspace/private/us3-source.json .workspace/private/us3-reference.private.json
+Allocation case 1: PASS
+Allocation case 2: PASS
+Allocation case 3: PASS
+Allocation case 4: PASS
+Allocation case 5: PASS
+Allocation case 6: PASS
+Allocation case 7: PASS
+Allocation case 8: PASS
+Allocation case 9: PASS
+REFERENCE_COMPARISONS_PASS
+```
+
+Built the extensions following the instructions in build-extensions.md, and reinstalled into Moneydance. Exported an encrypted snapshot of the synthetic Account book (under 2 sec export). File decrypted in both desktop Chrome and mobile Brave in less than 1 second each. Verified transaction data against moneydance and the test script. Observed transactions that referenced the archived account, but offered no navigation to that account (as expected).
+
+Ran compare-preflight.mjs against a file exported by the extension, and all tests passed:
+
+```
+Allocation case 1: PASS
+Allocation case 2: PASS
+Allocation case 3: PASS
+Allocation case 4: PASS
+Allocation case 5: PASS
+Allocation case 6: PASS
+Allocation case 7: PASS
+Allocation case 8: PASS
+Allocation case 9: PASS
+REFERENCE_COMPARISONS_PASS
+```
+
+Confirmed exporting left MOneydance's source records/balances unchanged.
+
+## US3 source preflight — 2026-09-24
+
+Diagnostic rerun at 19:36 CDT after the user corrected one source record: cases 1, 2, 7 and 8 pass. Cases 3, 5 and 9 fail only memo comparisons: actual source text is US3 Refund, US3 Salary and US3 Excluded. Cases 4 and 6 cannot select the shortened Refund/Salary descriptions. Corrected the supplied reference and setup guide to retain full transaction descriptions for these single-category cases; amounts, tags and exporter logic are unchanged. The matching full-text selectors for cases 4/6 follow the source split text observed on the parent side and still require rerun confirmation. The user's local reference was not read or modified. Full source acceptance remains pending.
+
+User ran the source probe in Moneydance build 5253 / Jython 2.7.2 at 19:30 CDT. Allocation cases 1–2 passed; 3–9 returned FAIL_OR_API_UNVERIFIED. The original aggregate result does not establish which field or API failed. Source acceptance remains pending. The probe now reports failed comparisons and selector counts separately; expectations and exporter behavior are unchanged. Await the diagnostic rerun before diagnosing or changing financial expectations.
+
+## US3 implementation — 2026-09-21
+
+Subsequent presentation revision: removed all modal Memo/Tags labels, shared the register memo color/size rule, and retained separate memo/tag lines. Updated the mockup and design requirements. Syntax/whitespace checks passed; visual/manual acceptance remains pending. Include this revision in T040's both-theme walkthrough.
+
+The user recorded mockup approval in `mockups/README.md` before implementation resumed. T054 is complete. Implemented selected-entry details, full paths, signed right-aligned amounts, split-specific tags, optional memo/tag sections, checked bottom totals and the approved header/footer. Native dialog dismissal restores invoking focus and scroll; details use a separate client request lane and stale replies are ignored. No US4 navigation or US5 grouping was implemented.
+
+Automated evidence (Codex, Windows, Node 20.9.0 and Moneydance-bundled Jython):
+
+- Initial details test failed because the projection did not exist, then passed after implementation.
+- Selected Node unit/contract suite: **55/55 passed**. Excluded `fixtures.test.mjs` and `decrypt-synthetic.test.mjs` because they read user-controlled `UI/data/test-snapshot.json`; that file and the large private export were not read. Existing demo-fixture equality issue is not claimed fixed. After the final destination-availability/index changes, the affected details/worker/snapshot subset passed **23/23**.
+- Bundled Jython: **4 allocation + 5 tag + 5 exporter/deadline + 7 delivery tests passed**. Allocation tests use fake source objects; they do not establish actual Moneydance behavior.
+- Dedicated synthetic fixture validates: **14 accounts, 109 entries**. Its paycheck's independently specified splits sum to $2,000; legacy, repeated, excluded, refund, many-split and selected-side cases are separate.
+- JavaScript module syntax checks and whitespace checks passed. One existing running-overflow test needed its allocations cleared to isolate running-balance overflow now that allocation sums validate first.
+- Extension rebuild succeeded after approved escalation for the signing directory ACL. Output: `dist/snapshot_delivery.mxt`; SHA256 `A35566E9A72B95F21124E7C073F693998914B4E07B0A8D583C511DC1271ECF34`. This is a build result, not installed-extension/source verification.
+
+T012 source recipe/reference/probe and T013–T014 implementation are delivered. T016 validator/schema work is implemented; final revalidation of T015's actual synthetic export is pending. T017–T019 implementation is delivered. T020 browser coverage is written but **not executed**: browser control has no available browser surface. Desktop/phone visual behavior remains unverified.
+
+### US3 user verification (pending)
+
+Follow the US3 section in [quickstart.md](quickstart.md). Run the updated browser harness and the dedicated `/tests/browser/details.html` preview. For source checks use [us3-source-checks.md](../../scripts/us3-source-checks.md), with nine independent allocation references, direct-script and installed-extension comparisons.
+
+| Gate        | Status                | Evidence required                                                                                                                                                             |
+| ----------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| T016        | Passed                | Actual synthetic export validates and all nine reference comparisons pass; see user results above                                                                             |
+| T015 / T038 | Passed | Direct and installed-extension source comparisons, viewer inspection and unchanged source records/balances confirmed by Mike on 2026-09-24 |
+| T020 / T039 | Pending               | Browser harness and values/empty-state/literal-text walkthrough                                                                                                               |
+| T040        | Pending               | Desktop and phone, both themes, full text, amount alignment, bounded scroll, keyboard/focus/context restoration, rapid close                                                  |
+| T041        | Pending               | Desktop and actual Pixel 8 full-history timing under two seconds, no extra download/unlock                                                                                    |
+
+Record tester/date/browser/device, observed results, defects and retests here. US4 remains blocked by the US3 manual gate; no manual task is marked passed by automated evidence.
+
 ## US2 source-tag defect and correction (2026-09-20)
 
 After successful UI acceptance, the user reported a real transaction with a tag stored under split `0.tags` in Moneydance Raw Details, but an empty exported parent-row tags array. Inspection of `export_json.py` found that tag collection used `(parent, txn)`; for a parent row these are the same transaction, so child-split tags were skipped. This occurs before encryption. The raw excerpt supplied in chat was sufficient; the user's large export was not read, and no private transaction values or IDs were copied into tests or documentation.

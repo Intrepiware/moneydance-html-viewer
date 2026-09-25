@@ -24,6 +24,7 @@ export class App {
     handlebars.registerPartial('accountNode', document.getElementById('account-node-partial').innerHTML);
     this.treeTemplate = handlebars.compile(document.getElementById('account-tree-template').innerHTML);
     this.transactionsTemplate = handlebars.compile(document.getElementById('transactions-template').innerHTML);
+    this.detailsDialog = document.getElementById('split-details');
     for (const id of ['transactions-body', 'transactions-table', 'no-results', 'pagination-controls', 'prev-page', 'next-page', 'page-info', 'register-status', 'future-summary'])
       this.el[id] = document.getElementById(id);
     this.page = 1;
@@ -48,6 +49,12 @@ export class App {
       this.client.unlock(this.passwordInput.value);
     }, {signal:this.handles.signal});
     const listen = (element, action) => element.addEventListener('click', action, { signal: this.handles.signal });
+    listen(this.el['transactions-body'], event => {
+      const trigger = event.target.closest('.category-details');
+      if (trigger) this.openDetails(trigger);
+    });
+    listen(document.getElementById('details-close'), () => this.closeDetails());
+    this.detailsDialog.addEventListener('cancel', event => { event.preventDefault(); this.closeDetails(); }, {signal:this.handles.signal});
     listen(this.el['account-tree'], event => {
       const header = event.target.closest('.account-header');
       if (!header) return;
@@ -73,7 +80,7 @@ export class App {
       this.el['search-input'].focus();
     });
     this.document.addEventListener('keydown', event => {
-      if (this.mobileLayout.matches || this.el['search-input'].disabled || event.isComposing) return;
+      if (this.detailsDialog.open || this.mobileLayout.matches || this.el['search-input'].disabled || event.isComposing) return;
       if ((event.ctrlKey || event.metaKey) && !event.altKey && !event.shiftKey && event.key.toLowerCase() === 'f') {
         event.preventDefault();
         this.el['search-input'].focus();
@@ -150,6 +157,8 @@ export class App {
       this.selectAccount(root);
     } else if (message.type === 'page') {
       this.renderPage(message);
+    } else if (message.type === 'details' || message.type === 'detailsUnavailable') {
+      if (this.detailsDialog.open) this.renderDetails(message);
     } else if (message.type === 'error') {
       this.passwordInput.value = ''; this.unlockForm.hidden = true;
       this.document.getElementById('app').dataset.state = 'error';
@@ -203,6 +212,7 @@ export class App {
   }
 
   clearRegister() {
+    this.closeDetails(false);
     this.el['future-summary'].hidden = true;
     this.el['transactions-body'].replaceChildren();
     this.el['transactions-table'].classList.add('hidden');
@@ -254,6 +264,72 @@ export class App {
       heading.colSpan = this.mobileLayout.matches ? 3 : 5;
   }
 
+  openDetails(trigger) {
+    this.closeDetails(false);
+    this.detailsTrigger = trigger;
+    this.detailsScroll = this.document.querySelector('.content-body').scrollTop;
+    for (const id of ['details-description','details-amount','details-context','details-total','details-note'])
+      this.document.getElementById(id).textContent = '';
+    this.document.getElementById('details-body').textContent = 'Loading split details…';
+    this.detailsDialog.querySelector('footer').hidden = true;
+    this.detailsDialog.showModal();
+    this.document.getElementById('details-close').focus({preventScroll:true});
+    this.client.details({accountId:trigger.dataset.accountId,entryId:trigger.dataset.entryId});
+  }
+
+  closeDetails(restore = true) {
+    this.client?.invalidateDetails();
+    if (!this.detailsDialog?.open) return;
+    this.detailsDialog.close();
+    this.document.getElementById('details-body').replaceChildren();
+    if (restore) {
+      if (this.detailsTrigger?.isConnected) this.detailsTrigger.focus({preventScroll:true});
+      this.document.querySelector('.content-body').scrollTop = this.detailsScroll;
+    }
+    this.detailsTrigger = null;
+  }
+
+  renderDetails(details) {
+    const make = (tag, cls, text) => {
+      const node = this.document.createElement(tag);
+      node.className = cls;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    };
+    const body = this.document.getElementById('details-body');
+    body.replaceChildren(); body.scrollTop = 0;
+    if (details.type === 'detailsUnavailable') { body.textContent = details.message; return; }
+    const amount = (id, value) => {
+      const node=this.document.getElementById(id);
+      node.textContent=value === null ? 'Unavailable' : formatUsd(value);
+      node.classList.toggle('negative',value !== null && value < 0);
+    };
+    this.document.getElementById('details-description').textContent = details.description;
+    this.document.getElementById('details-context').textContent = `${details.date} · ${details.accountPath}`;
+    amount('details-amount',details.amountCents); amount('details-total',details.totalCents);
+    const list = make('ol','details-allocations');
+    for (const allocation of details.allocations) {
+      const item=make('li','details-allocation');
+      item.append(make('div','details-path',allocation.path),
+        make('div','details-money'+(allocation.amountCents < 0 ? ' negative' : ''),allocation.amountCents === null ? 'Unavailable' : formatUsd(allocation.amountCents)));
+      if (allocation.memo) {
+        item.append(make('div','details-memo',allocation.memo));
+      }
+      if (allocation.tags?.length) {
+        const tags=make('div','details-tags');
+        for (const tag of allocation.tags) tags.append(make('span','details-tag',tag));item.append(tags);
+      }
+      if (allocation.unavailableReason) item.append(make('div','details-reason',allocation.unavailableReason));
+      list.append(item);
+    }
+    if (details.allocations.length) body.append(list);
+    else body.append(make('p','details-empty','Uncategorized — no allocations are available for this entry.'));
+    this.detailsDialog.querySelector('footer').hidden = false;
+    this.document.getElementById('details-note').textContent = details.totalCents !== null ?
+      `${details.allocations.length} allocation${details.allocations.length === 1 ? '' : 's'}` :
+      details.allocations.length ? 'One or more split amounts are unavailable.' : 'No allocation total is available.';
+  }
+
   toggleSidebar(show) {
     this.el.sidebar.classList.toggle('open', show);
     this.el['sidebar-overlay'].classList.toggle('hidden', !show);
@@ -266,7 +342,7 @@ export class App {
     try { this.window.localStorage.setItem('theme', light ? 'light' : 'dark'); } catch { /* optional preference */ }
   }
 
-  dispose() { this.passwordInput.value = '';  this.window.clearTimeout(this.searchTimer); this.client.dispose(); this.handles.abort(); this.headerObserver.disconnect(); }
+  dispose() { this.closeDetails(false); this.passwordInput.value = '';  this.window.clearTimeout(this.searchTimer); this.client.dispose(); this.handles.abort(); this.headerObserver.disconnect(); }
 }
 
 // Use the same bootstrap in production and lifecycle regression scenarios.

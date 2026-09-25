@@ -115,6 +115,21 @@ def entry_tags(txn, parent, deadline=None):
     return sorted(tags)
 
 
+def capture_allocation(txn, other, split, sign, deadline=None):
+    """Use selected-row monetary units and only the corresponding split's tags."""
+    check_deadline(deadline)
+    source = txn if split else other
+    amount = txn.getValue() if split else other.getParentAmount()
+    tags = set()
+    for tag in (source.getKeywords() or []):
+        check_deadline(deadline)
+        tags.add(text(tag))
+    return {'accountId': text(other.getAccount().getUUID()),
+            'name': text(other.getAccount().getAccountName()),
+            'memo': memo(source), 'tags': sorted(tags),
+            'amountCents': exact(long(amount) * sign)}
+
+
 def capture(book, deadline=None):
     """Copy relevant source data to Python values; never retain mutable Java nodes."""
     check_deadline(deadline)
@@ -180,10 +195,7 @@ def capture(book, deadline=None):
             for i in range(txn.getOtherTxnCount()):
                 check_deadline(deadline)
                 other = txn.getOtherTxn(i)
-                allocations.append({'accountId': text(other.getAccount().getUUID()),
-                                    'name': text(other.getAccount().getAccountName()),
-                                    'memo': memo(txn) if split else memo(other),
-                                    'amountCents': None})
+                allocations.append(capture_allocation(txn, other, split, sign, deadline))
             tags = entry_tags(txn, parent, deadline)
             record['rows'].append({'id': eid, 'transactionId': text(parent.getUUID()),
                                    'accountId': aid, 'date': date_text(txn.getDateInt()),
@@ -241,6 +253,12 @@ def build_snapshot(records, instant, source_version, deadline=None):
             if r['included']:
                 entry = dict((k, v) for k, v in row.items() if k not in ('raw', 'sdkBalance', 'sourceStamp'))
                 entry['amountCents'] = exact(row['raw'] * r['sign'])
+                if entry['allocations']:
+                    total = 0
+                    for allocation in entry['allocations']:
+                        check_deadline(deadline)
+                        total = add(total, allocation['amountCents'])
+                    require(total == entry['amountCents'], 'ALLOCATION_SUM_MISMATCH')
                 entry['runningBalanceCents'] = exact(running * r['sign'])
                 emitted_entries.append(entry)
         require(running * r['sign'] == r['sourceClosing'], 'SOURCE_CLOSING_MISMATCH')

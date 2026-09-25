@@ -12,6 +12,8 @@ const mappings = {ROOT:'checkbook',BANK:'account_balance',CREDIT_CARD:'credit_ca
   EXPENSE:'sell',INCOME:'paid',LOAN:'payment_arrow_down',ASSET:'money_bag',LIABILITY:'receipt_long'};
 
 export async function run(report) {
+  const details = await import('./details.mjs');
+  await details.run(report);
   const markup = (await (await fetch('/index.html')).text()).replace('<head>', '<head><base href="/">')
     .replace(/<script type="module" src="app.js"><\/script>/, '');
   for (const width of [1280,1440,360,412]) {

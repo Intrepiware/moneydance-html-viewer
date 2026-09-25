@@ -1,5 +1,7 @@
 # Run the source preflight (T005)
 
+For feature 003 US3, use the separate [allocation source-check recipe](us3-source-checks.md). The probe now supports ordered per-allocation amount, memo and tag comparisons in `allocationCases`; `scope: "allocations"` runs that focused reference without claiming the older balance coverage passed again.
+
 Case 1 has passed all 31 comparisons in Jython 2.7.2 on Moneydance build 5253. The additional cases remain unverified.
 Do not run it with standalone Python. It does not create accounts or transactions.
 

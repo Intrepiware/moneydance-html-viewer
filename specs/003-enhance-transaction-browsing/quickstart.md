@@ -4,6 +4,19 @@ This is the planned acceptance procedure, not a report of completed implementati
 
 ## Baseline and automated checks
 
+### US3 implementation acceptance
+
+Restart `npm run serve`, then open **http://127.0.0.1:8080/tests/browser/details.html**. This uses only the dedicated synthetic fixture and does not change `UI/config.js` or your demo export. Open **http://127.0.0.1:8080/tests/browser/** for the full browser harness, now including US3.
+
+- **T038 source:** follow [US3 source checks](../../scripts/us3-source-checks.md), including actual Moneydance, installed extension, validation and comparison. Keep this evidence distinct from the synthetic viewer cases below.
+- **T039 values/empty states:** in Details Checking, search `Payroll` and click/tap Split. Expect seven splits and $2,000 at the top and bottom; empty tags have no label. Search `Repeated`: two separate Dining allocations total -$30; markup-like memo is literal, long tag wraps, and the second split has no memo/tag placeholders. Search `Legacy`: one unavailable amount, an excluded -$42 amount, and Total unavailable. Search `Uncategorized`: explicit empty state and unavailable total. Search `Refund`: +$25 total. Close each and open another to verify recovery. Select Rainy Day Savings: one -$1,000 allocation with only its Rainy tag. This fixture is an independent viewer example, not a copy of the source recipe.
+- **T040 interaction/layout:** use both themes on desktop and phone (360/412 CSS pixels). Clear search, select Details Checking, go to page 2 and scroll before opening Payroll. Amounts line up on the right; full text remains readable. Close button and Escape return to the same account/search/page/scroll and category button focus. Search `Many`, open Split and scroll inside the dialog: all 12 splits are reachable while heading/close/total remain visible. Tab stays inside the native dialog; test its accessible name and close control. Open then immediately close a row: a late response must not reopen it. US4 links and US5 grouping are not implemented.
+- **T041 performance:** use the existing full-history timing procedure below on desktop and actual Pixel 8. Time many-split details opening; expect under two seconds. Network must show no additional snapshot fetch, and encrypted sessions must not ask for another password. Record browser/device/date/timing; synthetic browser checks alone do not satisfy this task.
+
+Record results under the US3 section in acceptance.md. T038–T041 remain pending until executed by a person.
+
+For T054 design review, open [mockups/split-details.html](mockups/split-details.html) directly in a browser and follow the [review steps](mockups/README.md). No viewer server or export is required. This is a synthetic desktop/mobile design proposal, not the implemented US3 dialog. Record approval or revisions before dialog implementation.
+
 From repository root with Node >=20.9.0:
 
 ```powershell

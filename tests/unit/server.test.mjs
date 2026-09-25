@@ -18,6 +18,7 @@ test('server isolates selected snapshots and refuses private paths/traversal', a
   await mkdir(join(root, 'tests/fixtures'), { recursive: true });
   await writeFile(join(root, 'tests/fixtures/valid-snapshot-v1.json'), '{"baseline":true}');
   await writeFile(join(root, 'tests/fixtures/tags-v1.json'), '{"tagsFixture":true}');
+  await writeFile(join(root, 'tests/fixtures/browsing-allocations-v1.json'), '{"detailsFixture":true}');
   await writeFile(join(root, 'tests/fixtures/hidden-ancestor-v1.json'), '{"synthetic":true}');
   await writeFile(join(root, 'tests/fixtures/register-pages-v1.json'), '{"register":true}');
   await writeFile(join(root, 'tests/fixtures/empty-snapshot-v1.json'), '{"empty":true}');
@@ -51,6 +52,7 @@ test('server isolates selected snapshots and refuses private paths/traversal', a
     assert.equal((await get('/data/test-snapshot.json')).body, '{"customDemo":true}');
     assert.equal((await get('/tests/fixtures/valid-snapshot-v1.json')).status, 404);
     const tags = await get('/tests/browser/tags.json');
+    assert.equal((await get('/tests/browser/details.json')).body, '{"detailsFixture":true}');
     assert.equal(tags.status, 200);
     assert.equal(tags.headers['content-type'], 'application/json; charset=utf-8');
     assert.equal(tags.body, '{"tagsFixture":true}');

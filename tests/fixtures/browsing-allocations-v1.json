@@ -1,0 +1,2945 @@
+{
+  "schemaVersion": 1,
+  "exportDate": "2026-09-06T12:00:00Z",
+  "balanceStartDate": "2026-09-05",
+  "sourceVersion": "synthetic-us3",
+  "accounts": {
+    "id": "root",
+    "name": "Synthetic Book",
+    "type": "ROOT",
+    "currency": "USD",
+    "inactive": false,
+    "included": false,
+    "openingBalanceCents": null,
+    "closingBalanceCents": null,
+    "balanceTimeline": null,
+    "children": [
+      {
+        "id": "details-bank",
+        "name": "Details Checking",
+        "type": "BANK",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 166500,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 166500,
+              "sidebarBalanceCents": 166500
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "salary",
+        "name": "Salary:Paycheck",
+        "type": "INCOME",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "tax",
+        "name": "Tax:Federal Income Tax",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "dining",
+        "name": "Personal:Dining:Dining Out",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "excluded",
+        "name": "Archived Reserve",
+        "type": "BANK",
+        "currency": "USD",
+        "inactive": true,
+        "included": false,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": null,
+        "children": []
+      },
+      {
+        "id": "home",
+        "name": "Home Savings",
+        "type": "BANK",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": -400000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": -400000,
+              "sidebarBalanceCents": -400000
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "rainy",
+        "name": "Rainy Day Savings",
+        "type": "BANK",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": -100000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": -100000,
+              "sidebarBalanceCents": -100000
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "repairs",
+        "name": "Home:Repairs",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 500000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 500000,
+              "sidebarBalanceCents": 500000
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "medicare",
+        "name": "Tax:Medicare Tax",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "dental",
+        "name": "Insurance:Dental",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "medical",
+        "name": "Insurance:Health",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "vision",
+        "name": "Insurance:Vision",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "social",
+        "name": "Tax:Social Security Tax",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            }
+          ]
+        },
+        "children": []
+      }
+    ]
+  },
+  "entries": [
+    {
+      "id": "paycheck",
+      "transactionId": "paycheck",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "description": "Employer LLC Payroll",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": 200000,
+      "runningBalanceCents": 200000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "salary",
+          "name": "Salary:Paycheck",
+          "amountCents": 269000,
+          "memo": "Employer LLC Direct Dep",
+          "tags": []
+        },
+        {
+          "accountId": "tax",
+          "name": "Tax:Federal Income Tax",
+          "amountCents": -25000,
+          "memo": "Federal Tax",
+          "tags": []
+        },
+        {
+          "accountId": "medicare",
+          "name": "Tax:Medicare Tax",
+          "amountCents": -15000,
+          "memo": "Medicare Taxes",
+          "tags": []
+        },
+        {
+          "accountId": "dental",
+          "name": "Insurance:Dental",
+          "amountCents": -3000,
+          "memo": "Dental Insurance",
+          "tags": []
+        },
+        {
+          "accountId": "medical",
+          "name": "Insurance:Health",
+          "amountCents": -8000,
+          "memo": "Medical Insurance",
+          "tags": []
+        },
+        {
+          "accountId": "vision",
+          "name": "Insurance:Vision",
+          "amountCents": -500,
+          "memo": "Vision Insurance",
+          "tags": []
+        },
+        {
+          "accountId": "social",
+          "name": "Tax:Social Security Tax",
+          "amountCents": -17500,
+          "memo": "Social Security Tax",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "repeated",
+      "transactionId": "repeated",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 1,
+      "description": "Repeated Dining",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -3000,
+      "runningBalanceCents": 197000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -2000,
+          "memo": "<img src=x onerror=alert(1)>",
+          "tags": [
+            "One",
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "legacy",
+      "transactionId": "legacy",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 2,
+      "description": "Legacy partial amounts",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -9200,
+      "runningBalanceCents": 187800,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Dining",
+          "amountCents": null
+        },
+        {
+          "accountId": "excluded",
+          "name": "Archived Reserve",
+          "amountCents": -4200,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "empty",
+      "transactionId": "empty",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 3,
+      "description": "Uncategorized example",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -1800,
+      "runningBalanceCents": 186000,
+      "tags": [],
+      "allocations": []
+    },
+    {
+      "id": "many",
+      "transactionId": "many",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 4,
+      "description": "Many allocations",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -12000,
+      "runningBalanceCents": 174000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 1",
+          "tags": [
+            "Household"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 2",
+          "tags": [
+            "Household"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 3",
+          "tags": [
+            "Household"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 4",
+          "tags": [
+            "Household"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 5",
+          "tags": [
+            "Household"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 6",
+          "tags": [
+            "Household"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 7",
+          "tags": [
+            "Household"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 8",
+          "tags": [
+            "Household"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 9",
+          "tags": [
+            "Household"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 10",
+          "tags": [
+            "Household"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 11",
+          "tags": [
+            "Household"
+          ]
+        },
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -1000,
+          "memo": "Allocation 12",
+          "tags": [
+            "Household"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "refund",
+      "transactionId": "refund",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 5,
+      "description": "Refund",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": 2500,
+      "runningBalanceCents": 176500,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": 2500,
+          "memo": "Refund",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "home-entry",
+      "transactionId": "repair",
+      "accountId": "home",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "description": "Repair funding",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -400000,
+      "runningBalanceCents": -400000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "repairs",
+          "name": "Home:Repairs",
+          "amountCents": -400000,
+          "memo": "Home contribution",
+          "tags": [
+            "Home"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rainy-entry",
+      "transactionId": "repair",
+      "accountId": "rainy",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "description": "Repair funding",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100000,
+      "runningBalanceCents": -100000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "repairs",
+          "name": "Home:Repairs",
+          "amountCents": -100000,
+          "memo": "Rainy Day contribution",
+          "tags": [
+            "Rainy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "repair-entry",
+      "transactionId": "repair",
+      "accountId": "repairs",
+      "date": "2026-09-01",
+      "registerOrder": 0,
+      "description": "Repair funding",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": 500000,
+      "runningBalanceCents": 500000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "home",
+          "name": "Home Savings",
+          "amountCents": 400000,
+          "memo": "Home contribution",
+          "tags": [
+            "Home"
+          ]
+        },
+        {
+          "accountId": "rainy",
+          "name": "Rainy Day Savings",
+          "amountCents": 100000,
+          "memo": "Rainy Day contribution",
+          "tags": [
+            "Rainy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "filler-0",
+      "transactionId": "filler-0",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 6,
+      "description": "Paging example 0",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 176400,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-1",
+      "transactionId": "filler-1",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 7,
+      "description": "Paging example 1",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 176300,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-2",
+      "transactionId": "filler-2",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 8,
+      "description": "Paging example 2",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 176200,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-3",
+      "transactionId": "filler-3",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 9,
+      "description": "Paging example 3",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 176100,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-4",
+      "transactionId": "filler-4",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 10,
+      "description": "Paging example 4",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 176000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-5",
+      "transactionId": "filler-5",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 11,
+      "description": "Paging example 5",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 175900,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-6",
+      "transactionId": "filler-6",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 12,
+      "description": "Paging example 6",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 175800,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-7",
+      "transactionId": "filler-7",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 13,
+      "description": "Paging example 7",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 175700,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-8",
+      "transactionId": "filler-8",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 14,
+      "description": "Paging example 8",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 175600,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-9",
+      "transactionId": "filler-9",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 15,
+      "description": "Paging example 9",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 175500,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-10",
+      "transactionId": "filler-10",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 16,
+      "description": "Paging example 10",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 175400,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-11",
+      "transactionId": "filler-11",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 17,
+      "description": "Paging example 11",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 175300,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-12",
+      "transactionId": "filler-12",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 18,
+      "description": "Paging example 12",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 175200,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-13",
+      "transactionId": "filler-13",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 19,
+      "description": "Paging example 13",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 175100,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-14",
+      "transactionId": "filler-14",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 20,
+      "description": "Paging example 14",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 175000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-15",
+      "transactionId": "filler-15",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 21,
+      "description": "Paging example 15",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 174900,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-16",
+      "transactionId": "filler-16",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 22,
+      "description": "Paging example 16",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 174800,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-17",
+      "transactionId": "filler-17",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 23,
+      "description": "Paging example 17",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 174700,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-18",
+      "transactionId": "filler-18",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 24,
+      "description": "Paging example 18",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 174600,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-19",
+      "transactionId": "filler-19",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 25,
+      "description": "Paging example 19",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 174500,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-20",
+      "transactionId": "filler-20",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 26,
+      "description": "Paging example 20",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 174400,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-21",
+      "transactionId": "filler-21",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 27,
+      "description": "Paging example 21",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 174300,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-22",
+      "transactionId": "filler-22",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 28,
+      "description": "Paging example 22",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 174200,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-23",
+      "transactionId": "filler-23",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 29,
+      "description": "Paging example 23",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 174100,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-24",
+      "transactionId": "filler-24",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 30,
+      "description": "Paging example 24",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 174000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-25",
+      "transactionId": "filler-25",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 31,
+      "description": "Paging example 25",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 173900,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-26",
+      "transactionId": "filler-26",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 32,
+      "description": "Paging example 26",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 173800,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-27",
+      "transactionId": "filler-27",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 33,
+      "description": "Paging example 27",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 173700,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-28",
+      "transactionId": "filler-28",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 34,
+      "description": "Paging example 28",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 173600,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-29",
+      "transactionId": "filler-29",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 35,
+      "description": "Paging example 29",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 173500,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-30",
+      "transactionId": "filler-30",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 36,
+      "description": "Paging example 30",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 173400,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-31",
+      "transactionId": "filler-31",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 37,
+      "description": "Paging example 31",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 173300,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-32",
+      "transactionId": "filler-32",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 38,
+      "description": "Paging example 32",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 173200,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-33",
+      "transactionId": "filler-33",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 39,
+      "description": "Paging example 33",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 173100,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-34",
+      "transactionId": "filler-34",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 40,
+      "description": "Paging example 34",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 173000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-35",
+      "transactionId": "filler-35",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 41,
+      "description": "Paging example 35",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 172900,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-36",
+      "transactionId": "filler-36",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 42,
+      "description": "Paging example 36",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 172800,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-37",
+      "transactionId": "filler-37",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 43,
+      "description": "Paging example 37",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 172700,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-38",
+      "transactionId": "filler-38",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 44,
+      "description": "Paging example 38",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 172600,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-39",
+      "transactionId": "filler-39",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 45,
+      "description": "Paging example 39",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 172500,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-40",
+      "transactionId": "filler-40",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 46,
+      "description": "Paging example 40",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 172400,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-41",
+      "transactionId": "filler-41",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 47,
+      "description": "Paging example 41",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 172300,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-42",
+      "transactionId": "filler-42",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 48,
+      "description": "Paging example 42",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 172200,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-43",
+      "transactionId": "filler-43",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 49,
+      "description": "Paging example 43",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 172100,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-44",
+      "transactionId": "filler-44",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 50,
+      "description": "Paging example 44",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 172000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-45",
+      "transactionId": "filler-45",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 51,
+      "description": "Paging example 45",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 171900,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-46",
+      "transactionId": "filler-46",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 52,
+      "description": "Paging example 46",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 171800,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-47",
+      "transactionId": "filler-47",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 53,
+      "description": "Paging example 47",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 171700,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-48",
+      "transactionId": "filler-48",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 54,
+      "description": "Paging example 48",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 171600,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-49",
+      "transactionId": "filler-49",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 55,
+      "description": "Paging example 49",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 171500,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-50",
+      "transactionId": "filler-50",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 56,
+      "description": "Paging example 50",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 171400,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-51",
+      "transactionId": "filler-51",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 57,
+      "description": "Paging example 51",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 171300,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-52",
+      "transactionId": "filler-52",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 58,
+      "description": "Paging example 52",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 171200,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-53",
+      "transactionId": "filler-53",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 59,
+      "description": "Paging example 53",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 171100,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-54",
+      "transactionId": "filler-54",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 60,
+      "description": "Paging example 54",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 171000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-55",
+      "transactionId": "filler-55",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 61,
+      "description": "Paging example 55",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 170900,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-56",
+      "transactionId": "filler-56",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 62,
+      "description": "Paging example 56",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 170800,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-57",
+      "transactionId": "filler-57",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 63,
+      "description": "Paging example 57",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 170700,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-58",
+      "transactionId": "filler-58",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 64,
+      "description": "Paging example 58",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 170600,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-59",
+      "transactionId": "filler-59",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 65,
+      "description": "Paging example 59",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 170500,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-60",
+      "transactionId": "filler-60",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 66,
+      "description": "Paging example 60",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 170400,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-61",
+      "transactionId": "filler-61",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 67,
+      "description": "Paging example 61",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 170300,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-62",
+      "transactionId": "filler-62",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 68,
+      "description": "Paging example 62",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 170200,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-63",
+      "transactionId": "filler-63",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 69,
+      "description": "Paging example 63",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 170100,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-64",
+      "transactionId": "filler-64",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 70,
+      "description": "Paging example 64",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 170000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-65",
+      "transactionId": "filler-65",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 71,
+      "description": "Paging example 65",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 169900,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-66",
+      "transactionId": "filler-66",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 72,
+      "description": "Paging example 66",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 169800,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-67",
+      "transactionId": "filler-67",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 73,
+      "description": "Paging example 67",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 169700,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-68",
+      "transactionId": "filler-68",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 74,
+      "description": "Paging example 68",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 169600,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-69",
+      "transactionId": "filler-69",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 75,
+      "description": "Paging example 69",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 169500,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-70",
+      "transactionId": "filler-70",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 76,
+      "description": "Paging example 70",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 169400,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-71",
+      "transactionId": "filler-71",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 77,
+      "description": "Paging example 71",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 169300,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-72",
+      "transactionId": "filler-72",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 78,
+      "description": "Paging example 72",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 169200,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-73",
+      "transactionId": "filler-73",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 79,
+      "description": "Paging example 73",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 169100,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-74",
+      "transactionId": "filler-74",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 80,
+      "description": "Paging example 74",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 169000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-75",
+      "transactionId": "filler-75",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 81,
+      "description": "Paging example 75",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 168900,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-76",
+      "transactionId": "filler-76",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 82,
+      "description": "Paging example 76",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 168800,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-77",
+      "transactionId": "filler-77",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 83,
+      "description": "Paging example 77",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 168700,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-78",
+      "transactionId": "filler-78",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 84,
+      "description": "Paging example 78",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 168600,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-79",
+      "transactionId": "filler-79",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 85,
+      "description": "Paging example 79",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 168500,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-80",
+      "transactionId": "filler-80",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 86,
+      "description": "Paging example 80",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 168400,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-81",
+      "transactionId": "filler-81",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 87,
+      "description": "Paging example 81",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 168300,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-82",
+      "transactionId": "filler-82",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 88,
+      "description": "Paging example 82",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 168200,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-83",
+      "transactionId": "filler-83",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 89,
+      "description": "Paging example 83",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 168100,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-84",
+      "transactionId": "filler-84",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 90,
+      "description": "Paging example 84",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 168000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-85",
+      "transactionId": "filler-85",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 91,
+      "description": "Paging example 85",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 167900,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-86",
+      "transactionId": "filler-86",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 92,
+      "description": "Paging example 86",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 167800,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-87",
+      "transactionId": "filler-87",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 93,
+      "description": "Paging example 87",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 167700,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-88",
+      "transactionId": "filler-88",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 94,
+      "description": "Paging example 88",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 167600,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-89",
+      "transactionId": "filler-89",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 95,
+      "description": "Paging example 89",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 167500,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-90",
+      "transactionId": "filler-90",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 96,
+      "description": "Paging example 90",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 167400,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-91",
+      "transactionId": "filler-91",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 97,
+      "description": "Paging example 91",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 167300,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-92",
+      "transactionId": "filler-92",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 98,
+      "description": "Paging example 92",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 167200,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-93",
+      "transactionId": "filler-93",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 99,
+      "description": "Paging example 93",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 167100,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-94",
+      "transactionId": "filler-94",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 100,
+      "description": "Paging example 94",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 167000,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-95",
+      "transactionId": "filler-95",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 101,
+      "description": "Paging example 95",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 166900,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-96",
+      "transactionId": "filler-96",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 102,
+      "description": "Paging example 96",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 166800,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-97",
+      "transactionId": "filler-97",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 103,
+      "description": "Paging example 97",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 166700,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-98",
+      "transactionId": "filler-98",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 104,
+      "description": "Paging example 98",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 166600,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "filler-99",
+      "transactionId": "filler-99",
+      "accountId": "details-bank",
+      "date": "2026-09-01",
+      "registerOrder": 105,
+      "description": "Paging example 99",
+      "memo": "",
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "amountCents": -100,
+      "runningBalanceCents": 166500,
+      "tags": [],
+      "allocations": [
+        {
+          "accountId": "dining",
+          "name": "Personal:Dining:Dining Out",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    }
+  ]
+}

@@ -86,7 +86,7 @@ tests/runtime/
 
 1. US1: redistribute desktop description/category space and replace all Font Awesome icons/assets with the specified Google Material icons; check mappings, control accessibility, themes, sticky alignment and mobile layout. Include any necessary static-asset allowlist/MIME updates in the local server.
 2. US2: carry existing tags through row DTOs and render escaped wrapping labels.
-3. US3: verify/populate allocation amounts, validate sums, add on-demand details and native dialog. Complete installed Moneydance comparisons before accepting supported details.
+3. US3: review T054's standalone desktop/mobile [mockup](mockups/split-details.html) and record approval before implementing the dialog. Verify/populate allocation amounts and allocation-specific tags, validate sums, add on-demand details and native dialog with right-aligned amounts and a bottom total. Preserve legacy unknown tags/amounts. Complete installed Moneydance comparisons before accepting supported details. Mockups use synthetic data and remain separate from production UI.
 4. US4: identity-based lookup/navigation, related-row highlights, future disclosure and stale-response protection. Transfer links are added to US3's dialog here.
 5. US5: separate sidebar lists, session grouping preference and complete filtered period sums before pagination; integrate category destinations with US4.
 
