@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "preset": {
+    "id": "epay-customizations",
+    "name": "ePay Customizations",
+    "version": "0.1.0",
+    "description": "Per-story manual acceptance tests, evidence-based completion, and sequential implementation gates.",
+    "author": "Mike"
+  },
+  "requires": { "speckit_version": ">=1.0.4" },
+  "provides": {
+    "templates": [
+      { "type": "command", "name": "speckit.tasks", "file": "commands/tasks-addendum.md", "strategy": "append", "description": "Generate manual acceptance tasks and story gates." },
+      { "type": "command", "name": "speckit.implement", "file": "commands/implement-addendum.md", "strategy": "append", "description": "Enforce acceptance before each story transition." },
+      { "type": "command", "name": "speckit.analyze", "file": "commands/analyze-addendum.md", "strategy": "append", "description": "Audit manual coverage, evidence and gate dependencies." },
+      { "type": "template", "name": "tasks-template", "file": "templates/tasks-addendum.md", "strategy": "append", "description": "Required manual task format and acceptance protocol." },
+      { "type": "template", "name": "constitution-template", "file": "templates/constitution-addendum.md", "strategy": "append", "description": "Reusable manual acceptance governance rule." },
+      { "type": "template", "name": "acceptance-template", "file": "templates/acceptance-template.md", "strategy": "replace", "description": "Per-story human acceptance evidence record." }
+    ]
+  },
+  "tags": ["manual-testing", "acceptance", "story-gates"]
+}
