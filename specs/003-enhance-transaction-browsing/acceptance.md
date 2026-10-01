@@ -84,19 +84,153 @@ Automated evidence (Codex, Windows, Node 20.9.0 and Moneydance-bundled Jython):
 
 T012 source recipe/reference/probe and T013–T014 implementation are delivered. T016 validator/schema work is implemented; final revalidation of T015's actual synthetic export is pending. T017–T019 implementation is delivered. T020 browser coverage is written but **not executed**: browser control has no available browser surface. Desktop/phone visual behavior remains unverified.
 
-### US3 user verification (pending)
+### US3 user verification — passed
+
+Acceptance review — 2026-09-30: Mike's Brave 1.96.59 desktop walkthrough and full browser harness ALL PASS complete **T020 and T039**. The harness includes US3 checks at 1280/360/412px. The actual Pixel 8 walkthrough confirms paycheck amounts, escaped/wrapping text and many-split scrolling. Desktop results cover legacy unavailable amounts/totals, uncategorized state, refunds, repeated allocations and selected-side repair scope; previous source checks establish excluded-destination behavior. The user accepts the selected-entry repair presentation, consistent with the existing spec; no financial-scope change is needed.
+
+Explicit user-directed omission: Mike accepts skipping the remaining phone value examples using desktop results as alternative evidence. Those phone cases were not executed and are not labeled passing device tests.
+
+Latest acceptance review — 2026-09-30: Mike's additional manual results complete **T040 and T041**. Desktop checks confirm the accessible dialog role/name, keyboard focus excluded from background controls, Escape and close-button dismissal preserving account/search/page/scroll and invoking-button focus, both themes, and immediate-close/rapid-row behavior without stale displays. Desktop and actual Pixel walkthroughs cover later-page and search opening, readable long content, bounded scrolling and restored context/focus. Production real-dataset checks report paycheck split details opening in less than one second on both devices, with no additional download or password prompt after search, paging or modal interaction. Initial page loads (3.29 seconds desktop, 6 seconds phone) are separate from T041's details-opening measurement; the phone download-duration explanation is the user's hypothesis, not a verified diagnosis. All US3 manual tasks are complete and US4 is eligible to begin. No application changes, private export reads or fresh automated test runs were made by this review.
 
 Follow the US3 section in [quickstart.md](quickstart.md). Run the updated browser harness and the dedicated `/tests/browser/details.html` preview. For source checks use [us3-source-checks.md](../../scripts/us3-source-checks.md), with nine independent allocation references, direct-script and installed-extension comparisons.
 
-| Gate        | Status                | Evidence required                                                                                                                                                             |
-| ----------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| T016        | Passed                | Actual synthetic export validates and all nine reference comparisons pass; see user results above                                                                             |
-| T015 / T038 | Passed | Direct and installed-extension source comparisons, viewer inspection and unchanged source records/balances confirmed by Mike on 2026-09-24 |
-| T020 / T039 | Pending               | Browser harness and values/empty-state/literal-text walkthrough                                                                                                               |
-| T040        | Pending               | Desktop and phone, both themes, full text, amount alignment, bounded scroll, keyboard/focus/context restoration, rapid close                                                  |
-| T041        | Pending               | Desktop and actual Pixel 8 full-history timing under two seconds, no extra download/unlock                                                                                    |
+| Gate        | Status  | Evidence required                                                                                                                                                                           |
+| ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| T016        | Passed  | Actual synthetic export validates and all nine reference comparisons pass; see user results above                                                                                           |
+| T015 / T038 | Passed  | Direct and installed-extension source comparisons, viewer inspection and unchanged source records/balances confirmed by Mike on 2026-09-24                                                  |
+| T020 / T039 | Passed  | Mike's 2026-09-30 Brave 1.96.59 desktop walkthrough, actual Pixel 8 representative cases and full harness ALL PASS; remaining phone value examples explicitly omitted with desktop evidence |
+| T040        | Passed  | Mike's 2026-09-30 desktop keyboard/accessibility, both-theme, immediate-close and desktop/phone dismissal/context/focus restoration results                                                 |
+| T041        | Passed  | Production real-dataset paycheck details open in less than one second on desktop and actual Pixel; no additional download or password prompt observed                                       |
 
-Record tester/date/browser/device, observed results, defects and retests here. US4 remains blocked by the US3 manual gate; no manual task is marked passed by automated evidence.
+Record tester/date/browser/device, observed results, defects and retests here. US3's manual gate is satisfied by the recorded user-run results; no manual task is marked passed by automated evidence.
+
+### Results
+
+**Test:** http://127.0.0.1:8080/tests/browser/details.html  
+**Tester:** Mike  
+**Date:** 2026-09-30  
+**Browser:** Brave 1.96.59  
+**Device:** Desktop  
+**Results:**
+
+- Page 2 of Details Checking loaded successfully
+- Payroll search located Employer LLC Payroll transaction
+  - Clicking "Split" loaded the modal successfully with sub transactions listed and expected amounts that total $2,000
+- Repeated search located "Repeated Dining" transaction.
+  - HTML code (with js injection, nice) successfully escaped.
+  - Repeated letters also wrapped onto next row
+- Legacy search located "Legacy partial amounts"
+  - Transaction -$92, but Personal:Dining:Dining Out displayed "Unavailable", as did the total
+- Uncategorized search located "Uncategroized example". Modal showed no splits with the message: "Uncategorized -- no allocations are available for this entry.". Total shows Unavailable.
+- Many search located "Many allocations" transaction. Modal showed 12 splits for $10. Modal scrolls nicely.
+- Refund search located "Refund". Modal shows one positive split for $25 with category Personal:Dining:Dining Out.
+- Home Savings, Rainy Day Savings, and Home:Repairs is a little odd, although I'm not sure what I expected. In Home Savings and Rainy Day Savings, I can see a transaction for -$4,000 and -$1,000 respectively. But the splits in each transaction don't seem to know about each other. The corresponding Home:Repairs transaction _does_ show splits from both accounts, however. **I am OK with this implementation.** This was a somewhat contrived example, and I don't think I really described the process well when I initially included it in the scope.
+
+**Test:** http://127.0.0.1:8080/tests/browser/details.html  
+**Tester:** Mike  
+**Date:** 2026-09-30  
+**Browser:** Brave 1.96.59  
+**Device:** Pixel 8  
+**Results:**
+
+- Payroll search located Employer LLC Payroll transaction
+  - Clicking "Split" loaded the modal successfully with sub transactions listed and expected amounts that total $2,000
+- Repeated search located "Repeated Dining" transaction.
+  - HTML code (with js injection, nice) successfully escaped.
+  - Repeated letters also wrapped onto next row
+- Many search located "Many allocations" transaction. Modal showed 12 splits for $10. Modal scrolls nicely.
+
+I am OK skipping the other tests and accepting the behavior on desktop as proof that mobile works.
+
+**Test:** http://127.0.0.1:8080/tests/browser/
+**Tester:** Mike  
+**Date:** 2026-09-30  
+**Browser:** Brave 1.96.59  
+**Device:** Desktop  
+**Results:**
+
+PASS real worker/client: exact test selection, missing real/test, invalid test, no fallback
+PASS real app DOM: missing link, test indicator, account selection, $1,045, no All Accounts total
+PASS hidden hierarchy DOM: active descendant accessible, excluded ancestor absent, source parent total
+PASS register fixture loaded
+PASS register DOM: paging, direct scope, future dates, categories, checks, memo, escaped text, mobile balance, stale replies
+PASS search DOM: descriptions/memos/allocations, descendant scope, clear, paging, future disclosure, rapid changes and balances
+Synthetic search timings including debounce (ms): 108, 105, 118, 117, 113, 121, 108, 102, 105, 115, 103, 112, 118, 111, 117, 117, 104, 114, 117, 113. Real-data Pixel 8 timing remains a separate check.
+PASS loading contracts: plaintext timestamps, empty/version/financial failure, invalid query, reload-only retry
+PASS loading DOM: empty/error states, export footer, stale content removal, actual worker failure, cross-origin rejection
+PASS lifecycle DOM: repeated persisted hide/show, account/search/paging, one fetch, fixed dates, final disposal
+PASS unlock DOM: actual Jython fixture, wrong-password one-fetch retry, submit-time value, cleared password, balances, persisted lifecycle
+PASS US3 1280px: paycheck, alignment, themes, literal/empty fields, unavailable total, dismissal and late replies
+PASS US3 360px: paycheck, alignment, themes, literal/empty fields, unavailable total, dismissal and late replies
+PASS US3 412px: paycheck, alignment, themes, literal/empty fields, unavailable total, dismissal and late replies
+PASS US1 1280px: both themes, columns, money, icons and controls
+PASS US1 1440px: both themes, columns, money, icons and controls
+PASS US1 360px: both themes, columns, money, icons and controls
+PASS US1 412px: both themes, columns, money, icons and controls
+PASS US2 1280px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 1440px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 360px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 412px: tags, escaping, wrapping, money, search and page/account changes
+ALL PASS
+
+**Test:** http://127.0.0.1:8080/tests/browser/details.html  
+**Tester:** Mike  
+**Date:** 2026-09-30  
+**Browser:** Brave 1.96.59  
+**Device:** Desktop  
+**Results:**
+
+- Opened "Many" transaction after navigating to page 2. Splits have full category heirarchy, memos, and modal has scrolling.
+  - Dialog appeared in less than 1 second
+  - Pressed tab several times after dialog opened. Focus shifted to close button, scroll area, then browser chrome elements. Focus never unexpectedly landed on the obscured search textbox or elements behind the modal.
+  - Opened accessibility tab in Chrome. Found the dialog had Role: dialog and Name: Split Details as expected
+  - Pressing escape closes the dialog and returns focus back to the web application behind it.
+  - Pressing the close button also closes the dialog and returns focus back to the web application behind it.
+  - Closing with Escape or the close button preserved the account, search, page and scroll position, and returned keyboard focus to the invoking Split/category button
+  - Rapidly clicked (open then immediately closed) multiple rows. Was unable to make earlier mouse clicks affect later dialog displays.
+- Same experience when transaction accessed by searching for "Many"
+- Successfully toggled between light and dark themes.
+
+**Test:** http://127.0.0.1:8080/tests/browser/details.html  
+**Tester:** Mike  
+**Date:** 2026-09-30  
+**Browser:** Brave 1.96.59  
+**Device:** Pixel  
+**Results:**
+
+- Opened "Many" transaction after navigating to page 2. Splits have full category heirarchy, memos, and modal has scrolling.
+  - Dialog appeared in less than 1 second
+- Same experience when transaction accessed by searching for "Many"
+- Pressing the close button preserved the account, search, page and scroll position, and returned keyboard focus to the invoking Split/category button
+
+**Test:** Production site with real dataset
+**Tester:** Mike  
+**Date:** 2026-09-30  
+**Browser:** Brave 1.96.59  
+**Device:** Desktop  
+**Results:**
+
+- Initial page loads from ctrl+refresh in 3.29 seconds
+- Correct password unlocks data in < 1 second
+- Searched for a paycheck transaction
+  - Splits dialog loads in less than one second
+  - Closing the dialog preserved the account, search, page and scroll position, and returned keyboard focus to the invoking Split/category button
+- No additional download or password prompt observed after searching, paginating, viewing or closing a modal.
+
+**Test:** Production site with real dataset
+**Tester:** Mike  
+**Date:** 2026-09-30  
+**Browser:** Brave 1.96.59  
+**Device:** Pixel  
+**Results:**
+
+- Initial page loads from ctrl+refresh in 6 seconds
+  - The page layout displays almost immediately, but the pinwheel displays for six seconds while it downloads the encrypted payload. **I am fairly certain this duration is caused by the size of the file**
+- Correct password unlocks data in < 1 second
+- Searched for a paycheck transaction
+  - Splits dialog loads in less than one second
+  - Closing the dialog preserved the account, search, page and scroll position, and returned keyboard focus to the invoking Split/category button
+- No additional download or password prompt observed after searching, paginating, viewing or closing a modal.
 
 ## US2 source-tag defect and correction (2026-09-20)
 
