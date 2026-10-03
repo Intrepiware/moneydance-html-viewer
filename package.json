@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "description": "Local tooling for the personal Moneydance viewer",
-  "engines": { "node": ">=20.9.0" },
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
-    "test": "node --test tests/unit tests/contract",
+    "test": "node scripts/run-tests.mjs",
     "serve": "node scripts/serve-ui.mjs",
     "fixtures": "node scripts/build-fixtures.mjs"
   }
