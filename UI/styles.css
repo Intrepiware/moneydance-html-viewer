@@ -936,6 +936,22 @@ html[data-test-mode="true"] #unlock-form { display: none; }
 .details-allocation { padding: 18px 24px; border-bottom: 1px solid var(--border-color); }
 .details-allocation:last-child { border-bottom: 0; }
 .details-path { font-weight: 600; }
+.details-transfer, button.transaction-account {
+    appearance: none; border: 0; background: transparent; text-align: left;
+    font-family: inherit; color: var(--accent-color, #60a5fa); cursor: pointer;
+    text-decoration: underline; text-underline-offset: 3px; padding: 0;
+    max-width: 100%;
+}
+.details-transfer { font-size: inherit; align-self: start; }
+body.light-mode .details-transfer, body.light-mode button.transaction-account { color: #1d4ed8; }
+.details-transfer:focus-visible, button.transaction-account:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+#navigation-status { padding: 8px 15px; color: var(--text-muted); font-size: 0.85rem; }
+#transactions-body tr.navigation-target { outline: 2px solid #60a5fa; outline-offset: -2px; }
+body.light-mode #transactions-body tr.navigation-target { outline-color: #1d4ed8; }
+#transactions-body tr.navigation-target:focus { outline-width: 3px; }
+@media (max-width: 768px) {
+    .details-transfer, button.transaction-account { min-height: 44px; }
+}
 .details-money { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
 .details-money.negative { color: var(--negative); }
 .details-memo, .details-tags, .details-reason { grid-column: 1; }

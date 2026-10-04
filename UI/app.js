@@ -16,7 +16,7 @@ export class App {
     this.el = Object.fromEntries(['account-tree', 'current-account-name', 'total-balance',
       'mobile-total-balance', 'balance-card', 'mobile-balance-bar', 'total-transactions',
       'search-input', 'clear-search', 'load-status', 'as-of-date', 'test-data-link', 'test-data-indicator', 'sidebar',
-      'sidebar-overlay', 'theme-toggle'].map(id => [id, document.getElementById(id)]));
+      'sidebar-overlay', 'theme-toggle', 'navigation-status'].map(id => [id, document.getElementById(id)]));
     handlebars.registerHelper('getAccountIcon', getAccountIcon);
     handlebars.registerHelper('formatCurrency', formatUsd);
     handlebars.registerHelper('isPositive', amount => amount > 0);
@@ -29,6 +29,8 @@ export class App {
       this.el[id] = document.getElementById(id);
     this.page = 1;
     this.searchText = '';
+    this.navigation = null;
+    this.pendingNavigation = null;
     this.mobileLayout = this.window.matchMedia('(max-width: 768px)');
     this.mobileLayout.addEventListener('change', () => this.updateYearColumns(), { signal: this.handles.signal });
     this.headerObserver = new this.window.ResizeObserver(([entry]) => {
@@ -50,6 +52,11 @@ export class App {
     }, {signal:this.handles.signal});
     const listen = (element, action) => element.addEventListener('click', action, { signal: this.handles.signal });
     listen(this.el['transactions-body'], event => {
+      const account = event.target.closest('button.transaction-account');
+      if (account) {
+        this.navigate({mode:'exact',accountId:account.dataset.accountId,entryId:account.dataset.entryId});
+        return;
+      }
       const trigger = event.target.closest('.category-details');
       if (trigger) this.openDetails(trigger);
     });
@@ -88,6 +95,7 @@ export class App {
       }
     }, { signal: this.handles.signal });
     this.el['search-input'].addEventListener('input', () => {
+      this.resetNavigation();
       this.searchText = this.el['search-input'].value;
       this.el['clear-search'].hidden = !this.searchText;
       this.client.invalidatePending();
@@ -156,10 +164,34 @@ export class App {
       this.el['load-status'].classList.remove('is-loading');
       this.selectAccount(root);
     } else if (message.type === 'page') {
+      if (this.pendingNavigation?.pageRequestId === message.requestId) {
+        const target = this.pendingNavigation.target;
+        this.pendingNavigation = null;
+        this.searchText = '';
+        this.el['search-input'].value = '';
+        this.el['clear-search'].hidden = true;
+        this.includeFuture = target.includeFuture;
+        this.closeDetails(false);
+        this.toggleSidebar(false);
+        this.setAccount(this.nodes.get(target.accountId));
+        this.navigation = {accountId:target.accountId, entryIds:new Set(target.entryIds), focusEntryId:target.focusEntryId};
+        this.el['navigation-status'].textContent = `${target.entryIds.length} related transaction${target.entryIds.length === 1 ? '' : 's'} highlighted.`;
+        this.el['navigation-status'].hidden = false;
+      }
       this.renderPage(message);
+    } else if (message.type === 'located') {
+      if (this.pendingNavigation?.locateRequestId !== message.requestId) return;
+      const pageRequestId = this.client.queryLocated(message, message.requestId);
+      if (pageRequestId !== null) this.pendingNavigation = {target:message,pageRequestId};
+    } else if (message.type === 'navigationUnavailable') {
+      if (this.pendingNavigation?.locateRequestId !== message.requestId) return;
+      this.pendingNavigation = null;
+      this.el['navigation-status'].textContent = message.message;
+      this.el['navigation-status'].hidden = false;
     } else if (message.type === 'details' || message.type === 'detailsUnavailable') {
       if (this.detailsDialog.open) this.renderDetails(message);
     } else if (message.type === 'error') {
+      this.resetNavigation();
       this.passwordInput.value = ''; this.unlockForm.hidden = true;
       this.document.getElementById('app').dataset.state = 'error';
       this.el['as-of-date'].hidden = true;
@@ -196,7 +228,14 @@ export class App {
 
   selectAccount(node) {
     this.window.clearTimeout(this.searchTimer);
+    this.resetNavigation();
     this.includeFuture = false;
+    this.setAccount(node);
+    if (this.window.innerWidth <= 768) this.toggleSidebar(false);
+    this.requestPage(1);
+  }
+
+  setAccount(node) {
     this.currentAccount = node;
     for (const header of this.el['account-tree'].querySelectorAll('.account-header'))
       header.classList.toggle('active', header.dataset.id === node.id);
@@ -207,8 +246,29 @@ export class App {
       this.el[id].textContent = node.isAll ? '' : formatUsd(node.sidebarBalanceCents);
       this.el[id].className = `amount ${node.sidebarBalanceCents < 0 ? 'negative' : 'positive'}`;
     }
-    if (this.window.innerWidth <= 768) this.toggleSidebar(false);
-    this.requestPage(1);
+  }
+
+  resetNavigation() {
+    this.navigation = null;
+    this.pendingNavigation = null;
+    for (const row of this.el['transactions-body'].querySelectorAll('.navigation-target')) {
+      row.classList.remove('navigation-target');
+      row.removeAttribute('tabindex');
+    }
+    this.el['navigation-status'].hidden = true;
+    this.el['navigation-status'].textContent = '';
+  }
+
+  navigate(target) {
+    this.window.clearTimeout(this.searchTimer);
+    this.resetNavigation();
+    this.closeDetails(false);
+    this.toggleSidebar(false);
+    this.el['navigation-status'].textContent = 'Finding transaction…';
+    this.el['navigation-status'].hidden = false;
+    // Keep the current register and search intact until a target page succeeds.
+    const locateRequestId = this.client.locate(target);
+    this.pendingNavigation = {locateRequestId};
   }
 
   clearRegister() {
@@ -224,6 +284,7 @@ export class App {
   }
 
   requestPage(page) {
+    if (this.pendingNavigation) this.resetNavigation();
     this.clearRegister();
     this.el['total-transactions'].textContent = '—';
     this.el['register-status'].textContent = 'Loading transactions…';
@@ -246,10 +307,11 @@ export class App {
       const showYearDivider = year !== previousYear;
       previousYear = year;
       return { ...row, year, month, day, showYearDivider, isFuture: row.date > this.metadata.effectiveDate,
+        isNavigationTarget: this.navigation?.accountId === row.accountId && this.navigation.entryIds.has(row.id),
         accountIcon: getAccountIcon(this.nodes.get(row.accountId)?.type) };
     });
     this.el['transactions-body'].innerHTML = this.transactionsTemplate({ paginatedTransactions: rows, isRoot: this.currentAccount.isAll || Boolean(this.searchText.trim()),
-      columnCount: this.mobileLayout.matches ? 3 : 5 });
+      isSearch: Boolean(this.searchText.trim()), columnCount: this.mobileLayout.matches ? 3 : 5 });
     this.el['transactions-table'].classList.toggle('hidden', rows.length === 0);
     this.el['no-results'].classList.toggle('hidden', rows.length !== 0);
     const pages = Math.max(1, Math.ceil(message.totalMatches / message.pageSize));
@@ -257,6 +319,21 @@ export class App {
     this.el['pagination-controls'].classList.toggle('hidden', pages === 1);
     this.el['prev-page'].disabled = message.page === 1;
     this.el['next-page'].disabled = message.page === pages;
+    if (this.navigation?.focusEntryId) {
+      const target = [...this.el['transactions-body'].querySelectorAll('tr.navigation-target')]
+        .find(row => row.dataset.entryId === this.navigation.focusEntryId);
+      if (target) {
+        // scrollIntoView also scrolls overflow:hidden ancestors, moving the topbar.
+        // Center within the register's own scroll pane instead.
+        const pane = this.document.querySelector('.content-body');
+        const paneRect = pane.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        pane.scrollTop += targetRect.top - paneRect.top - pane.clientTop
+          - (pane.clientHeight - targetRect.height) / 2;
+        target.focus({preventScroll:true});
+      }
+      this.navigation.focusEntryId = null;
+    }
   }
 
   updateYearColumns() {
@@ -265,6 +342,10 @@ export class App {
   }
 
   openDetails(trigger) {
+    if (this.pendingNavigation) {
+      this.client.invalidatePending();
+      this.resetNavigation();
+    }
     this.closeDetails(false);
     this.detailsTrigger = trigger;
     this.detailsScroll = this.document.querySelector('.content-body').scrollTop;
@@ -310,7 +391,14 @@ export class App {
     const list = make('ol','details-allocations');
     for (const allocation of details.allocations) {
       const item=make('li','details-allocation');
-      item.append(make('div','details-path',allocation.path),
+      const path=make(allocation.isTransfer && allocation.destinationAvailable ? 'button' : 'div','details-path',allocation.path);
+      if (allocation.isTransfer && allocation.destinationAvailable) {
+        path.type = 'button';
+        path.classList.add('details-transfer');
+        path.title = `View related transactions in ${allocation.path}`;
+        path.addEventListener('click', () => this.navigate({mode:'transfer',destinationAccountId:allocation.accountId,transactionId:details.transactionId}));
+      }
+      item.append(path,
         make('div','details-money'+(allocation.amountCents < 0 ? ' negative' : ''),allocation.amountCents === null ? 'Unavailable' : formatUsd(allocation.amountCents)));
       if (allocation.memo) {
         item.append(make('div','details-memo',allocation.memo));

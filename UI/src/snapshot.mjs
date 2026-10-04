@@ -233,12 +233,22 @@ export function validateSnapshot(snapshot) {
       }
       // Recursive totals involve omitted hidden rows; their reference proof is source-side.
     }
+    const transactionEntries = new Map();
+    for (const ids of ownEntryIds.values()) {
+      for (const index of ids) {
+        const entry = snapshot.entries[index];
+        const key = JSON.stringify([entry.accountId, entry.transactionId]);
+        if (!transactionEntries.has(key)) transactionEntries.set(key, []);
+        transactionEntries.get(key).push(index);
+      }
+    }
     return {
       snapshot,
       accountsById,
       ownEntryIds,
       ancestry,
       entryIndex,
+      transactionEntries,
       entries: snapshot.entries,
     };
   } catch (error) {

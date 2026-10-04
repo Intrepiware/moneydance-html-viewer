@@ -66,6 +66,16 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
       if (!worker || disposed || !ready) throw new Error('Snapshot is not ready.');
       return send({type:'details',accountId,entryId}, true);
     },
+    locate({mode,accountId,entryId,destinationAccountId,transactionId}) {
+      if (!worker || disposed || !ready) throw new Error('Snapshot is not ready.');
+      currentDetails = ++sequence;
+      return send({type:'locate',mode,accountId,entryId,destinationAccountId,transactionId});
+    },
+    queryLocated(target, locateRequestId) {
+      // A later selection, search or navigation invalidates both stages of this intent.
+      if (disposed || !ready || currentRequest !== locateRequestId) return null;
+      return this.query({accountId:target.accountId,page:target.page,includeFuture:target.includeFuture});
+    },
     query({ accountId = null, text = '', page = 1, pageSize = 100, includeFuture = false } = {}) {
       if (!worker || disposed || !ready) throw new Error('Snapshot is not ready.');
       return send({ type: 'query', accountId, text, page, pageSize, includeFuture });

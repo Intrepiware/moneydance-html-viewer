@@ -1,5 +1,292 @@
 # Transaction browsing implementation and acceptance
 
+## US4 implementation — 2026-10-01
+
+T021–T024 are implemented after the completed US3 gate. Search-result account buttons locate the exact account/entry identity; supported transfer paths locate all destination entries sharing the transaction ID. The lookup uses validated direct-register order, reveals required future rows, selects the first target page and preserves all related highlights across pagination. Ordinary selection/search/new navigation clears highlights; ordinary selection hides future rows again. Unavailable targets preserve the displayed register. Navigation and its follow-up page share the latest view intent, invalidate pending details and close overlays. No exporter, schema, financial amount, balance or dependency changes were needed.
+
+Automated evidence (Codex, Windows, Node 20.9.0; synthetic data only):
+
+- New navigation tests initially failed because locate operations did not exist; worker tests also demonstrated the missing navigation lane behavior before implementation.
+- Selected unit/contract regression suite: **63/63 passed**, including balances, validation, register/search, details, worker lifecycle, server routes and encryption. As in US3, excluded `fixtures.test.mjs` and `decrypt-synthetic.test.mjs` because they read user-controlled `UI/data/test-snapshot.json`. No full `npm test` pass is claimed and no private export was read.
+- A subsequent shuffled-export-order regression was added; the final focused navigation suite passed **7/7**, including plaintext/encrypted production worker navigation with one fetch and one unlock. App module syntax check passed after the final interaction changes.
+- Final module syntax checks and `git diff --check -- UI scripts tests` passed. An ephemeral local server returned HTTP 200 with the expected MIME types for the navigation preview, modules, plaintext JSON and encrypted fixture. This verifies serving, not browser rendering.
+- The 212-entry fixture has independent expected balances: Navigation Checking -$75.00; Transfer Savings $2,050.00 before its two $10.00 future rows, $2,070.00 afterward; Navigation Expense $5.00. Three related transfer rows span two pages and exclude identical-looking unrelated rows. Regeneration only writes the explicit synthetic fixture files.
+- Browser harness scenarios cover 1280px/360px plaintext and 412px encrypted, both themes, focus/scroll, highlights, future rows, unavailable targets and stale intent. **Not executed:** computer-use inventory returned no apps or browsers. No visual, desktop emulation or actual-phone pass is claimed.
+
+T025 browser execution and manual **T042–T044 remain pending**. Restart the local server, run `/tests/browser/`, and follow the new [US4 walkthrough](quickstart.md#us4-navigation-acceptance) using `/tests/browser/navigation.html` and its encrypted variant (public password `synthetic-password`). Record tester/date/browser/device, observed results, defects and retests below. Full-history navigation timings remain separate from synthetic checks. US5 has not started and remains blocked by the constitutional manual gate.
+
+Constitution review: exact identities and unchanged financial data preserve fidelity; no exporter/runtime changes; no private records read or added to fixtures; existing worker/dialog/Handlebars architecture reused; unrun browser/device checks remain explicit; no new dependencies. Existing ignores cover tooling outputs and private data. `.specify/extensions.yml` registers no implementation hooks.
+
+### US4 user verification (pending)
+
+- T025 browser harness:
+- T042 exact/transfer navigation:
+- T043 unavailable/rapid/phone/encrypted behavior:
+- T044 desktop and actual Pixel 8 full-history timings:
+
+### Results
+
+**Test:** http://127.0.0.1:8080/tests/browser/
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Desktop  
+**Results:**
+
+```
+Viewer acceptance tests
+Uses synthetic data only. Run with the local viewer server.
+
+Running…
+PASS real worker/client: exact test selection, missing real/test, invalid test, no fallback
+PASS real app DOM: missing link, test indicator, account selection, $1,045, no All Accounts total
+PASS hidden hierarchy DOM: active descendant accessible, excluded ancestor absent, source parent total
+PASS register fixture loaded
+PASS register DOM: paging, direct scope, future dates, categories, checks, memo, escaped text, mobile balance, stale replies
+PASS search DOM: descriptions/memos/allocations, descendant scope, clear, paging, future disclosure, rapid changes and balances
+Synthetic search timings including debounce (ms): 102, 104, 114, 107, 111, 116, 116, 116, 118, 119, 117, 116, 116, 114, 104, 118, 115, 116, 115, 116. Real-data Pixel 8 timing remains a separate check.
+PASS loading contracts: plaintext timestamps, empty/version/financial failure, invalid query, reload-only retry
+PASS loading DOM: empty/error states, export footer, stale content removal, actual worker failure, cross-origin rejection
+PASS lifecycle DOM: repeated persisted hide/show, account/search/paging, one fetch, fixed dates, final disposal
+PASS unlock DOM: actual Jython fixture, wrong-password one-fetch retry, submit-time value, cleared password, balances, persisted lifecycle
+PASS US4 1280px plaintext: exact/off-page, related/future, highlights, unavailable, latest intent, one fetch/unlock
+PASS US4 360px plaintext: exact/off-page, related/future, highlights, unavailable, latest intent, one fetch/unlock
+PASS US4 412px encrypted: exact/off-page, related/future, highlights, unavailable, latest intent, one fetch/unlock
+PASS US3 1280px: paycheck, alignment, themes, literal/empty fields, unavailable total, dismissal and late replies
+PASS US3 360px: paycheck, alignment, themes, literal/empty fields, unavailable total, dismissal and late replies
+PASS US3 412px: paycheck, alignment, themes, literal/empty fields, unavailable total, dismissal and late replies
+PASS US1 1280px: both themes, columns, money, icons and controls
+PASS US1 1440px: both themes, columns, money, icons and controls
+PASS US1 360px: both themes, columns, money, icons and controls
+PASS US1 412px: both themes, columns, money, icons and controls
+PASS US2 1280px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 1440px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 360px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 412px: tags, escaping, wrapping, money, search and page/account changes
+ALL PASS
+```
+
+**Test:** http://127.0.0.1:8080/tests/browser/navigation.html
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Desktop  
+**Results:**
+
+- Clicked category link on the "Category needle" transaction on opening screen. Link provided to Navigation Checking. Clicked the link, was taken to the expected transaction in Navigation Checking. Amount and date matched the clicked transaction.
+  - Re-ran test in dark mode and received same result
+- Clicked Transfer Savings account, clicked category on "Savings Row 204". Modal showed Navigation Checking category, but link is not provided (?) with the message "Related entry unavailable in this export".
+  - I assume this is some kind of incompatibility test, but I'd like clarity on this.
+- Navigation is instantaneous.
+  - I'm unable to get late actions to interrupt newer ones (delayed transaction-details responses do not disrupt navigation)
+  - Navigation does not download the snapshot again or request another unlock
+
+**Test:** http://127.0.0.1:8080/
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Desktop
+
+- Application loaded with real encrypted dataset
+- Application unlocked successfully
+- Found transfer transaction, clicked category
+- In modal, link provided for navigation. Clicking the link navigates to the expected account and outlines the expected transaction (amount and date match)
+
+**Test:** http://127.0.0.1:8080/
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Pixel 8
+
+- Application loaded with real encrypted dataset
+- Application unlocked successfully
+- Found transfer transaction, clicked category
+- In modal, link provided for navigation. Clicking the link navigates to the expected account and outlines the expected transaction (amount and date match)
+  - Repeated test in dark mode successfully
+
+**Test:** http://127.0.0.1:8080/tests/browser/navigation.html
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Desktop
+**Test Script:** T042 Scenario 1 (quickstart.md)
+**Result:**
+
+- Found Exact needle transaction:
+  - Date: 6/1/2025
+  - Amount: $10
+- Transfer Savings click navigated to the Transfer Savings account and outlined expected transaction (and ONLY expected transaction):
+  - Date: 6/1/2025
+  - Description: Exact Needle
+  - Category: Navigation Checking
+  - Amount: $10
+  - Running Balance: $410
+- Search cleared when navigation clicked, related transaction found on page 2 of 3
+- Current account balance is $2050, and there are 2 future transactions, as expected
+
+**Test:** http://127.0.0.1:8080/tests/browser/navigation.html
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Desktop
+**Test Script:** T042 Scenario 2-5 (quickstart.md)
+
+- Opened Navigation Checking, Opened Mixed Transfer using Split button.
+- Clicked first Transfer Savings split ($10)
+- Three transactions outlined: one future and one 2025 (on pg 1 of 3), the other also a 2025 transaction on pg 2 of 3.
+  - 207 transactions displayed (including future transactions)
+  - Navigation focused on the second future transaction, which must have corresponded to the one I clicked (I cannot verify). Running balance is $2060 as expected.
+  - The other future transaction has running balance of $2070 and not outlined, as expected.
+  - Message displayed below "Transactions" heading: 3 related transactions outlined
+- Shared transfer row outlined:
+  - Date: 6/1/2025
+  - Description: Shared transfer
+  - Amount: $10
+  - Running Balance: $1410
+- Other Shared transfer row ($1420 running balance) not outlined
+- Exact needle transaction on page 2 outlined:
+  - Date: 6/1/2025
+  - Description: Exact Needle
+  - Amount: $10
+  - Balance: $410
+- Prev button pressed; page 1 loads with related transactions still outlined
+- Selected Transfer savings normally
+  - Future transactions collapsed
+  - outlining removed from transactions
+- Clicked Shared Transfer link ($1410 running balance) to return to Mixed transfer.
+  - Row outlined as expected
+- Typed a search, outline disappeared as expected
+- Cleared search, clicked Navigation Checking
+- Clicked Past transfer and followed transfer savings:
+  - taken to page 2
+  - future rows hidden
+  - Savings row 30 & 31 outlined, row 31 focused first
+- Navigated to All Accounts
+- searched Category Needle, clicked Navigation Expense
+  - Category needle outlined in Navigation Expense
+  - search cleared
+  - category register unchanged
+- Clicked Navigation expense in sidebar, observed no navigation offered under transaction
+- Navigated to Navigation Checking, opened modal for Category Example
+  - Navigation Expense shown without offering a link
+
+**Test:** http://127.0.0.1:8080/tests/browser/navigation.html
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Pixel 8
+**Test Script:** T042 Scenario 1 (quickstart.md)
+**Result:**
+
+- Found Exact needle transaction:
+  - Date: 6/1/2025
+  - Amount: $10
+- Transfer Savings click navigated to the Transfer Savings account and outlined expected transaction (and ONLY expected transaction):
+  - Date: 6/1/2025
+  - Description: Exact Needle
+  - Category: Navigation Checking
+  - Amount: $10
+  - Running Balance: $410
+- Search cleared when navigation clicked, related transaction found on page 2 of 3
+- Current account balance is $2050, and there are 2 future transactions, as expected
+
+**Test:** http://127.0.0.1:8080/tests/browser/navigation.html
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Pixel 8
+**Test Script:** T042 Scenario 2-5 (quickstart.md)
+
+**NOTES:**
+
+- Results exactly the same as desktop, except the transaction count is not displayed in mobile.
+- Controls are readable and easy to tap.
+- The details dialog and sidebar close after navigation.
+- The destination row is visible without horizontal page scrolling.
+
+**Results:**
+
+- Opened Navigation Checking, Opened Mixed Transfer using Split button.
+- Clicked first Transfer Savings split ($10)
+- Three transactions outlined: one future and one 2025 (on pg 1 of 3), the other also a 2025 transaction on pg 2 of 3.
+  - Navigation focused on the second future transaction, which must have corresponded to the one I clicked (I cannot verify). Running balance is $2060 as expected.
+  - The other future transaction has running balance of $2070 and not outlined, as expected.
+  - Message displayed below "Transactions" heading: 3 related transactions outlined
+- Shared transfer row outlined:
+  - Date: 6/1/2025
+  - Description: Shared transfer
+  - Amount: $10
+  - Running Balance: $1410
+- Other Shared transfer row ($1420 running balance) not outlined
+- Exact needle transaction on page 2 outlined:
+  - Date: 6/1/2025
+  - Description: Exact Needle
+  - Amount: $10
+  - Balance: $410
+- Prev button pressed; page 1 loads with related transactions still outlined
+- Selected Transfer savings normally
+  - Future transactions collapsed
+  - outlining removed from transactions
+- Clicked Shared Transfer link ($1410 running balance) to return to Mixed transfer.
+  - Row outlined as expected
+- Typed a search, outline disappeared as expected
+- Cleared search, clicked Navigation Checking
+- Clicked Past transfer and followed transfer savings:
+  - taken to page 2
+  - future rows hidden
+  - Savings row 30 & 31 outlined, row 31 focused first
+- Navigated to All Accounts
+- searched Category Needle, clicked Navigation Expense
+  - Category needle outlined in Navigation Expense
+  - search cleared
+  - category register unchanged
+- Clicked Navigation expense in sidebar, observed no navigation offered under transaction
+- Navigated to Navigation Checking, opened modal for Category Example
+  - Navigation Expense shown without offering a link
+
+**Test:** http://127.0.0.1:8080/tests/browser/navigation.html
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Desktop
+**Test Script:** T043 Scenarios 1-5 (quickstart.md)
+
+- Opened Unavailable Transfers in Navigation Checking. Observed Empty Reserve (-$10) displays message "Related entry unavailable in this export", Archived Reserve (-$10) displays message "Account unavailable in this export"; neither offer a navigation link.
+- Closed modal makes the current register remains usable and unchanged
+- Searched "shared transfer" under All Accounts. Clicked Transfer Savings link; navigation occurred _way_ faster than a human could have clicked the other link.
+- Clicking either transaction navigated to two different but identical transactions (both have date 6/1/2025, description "Shared transfer" and amount $10)
+- Rapidly clicked "Transfer Savings" link and Navigation Checking sidebar menu item; both events occurred in the order they were clicked.
+- Set DevTools CPU slowdown to 20x. Searched "shared transfer" and clicked the Transfer Savings link. Immediately clicked Navigation Checking before the navigation to Transfer Savings completed. Navigation Checking loaded as expected (since it was the last link clicked)
+- DevTools CPU slowdown remains at 20x. Clicked the category link on a transaction, immediately closed a resulting modal. Clicked a navigation option in the sidebar; page navigated to selected account as expected (no old details to reopened or replaced the destination).
+- Opened encrypted test snapshot. Disabled CPU throttling, confirmed only one request to navigation.enc in the network tab.
+- Ran search, selected accounts in sidebar, clicked navigation. No new requests to navigation.enc detected in the Network Devtools tab. No page relaods or second unlock prompt.
+- Opened plaintext preview. Observed single request to navigation.json.
+- Ran search, selected accounts in sidebar, clicked navigation. No new requests to navigation.json detected in the Network Devtools tab. No page relaods or second unlock prompt.
+
+**Test:** http://127.0.0.1:8080/
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Desktop
+**Test Script:** T044 Scenarios (quickstart.md)
+
+- Navigated to a year-old credit card payment. Clicked the category link to display the modal, clicked the account to navigate to the checking account. Navigation occurred in less than one second. Confirmed matching amount, date, and description. Transaction was on page 8 of the target account. Clicked the category on the target transaction, navigated back to the first transaction. Navigation occurred in less than one second.
+- Performed search for transaction; located a transfer transaction over a year old. Clicked the account link below the description. Navigation to target transaction took less than one second. Confirmed matching date, description, and amount of target transaction. Target transaction on page 11 of the target account.
+- The production dataset does not have transactions with a future counterpart; this test case is untestable.
+- Verified no additional snapshot download or unlock.
+
+**Test:** http://127.0.0.1:8080/
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Pixel 8  
+**Test Script:** T044 Scenarios (quickstart.md)
+
+- Navigated to a year-old credit card payment. Clicked the category link to display the modal, clicked the account to navigate to the checking account. Navigation occurred in less than one second. Confirmed matching amount, date, and description. Transaction was on page 4 of the target account. Clicked the category on the target transaction, navigated back to the first transaction. Navigation occurred in less than one second.
+- Performed search for transaction; located a transfer transaction over a year old. Clicked the account link below the description. Navigation to target transaction took less than one second. Confirmed matching date, description, and amount of target transaction. Target transaction on page 8 of the target account.
+- The production dataset does not have transactions with a future counterpart; this test case is untestable.
+- Verified no additional snapshot download or unlock.
+
 ## US3 source preflight (re-run)
 
 Acceptance review: Mike's 2026-09-24 results below complete **T015, T016 and T038**. The direct synthetic export passed validation (116 accounts, 11 entries) and all nine reference comparisons. All nine source probes pass in Moneydance build 5253 / Jython 2.7.2. The user rebuilt/reinstalled the extension, checked its encrypted output in desktop Chrome/mobile Brave against Moneydance and the test script, confirmed excluded-account behavior, and separately recorded all nine comparisons passing for the extension's export. `compare-preflight.mjs` calls `validateSnapshot` before comparing, so that pass also establishes validation of the extension output; no duplicate validator run is needed. The user explicitly confirmed unchanged source records/balances after export. This evidence supersedes the earlier failures and pending source-verification notes below. Browser interaction and full-history device gates remain pending; export/decryption timings do not substitute for T041's details-opening timing. No private export was read or tests rerun for this acceptance review.
@@ -94,13 +381,13 @@ Latest acceptance review — 2026-09-30: Mike's additional manual results comple
 
 Follow the US3 section in [quickstart.md](quickstart.md). Run the updated browser harness and the dedicated `/tests/browser/details.html` preview. For source checks use [us3-source-checks.md](../../scripts/us3-source-checks.md), with nine independent allocation references, direct-script and installed-extension comparisons.
 
-| Gate        | Status  | Evidence required                                                                                                                                                                           |
-| ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| T016        | Passed  | Actual synthetic export validates and all nine reference comparisons pass; see user results above                                                                                           |
-| T015 / T038 | Passed  | Direct and installed-extension source comparisons, viewer inspection and unchanged source records/balances confirmed by Mike on 2026-09-24                                                  |
-| T020 / T039 | Passed  | Mike's 2026-09-30 Brave 1.96.59 desktop walkthrough, actual Pixel 8 representative cases and full harness ALL PASS; remaining phone value examples explicitly omitted with desktop evidence |
-| T040        | Passed  | Mike's 2026-09-30 desktop keyboard/accessibility, both-theme, immediate-close and desktop/phone dismissal/context/focus restoration results                                                 |
-| T041        | Passed  | Production real-dataset paycheck details open in less than one second on desktop and actual Pixel; no additional download or password prompt observed                                       |
+| Gate        | Status | Evidence required                                                                                                                                                                           |
+| ----------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| T016        | Passed | Actual synthetic export validates and all nine reference comparisons pass; see user results above                                                                                           |
+| T015 / T038 | Passed | Direct and installed-extension source comparisons, viewer inspection and unchanged source records/balances confirmed by Mike on 2026-09-24                                                  |
+| T020 / T039 | Passed | Mike's 2026-09-30 Brave 1.96.59 desktop walkthrough, actual Pixel 8 representative cases and full harness ALL PASS; remaining phone value examples explicitly omitted with desktop evidence |
+| T040        | Passed | Mike's 2026-09-30 desktop keyboard/accessibility, both-theme, immediate-close and desktop/phone dismissal/context/focus restoration results                                                 |
+| T041        | Passed | Production real-dataset paycheck details open in less than one second on desktop and actual Pixel; no additional download or password prompt observed                                       |
 
 Record tester/date/browser/device, observed results, defects and retests here. US3's manual gate is satisfied by the recorded user-run results; no manual task is marked passed by automated evidence.
 

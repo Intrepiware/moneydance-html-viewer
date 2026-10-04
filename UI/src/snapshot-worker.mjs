@@ -1,6 +1,6 @@
 import { readEnvelope, decryptEnvelope } from './encrypted-snapshot.mjs';
 import { validateSnapshot, validDate, visibleAccounts } from './snapshot.mjs';
-import { createRegisterQuery, createDetailsQuery } from './query.mjs';
+import { createRegisterQuery, createDetailsQuery, createLocateQuery } from './query.mjs';
 
 // The same handler runs in a browser Worker and in isolated Node worker tests.
 export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fetch }) {
@@ -45,6 +45,14 @@ export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fe
       return;
     }
     if (message.type !== 'load') {
+      if (message.type === 'locate') {
+        latestQuery = requestId;
+        let result = null;
+        try { if (model) result = createLocateQuery(model, effectiveDate)(message); } catch { /* sanitized, nonterminal */ }
+        postMessage(result ? {type:'located',requestId,...result} :
+          {type:'navigationUnavailable',requestId,message:'Navigation is unavailable for this entry.'});
+        return;
+      }
       if (message.type === 'details') {
         let result = null;
         try { if (model) result = createDetailsQuery(model)(message); } catch { /* sanitized, nonterminal */ }

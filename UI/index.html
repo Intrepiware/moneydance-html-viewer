@@ -150,6 +150,7 @@
             </div>
             <div class="table-responsive">
               <p id="register-status" role="status" hidden></p>
+              <p id="navigation-status" role="status" aria-live="polite" hidden></p>
               <button
                 id="future-summary"
                 type="button"
@@ -234,7 +235,7 @@
             <th colspan="{{../columnCount}}" class="sticky-year">{{year}}</th>
           </tr>
         {{/if}}
-        <tr data-entry-id="{{id}}" data-account-id="{{accountId}}" class="{{#if isFuture}}future-entry{{/if}}">
+        <tr data-entry-id="{{id}}" data-account-id="{{accountId}}" class="{{#if isFuture}}future-entry{{/if}} {{#if isNavigationTarget}}navigation-target{{/if}}" {{#if isNavigationTarget}}tabindex="-1"{{/if}}>
           <td>
             <span class="desktop-date">{{month}}/{{day}}</span>
             <span class="mobile-date">{{month}}/{{day}}</span>
@@ -253,7 +254,11 @@
               </div>
             {{/if}}
             {{#if ../isRoot}}
+              {{#if ../isSearch}}
+              <button type="button" class="transaction-account" data-account-id="{{accountId}}" data-entry-id="{{id}}" title="View this transaction in {{accountName}}"><span class="mi mi-{{accountIcon}}" aria-hidden="true"></span> {{accountName}}</button>
+              {{else}}
               <div class="transaction-account"><span class="mi mi-{{accountIcon}}" aria-hidden="true"></span> {{accountName}}</div>
+              {{/if}}
             {{/if}}
           </td>
           <td class="hide-mobile category-cell"><button type="button" class="badge category-details" data-account-id="{{accountId}}" data-entry-id="{{id}}" title="{{categoryTitle}}">{{category}}</button></td>
