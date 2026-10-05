@@ -1,6 +1,7 @@
 import { addCents, formatUsd } from './money.mjs';
 import { validDate } from './snapshot.mjs';
 const compare = (a, b) => a < b ? -1 : a > b ? 1 : 0;
+const isCategory = account => ['INCOME', 'EXPENSE'].includes(account?.type);
 const invalid = () => { const error = new Error('Invalid register query.'); error.code = 'INVALID_QUERY'; throw error; };
 
 // Keep text fields separate: matches must never span unrelated fields.
@@ -38,9 +39,9 @@ export function createDetailsQuery(model) {
       const amountCents = a.amountCents ?? null;
       if (amountCents === null) complete = false;
       else totalCents = addCents(totalCents, amountCents);
-      const category = ['INCOME', 'EXPENSE'].includes(destination.type);
-      const destinationAvailable = destination.included && (category ||
-        model.transactionEntries.has(JSON.stringify([a.accountId, entry.transactionId])));
+      const category = isCategory(destination);
+      const destinationAvailable = destination.included &&
+        model.transactionEntries.has(JSON.stringify([a.accountId, entry.transactionId]));
       return {accountId:a.accountId, path:accountPath(model,a.accountId) || a.name,
         memo:a.memo || '', tags:a.tags?.slice() ?? null, amountCents,
         destinationAvailable,
@@ -69,7 +70,7 @@ export function createLocateQuery(model, effectiveDate) {
       matches = (model.transactionEntries.get(JSON.stringify([targetId, transactionId])) || []).slice().reverse();
     } else invalid();
     const account = model.accountsById.get(targetId);
-    if (!account?.included || !matches.length || (mode === 'transfer' && ['INCOME','EXPENSE'].includes(account.type))) return null;
+    if (!account?.included || !matches.length) return null;
     const includeFuture = matches.some(index => model.entries[index].date > effectiveDate);
     const ids = model.ownEntryIds.get(targetId);
     let hidden = 0;
@@ -109,7 +110,7 @@ export function createRegisterQuery(model, effectiveDate) {
     return compare(y.date, x.date) || compare(x.accountId, y.accountId) ||
       compare(y.registerOrder, x.registerOrder) || compare(x.id, y.id);
   });
-  const pageResult = (ids, indexAt, future, page, pageSize, includeFuture) => {
+  const pageResult = (ids, indexAt, future, page, pageSize, includeFuture, grouping, periodScope) => {
     const hiddenCount = includeFuture ? 0 : future.count;
     const totalMatches = ids.length - hiddenCount;
     page = Math.min(page, Math.max(1, Math.ceil(totalMatches / pageSize)));
@@ -126,13 +127,43 @@ export function createRegisterQuery(model, effectiveDate) {
         categoryTitle: entry.allocations.length === 0 ? 'Uncategorized' : entry.allocations.length === 1 ? categoryTitle(entry.allocations[0]) : 'Split',
         amountCents: entry.amountCents, runningBalanceCents: entry.runningBalanceCents });
     }
-    return { totalMatches, page, pageSize, rows, future };
+    const result = { totalMatches, page, pageSize, rows, future };
+    if (grouping) Object.assign(result,{grouping,periodScope});
+    if (grouping && grouping !== 'all') {
+      const keyFor = date => date.slice(0, grouping === 'month' ? 7 : 4);
+      const totals = new Map();
+      // Aggregate the entire disclosed matching set, never just the current page.
+      for (let offset = hiddenCount; offset < ids.length; offset++) {
+        const entry = entries[indexAt(offset)], key = keyFor(entry.date);
+        const period = totals.get(key) || {totalCents:0,count:0};
+        period.totalCents = addCents(period.totalCents,entry.amountCents);
+        period.count++;
+        totals.set(key,period);
+      }
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const periods = [];
+      let previous;
+      rows.forEach((row, rowIndex) => {
+        const key = keyFor(row.date);
+        if (key !== previous) {
+          const continued = rowIndex === 0 && start > 0 &&
+            keyFor(entries[indexAt(start + hiddenCount - 1)].date) === key;
+          periods.push({key, label:grouping === 'year' ? key : `${months[Number(key.slice(5))-1]} ${key.slice(0,4)}`,
+            ...totals.get(key), continued, rowIndex});
+        }
+        previous = key;
+      });
+      Object.assign(result,{grouping,periodScope,periods});
+    }
+    return result;
   };
 
-  return ({ accountId = null, text = '', page = 1, pageSize = 100, includeFuture = false } = {}, { isCurrent = () => true } = {}) => {
+  return ({ accountId = null, text = '', page = 1, pageSize = 100, includeFuture = false, grouping = 'month' } = {}, { isCurrent = () => true } = {}) => {
+    if (!['all','month','year'].includes(grouping)) invalid();
     if (typeof includeFuture !== 'boolean' || !Number.isSafeInteger(page) || page < 1 || pageSize !== 100 || typeof text !== 'string') invalid();
     if (accountId !== null && (typeof accountId !== 'string' || !model.accountsById.get(accountId)?.included)) invalid();
     const needle = text.trim().toLowerCase();
+    const categoryGrouping = isCategory(model.accountsById.get(accountId)) ? grouping : null;
     if (needle) return (async () => {
       let result = cachedSearch;
       if (!result || result.accountId !== accountId || result.text !== needle) {
@@ -145,6 +176,7 @@ export function createRegisterQuery(model, effectiveDate) {
           }
           const id = all[i], entry = entries[id], range = model.ancestry.get(entry.accountId);
           if (scope && (range.start < scope.start || range.start >= scope.end)) continue;
+          if (categoryGrouping && !isCategory(model.accountsById.get(entry.accountId))) continue;
           if (!matchesSearch(fields[id], needle)) continue;
           ids.push(id);
           if (entry.date > effectiveDate) {
@@ -157,7 +189,7 @@ export function createRegisterQuery(model, effectiveDate) {
         cachedSearch = result;
       }
       if (!isCurrent()) return null;
-      return pageResult(result.ids, offset => result.ids[offset], result.future, page, pageSize, includeFuture);
+      return pageResult(result.ids, offset => result.ids[offset], result.future, page, pageSize, includeFuture, categoryGrouping, 'matching');
     })();
     cachedSearch = null;
     const ids = accountId === null ? all : model.ownEntryIds.get(accountId);
@@ -171,6 +203,6 @@ export function createRegisterQuery(model, effectiveDate) {
       summaries.set(accountId, { count, amountCents });
     }
     const future = summaries.get(accountId);
-    return pageResult(ids, indexAt, future, page, pageSize, includeFuture);
+    return pageResult(ids, indexAt, future, page, pageSize, includeFuture, categoryGrouping, 'direct');
   };
 }

@@ -69,7 +69,7 @@ export async function run(report) {
       await wait(()=>doc.getElementById('navigation-status').textContent.includes('unavailable'));
       assert(doc.getElementById('transactions-body').innerHTML===original && app.currentAccount.id==='source','unavailable preserves register');
       category('source-category').click();await wait(()=>doc.querySelector('.details-path'));
-      assert(!doc.querySelector('.details-transfer'),'category details remain read-only');app.closeDetails();
+      assert(doc.querySelector('.details-transfer'),'US5 enables category counterpart navigation');app.closeDetails();
       category('source-mixed').click();
       app.navigate({mode:'transfer',destinationAccountId:'destination',transactionId:'mixed'});
       app.navigate({mode:'exact',accountId:'source',entryId:'source-past'});

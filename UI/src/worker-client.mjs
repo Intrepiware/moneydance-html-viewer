@@ -71,14 +71,14 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
       currentDetails = ++sequence;
       return send({type:'locate',mode,accountId,entryId,destinationAccountId,transactionId});
     },
-    queryLocated(target, locateRequestId) {
+    queryLocated(target, locateRequestId, grouping = 'month') {
       // A later selection, search or navigation invalidates both stages of this intent.
       if (disposed || !ready || currentRequest !== locateRequestId) return null;
-      return this.query({accountId:target.accountId,page:target.page,includeFuture:target.includeFuture});
+      return this.query({accountId:target.accountId,page:target.page,includeFuture:target.includeFuture,grouping});
     },
-    query({ accountId = null, text = '', page = 1, pageSize = 100, includeFuture = false } = {}) {
+    query({ accountId = null, text = '', page = 1, pageSize = 100, includeFuture = false, grouping = 'month' } = {}) {
       if (!worker || disposed || !ready) throw new Error('Snapshot is not ready.');
-      return send({ type: 'query', accountId, text, page, pageSize, includeFuture });
+      return send({ type: 'query', accountId, text, page, pageSize, includeFuture, grouping });
     },
     dispose() {
       if (disposed) return;

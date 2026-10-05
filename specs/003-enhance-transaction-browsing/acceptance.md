@@ -1,5 +1,213 @@
 # Transaction browsing implementation and acceptance
 
+## US5 design experiment — 2026-10-04
+
+Badge consistency follow-up: bank and category ledger badges now share check-number font size, line height, padding, corner radius and theme background, retaining 44px mobile tap targets. Scope text is search-only (“Matches in category + descendants”); scope/navigation text is centered. Updated browser assertions compare badge styles and visible heights at 1280/360/412px in both themes, and cover the revised scope behavior. Manual visual checks are in quickstart.md. These browser/visual checks remain pending; no acceptance gates are marked complete by this change.
+
+Follow-up visual refinements: mobile-only centered pills, tighter category header spacing, shorter/smaller scope text, lighter compact account badges retaining mobile touch targets, and neutral category amounts with signs preserved. Browser assertions cover mobile centering, touch-target size and neutral amount classes; rendered browser verification remains pending.
+
+Implemented All Time / Year / Month pills, centered purple headings (`Jan 2025 · $100.00`), Total Balance only in All Time, annual sticky headings without rollups in All Time, and hidden category running balances on desktop/mobile. Underlying financial data and ordinary bank ledgers remain unchanged. Month remains the initial preference.
+
+Automated evidence: 76 selected tests passed using `node scripts/run-tests.mjs --test-skip-pattern='synthetic budget fixture preserves|synthetic utility authenticates'`. The two data-dependent cases were excluded to avoid accessing private/demo exports. Browser assertions were updated but not executed here; rendered layout, Brave sticky behavior and device acceptance remain pending. No manual gates were marked complete.
+
+## US5 implementation — 2026-10-03
+
+Implemented T026–T030 after the completed US4 gate. Accounts/Categories icon buttons project existing eligible metadata into separate lists without changing the register until selection. Categories use monthly activity totals by default, with a session-only annual preference. Totals use checked cents over the complete disclosed matching set; continued pages repeat the full period total. Direct browsing excludes descendants, while category search includes matching category descendants. Opening balances and ordinary account-side counterparts are never added to activity. Running/sidebar balances and All Accounts population are preserved. Future-only categories keep their reveal control without fabricated periods.
+
+Search and allocation navigation into categories select the Categories list and preserve grouping. Allocation destinations require a related entry with the exact transaction identity. Query grouping travels through the existing worker/client view lane; stale responses cannot replace a later grouping/navigation intent. No exporter/schema changes, new dependencies or persistent preferences were introduced. Sidebar projection is a small pure module for direct hierarchy tests; existing Material icons are reused.
+
+Evidence (agent, Linux sandbox, Node 22.22.1; synthetic inputs only):
+
+- Initial category tests demonstrated missing periods, grouping validation, overflow checks and category-transfer support before implementation. All nine final category tests pass, including hierarchical projection and client stale-response coverage.
+- Selected Node unit/contract regression suite: **75 passed, 0 failed**, using `node scripts/run-tests.mjs --test-skip-pattern='synthetic budget fixture preserves|synthetic utility authenticates'`. The two named tests that read user-controlled `UI/data/test-snapshot.json` were excluded. No full `npm test` pass or resolution of the previously recorded demo/canonical-fixture mismatch is claimed.
+- Plaintext and encrypted synthetic navigation worker tests also query annual category totals with one fetch and no additional unlock.
+- The category preview HTML, modules, JSON fixture and sidebar module returned HTTP 200 with expected MIME types from an ephemeral local server. Module syntax checks passed. These are serving/syntax checks, not rendered-browser evidence.
+- Browser cases are wired into `tests/browser/browsing.mjs` at 1280/360/412px in both themes, including list-only switching, 44px controls, hierarchy, continued totals, descendant search, future-only empty/reveal behavior, grouped details restoration, category navigation and session reset. **Not executed:** no installed or connected browser was available; the browser download endpoint required network approval unavailable in this session.
+- Spec-Kit prerequisite check passed after normalizing the Bash scripts' CRLF endings to LF. Requirements checklist: 16/16 checked. Existing ignore rules cover private data and generated outputs; this private npm project needs no publishing ignore file. No before/after implementation hooks are registered.
+
+Independent reference values and reproducible manual steps are in [US5 category acceptance](quickstart.md#us5-category-acceptance). T031 remains open for actual browser execution. T045–T048 remain unchecked until Mike records manual and actual Pixel 8 results; Phase 8 has not begun. No previous-story acceptance is claimed to prove these new category behaviors. The documented US4 production future-transfer measurement omission remains visible in T044/T033.
+
+Constitution review: financial totals use safe integer cents and independent references; exporter/runtime compatibility is unaffected; no private exports were read; existing UI/worker structure and icons are reused; unrun browser/device checks remain pending; no new executable dependencies were added.
+
+### US5 user verification (pending)
+
+- T031 browser harness:
+- T045 sidebar controls/hierarchy/session preference:
+- T046 monthly/yearly activity references and future/empty states:
+- T047 category navigation/details/regression behavior:
+- T048 desktop and actual Pixel 8 full-history category/grouping timings:
+
+**Test:** http://127.0.0.1:8080/
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Pixel 8  
+**Results:**
+- Unlocked production dataset
+- Navigated to a high-trafficked expense category
+- Observed:
+  - Pill categorization is centered
+  - Controls are readable and tappable
+  - Toggling All Time removes all categorization and displays the all-time transaction total at the top. Selecting Year or Month hides the all-time transaction total.
+  - Toggling Year shows totals for each year
+  - Toggling Month adds breaks for each month displayed in MMM YYYY • $9,999.99 format
+  - All group headings remain sticky when page scrolled
+  - Running balance no longer visible
+  - Expense amounts (positive and negative) have neutral color 
+  - "Totals include all pages" text removed
+  - Account badges have light compact background; retain large mobile tap targets
+  - Confirmed changes in both dark and light mode
+  - Clicked page 2; heading changed to "MMM YYYY • $9,999.99 (CONTINUED)"
+- Switched back to account subledger. Searched for specific transaction in same high traffic category. 
+- Observed:
+  - Check number, Category, memo all appear same size and box size/padding
+  - amount color remains unchanged 
+  - mobile click target remains about the same
+  - no clipping/overflow observed
+  - running balance still appears on each row
+  - merchant names and amounts remain unchanged. memos remain unboxed
+- Clicked the link to navigate to the expense list. View flipped from bank register to expenses. "1 related transaction highlighted." message shown centered at the top. Expected transction was outlined.
+- Observed:
+  - Description, date, and amount match amount of original transaction
+- Timings:
+  - Unlock: 1.27s
+  - Load large category (2,452 txns): 0.33s
+  - Switch Month to Year (large category): 0.37s
+  - Switch Year to Month: 0.34s
+- At no point prompted for additional unlock
+
+**Test:** http://127.0.0.1:8080/
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Desktop   
+**Results:**
+- Unlocked production dataset
+- Navigated to a high-trafficked expense category
+- Observed:
+  - Pill categorization is right-aligned
+  - Toggling All Time removes all categorization and displays the all-time transaction total at the top. Selecting Year or Month hides the all-time transaction total.
+  - Toggling Year shows totals for each year
+  - Toggling Month adds breaks for each month displayed in MMM YYYY • $9,999.99 format
+  - Compared the displayed totals to the "Income and Expenses" report in Moneydance; matched perfectly
+  - Compared sidebar balance to category total in Moneydance; matched perfectly
+  - All group headings remain sticky when page scrolled
+  - Running balance no longer visible
+  - Expense amounts (positive and negative) have neutral color 
+  - "Totals include all pages" text removed
+  - Confirmed changes in both dark and light mode
+  - Clicked page 2; heading changed to "MMM YYYY • $9,999.99 (CONTINUED)"
+- Clicked transaction search box, then tabbed until pills received focus
+- Focused on "All Time", clicked enter. View switched to All Time (same as if I had mouse clicked)
+- Tabbed once so "Year" focused. Pressed enter. View switched to Year (same as if I had mouse clicked)
+- Activated mobile emulator in Dev Tools. Repeated previous two steps, same result.
+- Switched back to account subledger. Searched for specific transaction in same high traffic category. 
+- Observed:
+  - Check number, Category, memo all appear same size and box size/padding
+  - amount color remains unchanged 
+  - no clipping/overflow observed
+  - running balance still appears on each row
+  - merchant names and amounts remain unchanged. memos remain unboxed
+- Clicked the link to navigate to the expense list. View flipped from bank register to expenses. "1 related transaction highlighted." message shown centered at the top. Expected transction was outlined.
+- Observed:
+  - Description, date, and amount match amount of original transaction
+- Timings:
+  - Unlock: 1.52s
+  - Load large category (2,452 txns): 0.69s
+  - Switch Month to Year (large category): 0.47s
+  - Switch Year to Month: 0.48s
+- At no point prompted for additional unlock
+
+
+**Test:** http://127.0.0.1:8080/tests/browser/
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Desktop   
+**Results:**
+
+```
+Viewer acceptance tests
+Uses synthetic data only. Run with the local viewer server.
+
+Running…
+PASS real worker/client: exact test selection, missing real/test, invalid test, no fallback
+PASS real app DOM: missing link, test indicator, account selection, $1,045, no All Accounts total
+PASS hidden hierarchy DOM: active descendant accessible, excluded ancestor absent, source parent total
+PASS register fixture loaded
+PASS register DOM: paging, direct scope, future dates, categories, checks, memo, escaped text, mobile balance, stale replies
+PASS search DOM: descriptions/memos/allocations, descendant scope, clear, paging, future disclosure, rapid changes and balances
+Synthetic search timings including debounce (ms): 102, 107, 115, 116, 118, 116, 107, 109, 116, 116, 104, 115, 118, 116, 117, 107, 110, 118, 116, 115. Real-data Pixel 8 timing remains a separate check.
+PASS loading contracts: plaintext timestamps, empty/version/financial failure, invalid query, reload-only retry
+PASS loading DOM: empty/error states, export footer, stale content removal, actual worker failure, cross-origin rejection
+PASS lifecycle DOM: repeated persisted hide/show, account/search/paging, one fetch, fixed dates, final disposal
+PASS unlock DOM: actual Jython fixture, wrong-password one-fetch retry, submit-time value, cleared password, balances, persisted lifecycle
+PASS US5 1280px: sections, hierarchy, full totals, continuation, search, future-only, details, navigation, defaults, one fetch
+PASS US5 360px: sections, hierarchy, full totals, continuation, search, future-only, details, navigation, defaults, one fetch
+PASS US5 412px: sections, hierarchy, full totals, continuation, search, future-only, details, navigation, defaults, one fetch
+PASS US4 1280px plaintext: exact/off-page, related/future, highlights, unavailable, latest intent, one fetch/unlock
+PASS US4 360px plaintext: exact/off-page, related/future, highlights, unavailable, latest intent, one fetch/unlock
+PASS US4 412px encrypted: exact/off-page, related/future, highlights, unavailable, latest intent, one fetch/unlock
+PASS US3 1280px: paycheck, alignment, themes, literal/empty fields, unavailable total, dismissal and late replies
+PASS US3 360px: paycheck, alignment, themes, literal/empty fields, unavailable total, dismissal and late replies
+PASS US3 412px: paycheck, alignment, themes, literal/empty fields, unavailable total, dismissal and late replies
+PASS US1 1280px: both themes, columns, money, icons and controls
+PASS US1 1440px: both themes, columns, money, icons and controls
+PASS US1 360px: both themes, columns, money, icons and controls
+PASS US1 412px: both themes, columns, money, icons and controls
+PASS US2 1280px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 1440px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 360px: tags, escaping, wrapping, money, search and page/account changes
+PASS US2 412px: tags, escaping, wrapping, money, search and page/account changes
+ALL PASS
+```
+
+**Test:** http://127.0.0.1:8080/tests/browser/categories.html  
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Desktop   
+**Results:**
+- After reload, accounts is selected and shows All Accounts and Checking, without income/expense categories. The As Of footer remains visible. All Accounts still contains the category rows.
+- Tabbed to expense icon and pressed enter. Expenses view activated.
+- Observed expected categories: Living with expandable Dining, Future Only, Empty Income and Promoted Income. Hidden Parent is absent; its included child Promoted Income is accessible
+- Entered search, then clicked category in sidebar. Search persisted.
+- Tabbed to pill toggle. Activated All Time, Year, and Month through the keyboard.
+  - Activated All Time. Accessibility settings confirned; role: button, name: "All Time".
+  - Observed similar results for Year and MOnth.
+- Moused over accounts sidebar icon. Observed tooltip: "Show accounts"
+- Moused over categories sidebar icon. Observed tooltip: "Show income and expense categories."
+- Activated mobile emulator in Dev Tools (412px width). Found both show-accounts and show-categories elements. Confirmed both bounding boxes 44px by 44px
+- Reloaded page. Navigated to categories, selected Living. Month selected as initial category. Changed grouping to year then selected Dining. Year persisted as grouping. 
+- Switched to checking: ordinary year dividers remain and the category grouping control disappears.
+- Returned to Living: Year persists.
+- Reloaded: Accounts and Month reset.
+- Selected Living, changed grouping to "Year"
+- Selected Checking, opened the category details for `Period opposite side`, then follow Living. Observed Categories selected, Living page 2, and `Period purchase 0` outlined; its source running balance is not displayed. "Year" persisted as grouping.
+- Selected All Accounts, searched `Period purchase 0`, and used its Living account button. Observed the same grouped destination, cleared search and correct sidebar section.
+- On Living page 2, scrolled and opened a category-details dialog. Closed with Escape. Observed the same grouping, page, scroll and invoking-button focus. Experience same in light and dark modes.
+- Navigated to All Accounts. Observed year grouping, lack of overall total.
+- Opened Network tab in Dev Tools. Tried to invoke another categories.json request or unlock request by performing the following:
+  - Navigated to All Accounts
+  - clicked category link to show modal
+  - Navigated to Page 2
+  - Showed future transactions
+  - Followed navigation to checking account in modal
+  - Clicked All Accounts
+  - Searched Period Purchase 0
+  - followed link to Living category
+  - changed grouping to All Time and Year
+  - None of above steps invoked another categories.json or unlock request
+
+**Test:** http://127.0.0.1:8080/tests/browser/categories.html  
+**Tester:** Mike  
+**Date:** 2026-10-03  
+**Browser:** Brave 1.96.61  
+**Device:** Pixel 8     
+**Results:**
+- On Living page 2, scrolled and opened a category-details dialog. Closed with close button. Observed the same grouping, page, scroll and invoking-button focus. Experience same in light and dark modes.
+
+
 ## US4 implementation — 2026-10-01
 
 T021–T024 are implemented after the completed US3 gate. Search-result account buttons locate the exact account/entry identity; supported transfer paths locate all destination entries sharing the transaction ID. The lookup uses validated direct-register order, reveals required future rows, selects the first target page and preserves all related highlights across pagination. Ordinary selection/search/new navigation clears highlights; ordinary selection hides future rows again. Unavailable targets preserve the displayed register. Navigation and its follow-up page share the latest view intent, invalidate pending details and close overlays. No exporter, schema, financial amount, balance or dependency changes were needed.

@@ -29,8 +29,12 @@
             <span class="mi mi-close" aria-hidden="true"></span>
           </button>
         </div>
+        <div class="sidebar-sections" role="group" aria-label="Navigation lists">
+          <button id="show-accounts" type="button" aria-label="Accounts" title="Show accounts" aria-pressed="true"><span class="mi mi-account_balance" aria-hidden="true"></span></button>
+          <button id="show-categories" type="button" aria-label="Categories" title="Show income and expense categories" aria-pressed="false"><span class="mi mi-sell" aria-hidden="true"></span></button>
+        </div>
         <div class="sidebar-content">
-          <h3>Accounts</h3>
+          <h3 id="sidebar-section-title">Accounts</h3>
           <div id="account-tree" class="account-tree">
             <!-- Account tree rendered here -->
           </div>
@@ -147,7 +151,15 @@
           <div class="transactions-section glass-panel">
             <div class="table-header">
               <h2>Transactions</h2>
+              <div id="category-controls" hidden>
+                <div id="category-grouping" role="group" aria-label="Group transactions by">
+                  <button type="button" data-grouping="all" aria-pressed="false">All Time</button>
+                  <button type="button" data-grouping="year" aria-pressed="false">Year</button>
+                  <button type="button" data-grouping="month" aria-pressed="true">Month</button>
+                </div>
+              </div>
             </div>
+            <p id="category-scope" class="category-scope"></p>
             <div class="table-responsive">
               <p id="register-status" role="status" hidden></p>
               <p id="navigation-status" role="status" aria-live="polite" hidden></p>
@@ -164,7 +176,7 @@
                     <th>Description</th>
                     <th class="hide-mobile category-col">Category</th>
                     <th class="amount-col">Amount</th>
-                    <th class="amount-col hide-mobile">Balance</th>
+                    <th id="running-balance-heading" class="amount-col hide-mobile">Balance</th>
                   </tr>
                 </thead>
                 <tbody id="transactions-body">
@@ -230,6 +242,13 @@
 
     <script id="transactions-template" type="text/x-handlebars-template">
       {{#each paginatedTransactions}}
+        {{#if period}}
+          <tr class="period-divider" data-period="{{period.key}}">
+            <th colspan="{{../columnCount}}" class="period-heading" scope="rowgroup">
+              <div class="period-content">{{period.label}} · <span class="period-total">{{formatCurrency period.totalCents}}</span>{{#if period.continued}} <span class="period-continued">(continued)</span>{{/if}}</div>
+            </th>
+          </tr>
+        {{/if}}
         {{#if showYearDivider}}
           <tr class="year-divider">
             <th colspan="{{../columnCount}}" class="sticky-year">{{year}}</th>
@@ -244,7 +263,7 @@
             <div class="desc-main" title="{{description}}">{{description}}</div>
             <div class="desc-extra">
               {{#if checkNum}}<span class="badge">#{{checkNum}}</span>{{/if}}
-              <button type="button" class="badge category-details hide-desktop" data-account-id="{{accountId}}" data-entry-id="{{id}}" title="{{categoryTitle}}">{{category}}</button>
+              <button type="button" class="badge category-details hide-desktop" data-account-id="{{accountId}}" data-entry-id="{{id}}" title="{{categoryTitle}}"><span>{{category}}</span></button>
               {{#if memo}}<span class="memo-text">{{memo}}</span>{{/if}}
             </div>
             {{#if tags.length}}
@@ -261,9 +280,9 @@
               {{/if}}
             {{/if}}
           </td>
-          <td class="hide-mobile category-cell"><button type="button" class="badge category-details" data-account-id="{{accountId}}" data-entry-id="{{id}}" title="{{categoryTitle}}">{{category}}</button></td>
-          <td class="amount-col amount {{#if (isNegative amountCents)}}negative{{else}}positive{{/if}}">{{formatCurrency amountCents}}<span class="mobile-running-balance">Balance: {{formatCurrency runningBalanceCents}}</span></td>
-          <td class="amount-col hide-mobile">{{formatCurrency runningBalanceCents}}</td>
+          <td class="hide-mobile category-cell"><button type="button" class="badge category-details" data-account-id="{{accountId}}" data-entry-id="{{id}}" title="{{categoryTitle}}"><span>{{category}}</span></button></td>
+          <td class="amount-col amount {{#unless ../hideRunningBalance}}{{#if (isNegative amountCents)}}negative{{else}}positive{{/if}}{{/unless}}">{{formatCurrency amountCents}}{{#unless ../hideRunningBalance}}<span class="mobile-running-balance">Balance: {{formatCurrency runningBalanceCents}}</span>{{/unless}}</td>
+          {{#unless ../hideRunningBalance}}<td class="amount-col hide-mobile">{{formatCurrency runningBalanceCents}}</td>{{/unless}}
         </tr>
       {{/each}}
     </script>

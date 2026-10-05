@@ -20,7 +20,7 @@ All commands use existing request IDs and validated primitive arguments. Main th
 
 | Command          | Input                                                                           | Response                                                                                |
 | ---------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| query (extended) | Existing account/search/page/disclosure plus month/year grouping for a category | Existing page/summary; tags on rows; period segments and complete totals for categories |
+| query (extended) | Existing account/search/page/disclosure plus all/month/year grouping for a category | Existing page/summary; tags on rows; month/year period segments and complete totals; all omits period aggregates |
 | details (new)    | accountId, entryId                                                              | Selected-row amount, ordered allocation details, full paths, availability               |
 | locate (new)     | Exact accountId/entryId OR destinationAccountId/transactionId                   | Destination page, includeFuture, focus entry and all related highlight IDs              |
 
@@ -50,7 +50,7 @@ _Context: These are the visible results of clicking and browsing in the app. A â
 - Context navigation clears search, obtains target page, reveals needed future rows, closes modal/mobile sidebar, renders, then scrolls/highlights exact rows. No URL navigation, reload, download or password prompt.
 - Tags use escaped text, wrap, show all values and no empty placeholder. No tag matching.
 - Accounts/Categories switch uses icon buttons with accessible names, tooltips, selected state, keyboard operation and generous phone targets (at least 44 CSS pixels). Accounts excludes INCOME/EXPENSE; Categories includes those eligible types. Preserve projected hierarchy, active descendants under excluded ancestors and As Of footer.
-- Switching list does not select a register. Selecting a category uses month grouping initially; month/year choice persists in page memory. No future Investments or Reports control.
+- Switching list does not select a register. Selecting a category uses month grouping initially; All Time/Year/Month pill choice persists in page memory. Category running balances are hidden; Total Balance appears only in All Time, whose annual dividers omit rollups. Month/year headings are centered purple period labels with middot-separated activity totals. No future Investments or Reports control.
 - Category totals visibly describe current scope: direct category activity without search; matching category/descendant activity during search; future included/excluded according to disclosure. Future summary remains available while future rows are hidden.
 - Complete period total repeats on continued pages. Ordinary accounts and All Accounts retain existing register behavior and population; no overall balance is added.
 - Desktop date is 90px with reduced horizontal padding; category is 180px; amount/balance remain 120px each. Description takes remaining space. Description/category use single-line ellipses with full hover text. Sticky header geometry matches rows; mobile sizing/wrapping is unchanged.

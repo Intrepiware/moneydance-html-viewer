@@ -12,6 +12,8 @@ const mappings = {ROOT:'checkbook',BANK:'account_balance',CREDIT_CARD:'credit_ca
   EXPENSE:'sell',INCOME:'paid',LOAN:'payment_arrow_down',ASSET:'money_bag',LIABILITY:'receipt_long'};
 
 export async function run(report) {
+  const categories = await import('./categories.mjs');
+  await categories.run(report);
   const navigation = await import('./navigation.mjs');
   await navigation.run(report);
   const details = await import('./details.mjs');

@@ -66,6 +66,8 @@ export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fe
       latestQuery = requestId;
       const isCurrent = () => !disposed && latestQuery === requestId;
       try {
+        // The query validates month/year grouping and returns complete period
+        // totals with the page; financial aggregation stays worker-owned.
         const result = await query(message, { isCurrent });
         if (result && isCurrent()) postMessage({ type: 'page', requestId, ...result });
       } catch { if (isCurrent()) error(requestId, 'INVALID_QUERY', 'Unable to display this register.'); }

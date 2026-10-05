@@ -4,7 +4,59 @@ This is the planned acceptance procedure, not a report of completed implementati
 
 ## Baseline and automated checks
 
+### US5 category acceptance
+
+Visual polish checks (desktop and mobile, both themes): pills are centered on mobile only (right-aligned beside Transactions on desktop). Scope text only displays “Matches in category + descendants” during category search; otherwise it is hidden. Scope and navigation messages are centered. In bank and category ledgers, category/account badges match check-number badges in font size, visible height, padding, corner radius and background; mobile buttons retain 44px tap targets. Compare a row with both a check number and category badge, including a long category name, and check for clipping/overflow. Merchant names and amounts remain larger; memos remain unboxed. Category amounts are neutral-colored with original signs preserved; bank-ledger amount colors remain unchanged.
+
+Design experiment (2026-10-04): use the All Time / Year / Month pill buttons. Check centered purple headings such as `Jan 2025 · $100.00`. Month and Year hide Total Balance; All Time shows Living's $322 Total Balance and sticky annual headings with no activity amounts. All three modes hide category running balances on desktop/mobile; bank ledgers remain unchanged. Check each pill by keyboard and at mobile widths in both themes. Source balance references below remain data checks, not category running-balance display expectations.
+
+Restart `npm run serve`, then open **http://127.0.0.1:8080/tests/browser/categories.html**. This preview loads only `tests/fixtures/category-periods-v1.json` through `/tests/browser/categories.json`; no configuration changes or private exports are needed. Use your existing ngrok origin with the same path on Pixel 8. Reload the preview to reset the Accounts list and Month preference.
+
+Run **http://127.0.0.1:8080/tests/browser/** for automated regression checks. Expect three `PASS US5` lines at 1280, 360 and 412px and eventual `ALL PASS`. The US4 harness now expects category counterpart links because US5 enables them. Browser execution is pending until a browser-enabled environment runs this harness.
+
+The category fixture has 115 entries, of which 113 are not future-dated. Its accounts start with $100 opening balances. Those opening balances are deliberately excluded from activity totals. Living contains 105 January purchases of $1 and one January refund of -$5: January activity is $100, across two pages. Its February +$20 and -$20 net to zero. Dining is a child category and contributes only during a search of Living. Checking has one -$1 counterpart; it must never be added to Living's activity sum.
+
+| Selection and filter | December 2024 | January 2025 | February 2025 | January 2099 (when revealed) | 2025 annual activity |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Living, no search | $7.00 | $100.00 | $0.00 | $3.00 | $100.00 |
+| Living, search `Period` (includes Dining) | $7.00 | $125.00 | -$10.00 | $3.00 | $115.00 |
+| Dining, no search | No period | $25.00 | -$10.00 | No period | $15.00 |
+
+Source balance references at the current effective date: Living own running balance **$207**, Living sidebar balance including Dining **$322**, Dining **$115**, Checking **$99**, Future Only **$100**, Empty Income **$100**, Promoted Income **$130**. All Accounts has no overall balance. The All Accounts population remains **113** with future hidden, **115** revealed. These are synthetic reference values, not Moneydance source evidence.
+
+#### T045 — Lists, hierarchy and grouping preference
+
+1. Reload. Accounts is selected and shows All Accounts and Checking, without income/expense categories. The As Of footer remains visible. All Accounts still contains the category rows.
+2. Use the icon-only Categories button beneath the sidebar title. Expect Living with expandable Dining, Future Only, Empty Income and Promoted Income. Hidden Parent is absent; its included child Promoted Income is accessible. Switching lists alone must leave the register, search, page and balances unchanged.
+3. Use Tab and Enter/Space to operate both switch buttons. Confirm their accessible names, tooltips and selected state. On Pixel 8, confirm readable, tappable controls. In desktop responsive mode at 412px, inspect `#show-accounts` and `#show-categories`: each bounding box must be at least 44 CSS pixels wide and high.
+4. Select Living: Month is the initial grouping. Choose Year, then select Dining: Year persists. Switch to Checking: ordinary year dividers remain and the category grouping control disappears. Return to Living: Year persists. Reload: Accounts and Month reset.
+
+#### T046 — Complete activity totals and empty/future states
+
+1. Select Living with no search, Month grouping and future hidden. Expect 109 transactions over two pages. Page 1 starts with February ($0), followed by January ($100). Page 2 repeats January's **$100** with `(continued)`, then December 2024 ($7). All 106 January entries contribute even when only part of that month is on the page.
+2. Choose Year: 2025 activity is $100 on both pages, with a continued header on page 2; 2024 is $7. Compare with the monthly reference above. Running balances and the $322 sidebar balance do not become activity totals.
+3. Search `Period` in Living: results include Dining, with 111 disclosed entries. Check both Month and Year against the matching reference row. The scope label must say matching category/descendant activity. Clear search: direct totals return.
+4. Reveal future transactions: Living has 110 direct rows and a $3 January 2099 period (or $3 annual 2099 period). With `Period` search it has 112 rows. Scope text says future included. Ordinary account/category selection hides future activity again.
+5. Search `not-present`: no matching rows and no period headers or invented totals. Clear search and select Empty Income: same explicit empty state.
+6. Select Future Only. With future hidden there are no rows/periods, but the reveal bar offers one $9 transaction. Activate it: a $9 period and its row appear. Its $100 sidebar balance still uses the effective date, not future activity.
+
+#### T047 — Navigation, details and regression checks
+
+1. Select Checking, open the category details for `Period opposite side`, then follow Living. Expect Categories selected, Living page 2, and `Period purchase 0` outlined; its source running balance is $108 but is not displayed. Preserve the current All Time/Year/Month preference. Only that legitimate counterpart is targeted.
+2. Select All Accounts (switch to Accounts first if needed), search `Period purchase 0`, and use its Living account button. Expect the same grouped destination, cleared search and correct sidebar section.
+3. On Living page 2, scroll and open a category-details dialog. Close with Escape or the close button. Expect the same grouping, page, scroll and invoking-button focus. Check both themes; repeat representative controls on Pixel 8, with readable period totals, accessible dialog close and no horizontal page overflow.
+4. Compare Checking and All Accounts with the population/balance references above. They retain ordinary year dividers, without category totals or an All Accounts overall balance. Repeat navigation/grouping with Network open: only the initial `/tests/browser/categories.json` request should occur.
+5. On the production encrypted viewer, unlock once and repeat representative category selection, grouping and navigation. No new snapshot request, page reload or password prompt should occur. Keep private descriptions and amounts out of the acceptance record.
+
+#### T048 — Full-history performance
+
+On desktop and actual Pixel 8, load your current full-history encrypted export and unlock once. Time opening a large category and switching Month to Year (also check switching back). Measure activation to the completed visible register; each action must take under two seconds. Record tester, date, browser/device, dataset counts/size when available, timings and no-additional-fetch/unlock observations in `acceptance.md`. Synthetic preview timings cannot complete this task.
+
+T045–T048 remain manual gates. Record actual observations and defects/retests before checking them off; Phase 8 follows their completion.
+
 ### US4 navigation acceptance
+
+US5 update: category destinations now open grouped category registers. The older read-only Category Example expectation below is superseded: when its related category entry exists, the details path is a navigation button. Use T047 above to verify the new behavior.
 
 Restart `npm run serve` after these changes. Open **http://127.0.0.1:8080/tests/browser/navigation.html** for the plaintext synthetic preview, or **http://127.0.0.1:8080/tests/browser/navigation.html?encrypted=true** for the encrypted preview. The encrypted password is **synthetic-password**. Both use the same dedicated 212-entry fixture; neither reads your demo export nor changes `UI/config.js`. On Pixel 8, use your existing ngrok origin with the same preview path. Browser control was unavailable during implementation; these visual checks remain pending.
 

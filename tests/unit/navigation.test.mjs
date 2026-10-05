@@ -40,10 +40,11 @@ test('lookup order follows validated register order even when export entries are
   const request={mode:'transfer',destinationAccountId:'destination',transactionId:'mixed'};
   assert.deepEqual(shuffledLocate(request),locate(request));
 });
-test('missing, excluded and category transfer targets never guess', () => {
-  for (const destinationAccountId of ['missing','archived','empty','category'])
+test('missing and excluded transfer targets never guess; category counterparts are supported', () => {
+  for (const destinationAccountId of ['missing','archived','empty'])
     assert.equal(locate({mode:'transfer',destinationAccountId,transactionId:'category-txn'}),null);
   assert.equal(locate({mode:'exact',accountId:'destination',entryId:'Shared transfer'}),null);
+  assert.deepEqual(locate({mode:'transfer',destinationAccountId:'category',transactionId:'category-txn'}).entryIds,['category-entry']);
   const details=createDetailsQuery(model)({accountId:'source',entryId:'source-unavailable'});
   assert.ok(details.allocations.every(a=>!a.destinationAvailable && a.unavailableReason));
 });
@@ -75,6 +76,9 @@ test('published synthetic plaintext and encrypted fixtures navigate with one fet
     const target=seen.at(-1);assert.equal(target.type,'located');
     await handle({type:'query',requestId:4,accountId:target.accountId,page:target.page,includeFuture:target.includeFuture});
     assert.equal(seen.at(-1).rows[1].id,'destination-future');
+    await handle({type:'query',requestId:5,accountId:'category',grouping:'year'});
+    assert.equal(seen.at(-1).grouping,'year');
+    assert.equal(seen.at(-1).periods[0].totalCents,500);
     assert.equal(fetches,1);assert.equal(seen.filter(m=>m.type==='locked').length,mode==='encrypted'?1:0);
   }
 });

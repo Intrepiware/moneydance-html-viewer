@@ -50,6 +50,9 @@ export function createViewerServer({ root = repo, snapshot = resolve(root, 'UI/d
     } else if (path === '/tests/browser/navigation.json' || path === '/tests/browser/navigation.enc') {
       allowedRoot = resolve(root, 'tests/fixtures');
       target = resolve(allowedRoot, path.endsWith('.enc') ? 'navigation-v1.enc' : 'navigation-v1.json');
+    } else if (path === '/tests/browser/categories.json') {
+      allowedRoot = resolve(root, 'tests/fixtures');
+      target = resolve(allowedRoot, 'category-periods-v1.json');
     } else if (path === '/tests/browser/details.json') {
       allowedRoot = resolve(root, 'tests/fixtures');
       target = resolve(allowedRoot, 'browsing-allocations-v1.json');

@@ -34,7 +34,7 @@ Row DTO retains existing fields and adds tags as an array of strings. Rendering 
 
 Source-tag correction (2026-09-20): parent rows collect distinct tags from the parent and its child splits; split rows collect parent plus selected-split tags only. Preserve sorted output and do not import sibling-only tags into a split row. Snapshot version 1 and the tags array contract are unchanged.
 
-Details DTO contains selected account/entry identity, selected amount and ordered allocations with path, memo, nullable amount, amount availability and destination availability. Unavailable destination has a reason suitable for display, not a guessed row. Only transfer allocations to supported non-category account destinations offer transfer navigation; category details remain readable. Full source objects never enter errors or routine logs.
+Details DTO contains selected account/entry identity, selected amount and ordered allocations with path, memo, nullable amount, amount availability and destination availability. Unavailable destination has a reason suitable for display, not a guessed row. US4 offered navigation only to non-category accounts; US5 also enables included category destinations when an exact related transaction exists. Category navigation selects the Categories list and retains the session grouping preference. Full source objects never enter errors or routine logs.
 
 T054 amendment: the details DTO also carries each allocation's tags and tag availability. Expose a checked footer total only for complete nonempty allocations; otherwise it is unavailable. T012/T015 must establish source tag mapping: parent-row allocations use the corresponding split's own tags; split-row allocations use the selected split's tags, never sibling tags or a combined parent-row union. Parent-level tags remain entry context. This optional version-1 field requires exporter/schema/validator/fixture updates during US3; T054 only documents the design.
 
@@ -46,7 +46,7 @@ Result: destination account, first target's page, whether future rows must be re
 
 ## Category periods
 
-Grouping is month or year; key is date substring YYYY-MM or YYYY. Eligible entries are direct category rows without search, existing descendant search matches with search. Apply disclosure before totals. Sum each entry once using checked integer cents; no opening balance or added account-side counterpart.
+Grouping is `all`, `month` or `year`; month/year key is date substring YYYY-MM or YYYY. All Time returns grouping/scope metadata but no period aggregates, using ordinary annual dividers in the view. Eligible entries are direct category rows without search, existing descendant search matches with search. Apply disclosure before totals. Sum each entry once using checked integer cents; no opening balance or added account-side counterpart. Category running balances remain in data but are hidden in the view; Total Balance is shown only in All Time.
 
 Period metadata: key, label (month includes year), totalCents, matching entry count and continued-from-previous-page flag. Each page segment repeats the complete matching period total. Headers do not count toward the existing transaction page size. Empty results have no periods. Source running balances/sidebar balances remain untouched.
 

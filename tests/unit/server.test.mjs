@@ -20,6 +20,7 @@ test('server isolates selected snapshots and refuses private paths/traversal', a
   await writeFile(join(root, 'tests/fixtures/tags-v1.json'), '{"tagsFixture":true}');
   await writeFile(join(root, 'tests/fixtures/browsing-allocations-v1.json'), '{"detailsFixture":true}');
   await writeFile(join(root, 'tests/fixtures/navigation-v1.json'), '{"navigationFixture":true}');
+  await writeFile(join(root, 'tests/fixtures/category-periods-v1.json'), '{"categoryFixture":true}');
   await writeFile(join(root, 'tests/fixtures/navigation-v1.enc'), 'synthetic encrypted fixture');
   await writeFile(join(root, 'tests/fixtures/hidden-ancestor-v1.json'), '{"synthetic":true}');
   await writeFile(join(root, 'tests/fixtures/register-pages-v1.json'), '{"register":true}');
@@ -64,6 +65,8 @@ test('server isolates selected snapshots and refuses private paths/traversal', a
     assert.equal(tags.headers['content-type'], 'application/json; charset=utf-8');
     assert.equal(tags.body, '{"tagsFixture":true}');
     assert.equal((await get('/tests/fixtures/tags-v1.json')).status, 404);
+    assert.equal((await get('/tests/browser/categories.json')).body, '{"categoryFixture":true}');
+    assert.equal((await get('/tests/fixtures/category-periods-v1.json')).status, 404);
     assert.equal((await get('/tests/browser/hidden-ancestor.json')).body, '{"synthetic":true}');
     assert.equal((await get('/tests/browser/register-pages.json')).body, '{"register":true}');
     assert.equal((await get('/tests/browser/loading-fixtures/empty.json')).body, '{"empty":true}');
