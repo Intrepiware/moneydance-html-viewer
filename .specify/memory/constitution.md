@@ -1,12 +1,13 @@
 <!--
 Sync Impact Report
-Version: 1.1.0 → 1.2.0 (manual acceptance gates between user stories)
+Version: 1.2.0 → 1.3.0 (tabular manual test cases and concise completion evidence)
 Principles modified/added: none
 Sections modified: Development and Review — Manual Testing Gate
+Sections added: Development and Review — Manual Test Case Format
 Sections removed: none
 Deferred placeholders: none
-Dependent artifacts reconciled: .specify/templates/tasks-template.md and
-specs/003-enhance-transaction-browsing/tasks.md (manual steps and sequential gates).
+Dependent templates and commands consume this constitution at runtime; no template changes.
+Existing acceptance records remain valid; new or substantively revised manual cases use tables.
 No manual/source/device checks were executed by this documentation update.
 -->
 
@@ -130,9 +131,56 @@ record the finding and revise the approach while preserving confirmed requiremen
 ### Rule: Manual Testing Gate
 
 1. **Mandatory Inclusion in tasks.md:** Every user story MUST include at least one explicit manual testing task under its execution tasks, or an explicit story-level exception with justification in `tasks.md`. Cover the main happy path, relevant failure paths and material edge cases, minimizing repetition. A flow may be omitted when setup is impractical; record the specific obstacle, uncovered behavior and alternative evidence (or remaining gap). Non-obvious but feasible setups MUST have detailed, reproducible instructions. Unavailable equipment or an unrun required test remains pending, not an implicit exception.
-2. **Task Formatting:** Manual testing tasks MUST use `- [ ] [Manual Test] <description>`; task IDs and story labels may follow the tag. Specify actions and expected results, with setup instructions included or linked.
-3. **Completion Evidence:** Mark a manual task `[x]` only after a person executes its steps and the expected results pass. Record tester, date, environment, observed results and defects/retest evidence in the feature's acceptance record. Automated passes alone do not complete manual tasks. Failed or unrun steps remain unchecked.
+2. **Task Formatting:** Manual testing tasks MUST use `- [ ] [Manual Test] <description>`; task IDs and story labels may follow the tag. Include or link setup instructions and test cases following the Manual Test Case Format below.
+3. **Completion Evidence:** Mark a manual task `[x]` only after a person executes its required steps and the expected results pass, or remaining steps have an explicit accepted omission under rule 1. Record tester, date, environment and completed test tables in the feature's acceptance record. A person's ✅ certifies every expected result in that row and is sufficient evidence without a prose restatement. Automated passes alone do not complete manual tasks. Failed or unrun steps remain unchecked unless their omission is explicitly accepted and documented; omitted steps MUST NOT be represented as passed.
 4. **Sequential Blocking Gate:** Follow the user-story order in `tasks.md`. Implementation of the next story MUST NOT begin until all `[Manual Test]` tasks for every preceding story are complete (`[x]`). This includes the next story's implementation tests and fixtures. Documentation/planning for later stories and fixes/retests within the current story may continue. Justified omissions remain visible at the checkpoint and are not reported as passed tests.
+
+### Rule: Manual Test Case Format
+
+New manual test cases and substantive revisions to existing cases MUST use Markdown tables
+with these columns, in this order: **Step**, **Action / Instruction**, **Expected Result**,
+**Status**, **Notes**. This applies to manual walkthroughs in test plans, quickstarts and
+acceptance records. Existing completed records remain valid without reformatting. Automated
+test code and the task checkboxes in `tasks.md` retain their own formats.
+
+Each case MUST have a stable identifier linked to its manual task, such as A1 for T045,
+and each row MUST have a unique step identifier such as A1.1. Actions MUST be reproducible;
+expected results MUST state all observations needed to pass the row. Split rows when actions
+or expectations become difficult to scan or can usefully be checked independently. Include
+setup, test data and the required device/environment before the relevant table or by a clear
+link. Keep table text concise to reduce wrapping.
+
+The following status meanings MUST appear in the plan:
+
+- **⬜**: Not run. Initialize every new step with this visible placeholder.
+- **✅**: A person performed the action and observed every stated expected result.
+- **❌**: A person performed the action and observed an unexpected result.
+
+Blank status cells in existing records MAY be read as not run. A blocked step MUST remain
+⬜ with the obstacle recorded in Notes. An explicitly accepted omission MUST identify the
+affected case or steps, who accepted it, the date, reason and remaining unverified behavior.
+It MAY be recorded as a short exception beside the table; it MUST NOT receive a ✅.
+
+Record tester, actual test date, browser/version, device and test URL/environment once per
+run; repeat only when these change. Notes are required only for unexpected results, blockers,
+retests or measurements explicitly requested in the case. A successful step MUST NOT require
+duplicate narrative evidence or a separate prose result summary. When a measurement is
+needed, name it in advance and provide its entry space, such as a request count in Notes.
+
+Reviewers MUST assess completed rows against their written expectations and MUST NOT add
+unstated conditions when evaluating a pass. A newly discovered requirement MUST become a
+separate explicit case or a clearly identified revision requiring its own verification.
+Retests MUST retain the original failure and record the later outcome and date.
+
+Example structure (replace the example content when authoring an actual case):
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| A1.1 | Reload the specified test page. | Accounts is selected. | ⬜ | |
+| A1.2 | Activate Categories. | Categories becomes selected. | ⬜ | |
+
+This format keeps actions and acceptance criteria together, makes remaining work visible,
+and avoids requiring testers to rewrite successful observations.
 
 ## Governance
 
@@ -151,4 +199,4 @@ conflicts. Template examples are not project rules. Constitution updates do not 
 implement features or authorize deployment. Dependent documents MUST be reviewed when an
 amendment affects them, without rewriting unrelated templates or source files as a side effect.
 
-**Version**: 1.2.0 | **Ratified**: 2026-09-06 | **Last Amended**: 2026-09-19
+**Version**: 1.3.0 | **Ratified**: 2026-09-06 | **Last Amended**: 2026-10-10
