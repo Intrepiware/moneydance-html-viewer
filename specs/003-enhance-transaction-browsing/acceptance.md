@@ -1,5 +1,138 @@
 # Transaction browsing implementation and acceptance
 
+## US5 - More Acceptance Tests - 2026-10-10
+
+Tester: Mike
+Actual date: 2026-10-10
+Desktop browser/version: 1.97.56
+Pixel 8 browser/version: 1.97.56
+Synthetic preview URL: http://127.0.0.1:8080/tests/browser/categories.html
+Production viewer URL (omit private tokens): https://money.mikedevlin.site
+The status tables below are Mike's recorded results. A ✅ confirms every expected result in that row.
+
+## A. T045 — Sidebar controls and unchanged register
+
+Status: blank = not run, ✅ = all expected results observed, ❌ = unexpected result. Add Notes only for failures or blocked steps (leave blocked steps blank). A ✅ is sufficient evidence; no written restatement is needed. Record tester/date/browser/device once for the run.
+
+### A1. Accessible names and selected state (desktop)
+
+| Step | Action / Instruction                                                                                                                                        | Expected Result                                                                                                | Status | Notes |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | :----: | ----- |
+| A1.1 | Reload the synthetic preview. In DevTools Elements/Accessibility, inspect sidebar buttons `#show-accounts` and `#show-categories` (not the grouping pills). | Both have role **button**, with accessible names **Accounts** and **Categories**, respectively.                |   ✅   |       |
+| A1.2 | Inspect their initial pressed states and visible styling.                                                                                                   | Accounts: `aria-pressed="true"`, visually selected. Categories: `aria-pressed="false"`, not visually selected. |   ✅   |       |
+| A1.3 | Click Categories and inspect both buttons.                                                                                                                  | Categories becomes pressed and visually selected; Accounts becomes unpressed and not selected.                 |   ✅   |       |
+| A1.4 | Click Accounts and inspect both buttons.                                                                                                                    | Accounts becomes pressed and visually selected; Categories becomes unpressed and not selected.                 |   ✅   |       |
+
+### A2. Mouse and keyboard list switching (desktop)
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| A2.1 | Reload. In All Accounts, search `Period`, wait for results, then go to page 2. | All Accounts is showing page 2 of the search results, with no overall Total Balance. | ✅ | |
+| A2.2 | Observe the title, search text, count, page and first visible row. Click Categories, then Accounts. **Do not select a list item.** Compare after each click. | Only the sidebar list and selected icon change. Title, search, count, page and first visible row stay identical; no overall Total Balance appears. | ✅ | |
+| A2.3 | Use Tab/Shift+Tab to focus Categories; press Enter. Focus Accounts; press Space. Compare after each activation. | Both controls work. Only the sidebar list/selected icon change; register title, search, count, page, first visible row and absence of overall balance remain unchanged. | ✅ | |
+| A2.4 | Clear search, select Checking and observe its register/balance. Click Categories, then Accounts without selecting a list item. | Checking's register and displayed balance stay unchanged after each switch. | ✅ | |
+
+### A3. Touch list switching (actual Pixel 8)
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| A3.1 | On actual Pixel 8, open/reload the synthetic preview. Search `Period` in All Accounts, then go to page 2. | All Accounts shows page 2 of the results, with no overall Total Balance. | ✅ | |
+| A3.2 | Observe title, search, count, page and first visible row. Open the sidebar; tap Categories, then Accounts without selecting a list item. Reopen the sidebar if necessary, then close it to compare. | Selected icon follows each tap. Register title, search, count, page and first visible row remain unchanged; no overall Total Balance appears. | ✅ | |
+| A3.3 | Clear search, select Checking and observe its balance. Repeat Categories/Accounts icon-only switching, then close the sidebar. | Checking's register and balance remain unchanged. | ✅ | |
+
+
+## B. T046 — Independent totals, search and future/empty states
+
+Use the desktop synthetic preview. Counts refer to the complete matching set, not the current page. Category running balances remain intentionally hidden. Use ⬜ / ✅ / ❌ as in section A; a pass requires no explanatory notes.
+
+### B1. Direct monthly totals and continuation
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| B1.1 | Reload; select Categories → Living, clear search, select Month. Leave future hidden. | 109 transactions over two pages. Page 1: Feb 2025 **$0.00**, Jan 2025 **$100.00**. | ✅ |  |
+| B1.2 | Go to page 2. | January repeats **$100.00** with a continued marker, followed by Dec 2024 **$7.00**. | ✅ |  |
+| B1.3 | Inspect Living's sidebar balance and scope message. | Sidebar **$322.00**; no scope message. | ✅ |  |
+
+Independent reference: January = 105 × $1 minus a $5 refund = $100; February = $20 minus $20 = $0. These activity totals exclude the $100 opening balance and Checking's -$1 counterpart. January's total covers all 106 entries, not just one page.
+
+### B2. Annual totals across the year boundary
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| B2.1 | Select Year; go to page 1 if necessary. | 2025 activity **$100.00**. | ✅ |  |
+| B2.2 | Go to page 2. | 2025 repeats **$100.00** with continued marker; 2024 **$7.00**. | ✅ |  |
+| B2.3 | Check count and sidebar balance. | 109 transactions; Living sidebar **$322.00**. | ✅ |  |
+
+### B3. Descendant search and clearing search
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| B3.1 | In Living, search `Period`; wait for results. | 111 transactions; centered **Matches in category + descendants**. | ✅ |  |
+| B3.2 | Select Month; inspect both pages. | Feb 2025 **-$10.00**, Jan 2025 **$125.00** (same total on continuation), Dec 2024 **$7.00**. | ✅ |  |
+| B3.3 | Select Year; inspect both pages. | 2025 **$115.00** (same total on continuation); 2024 **$7.00**. | ✅ |  |
+| B3.4 | Clear search. | 109 transactions; 2025 **$100.00**, 2024 **$7.00**; scope message disappears. | ✅ |  |
+| B3.5 | Select Month. | February **$0.00**, January **$100.00**. | ✅ |  |
+
+### B4. Future disclosure and reset
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| B4.1 | With Living, empty search and Month active, click the future reveal bar. | 110 transactions; Jan 2099 **$3.00**; historical totals unchanged; direct scope message stays hidden. | ✅ |  |
+| B4.2 | Select Year. | 2099 **$3.00**; historical annual totals unchanged. | ✅ |  |
+| B4.3 | Search `Period`. | 112 transactions; 2099 **$3.00**, 2025 **$115.00**, 2024 **$7.00**; **Matches in category + descendants**. | ✅ |  |
+| B4.4 | Select Month; inspect the pages. | Jan 2099 **$3.00**, Feb 2025 **-$10.00**, Jan 2025 **$125.00**, Dec 2024 **$7.00**. | ✅ |  |
+| B4.5 | Clear search; select Dining, then Living. | 109 transactions; no 2099 heading; future reveal bar available again. | ✅ |  |
+
+No “Future included” scope sentence is expected. That older quickstart wording is obsolete; use counts, headings and the reveal control.
+
+### B5. No results and empty category
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| B5.1 | In Living, search `not-present`. | Zero matching transactions; explicit no-results state; no period headings or invented totals. | ✅ |  |
+| B5.2 | Clear search; select Empty Income. | Explicit empty state; no period headings or totals. | ✅ |  |
+
+### B6. Future-only category
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| B6.1 | Select Future Only with search empty. | No rows or period headings; reveal bar offers one **$9** transaction. | ✅ |  |
+| B6.2 | Activate the reveal bar; check Month and Year. | One transaction; **$9.00** total for the corresponding period in each mode. | ✅ |  |
+| B6.3 | Inspect Future Only's sidebar balance. | Still **$100.00**; future disclosure does not change the effective-date balance. | ✅ |  |
+
+
+## C. T047 — Remaining reference comparisons
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| C.1 | Reload synthetic preview; select Checking, search empty and future hidden. | Total Balance **$99.00**; one `Period opposite side` transaction, **-$1.00**; ordinary year dividers without category rollups. | ✅ |  |
+| C.2 | Select All Accounts. | 113 transactions; ordinary year dividers; no overall Total Balance. | ✅ |  |
+| C.3 | Click the future reveal bar. | 115 transactions; still no overall Total Balance. | ✅ |  |
+| C.4 | Select Checking, then All Accounts. | Future disclosure resets; 113 transactions. | ✅ |  |
+
+Already recorded navigation and desktop/Pixel dialog-restoration checks need not be repeated.
+
+## D. T048 — No additional production snapshot fetch
+
+Use the production encrypted viewer, not the synthetic preview. Existing timings already pass. Here, record baseline/final request counts in the supplied Notes cells; other passing steps need no notes. Never copy private response contents, passwords or URL tokens.
+
+### D1. Desktop
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| D1.1 | Open production viewer (local setup: `http://127.0.0.1:8080/`). Open DevTools Network, enable recording, clear log; reload once. | Initial encrypted snapshot request is captured. | ✅ |  |
+| D1.2 | Filter by actual snapshot filename (currently `snapshot.enc`), with All request types. Wait for loading; unlock once; count requests. | Viewer unlocks; baseline snapshot request count is available. Keep recording. | ✅ | Baseline count: 1 |
+| D1.3 | Open the large category previously timed (2,452 entries in recorded dataset); select Month → Year → Month, waiting for each update. Do not reload. | Each register update completes; no page reload or new password prompt. | ✅ |  |
+| D1.4 | Compare filtered snapshot request count with baseline, including cached requests. | Zero additional snapshot requests; final count equals baseline. | ✅ | Final count: 1 |
+
+### D2. Actual Pixel 8 — accepted omission
+
+On 2026-10-10 Mike accepted the risk of omitting the Pixel 8 production snapshot request-count check after remote debugging proved too burdensome. The previously recorded actual Pixel 8 production timings (0.33s category opening; 0.37s Month → Year; 0.34s Year → Month) and absence of another unlock prompt remain valid observations. No claim is made that the phone performed zero extra snapshot requests. Desktop production Network evidence is D1: one `snapshot.enc` request before the actions and one afterward.
+
+**US5 manual gate review (2026-10-10):** A1–A3, B1–B6, C1–C4 and D1 are recorded as passed above. Prior desktop/Pixel navigation, details and production performance evidence covers the other T045–T048 requirements. T045–T048 are complete with D2's explicit accepted omission. T031's browser harness was previously completed. Earlier “pending” summaries in this file describe the implementation-time state and are superseded by this review.
+
+
+
 ## US5 design experiment — 2026-10-04
 
 Badge consistency follow-up: bank and category ledger badges now share check-number font size, line height, padding, corner radius and theme background, retaining 44px mobile tap targets. Scope text is search-only (“Matches in category + descendants”); scope/navigation text is centered. Updated browser assertions compare badge styles and visible heights at 1280/360/412px in both themes, and cover the revised scope behavior. Manual visual checks are in quickstart.md. These browser/visual checks remain pending; no acceptance gates are marked complete by this change.

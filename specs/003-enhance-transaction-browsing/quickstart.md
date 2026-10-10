@@ -50,9 +50,9 @@ Source balance references at the current effective date: Living own running bala
 
 #### T048 — Full-history performance
 
-On desktop and actual Pixel 8, load your current full-history encrypted export and unlock once. Time opening a large category and switching Month to Year (also check switching back). Measure activation to the completed visible register; each action must take under two seconds. Record tester, date, browser/device, dataset counts/size when available, timings and no-additional-fetch/unlock observations in `acceptance.md`. Synthetic preview timings cannot complete this task.
+On desktop and actual Pixel 8, load your current full-history encrypted export and unlock once. Time opening a large category and switching Month to Year (also check switching back). Measure activation to the completed visible register; each action must take under two seconds. Record tester, date, browser/device, dataset counts/size when available, timings and no-additional-fetch/unlock observations in `acceptance.md`. Synthetic preview timings cannot complete this task. For the 2026-10-10 acceptance run, desktop production Network confirms no extra snapshot fetch; Mike explicitly accepted omission of the actual Pixel 8 Network request-count check. The phone timing and no-new-unlock observations do not establish its fetch count.
 
-T045–T048 remain manual gates. Record actual observations and defects/retests before checking them off; Phase 8 follows their completion.
+T045–T048 were completed in the 2026-10-10 acceptance review, with the Pixel 8 request-count omission recorded in `acceptance.md`. Phase 8 follows this gate.
 
 ### US4 navigation acceptance
 
