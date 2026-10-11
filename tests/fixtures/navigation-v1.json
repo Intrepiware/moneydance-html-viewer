@@ -1,0 +1,5015 @@
+{
+  "schemaVersion": 1,
+  "exportDate": "2026-09-06T12:00:00Z",
+  "balanceStartDate": "2026-09-05",
+  "sourceVersion": "synthetic-us4",
+  "accounts": {
+    "id": "root",
+    "name": "Synthetic Book",
+    "type": "ROOT",
+    "currency": "USD",
+    "inactive": false,
+    "included": false,
+    "openingBalanceCents": null,
+    "closingBalanceCents": null,
+    "balanceTimeline": null,
+    "children": [
+      {
+        "id": "source",
+        "name": "Navigation Checking",
+        "type": "BANK",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": -7500,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": -7500,
+              "sidebarBalanceCents": -7500
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "destination",
+        "name": "Transfer Savings",
+        "type": "BANK",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 207000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 205000,
+              "sidebarBalanceCents": 205000
+            },
+            {
+              "date": "2099-01-01",
+              "ownBalanceCents": 207000,
+              "sidebarBalanceCents": 207000
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "empty",
+        "name": "Empty Reserve",
+        "type": "BANK",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 0,
+              "sidebarBalanceCents": 0
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "archived",
+        "name": "Archived Reserve",
+        "type": "BANK",
+        "currency": "USD",
+        "inactive": true,
+        "included": false,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 0,
+        "balanceTimeline": null,
+        "children": []
+      },
+      {
+        "id": "category",
+        "name": "Navigation Expense",
+        "type": "EXPENSE",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 0,
+        "closingBalanceCents": 500,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 500,
+              "sidebarBalanceCents": 500
+            }
+          ]
+        },
+        "children": []
+      }
+    ]
+  },
+  "entries": [
+    {
+      "accountId": "source",
+      "id": "source-mixed",
+      "transactionId": "mixed",
+      "description": "Mixed transfer",
+      "amountCents": -3000,
+      "allocations": [
+        {
+          "accountId": "destination",
+          "name": "Transfer Savings",
+          "amountCents": -1000,
+          "memo": "",
+          "tags": []
+        },
+        {
+          "accountId": "destination",
+          "name": "Transfer Savings",
+          "amountCents": -1000,
+          "memo": "",
+          "tags": []
+        },
+        {
+          "accountId": "destination",
+          "name": "Transfer Savings",
+          "amountCents": -1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 0,
+      "runningBalanceCents": -3000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "source",
+      "id": "source-past",
+      "transactionId": "past",
+      "description": "Past transfer",
+      "amountCents": -2000,
+      "allocations": [
+        {
+          "accountId": "destination",
+          "name": "Transfer Savings",
+          "amountCents": -2000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 1,
+      "runningBalanceCents": -5000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "source",
+      "id": "source-unavailable",
+      "transactionId": "unavailable",
+      "description": "Unavailable transfers",
+      "amountCents": -2000,
+      "allocations": [
+        {
+          "accountId": "empty",
+          "name": "Empty Reserve",
+          "amountCents": -1000,
+          "memo": "",
+          "tags": []
+        },
+        {
+          "accountId": "archived",
+          "name": "Archived Reserve",
+          "amountCents": -1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 2,
+      "runningBalanceCents": -7000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "source",
+      "id": "source-category",
+      "transactionId": "category-txn",
+      "description": "Category example",
+      "amountCents": -500,
+      "allocations": [
+        {
+          "accountId": "category",
+          "name": "Navigation Expense",
+          "amountCents": -500,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 3,
+      "runningBalanceCents": -7500,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-0",
+      "transactionId": "unrelated-0",
+      "description": "Savings row 0",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 0,
+      "runningBalanceCents": 1000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-1",
+      "transactionId": "unrelated-1",
+      "description": "Savings row 1",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 1,
+      "runningBalanceCents": 2000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-2",
+      "transactionId": "unrelated-2",
+      "description": "Savings row 2",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 2,
+      "runningBalanceCents": 3000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-3",
+      "transactionId": "unrelated-3",
+      "description": "Savings row 3",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 3,
+      "runningBalanceCents": 4000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-4",
+      "transactionId": "unrelated-4",
+      "description": "Savings row 4",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 4,
+      "runningBalanceCents": 5000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-5",
+      "transactionId": "unrelated-5",
+      "description": "Savings row 5",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 5,
+      "runningBalanceCents": 6000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-6",
+      "transactionId": "unrelated-6",
+      "description": "Savings row 6",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 6,
+      "runningBalanceCents": 7000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-7",
+      "transactionId": "unrelated-7",
+      "description": "Savings row 7",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 7,
+      "runningBalanceCents": 8000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-8",
+      "transactionId": "unrelated-8",
+      "description": "Savings row 8",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 8,
+      "runningBalanceCents": 9000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-9",
+      "transactionId": "unrelated-9",
+      "description": "Savings row 9",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 9,
+      "runningBalanceCents": 10000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-10",
+      "transactionId": "unrelated-10",
+      "description": "Savings row 10",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 10,
+      "runningBalanceCents": 11000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-11",
+      "transactionId": "unrelated-11",
+      "description": "Savings row 11",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 11,
+      "runningBalanceCents": 12000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-12",
+      "transactionId": "unrelated-12",
+      "description": "Savings row 12",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 12,
+      "runningBalanceCents": 13000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-13",
+      "transactionId": "unrelated-13",
+      "description": "Savings row 13",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 13,
+      "runningBalanceCents": 14000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-14",
+      "transactionId": "unrelated-14",
+      "description": "Savings row 14",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 14,
+      "runningBalanceCents": 15000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-15",
+      "transactionId": "unrelated-15",
+      "description": "Savings row 15",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 15,
+      "runningBalanceCents": 16000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-16",
+      "transactionId": "unrelated-16",
+      "description": "Savings row 16",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 16,
+      "runningBalanceCents": 17000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-17",
+      "transactionId": "unrelated-17",
+      "description": "Savings row 17",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 17,
+      "runningBalanceCents": 18000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-18",
+      "transactionId": "unrelated-18",
+      "description": "Savings row 18",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 18,
+      "runningBalanceCents": 19000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-19",
+      "transactionId": "unrelated-19",
+      "description": "Savings row 19",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 19,
+      "runningBalanceCents": 20000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-20",
+      "transactionId": "unrelated-20",
+      "description": "Savings row 20",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 20,
+      "runningBalanceCents": 21000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-21",
+      "transactionId": "unrelated-21",
+      "description": "Savings row 21",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 21,
+      "runningBalanceCents": 22000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-22",
+      "transactionId": "unrelated-22",
+      "description": "Savings row 22",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 22,
+      "runningBalanceCents": 23000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-23",
+      "transactionId": "unrelated-23",
+      "description": "Savings row 23",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 23,
+      "runningBalanceCents": 24000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-24",
+      "transactionId": "unrelated-24",
+      "description": "Savings row 24",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 24,
+      "runningBalanceCents": 25000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-25",
+      "transactionId": "unrelated-25",
+      "description": "Savings row 25",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 25,
+      "runningBalanceCents": 26000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-26",
+      "transactionId": "unrelated-26",
+      "description": "Savings row 26",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 26,
+      "runningBalanceCents": 27000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-27",
+      "transactionId": "unrelated-27",
+      "description": "Savings row 27",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 27,
+      "runningBalanceCents": 28000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-28",
+      "transactionId": "unrelated-28",
+      "description": "Savings row 28",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 28,
+      "runningBalanceCents": 29000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-29",
+      "transactionId": "unrelated-29",
+      "description": "Savings row 29",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 29,
+      "runningBalanceCents": 30000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-30",
+      "transactionId": "past",
+      "description": "Savings row 30",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 30,
+      "runningBalanceCents": 31000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-31",
+      "transactionId": "past",
+      "description": "Savings row 31",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 31,
+      "runningBalanceCents": 32000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-32",
+      "transactionId": "unrelated-32",
+      "description": "Savings row 32",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 32,
+      "runningBalanceCents": 33000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-33",
+      "transactionId": "unrelated-33",
+      "description": "Savings row 33",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 33,
+      "runningBalanceCents": 34000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-34",
+      "transactionId": "unrelated-34",
+      "description": "Savings row 34",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 34,
+      "runningBalanceCents": 35000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-35",
+      "transactionId": "unrelated-35",
+      "description": "Savings row 35",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 35,
+      "runningBalanceCents": 36000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-36",
+      "transactionId": "unrelated-36",
+      "description": "Savings row 36",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 36,
+      "runningBalanceCents": 37000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-37",
+      "transactionId": "unrelated-37",
+      "description": "Savings row 37",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 37,
+      "runningBalanceCents": 38000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-38",
+      "transactionId": "unrelated-38",
+      "description": "Savings row 38",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 38,
+      "runningBalanceCents": 39000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-39",
+      "transactionId": "unrelated-39",
+      "description": "Savings row 39",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 39,
+      "runningBalanceCents": 40000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-40",
+      "transactionId": "mixed",
+      "description": "Exact needle",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 40,
+      "runningBalanceCents": 41000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-41",
+      "transactionId": "unrelated-41",
+      "description": "Savings row 41",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 41,
+      "runningBalanceCents": 42000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-42",
+      "transactionId": "unrelated-42",
+      "description": "Savings row 42",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 42,
+      "runningBalanceCents": 43000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-43",
+      "transactionId": "unrelated-43",
+      "description": "Savings row 43",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 43,
+      "runningBalanceCents": 44000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-44",
+      "transactionId": "unrelated-44",
+      "description": "Savings row 44",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 44,
+      "runningBalanceCents": 45000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-45",
+      "transactionId": "unrelated-45",
+      "description": "Savings row 45",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 45,
+      "runningBalanceCents": 46000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-46",
+      "transactionId": "unrelated-46",
+      "description": "Savings row 46",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 46,
+      "runningBalanceCents": 47000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-47",
+      "transactionId": "unrelated-47",
+      "description": "Savings row 47",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 47,
+      "runningBalanceCents": 48000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-48",
+      "transactionId": "unrelated-48",
+      "description": "Savings row 48",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 48,
+      "runningBalanceCents": 49000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-49",
+      "transactionId": "unrelated-49",
+      "description": "Savings row 49",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 49,
+      "runningBalanceCents": 50000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-50",
+      "transactionId": "unrelated-50",
+      "description": "Savings row 50",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 50,
+      "runningBalanceCents": 51000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-51",
+      "transactionId": "unrelated-51",
+      "description": "Savings row 51",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 51,
+      "runningBalanceCents": 52000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-52",
+      "transactionId": "unrelated-52",
+      "description": "Savings row 52",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 52,
+      "runningBalanceCents": 53000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-53",
+      "transactionId": "unrelated-53",
+      "description": "Savings row 53",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 53,
+      "runningBalanceCents": 54000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-54",
+      "transactionId": "unrelated-54",
+      "description": "Savings row 54",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 54,
+      "runningBalanceCents": 55000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-55",
+      "transactionId": "unrelated-55",
+      "description": "Savings row 55",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 55,
+      "runningBalanceCents": 56000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-56",
+      "transactionId": "unrelated-56",
+      "description": "Savings row 56",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 56,
+      "runningBalanceCents": 57000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-57",
+      "transactionId": "unrelated-57",
+      "description": "Savings row 57",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 57,
+      "runningBalanceCents": 58000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-58",
+      "transactionId": "unrelated-58",
+      "description": "Savings row 58",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 58,
+      "runningBalanceCents": 59000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-59",
+      "transactionId": "unrelated-59",
+      "description": "Savings row 59",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 59,
+      "runningBalanceCents": 60000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-60",
+      "transactionId": "unrelated-60",
+      "description": "Savings row 60",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 60,
+      "runningBalanceCents": 61000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-61",
+      "transactionId": "unrelated-61",
+      "description": "Savings row 61",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 61,
+      "runningBalanceCents": 62000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-62",
+      "transactionId": "unrelated-62",
+      "description": "Savings row 62",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 62,
+      "runningBalanceCents": 63000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-63",
+      "transactionId": "unrelated-63",
+      "description": "Savings row 63",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 63,
+      "runningBalanceCents": 64000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-64",
+      "transactionId": "unrelated-64",
+      "description": "Savings row 64",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 64,
+      "runningBalanceCents": 65000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-65",
+      "transactionId": "unrelated-65",
+      "description": "Savings row 65",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 65,
+      "runningBalanceCents": 66000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-66",
+      "transactionId": "unrelated-66",
+      "description": "Savings row 66",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 66,
+      "runningBalanceCents": 67000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-67",
+      "transactionId": "unrelated-67",
+      "description": "Savings row 67",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 67,
+      "runningBalanceCents": 68000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-68",
+      "transactionId": "unrelated-68",
+      "description": "Savings row 68",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 68,
+      "runningBalanceCents": 69000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-69",
+      "transactionId": "unrelated-69",
+      "description": "Savings row 69",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 69,
+      "runningBalanceCents": 70000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-70",
+      "transactionId": "unrelated-70",
+      "description": "Savings row 70",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 70,
+      "runningBalanceCents": 71000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-71",
+      "transactionId": "unrelated-71",
+      "description": "Savings row 71",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 71,
+      "runningBalanceCents": 72000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-72",
+      "transactionId": "unrelated-72",
+      "description": "Savings row 72",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 72,
+      "runningBalanceCents": 73000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-73",
+      "transactionId": "unrelated-73",
+      "description": "Savings row 73",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 73,
+      "runningBalanceCents": 74000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-74",
+      "transactionId": "unrelated-74",
+      "description": "Savings row 74",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 74,
+      "runningBalanceCents": 75000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-75",
+      "transactionId": "unrelated-75",
+      "description": "Savings row 75",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 75,
+      "runningBalanceCents": 76000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-76",
+      "transactionId": "unrelated-76",
+      "description": "Savings row 76",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 76,
+      "runningBalanceCents": 77000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-77",
+      "transactionId": "unrelated-77",
+      "description": "Savings row 77",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 77,
+      "runningBalanceCents": 78000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-78",
+      "transactionId": "unrelated-78",
+      "description": "Savings row 78",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 78,
+      "runningBalanceCents": 79000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-79",
+      "transactionId": "unrelated-79",
+      "description": "Savings row 79",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 79,
+      "runningBalanceCents": 80000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-80",
+      "transactionId": "unrelated-80",
+      "description": "Savings row 80",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 80,
+      "runningBalanceCents": 81000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-81",
+      "transactionId": "unrelated-81",
+      "description": "Savings row 81",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 81,
+      "runningBalanceCents": 82000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-82",
+      "transactionId": "unrelated-82",
+      "description": "Savings row 82",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 82,
+      "runningBalanceCents": 83000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-83",
+      "transactionId": "unrelated-83",
+      "description": "Savings row 83",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 83,
+      "runningBalanceCents": 84000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-84",
+      "transactionId": "unrelated-84",
+      "description": "Savings row 84",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 84,
+      "runningBalanceCents": 85000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-85",
+      "transactionId": "unrelated-85",
+      "description": "Savings row 85",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 85,
+      "runningBalanceCents": 86000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-86",
+      "transactionId": "unrelated-86",
+      "description": "Savings row 86",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 86,
+      "runningBalanceCents": 87000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-87",
+      "transactionId": "unrelated-87",
+      "description": "Savings row 87",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 87,
+      "runningBalanceCents": 88000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-88",
+      "transactionId": "unrelated-88",
+      "description": "Savings row 88",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 88,
+      "runningBalanceCents": 89000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-89",
+      "transactionId": "unrelated-89",
+      "description": "Savings row 89",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 89,
+      "runningBalanceCents": 90000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-90",
+      "transactionId": "unrelated-90",
+      "description": "Savings row 90",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 90,
+      "runningBalanceCents": 91000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-91",
+      "transactionId": "unrelated-91",
+      "description": "Savings row 91",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 91,
+      "runningBalanceCents": 92000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-92",
+      "transactionId": "unrelated-92",
+      "description": "Savings row 92",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 92,
+      "runningBalanceCents": 93000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-93",
+      "transactionId": "unrelated-93",
+      "description": "Savings row 93",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 93,
+      "runningBalanceCents": 94000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-94",
+      "transactionId": "unrelated-94",
+      "description": "Savings row 94",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 94,
+      "runningBalanceCents": 95000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-95",
+      "transactionId": "unrelated-95",
+      "description": "Savings row 95",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 95,
+      "runningBalanceCents": 96000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-96",
+      "transactionId": "unrelated-96",
+      "description": "Savings row 96",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 96,
+      "runningBalanceCents": 97000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-97",
+      "transactionId": "unrelated-97",
+      "description": "Savings row 97",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 97,
+      "runningBalanceCents": 98000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-98",
+      "transactionId": "unrelated-98",
+      "description": "Savings row 98",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 98,
+      "runningBalanceCents": 99000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-99",
+      "transactionId": "unrelated-99",
+      "description": "Savings row 99",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 99,
+      "runningBalanceCents": 100000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-100",
+      "transactionId": "unrelated-100",
+      "description": "Savings row 100",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 100,
+      "runningBalanceCents": 101000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-101",
+      "transactionId": "unrelated-101",
+      "description": "Savings row 101",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 101,
+      "runningBalanceCents": 102000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-102",
+      "transactionId": "unrelated-102",
+      "description": "Savings row 102",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 102,
+      "runningBalanceCents": 103000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-103",
+      "transactionId": "unrelated-103",
+      "description": "Savings row 103",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 103,
+      "runningBalanceCents": 104000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-104",
+      "transactionId": "unrelated-104",
+      "description": "Savings row 104",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 104,
+      "runningBalanceCents": 105000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-105",
+      "transactionId": "unrelated-105",
+      "description": "Savings row 105",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 105,
+      "runningBalanceCents": 106000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-106",
+      "transactionId": "unrelated-106",
+      "description": "Savings row 106",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 106,
+      "runningBalanceCents": 107000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-107",
+      "transactionId": "unrelated-107",
+      "description": "Savings row 107",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 107,
+      "runningBalanceCents": 108000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-108",
+      "transactionId": "unrelated-108",
+      "description": "Savings row 108",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 108,
+      "runningBalanceCents": 109000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-109",
+      "transactionId": "unrelated-109",
+      "description": "Savings row 109",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 109,
+      "runningBalanceCents": 110000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-110",
+      "transactionId": "unrelated-110",
+      "description": "Savings row 110",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 110,
+      "runningBalanceCents": 111000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-111",
+      "transactionId": "unrelated-111",
+      "description": "Savings row 111",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 111,
+      "runningBalanceCents": 112000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-112",
+      "transactionId": "unrelated-112",
+      "description": "Savings row 112",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 112,
+      "runningBalanceCents": 113000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-113",
+      "transactionId": "unrelated-113",
+      "description": "Savings row 113",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 113,
+      "runningBalanceCents": 114000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-114",
+      "transactionId": "unrelated-114",
+      "description": "Savings row 114",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 114,
+      "runningBalanceCents": 115000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-115",
+      "transactionId": "unrelated-115",
+      "description": "Savings row 115",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 115,
+      "runningBalanceCents": 116000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-116",
+      "transactionId": "unrelated-116",
+      "description": "Savings row 116",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 116,
+      "runningBalanceCents": 117000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-117",
+      "transactionId": "unrelated-117",
+      "description": "Savings row 117",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 117,
+      "runningBalanceCents": 118000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-118",
+      "transactionId": "unrelated-118",
+      "description": "Savings row 118",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 118,
+      "runningBalanceCents": 119000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-119",
+      "transactionId": "unrelated-119",
+      "description": "Savings row 119",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 119,
+      "runningBalanceCents": 120000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-120",
+      "transactionId": "unrelated-120",
+      "description": "Savings row 120",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 120,
+      "runningBalanceCents": 121000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-121",
+      "transactionId": "unrelated-121",
+      "description": "Savings row 121",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 121,
+      "runningBalanceCents": 122000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-122",
+      "transactionId": "unrelated-122",
+      "description": "Savings row 122",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 122,
+      "runningBalanceCents": 123000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-123",
+      "transactionId": "unrelated-123",
+      "description": "Savings row 123",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 123,
+      "runningBalanceCents": 124000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-124",
+      "transactionId": "unrelated-124",
+      "description": "Savings row 124",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 124,
+      "runningBalanceCents": 125000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-125",
+      "transactionId": "unrelated-125",
+      "description": "Savings row 125",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 125,
+      "runningBalanceCents": 126000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-126",
+      "transactionId": "unrelated-126",
+      "description": "Savings row 126",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 126,
+      "runningBalanceCents": 127000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-127",
+      "transactionId": "unrelated-127",
+      "description": "Savings row 127",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 127,
+      "runningBalanceCents": 128000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-128",
+      "transactionId": "unrelated-128",
+      "description": "Savings row 128",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 128,
+      "runningBalanceCents": 129000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-129",
+      "transactionId": "unrelated-129",
+      "description": "Savings row 129",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 129,
+      "runningBalanceCents": 130000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-130",
+      "transactionId": "unrelated-130",
+      "description": "Savings row 130",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 130,
+      "runningBalanceCents": 131000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-131",
+      "transactionId": "unrelated-131",
+      "description": "Savings row 131",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 131,
+      "runningBalanceCents": 132000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-132",
+      "transactionId": "unrelated-132",
+      "description": "Savings row 132",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 132,
+      "runningBalanceCents": 133000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-133",
+      "transactionId": "unrelated-133",
+      "description": "Savings row 133",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 133,
+      "runningBalanceCents": 134000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-134",
+      "transactionId": "unrelated-134",
+      "description": "Savings row 134",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 134,
+      "runningBalanceCents": 135000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-135",
+      "transactionId": "unrelated-135",
+      "description": "Savings row 135",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 135,
+      "runningBalanceCents": 136000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-136",
+      "transactionId": "unrelated-136",
+      "description": "Savings row 136",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 136,
+      "runningBalanceCents": 137000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-137",
+      "transactionId": "unrelated-137",
+      "description": "Savings row 137",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 137,
+      "runningBalanceCents": 138000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-138",
+      "transactionId": "unrelated-138",
+      "description": "Savings row 138",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 138,
+      "runningBalanceCents": 139000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-139",
+      "transactionId": "unrelated-139",
+      "description": "Savings row 139",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 139,
+      "runningBalanceCents": 140000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-140",
+      "transactionId": "mixed",
+      "description": "Shared transfer",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 140,
+      "runningBalanceCents": 141000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-141",
+      "transactionId": "unrelated-141",
+      "description": "Shared transfer",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 141,
+      "runningBalanceCents": 142000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-142",
+      "transactionId": "unrelated-142",
+      "description": "Savings row 142",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 142,
+      "runningBalanceCents": 143000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-143",
+      "transactionId": "unrelated-143",
+      "description": "Savings row 143",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 143,
+      "runningBalanceCents": 144000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-144",
+      "transactionId": "unrelated-144",
+      "description": "Savings row 144",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 144,
+      "runningBalanceCents": 145000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-145",
+      "transactionId": "unrelated-145",
+      "description": "Savings row 145",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 145,
+      "runningBalanceCents": 146000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-146",
+      "transactionId": "unrelated-146",
+      "description": "Savings row 146",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 146,
+      "runningBalanceCents": 147000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-147",
+      "transactionId": "unrelated-147",
+      "description": "Savings row 147",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 147,
+      "runningBalanceCents": 148000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-148",
+      "transactionId": "unrelated-148",
+      "description": "Savings row 148",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 148,
+      "runningBalanceCents": 149000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-149",
+      "transactionId": "unrelated-149",
+      "description": "Savings row 149",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 149,
+      "runningBalanceCents": 150000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-150",
+      "transactionId": "unrelated-150",
+      "description": "Savings row 150",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 150,
+      "runningBalanceCents": 151000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-151",
+      "transactionId": "unrelated-151",
+      "description": "Savings row 151",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 151,
+      "runningBalanceCents": 152000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-152",
+      "transactionId": "unrelated-152",
+      "description": "Savings row 152",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 152,
+      "runningBalanceCents": 153000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-153",
+      "transactionId": "unrelated-153",
+      "description": "Savings row 153",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 153,
+      "runningBalanceCents": 154000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-154",
+      "transactionId": "unrelated-154",
+      "description": "Savings row 154",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 154,
+      "runningBalanceCents": 155000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-155",
+      "transactionId": "unrelated-155",
+      "description": "Savings row 155",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 155,
+      "runningBalanceCents": 156000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-156",
+      "transactionId": "unrelated-156",
+      "description": "Savings row 156",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 156,
+      "runningBalanceCents": 157000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-157",
+      "transactionId": "unrelated-157",
+      "description": "Savings row 157",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 157,
+      "runningBalanceCents": 158000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-158",
+      "transactionId": "unrelated-158",
+      "description": "Savings row 158",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 158,
+      "runningBalanceCents": 159000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-159",
+      "transactionId": "unrelated-159",
+      "description": "Savings row 159",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 159,
+      "runningBalanceCents": 160000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-160",
+      "transactionId": "unrelated-160",
+      "description": "Savings row 160",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 160,
+      "runningBalanceCents": 161000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-161",
+      "transactionId": "unrelated-161",
+      "description": "Savings row 161",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 161,
+      "runningBalanceCents": 162000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-162",
+      "transactionId": "unrelated-162",
+      "description": "Savings row 162",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 162,
+      "runningBalanceCents": 163000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-163",
+      "transactionId": "unrelated-163",
+      "description": "Savings row 163",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 163,
+      "runningBalanceCents": 164000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-164",
+      "transactionId": "unrelated-164",
+      "description": "Savings row 164",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 164,
+      "runningBalanceCents": 165000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-165",
+      "transactionId": "unrelated-165",
+      "description": "Savings row 165",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 165,
+      "runningBalanceCents": 166000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-166",
+      "transactionId": "unrelated-166",
+      "description": "Savings row 166",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 166,
+      "runningBalanceCents": 167000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-167",
+      "transactionId": "unrelated-167",
+      "description": "Savings row 167",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 167,
+      "runningBalanceCents": 168000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-168",
+      "transactionId": "unrelated-168",
+      "description": "Savings row 168",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 168,
+      "runningBalanceCents": 169000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-169",
+      "transactionId": "unrelated-169",
+      "description": "Savings row 169",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 169,
+      "runningBalanceCents": 170000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-170",
+      "transactionId": "unrelated-170",
+      "description": "Savings row 170",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 170,
+      "runningBalanceCents": 171000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-171",
+      "transactionId": "unrelated-171",
+      "description": "Savings row 171",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 171,
+      "runningBalanceCents": 172000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-172",
+      "transactionId": "unrelated-172",
+      "description": "Savings row 172",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 172,
+      "runningBalanceCents": 173000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-173",
+      "transactionId": "unrelated-173",
+      "description": "Savings row 173",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 173,
+      "runningBalanceCents": 174000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-174",
+      "transactionId": "unrelated-174",
+      "description": "Savings row 174",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 174,
+      "runningBalanceCents": 175000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-175",
+      "transactionId": "unrelated-175",
+      "description": "Savings row 175",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 175,
+      "runningBalanceCents": 176000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-176",
+      "transactionId": "unrelated-176",
+      "description": "Savings row 176",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 176,
+      "runningBalanceCents": 177000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-177",
+      "transactionId": "unrelated-177",
+      "description": "Savings row 177",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 177,
+      "runningBalanceCents": 178000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-178",
+      "transactionId": "unrelated-178",
+      "description": "Savings row 178",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 178,
+      "runningBalanceCents": 179000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-179",
+      "transactionId": "unrelated-179",
+      "description": "Savings row 179",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 179,
+      "runningBalanceCents": 180000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-180",
+      "transactionId": "unrelated-180",
+      "description": "Savings row 180",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 180,
+      "runningBalanceCents": 181000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-181",
+      "transactionId": "unrelated-181",
+      "description": "Savings row 181",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 181,
+      "runningBalanceCents": 182000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-182",
+      "transactionId": "unrelated-182",
+      "description": "Savings row 182",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 182,
+      "runningBalanceCents": 183000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-183",
+      "transactionId": "unrelated-183",
+      "description": "Savings row 183",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 183,
+      "runningBalanceCents": 184000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-184",
+      "transactionId": "unrelated-184",
+      "description": "Savings row 184",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 184,
+      "runningBalanceCents": 185000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-185",
+      "transactionId": "unrelated-185",
+      "description": "Savings row 185",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 185,
+      "runningBalanceCents": 186000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-186",
+      "transactionId": "unrelated-186",
+      "description": "Savings row 186",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 186,
+      "runningBalanceCents": 187000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-187",
+      "transactionId": "unrelated-187",
+      "description": "Savings row 187",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 187,
+      "runningBalanceCents": 188000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-188",
+      "transactionId": "unrelated-188",
+      "description": "Savings row 188",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 188,
+      "runningBalanceCents": 189000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-189",
+      "transactionId": "unrelated-189",
+      "description": "Savings row 189",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 189,
+      "runningBalanceCents": 190000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-190",
+      "transactionId": "unrelated-190",
+      "description": "Savings row 190",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 190,
+      "runningBalanceCents": 191000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-191",
+      "transactionId": "unrelated-191",
+      "description": "Savings row 191",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 191,
+      "runningBalanceCents": 192000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-192",
+      "transactionId": "unrelated-192",
+      "description": "Savings row 192",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 192,
+      "runningBalanceCents": 193000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-193",
+      "transactionId": "unrelated-193",
+      "description": "Savings row 193",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 193,
+      "runningBalanceCents": 194000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-194",
+      "transactionId": "unrelated-194",
+      "description": "Savings row 194",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 194,
+      "runningBalanceCents": 195000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-195",
+      "transactionId": "unrelated-195",
+      "description": "Savings row 195",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 195,
+      "runningBalanceCents": 196000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-196",
+      "transactionId": "unrelated-196",
+      "description": "Savings row 196",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 196,
+      "runningBalanceCents": 197000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-197",
+      "transactionId": "unrelated-197",
+      "description": "Savings row 197",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 197,
+      "runningBalanceCents": 198000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-198",
+      "transactionId": "unrelated-198",
+      "description": "Savings row 198",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 198,
+      "runningBalanceCents": 199000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-199",
+      "transactionId": "unrelated-199",
+      "description": "Savings row 199",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 199,
+      "runningBalanceCents": 200000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-200",
+      "transactionId": "unrelated-200",
+      "description": "Savings row 200",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 200,
+      "runningBalanceCents": 201000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-201",
+      "transactionId": "unrelated-201",
+      "description": "Savings row 201",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 201,
+      "runningBalanceCents": 202000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-202",
+      "transactionId": "unrelated-202",
+      "description": "Savings row 202",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 202,
+      "runningBalanceCents": 203000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-203",
+      "transactionId": "unrelated-203",
+      "description": "Savings row 203",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 203,
+      "runningBalanceCents": 204000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-204",
+      "transactionId": "unrelated-204",
+      "description": "Savings row 204",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 204,
+      "runningBalanceCents": 205000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "destination-future",
+      "transactionId": "mixed",
+      "description": "Future counterpart",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2099-01-01",
+      "registerOrder": 205,
+      "runningBalanceCents": 206000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "destination",
+      "id": "future-lookalike",
+      "transactionId": "unrelated-future",
+      "description": "Future counterpart",
+      "amountCents": 1000,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 1000,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2099-01-01",
+      "registerOrder": 206,
+      "runningBalanceCents": 207000,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    },
+    {
+      "accountId": "category",
+      "id": "category-entry",
+      "transactionId": "category-txn",
+      "description": "Category needle",
+      "amountCents": 500,
+      "allocations": [
+        {
+          "accountId": "source",
+          "name": "Navigation Checking",
+          "amountCents": 500,
+          "memo": "",
+          "tags": []
+        }
+      ],
+      "date": "2025-06-01",
+      "registerOrder": 0,
+      "runningBalanceCents": 500,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED"
+    }
+  ]
+}

@@ -43,7 +43,7 @@ test('existing output is rejected before input reading or password prompt', asyn
   } finally { await rm(directory, { recursive: true, force: true }); }
 });
 test('synthetic utility authenticates before validating and rejects malformed data', async () => {
-  const json = readFileSync(new URL('../../UI/data/test-snapshot.json', import.meta.url), 'utf8');
+  const json = readFileSync(new URL('../fixtures/valid-snapshot-v1.json', import.meta.url), 'utf8');
   const bytes = envelope(json);
   const result = await decryptSynthetic(bytes, 'synthetic');
   assert.equal(result.json, json);

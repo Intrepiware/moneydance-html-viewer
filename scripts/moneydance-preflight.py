@@ -143,6 +143,53 @@ def probe_case(book, case):
     return checks
 
 
+def probe_allocations(book, case):
+    account = find_account(book.getRootAccount(), case['accountPath'])
+    rows = read_rows(book, account)
+    selected = [t for t in rows if int(t.getDateInt()) == case['date']
+                and register_description(t) == case['description']]
+    if len(selected) != 1:
+        return [('row-selection', False, {
+            'expectedDate': case['date'], 'expectedDescription': case['description'],
+            'exactMatches': len(selected),
+            'rowsOnExpectedDate': sum(1 for t in rows if int(t.getDateInt()) == case['date']),
+            'datesWithExpectedDescription': sorted(set(int(t.getDateInt()) for t in rows
+                if register_description(t) == case['description']))})]
+    txn = selected[0]
+    before = fingerprint(account, rows)
+    stamp = long(txn.getSyncTimestamp())
+    parent = txn.getParentTxn()
+    split = unicode(txn.getUUID()) != unicode(parent.getUUID())
+    sign = -1 if account.balanceIsNegated() else 1
+    observed = []
+    for i in range(txn.getOtherTxnCount()):
+        other = txn.getOtherTxn(i)
+        source = txn if split else other
+        source_memo = source.getMemo() if hasattr(source, 'getMemo') else source.getDescription()
+        observed.append({'accountId': unicode(other.getAccount().getUUID()),
+                         'amountCents': long(txn.getValue() if split else other.getParentAmount()) * sign,
+                         'memo': unicode(source_memo or ''),
+                         'tags': sorted(set(unicode(t) for t in (source.getKeywords() or [])))})
+    expected = []
+    for allocation in case['allocations']:
+        target = find_account(book.getRootAccount(), allocation['accountPath'])
+        expected.append({'accountId': unicode(target.getUUID()), 'amountCents': allocation['amountCents'],
+                         'memo': allocation['memo'], 'tags': allocation['tags']})
+    checks = []
+    def compare(label, actual, wanted, disclose=True):
+        checks.append((label, actual == wanted,
+                       {'expected': wanted, 'actual': actual} if disclose else None))
+    compare('selected-row-amount', long(txn.getValue()) * sign, case['amountCents'])
+    compare('allocation-count', len(observed), len(expected))
+    for index, (actual, wanted) in enumerate(zip(observed, expected)):
+        for field in ('accountId', 'amountCents', 'memo', 'tags'):
+            compare('split-%d-%s' % (index + 1, field), actual[field], wanted[field], field != 'accountId')
+    compare('allocation-total', sum(a['amountCents'] for a in observed), case['amountCents'])
+    compare('source-fingerprint-unchanged', before == fingerprint(account, read_rows(book, account)), True)
+    compare('source-stamp-unchanged', stamp == long(txn.getSyncTimestamp()), True)
+    return checks
+
+
 def main():
     if sys.version_info[:2] != (2, 7) or not sys.platform.startswith('java'):
         print('PREFLIGHT_BLOCKED: MONEYDANCE_JYTHON_27_REQUIRED')
@@ -184,14 +231,36 @@ def main():
             except Exception:
                 failures += 1
                 print('Case %d: BLOCKED (reference or runtime API requires review)' % (index + 1))
-        for tag in REQUIRED_CASES:
+        for index, case in enumerate(reference.get('allocationCases', [])):
+            try:
+                checks = probe_allocations(book, case)
+                passed = all(result for label, result, detail in checks)
+            except Exception as error:
+                passed = False
+                # Never print arbitrary Java exception text or financial objects.
+                known = ('REFERENCE_ACCOUNT_NOT_UNIQUE', 'REFERENCE_MUST_BE_USD')
+                code = str(error) if str(error) in known else 'REFERENCE_OR_RUNTIME_API_ERROR'
+                checks = [(code, False, {'exceptionType': type(error).__name__})]
+            print('Allocation case %d: %s' % (index + 1, 'PASS' if passed else 'FAIL'))
+            for label, result, detail in checks:
+                if not result:
+                    print('  %s: FAIL' % label)
+                    if detail is not None:
+                        print('    %s' % json.dumps(detail, ensure_ascii=True))
+            if not passed:
+                failures += 1
+        required = () if reference.get('scope') == 'allocations' else REQUIRED_CASES
+        if reference.get('scope') == 'allocations' and not reference.get('allocationCases'):
+            failures += 1
+        for tag in required:
             print('%s: %s' % (tag, 'REFERENCE_COMPARED' if tag in passed_tags else 'UNVERIFIED'))
-        if failures or set(REQUIRED_CASES) - passed_tags:
+        if failures or set(required) - passed_tags:
             print('PREFLIGHT_BLOCKED: reference coverage or comparisons incomplete')
         else:
-            print('PREFLIGHT_REFERENCE_CHECKS_PASS: manually confirm coverage and source UI order before T005 completion')
+            print('PREFLIGHT_REFERENCE_CHECKS_PASS: manually confirm coverage and source UI order; this is not viewer/device acceptance')
     except Exception:
         print('PREFLIGHT_BLOCKED: INVALID_REFERENCE_INPUT')
 
 
-main()
+if not globals().get('_PREFLIGHT_LIBRARY_ONLY', False):
+    main()

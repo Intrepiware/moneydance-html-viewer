@@ -1,6 +1,6 @@
 import { readEnvelope, decryptEnvelope } from './encrypted-snapshot.mjs';
 import { validateSnapshot, validDate, visibleAccounts } from './snapshot.mjs';
-import { createRegisterQuery } from './query.mjs';
+import { createRegisterQuery, createDetailsQuery, createLocateQuery } from './query.mjs';
 
 // The same handler runs in a browser Worker and in isolated Node worker tests.
 export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fetch }) {
@@ -45,12 +45,29 @@ export function createSnapshotHandler({ postMessage, baseUrl, fetchSnapshot = fe
       return;
     }
     if (message.type !== 'load') {
+      if (message.type === 'locate') {
+        latestQuery = requestId;
+        let result = null;
+        try { if (model) result = createLocateQuery(model, effectiveDate)(message); } catch { /* sanitized, nonterminal */ }
+        postMessage(result ? {type:'located',requestId,...result} :
+          {type:'navigationUnavailable',requestId,message:'Navigation is unavailable for this entry.'});
+        return;
+      }
+      if (message.type === 'details') {
+        let result = null;
+        try { if (model) result = createDetailsQuery(model)(message); } catch { /* sanitized, nonterminal */ }
+        postMessage(result ? {type:'details',lane:'details',requestId,...result} :
+          {type:'detailsUnavailable',lane:'details',requestId,message:'Details are unavailable for this entry.'});
+        return;
+      }
       if (message.type !== 'query' || !query) {
         error(requestId, 'INVALID_QUERY', 'Snapshot is not ready or request is invalid.'); return;
       }
       latestQuery = requestId;
       const isCurrent = () => !disposed && latestQuery === requestId;
       try {
+        // The query validates month/year grouping and returns complete period
+        // totals with the page; financial aggregation stays worker-owned.
         const result = await query(message, { isCurrent });
         if (result && isCurrent()) postMessage({ type: 'page', requestId, ...result });
       } catch { if (isCurrent()) error(requestId, 'INVALID_QUERY', 'Unable to display this register.'); }

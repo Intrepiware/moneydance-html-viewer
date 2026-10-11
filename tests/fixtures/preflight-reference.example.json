@@ -1,4 +1,26 @@
 {
+  "allocationCases": [
+    {"accountPath":["US3 Checking"],"date":20260901,"description":"US3 Repeated","amountCents":-3000,"allocations":[
+      {"accountPath":["US3 Dining"],"amountCents":-2000,"memo":"Lunch","tags":["Lunch"]},
+      {"accountPath":["US3 Dining"],"amountCents":-1000,"memo":"Coffee","tags":["Coffee"]}]},
+    {"accountPath":["US3 Dining"],"date":20260901,"description":"Lunch","amountCents":2000,"allocations":[
+      {"accountPath":["US3 Checking"],"amountCents":2000,"memo":"Lunch","tags":["Lunch"]}]},
+    {"accountPath":["US3 Checking"],"date":20260902,"description":"US3 Refund","amountCents":500,"allocations":[
+      {"accountPath":["US3 Dining"],"amountCents":500,"memo":"US3 Refund","tags":[]}]},
+    {"accountPath":["US3 Dining"],"date":20260902,"description":"US3 Refund","amountCents":-500,"allocations":[
+      {"accountPath":["US3 Checking"],"amountCents":-500,"memo":"US3 Refund","tags":[]}]},
+    {"accountPath":["US3 Checking"],"date":20260903,"description":"US3 Salary","amountCents":200000,"allocations":[
+      {"accountPath":["US3 Salary"],"amountCents":200000,"memo":"US3 Salary","tags":[]}]},
+    {"accountPath":["US3 Salary"],"date":20260903,"description":"US3 Salary","amountCents":200000,"allocations":[
+      {"accountPath":["US3 Checking"],"amountCents":200000,"memo":"US3 Salary","tags":[]}]},
+    {"accountPath":["US3 Home Savings"],"date":20260904,"description":"US3 Repair","amountCents":-400000,"allocations":[
+      {"accountPath":["US3 Repairs"],"amountCents":-500000,"memo":"Repair","tags":["Repair"]},
+      {"accountPath":["US3 Rainy Day"],"amountCents":100000,"memo":"Rainy contribution","tags":["Rainy"]}]},
+    {"accountPath":["US3 Rainy Day"],"date":20260904,"description":"Rainy contribution","amountCents":-100000,"allocations":[
+      {"accountPath":["US3 Home Savings"],"amountCents":-100000,"memo":"Rainy contribution","tags":["Rainy"]}]},
+    {"accountPath":["US3 Checking"],"date":20260905,"description":"US3 Excluded","amountCents":-4200,"allocations":[
+      {"accountPath":["US3 Archived"],"amountCents":-4200,"memo":"US3 Excluded","tags":[]}]}
+  ],
   "cases": [
     {
       "accountPath": [

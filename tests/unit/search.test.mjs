@@ -20,6 +20,23 @@ test('partial USD matching handles formatting, signs and independent text branch
   assert.ok(matchesSearch(searchFields({...base, description:'Coupon -50', amountCents:200}), '-50'));
 });
 const fixture = JSON.parse(await readFile(new URL('../fixtures/register-pages-v1.json', import.meta.url), 'utf8'));
+
+test('description and memo searches return literal tags without adding tag matching', async () => {
+  const data = JSON.parse(await readFile(new URL('../fixtures/tags-v1.json', import.meta.url), 'utf8'));
+  const query = createRegisterQuery(validateSnapshot(data), '2026-09-20');
+  for (const text of ['One tag', 'memo-103']) {
+    const result = await query({accountId:'tags-bank',text});
+    assert.equal(result.totalMatches,1);
+    assert.equal(result.rows[0].id,'tag-103');
+    assert.deepEqual(result.rows[0].tags,['tagonly-orchid']);
+    assert.equal(result.rows[0].runningBalanceCents,9600);
+  }
+  const markup = await query({text:'Markup tag'});
+  assert.deepEqual(markup.rows[0].tags, data.entries[100].tags);
+  for (const text of ['tagonly-orchid','later-page-tag','notATemplate'])
+    assert.equal((await query({text})).totalMatches,0);
+  assert.equal(query({accountId:'tags-bank'}).totalMatches,105);
+});
 test('descendant search, clear, allocation deduplication, paging and balances', async () => {
   const model = validateSnapshot(structuredClone(fixture));
   const query = createRegisterQuery(model, '2026-09-07');

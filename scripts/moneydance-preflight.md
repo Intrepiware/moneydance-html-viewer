@@ -1,5 +1,27 @@
 # Run the source preflight (T005)
 
+## Feature 003 acceptance status
+
+The allocation workflow is documented in [us3-source-checks.md](us3-source-checks.md).
+Mike's 2026-09-24 results in
+[feature 003 acceptance](../specs/003-enhance-transaction-browsing/acceptance.md)
+complete T015/T016/T038: all nine allocation source probes passed in Moneydance build 5253
+with Jython 2.7.2; the direct synthetic export validated (116 accounts, 11 entries) and
+passed all nine reference comparisons. The rebuilt/installed extension's export also
+passed all nine comparisons, and unchanged source records/balances were confirmed.
+These are user-run source results, not new executions during Phase 8.
+
+Use `node scripts/validate-snapshot.mjs <synthetic-export>` and
+`node scripts/compare-preflight.mjs <synthetic-export> <matching-reference>` for captured
+synthetic exports. Run the probe itself inside Moneydance as described below. Keep private
+references ignored and use the reference matching that test book; do not regenerate source
+expectations from exporter output. The earlier balance-preflight status below remains a
+separate historical record and is not expanded by the allocation-only comparisons.
+
+## Original balance preflight procedure
+
+For feature 003 US3, use the separate [allocation source-check recipe](us3-source-checks.md). The probe now supports ordered per-allocation amount, memo and tag comparisons in `allocationCases`; `scope: "allocations"` runs that focused reference without claiming the older balance coverage passed again.
+
 Case 1 has passed all 31 comparisons in Jython 2.7.2 on Moneydance build 5253. The additional cases remain unverified.
 Do not run it with standalone Python. It does not create accounts or transactions.
 

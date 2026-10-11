@@ -260,8 +260,7 @@
       "type": "object",
       "required": [
         "accountId",
-        "name",
-        "memo"
+        "name"
       ],
       "properties": {
         "accountId": {
@@ -272,9 +271,15 @@
           "type": "string"
         },
         "memo": {
-          "type": "string"
+          "type": ["string", "null"]
+        },
+        "tags": {
+          "type": ["array", "null"],
+          "items": { "type": "string" },
+          "description": "Tags belonging to this selected allocation, not combined entry tags. Missing/null means legacy unavailable; empty means no tags."
         },
         "amountCents": {
+          "description": "Signed USD cents in selected-entry units. Complete nonempty allocation sums must equal entry.amountCents; missing/null legacy amounts remain unavailable. Excluded destinations do not suppress known amounts.",
           "anyOf": [
             {
               "type": "integer",

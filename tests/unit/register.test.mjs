@@ -5,6 +5,44 @@ import { validateSnapshot } from '../../UI/src/snapshot.mjs';
 import { createRegisterQuery } from '../../UI/src/query.mjs';
 const model = validateSnapshot(JSON.parse(await readFile(new URL('../fixtures/register-pages-v1.json', import.meta.url), 'utf8')));
 const query = createRegisterQuery(model, '2100-01-01');
+
+test('tag projections preserve every value and order across pages without changing source balances', async () => {
+  const snapshot = JSON.parse(await readFile(new URL('../fixtures/tags-v1.json', import.meta.url), 'utf8'));
+  const before = JSON.stringify(snapshot);
+  const tagQuery = createRegisterQuery(validateSnapshot(snapshot), '2026-09-20');
+  const first = tagQuery({accountId:'tags-bank'});
+  const last = tagQuery({accountId:'tags-bank',page:2});
+  assert.equal(first.totalMatches, 105);
+  assert.equal(last.rows.length, 5);
+  for (const row of [...first.rows,...last.rows]) {
+    const source = snapshot.entries.find(entry => entry.id === row.id);
+    assert.deepEqual(row.tags, source.tags);
+    assert.equal(row.amountCents, -100);
+    assert.equal(row.runningBalanceCents, 19900 - source.registerOrder * 100);
+  }
+  assert.deepEqual(first.rows[0].tags, []);
+  assert.deepEqual(first.rows[1].tags, ['tagonly-orchid']);
+  assert.equal(first.rows[2].tags.length, 10);
+  assert.deepEqual(last.rows.at(-1).tags, ['later-page-tag']);
+  assert.equal(tagQuery({accountId:'tags-empty'}).rows.length, 0);
+  first.rows[1].tags.push('page-only mutation');
+  assert.equal(JSON.stringify(snapshot), before);
+  assert.deepEqual(tagQuery({accountId:'tags-bank'}).rows[1].tags, ['tagonly-orchid']);
+});
+
+test('category titles retain ancestry without changing visible labels or search matching', async () => {
+  const rows = [1, 2, 3].flatMap(page => query({ page }).rows);
+  const nested = rows.find(row => row.category === 'Groceries Budget');
+  assert.ok(nested);
+  assert.equal(nested.categoryTitle, 'Checking:Groceries Budget');
+  assert.equal(rows.find(row => row.category === 'Checking').categoryTitle, 'Checking');
+  assert.equal(rows.find(row => row.category === 'Split').categoryTitle, 'Split');
+  assert.equal(rows.find(row => row.category === 'Uncategorized').categoryTitle, 'Uncategorized');
+  const searched = await query({ text: nested.description });
+  assert.equal(searched.rows.find(row => row.id === nested.id && row.accountId === nested.accountId).categoryTitle,
+    'Checking:Groceries Budget');
+  assert.equal((await query({ text: 'Checking:Groceries Budget' })).totalMatches, 0);
+});
 test('direct register pages preserve full history, opening balance and source order', () => {
   const before = JSON.stringify(model.snapshot);
   const rows = [1, 2, 3].flatMap(page => query({ accountId: 'register-pages', page }).rows);

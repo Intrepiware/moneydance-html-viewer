@@ -17,10 +17,6 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="light-mode">
@@ -28,13 +24,17 @@
       <!-- Sidebar -->
       <aside id="sidebar" class="sidebar">
         <div class="sidebar-header">
-          <h2><i class="fa-solid fa-wallet"></i> Finance View</h2>
-          <button id="close-sidebar" class="mobile-only icon-btn">
-            <i class="fa-solid fa-xmark"></i>
+          <h2><span class="mi mi-checkbook" aria-hidden="true"></span> Finance View</h2>
+          <button id="close-sidebar" class="mobile-only icon-btn" aria-label="Close navigation">
+            <span class="mi mi-close" aria-hidden="true"></span>
           </button>
         </div>
+        <div class="sidebar-sections" role="group" aria-label="Navigation lists">
+          <button id="show-accounts" type="button" aria-label="Accounts" title="Show accounts" aria-pressed="true"><span class="mi mi-account_balance" aria-hidden="true"></span></button>
+          <button id="show-categories" type="button" aria-label="Categories" title="Show income and expense categories" aria-pressed="false"><span class="mi mi-sell" aria-hidden="true"></span></button>
+        </div>
         <div class="sidebar-content">
-          <h3>Accounts</h3>
+          <h3 id="sidebar-section-title">Accounts</h3>
           <div id="account-tree" class="account-tree">
             <!-- Account tree rendered here -->
           </div>
@@ -49,8 +49,8 @@
       <main id="main-content" class="main-content">
         <header class="topbar">
           <div class="topbar-left">
-            <button id="open-sidebar" class="mobile-only icon-btn">
-              <i class="fa-solid fa-bars"></i>
+            <button id="open-sidebar" class="mobile-only icon-btn" aria-label="Open navigation">
+              <span class="mi mi-menu" aria-hidden="true"></span>
             </button>
             <h1 id="current-account-name">All Accounts</h1>
           </div>
@@ -59,7 +59,7 @@
             style="display: flex; align-items: center; gap: 15px"
           >
             <div class="search-container">
-              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <span class="mi mi-search search-icon" aria-hidden="true"></span>
               <input
                 type="text"
                 id="search-input"
@@ -76,15 +76,16 @@
                 title="Clear search"
                 hidden
               >
-                ×
+                <span class="mi mi-close" aria-hidden="true"></span>
               </button>
             </div>
             <button
               id="theme-toggle"
               class="icon-btn"
               title="Toggle Light/Dark Mode"
+              aria-label="Toggle Light/Dark Mode"
             >
-              <i class="fa-solid fa-sun"></i>
+              <span class="mi mi-light_mode" aria-hidden="true"></span>
             </button>
           </div>
         </header>
@@ -150,9 +151,18 @@
           <div class="transactions-section glass-panel">
             <div class="table-header">
               <h2>Transactions</h2>
+              <div id="category-controls" hidden>
+                <div id="category-grouping" role="group" aria-label="Group transactions by">
+                  <button type="button" data-grouping="all" aria-pressed="false">All Time</button>
+                  <button type="button" data-grouping="year" aria-pressed="false">Year</button>
+                  <button type="button" data-grouping="month" aria-pressed="true">Month</button>
+                </div>
+              </div>
             </div>
+            <p id="category-scope" class="category-scope"></p>
             <div class="table-responsive">
               <p id="register-status" role="status" hidden></p>
+              <p id="navigation-status" role="status" aria-live="polite" hidden></p>
               <button
                 id="future-summary"
                 type="button"
@@ -166,7 +176,7 @@
                     <th>Description</th>
                     <th class="hide-mobile category-col">Category</th>
                     <th class="amount-col">Amount</th>
-                    <th class="amount-col hide-mobile">Balance</th>
+                    <th id="running-balance-heading" class="amount-col hide-mobile">Balance</th>
                   </tr>
                 </thead>
                 <tbody id="transactions-body">
@@ -174,17 +184,17 @@
                 </tbody>
               </table>
               <div id="no-results" class="no-results hidden">
-                <i class="fa-regular fa-folder-open"></i>
+                <span class="mi mi-folder_open" aria-hidden="true"></span>
                 <p>No transactions found.</p>
               </div>
 
               <div id="pagination-controls" class="pagination-controls hidden">
                 <button id="prev-page" class="pagination-btn">
-                  <i class="fa-solid fa-chevron-left"></i> Prev
+                  <span class="mi mi-chevron_left" aria-hidden="true"></span> Prev
                 </button>
                 <span id="page-info">Page 1 of 1</span>
                 <button id="next-page" class="pagination-btn">
-                  Next <i class="fa-solid fa-chevron-right"></i>
+                  Next <span class="mi mi-chevron_right" aria-hidden="true"></span>
                 </button>
               </div>
             </div>
@@ -204,10 +214,10 @@
       <div class="account-item">
         <div class="account-header" data-id="{{id}}">
           <div class="account-toggle {{#unless children.length}}empty{{/unless}} {{#if isOpen}}open{{/if}}">
-            <i class="fa-solid fa-chevron-right"></i>
+            <span class="mi mi-chevron_right" aria-hidden="true"></span>
           </div>
           <div class="account-icon">
-            <i class="fa-solid {{getAccountIcon type}}"></i>
+            <span class="mi mi-{{getAccountIcon type}}" aria-hidden="true"></span>
           </div>
           <div class="account-name">{{name}}</div>
           {{#unless isAll}}
@@ -232,12 +242,19 @@
 
     <script id="transactions-template" type="text/x-handlebars-template">
       {{#each paginatedTransactions}}
+        {{#if period}}
+          <tr class="period-divider" data-period="{{period.key}}">
+            <th colspan="{{../columnCount}}" class="period-heading" scope="rowgroup">
+              <div class="period-content">{{period.label}} · <span class="period-total">{{formatCurrency period.totalCents}}</span>{{#if period.continued}} <span class="period-continued">(continued)</span>{{/if}}</div>
+            </th>
+          </tr>
+        {{/if}}
         {{#if showYearDivider}}
           <tr class="year-divider">
             <th colspan="{{../columnCount}}" class="sticky-year">{{year}}</th>
           </tr>
         {{/if}}
-        <tr data-entry-id="{{id}}" data-account-id="{{accountId}}" class="{{#if isFuture}}future-entry{{/if}}">
+        <tr data-entry-id="{{id}}" data-account-id="{{accountId}}" class="{{#if isFuture}}future-entry{{/if}} {{#if isNavigationTarget}}navigation-target{{/if}}" {{#if isNavigationTarget}}tabindex="-1"{{/if}}>
           <td>
             <span class="desktop-date">{{month}}/{{day}}</span>
             <span class="mobile-date">{{month}}/{{day}}</span>
@@ -246,20 +263,42 @@
             <div class="desc-main" title="{{description}}">{{description}}</div>
             <div class="desc-extra">
               {{#if checkNum}}<span class="badge">#{{checkNum}}</span>{{/if}}
-              <span class="badge hide-desktop">{{category}}</span>
+              <button type="button" class="badge category-details hide-desktop" data-account-id="{{accountId}}" data-entry-id="{{id}}" title="{{categoryTitle}}"><span>{{category}}</span></button>
               {{#if memo}}<span class="memo-text">{{memo}}</span>{{/if}}
             </div>
+            {{#if tags.length}}
+              <div class="transaction-tags">
+                <span class="tag-label">Tags:</span>
+                {{#each tags}}<span class="badge transaction-tag">{{this}}</span>{{/each}}
+              </div>
+            {{/if}}
             {{#if ../isRoot}}
-              <div class="transaction-account"><i class="fa-solid fa-building-columns"></i> {{accountName}}</div>
+              {{#if ../isSearch}}
+              <button type="button" class="transaction-account" data-account-id="{{accountId}}" data-entry-id="{{id}}" title="View this transaction in {{accountName}}"><span class="mi mi-{{accountIcon}}" aria-hidden="true"></span> {{accountName}}</button>
+              {{else}}
+              <div class="transaction-account"><span class="mi mi-{{accountIcon}}" aria-hidden="true"></span> {{accountName}}</div>
+              {{/if}}
             {{/if}}
           </td>
-          <td class="hide-mobile"><span class="badge">{{category}}</span></td>
-          <td class="amount-col amount {{#if (isNegative amountCents)}}negative{{else}}positive{{/if}}">{{formatCurrency amountCents}}<span class="mobile-running-balance">Balance: {{formatCurrency runningBalanceCents}}</span></td>
-          <td class="amount-col hide-mobile">{{formatCurrency runningBalanceCents}}</td>
+          <td class="hide-mobile category-cell"><button type="button" class="badge category-details" data-account-id="{{accountId}}" data-entry-id="{{id}}" title="{{categoryTitle}}"><span>{{category}}</span></button></td>
+          <td class="amount-col amount {{#unless ../hideRunningBalance}}{{#if (isNegative amountCents)}}negative{{else}}positive{{/if}}{{/unless}}">{{formatCurrency amountCents}}{{#unless ../hideRunningBalance}}<span class="mobile-running-balance">Balance: {{formatCurrency runningBalanceCents}}</span>{{/unless}}</td>
+          {{#unless ../hideRunningBalance}}<td class="amount-col hide-mobile">{{formatCurrency runningBalanceCents}}</td>{{/unless}}
         </tr>
       {{/each}}
     </script>
 
+    <dialog id="split-details" aria-labelledby="split-details-title">
+      <div class="details-panel">
+        <header class="details-header">
+          <h2 id="split-details-title">Split details</h2>
+          <button type="button" id="details-close" aria-label="Close split details" autofocus><span class="mi mi-close" aria-hidden="true"></span></button>
+          <div class="details-summary"><div id="details-description"></div><div id="details-amount" class="details-money"></div></div>
+          <div id="details-context"></div>
+        </header>
+        <div id="details-body" tabindex="0" aria-label="Scrollable allocation details"></div>
+        <footer class="details-footer"><div class="details-total"><span>Total</span><span id="details-total" class="details-money"></span></div><p id="details-note"></p></footer>
+      </div>
+    </dialog>
     <script type="module" src="app.js"></script>
   </body>
 </html>

@@ -45,6 +45,19 @@ try {
       check(`date-${i + 1}`, p.ownBalanceCents === expected.ownBalanceCents && p.sidebarBalanceCents === expected.sidebarBalanceCents);
     });
   });
+  for (const [index, c] of (reference.allocationCases || []).entries()) {
+    const resolvePath = path => path.reduce((a,name) => {
+      const matches=a.children.filter(child=>child.name===name);
+      if(matches.length!==1)throw new Error('REFERENCE_ACCOUNT_NOT_UNIQUE');return matches[0];
+    },model.snapshot.accounts);
+    const account=resolvePath(c.accountPath);
+    const rows=model.entries.filter(e=>e.accountId===account.id && Number(e.date.replaceAll('-',''))===c.date && e.description===c.description);
+    const expected=c.allocations.map(a=>({accountId:resolvePath(a.accountPath).id,amountCents:a.amountCents,memo:a.memo,tags:a.tags}));
+    const actual=rows[0]?.allocations.map(a=>({accountId:a.accountId,amountCents:a.amountCents,memo:a.memo,tags:a.tags}));
+    const ok=rows.length===1 && rows[0].amountCents===c.amountCents && JSON.stringify(actual)===JSON.stringify(expected);
+    if(!ok)failures++;
+    console.log(`Allocation case ${index+1}: ${ok?'PASS':'FAIL'}`);
+  }
   if (failures) process.exitCode = 1;
   console.log(failures ? 'REFERENCE_COMPARISON_FAILED' : 'REFERENCE_COMPARISONS_PASS');
 } catch (error) {

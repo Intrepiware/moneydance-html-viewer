@@ -140,7 +140,7 @@ export function validateSnapshot(snapshot) {
       range.end = ordinal;
     };
     visit(snapshot.accounts, null, 0);
-    const identities = new Set();
+    const entryIndex = new Map();
     snapshot.entries.forEach((entry, index) => {
       entity = entry;
       object(entry, "entry");
@@ -149,8 +149,8 @@ export function validateSnapshot(snapshot) {
       const account = accountsById.get(entry.accountId);
       if (!account?.included) fail("entry.accountId", entry);
       const identity = JSON.stringify([entry.accountId, entry.id]);
-      if (identities.has(identity)) fail("entry.duplicate", entry);
-      identities.add(identity);
+      if (entryIndex.has(identity)) fail("entry.duplicate", entry);
+      entryIndex.set(identity, index);
       date(entry.date, "entry.date");
       if (!Number.isSafeInteger(entry.registerOrder) || entry.registerOrder < 0)
         fail("entry.registerOrder", entry);
@@ -163,14 +163,21 @@ export function validateSnapshot(snapshot) {
       array(entry.tags, "entry.tags");
       entry.tags.forEach((t) => string(t, "entry.tag"));
       array(entry.allocations, "entry.allocations");
+      let allocationTotal = 0, completeAllocations = entry.allocations.length > 0;
       for (const a of entry.allocations) {
         object(a, "allocation");
         if (!accountsById.has(a.accountId)) fail("allocation.accountId", a);
         string(a.name, "allocation.name");
-        string(a.memo, "allocation.memo");
-        if (a.amountCents !== undefined && a.amountCents !== null)
-          money(a.amountCents, "allocation.amountCents");
+        if (a.memo !== undefined && a.memo !== null) string(a.memo, "allocation.memo");
+        if (a.tags !== undefined && a.tags !== null) {
+          array(a.tags, 'allocation.tags');
+          a.tags.forEach(t => string(t, 'allocation.tag'));
+        }
+        if (a.amountCents !== undefined && a.amountCents !== null) {
+          allocationTotal = sum(allocationTotal, money(a.amountCents, 'allocation.amountCents'), 'allocation.sum');
+        } else completeAllocations = false;
       }
+      if (completeAllocations && allocationTotal !== entry.amountCents) fail('allocation.sum', entry);
       ownEntryIds.get(entry.accountId).push(index);
     });
     for (const account of accountsById.values()) {
@@ -226,11 +233,22 @@ export function validateSnapshot(snapshot) {
       }
       // Recursive totals involve omitted hidden rows; their reference proof is source-side.
     }
+    const transactionEntries = new Map();
+    for (const ids of ownEntryIds.values()) {
+      for (const index of ids) {
+        const entry = snapshot.entries[index];
+        const key = JSON.stringify([entry.accountId, entry.transactionId]);
+        if (!transactionEntries.has(key)) transactionEntries.set(key, []);
+        transactionEntries.get(key).push(index);
+      }
+    }
     return {
       snapshot,
       accountsById,
       ownEntryIds,
       ancestry,
+      entryIndex,
+      transactionEntries,
       entries: snapshot.entries,
     };
   } catch (error) {

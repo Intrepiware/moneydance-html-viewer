@@ -59,6 +59,8 @@ test('arithmetic overflow preserves validation error and failing entry', () => {
   const account = find(s.accounts);
   account.openingBalanceCents = Number.MAX_SAFE_INTEGER;
   entry.amountCents = Number.MAX_SAFE_INTEGER;
+  // Keep the allocation contract valid so this still isolates running overflow.
+  entry.allocations = [];
   assert.throws(() => validateSnapshot(s), error => {
     assert.ok(error instanceof SnapshotError);
     assert.equal(error.field, 'entry.runningBalanceCents');

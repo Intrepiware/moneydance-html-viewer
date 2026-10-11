@@ -1,0 +1,2810 @@
+{
+  "schemaVersion": 1,
+  "exportDate": "2026-09-06T12:00:00Z",
+  "balanceStartDate": "2026-09-05",
+  "sourceVersion": "synthetic-us5",
+  "accounts": {
+    "id": "root",
+    "type": "ROOT",
+    "name": "Synthetic Categories",
+    "currency": "USD",
+    "inactive": false,
+    "included": false,
+    "openingBalanceCents": null,
+    "closingBalanceCents": null,
+    "balanceTimeline": null,
+    "children": [
+      {
+        "id": "bank",
+        "type": "BANK",
+        "name": "Checking",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 10000,
+        "closingBalanceCents": 9900,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 9900,
+              "sidebarBalanceCents": 9900
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "expense",
+        "type": "EXPENSE",
+        "name": "Living",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 10000,
+        "closingBalanceCents": 21000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 20700,
+              "sidebarBalanceCents": 32200
+            },
+            {
+              "date": "2099-01-01",
+              "ownBalanceCents": 21000,
+              "sidebarBalanceCents": 32500
+            }
+          ]
+        },
+        "children": [
+          {
+            "id": "child",
+            "type": "EXPENSE",
+            "name": "Dining",
+            "currency": "USD",
+            "inactive": false,
+            "included": true,
+            "openingBalanceCents": 10000,
+            "closingBalanceCents": 11500,
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-05",
+                  "ownBalanceCents": 11500,
+                  "sidebarBalanceCents": 11500
+                }
+              ]
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "future",
+        "type": "EXPENSE",
+        "name": "Future Only",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 10000,
+        "closingBalanceCents": 10900,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 10000,
+              "sidebarBalanceCents": 10000
+            },
+            {
+              "date": "2099-01-01",
+              "ownBalanceCents": 10900,
+              "sidebarBalanceCents": 10900
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "empty",
+        "type": "INCOME",
+        "name": "Empty Income",
+        "currency": "USD",
+        "inactive": false,
+        "included": true,
+        "openingBalanceCents": 10000,
+        "closingBalanceCents": 10000,
+        "balanceTimeline": {
+          "points": [
+            {
+              "date": "2026-09-05",
+              "ownBalanceCents": 10000,
+              "sidebarBalanceCents": 10000
+            }
+          ]
+        },
+        "children": []
+      },
+      {
+        "id": "hidden",
+        "type": "EXPENSE",
+        "name": "Hidden Parent",
+        "currency": "USD",
+        "inactive": true,
+        "included": false,
+        "openingBalanceCents": 10000,
+        "closingBalanceCents": 10000,
+        "balanceTimeline": null,
+        "children": [
+          {
+            "id": "promoted",
+            "type": "INCOME",
+            "name": "Promoted Income",
+            "currency": "USD",
+            "inactive": false,
+            "included": true,
+            "openingBalanceCents": 10000,
+            "closingBalanceCents": 13000,
+            "balanceTimeline": {
+              "points": [
+                {
+                  "date": "2026-09-05",
+                  "ownBalanceCents": 13000,
+                  "sidebarBalanceCents": 13000
+                }
+              ]
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "entries": [
+    {
+      "accountId": "expense",
+      "id": "dec",
+      "transactionId": "dec",
+      "description": "Period old",
+      "date": "2024-12-31",
+      "amountCents": 700,
+      "runningBalanceCents": 10700,
+      "registerOrder": 0,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 700,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-0",
+      "transactionId": "jan-0",
+      "description": "Period purchase 0",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 10800,
+      "registerOrder": 1,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-1",
+      "transactionId": "jan-1",
+      "description": "Period purchase 1",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 10900,
+      "registerOrder": 2,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-2",
+      "transactionId": "jan-2",
+      "description": "Period purchase 2",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 11000,
+      "registerOrder": 3,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-3",
+      "transactionId": "jan-3",
+      "description": "Period purchase 3",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 11100,
+      "registerOrder": 4,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-4",
+      "transactionId": "jan-4",
+      "description": "Period purchase 4",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 11200,
+      "registerOrder": 5,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-5",
+      "transactionId": "jan-5",
+      "description": "Period purchase 5",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 11300,
+      "registerOrder": 6,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-6",
+      "transactionId": "jan-6",
+      "description": "Period purchase 6",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 11400,
+      "registerOrder": 7,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-7",
+      "transactionId": "jan-7",
+      "description": "Period purchase 7",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 11500,
+      "registerOrder": 8,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-8",
+      "transactionId": "jan-8",
+      "description": "Period purchase 8",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 11600,
+      "registerOrder": 9,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-9",
+      "transactionId": "jan-9",
+      "description": "Period purchase 9",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 11700,
+      "registerOrder": 10,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-10",
+      "transactionId": "jan-10",
+      "description": "Period purchase 10",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 11800,
+      "registerOrder": 11,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-11",
+      "transactionId": "jan-11",
+      "description": "Period purchase 11",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 11900,
+      "registerOrder": 12,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-12",
+      "transactionId": "jan-12",
+      "description": "Period purchase 12",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 12000,
+      "registerOrder": 13,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-13",
+      "transactionId": "jan-13",
+      "description": "Period purchase 13",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 12100,
+      "registerOrder": 14,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-14",
+      "transactionId": "jan-14",
+      "description": "Period purchase 14",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 12200,
+      "registerOrder": 15,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-15",
+      "transactionId": "jan-15",
+      "description": "Period purchase 15",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 12300,
+      "registerOrder": 16,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-16",
+      "transactionId": "jan-16",
+      "description": "Period purchase 16",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 12400,
+      "registerOrder": 17,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-17",
+      "transactionId": "jan-17",
+      "description": "Period purchase 17",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 12500,
+      "registerOrder": 18,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-18",
+      "transactionId": "jan-18",
+      "description": "Period purchase 18",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 12600,
+      "registerOrder": 19,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-19",
+      "transactionId": "jan-19",
+      "description": "Period purchase 19",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 12700,
+      "registerOrder": 20,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-20",
+      "transactionId": "jan-20",
+      "description": "Period purchase 20",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 12800,
+      "registerOrder": 21,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-21",
+      "transactionId": "jan-21",
+      "description": "Period purchase 21",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 12900,
+      "registerOrder": 22,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-22",
+      "transactionId": "jan-22",
+      "description": "Period purchase 22",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 13000,
+      "registerOrder": 23,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-23",
+      "transactionId": "jan-23",
+      "description": "Period purchase 23",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 13100,
+      "registerOrder": 24,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-24",
+      "transactionId": "jan-24",
+      "description": "Period purchase 24",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 13200,
+      "registerOrder": 25,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-25",
+      "transactionId": "jan-25",
+      "description": "Period purchase 25",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 13300,
+      "registerOrder": 26,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-26",
+      "transactionId": "jan-26",
+      "description": "Period purchase 26",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 13400,
+      "registerOrder": 27,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-27",
+      "transactionId": "jan-27",
+      "description": "Period purchase 27",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 13500,
+      "registerOrder": 28,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-28",
+      "transactionId": "jan-28",
+      "description": "Period purchase 28",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 13600,
+      "registerOrder": 29,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-29",
+      "transactionId": "jan-29",
+      "description": "Period purchase 29",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 13700,
+      "registerOrder": 30,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-30",
+      "transactionId": "jan-30",
+      "description": "Period purchase 30",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 13800,
+      "registerOrder": 31,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-31",
+      "transactionId": "jan-31",
+      "description": "Period purchase 31",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 13900,
+      "registerOrder": 32,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-32",
+      "transactionId": "jan-32",
+      "description": "Period purchase 32",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 14000,
+      "registerOrder": 33,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-33",
+      "transactionId": "jan-33",
+      "description": "Period purchase 33",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 14100,
+      "registerOrder": 34,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-34",
+      "transactionId": "jan-34",
+      "description": "Period purchase 34",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 14200,
+      "registerOrder": 35,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-35",
+      "transactionId": "jan-35",
+      "description": "Period purchase 35",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 14300,
+      "registerOrder": 36,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-36",
+      "transactionId": "jan-36",
+      "description": "Period purchase 36",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 14400,
+      "registerOrder": 37,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-37",
+      "transactionId": "jan-37",
+      "description": "Period purchase 37",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 14500,
+      "registerOrder": 38,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-38",
+      "transactionId": "jan-38",
+      "description": "Period purchase 38",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 14600,
+      "registerOrder": 39,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-39",
+      "transactionId": "jan-39",
+      "description": "Period purchase 39",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 14700,
+      "registerOrder": 40,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-40",
+      "transactionId": "jan-40",
+      "description": "Period purchase 40",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 14800,
+      "registerOrder": 41,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-41",
+      "transactionId": "jan-41",
+      "description": "Period purchase 41",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 14900,
+      "registerOrder": 42,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-42",
+      "transactionId": "jan-42",
+      "description": "Period purchase 42",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 15000,
+      "registerOrder": 43,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-43",
+      "transactionId": "jan-43",
+      "description": "Period purchase 43",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 15100,
+      "registerOrder": 44,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-44",
+      "transactionId": "jan-44",
+      "description": "Period purchase 44",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 15200,
+      "registerOrder": 45,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-45",
+      "transactionId": "jan-45",
+      "description": "Period purchase 45",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 15300,
+      "registerOrder": 46,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-46",
+      "transactionId": "jan-46",
+      "description": "Period purchase 46",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 15400,
+      "registerOrder": 47,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-47",
+      "transactionId": "jan-47",
+      "description": "Period purchase 47",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 15500,
+      "registerOrder": 48,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-48",
+      "transactionId": "jan-48",
+      "description": "Period purchase 48",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 15600,
+      "registerOrder": 49,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-49",
+      "transactionId": "jan-49",
+      "description": "Period purchase 49",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 15700,
+      "registerOrder": 50,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-50",
+      "transactionId": "jan-50",
+      "description": "Period purchase 50",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 15800,
+      "registerOrder": 51,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-51",
+      "transactionId": "jan-51",
+      "description": "Period purchase 51",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 15900,
+      "registerOrder": 52,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-52",
+      "transactionId": "jan-52",
+      "description": "Period purchase 52",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 16000,
+      "registerOrder": 53,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-53",
+      "transactionId": "jan-53",
+      "description": "Period purchase 53",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 16100,
+      "registerOrder": 54,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-54",
+      "transactionId": "jan-54",
+      "description": "Period purchase 54",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 16200,
+      "registerOrder": 55,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-55",
+      "transactionId": "jan-55",
+      "description": "Period purchase 55",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 16300,
+      "registerOrder": 56,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-56",
+      "transactionId": "jan-56",
+      "description": "Period purchase 56",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 16400,
+      "registerOrder": 57,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-57",
+      "transactionId": "jan-57",
+      "description": "Period purchase 57",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 16500,
+      "registerOrder": 58,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-58",
+      "transactionId": "jan-58",
+      "description": "Period purchase 58",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 16600,
+      "registerOrder": 59,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-59",
+      "transactionId": "jan-59",
+      "description": "Period purchase 59",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 16700,
+      "registerOrder": 60,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-60",
+      "transactionId": "jan-60",
+      "description": "Period purchase 60",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 16800,
+      "registerOrder": 61,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-61",
+      "transactionId": "jan-61",
+      "description": "Period purchase 61",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 16900,
+      "registerOrder": 62,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-62",
+      "transactionId": "jan-62",
+      "description": "Period purchase 62",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 17000,
+      "registerOrder": 63,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-63",
+      "transactionId": "jan-63",
+      "description": "Period purchase 63",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 17100,
+      "registerOrder": 64,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-64",
+      "transactionId": "jan-64",
+      "description": "Period purchase 64",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 17200,
+      "registerOrder": 65,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-65",
+      "transactionId": "jan-65",
+      "description": "Period purchase 65",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 17300,
+      "registerOrder": 66,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-66",
+      "transactionId": "jan-66",
+      "description": "Period purchase 66",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 17400,
+      "registerOrder": 67,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-67",
+      "transactionId": "jan-67",
+      "description": "Period purchase 67",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 17500,
+      "registerOrder": 68,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-68",
+      "transactionId": "jan-68",
+      "description": "Period purchase 68",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 17600,
+      "registerOrder": 69,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-69",
+      "transactionId": "jan-69",
+      "description": "Period purchase 69",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 17700,
+      "registerOrder": 70,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-70",
+      "transactionId": "jan-70",
+      "description": "Period purchase 70",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 17800,
+      "registerOrder": 71,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-71",
+      "transactionId": "jan-71",
+      "description": "Period purchase 71",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 17900,
+      "registerOrder": 72,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-72",
+      "transactionId": "jan-72",
+      "description": "Period purchase 72",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 18000,
+      "registerOrder": 73,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-73",
+      "transactionId": "jan-73",
+      "description": "Period purchase 73",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 18100,
+      "registerOrder": 74,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-74",
+      "transactionId": "jan-74",
+      "description": "Period purchase 74",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 18200,
+      "registerOrder": 75,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-75",
+      "transactionId": "jan-75",
+      "description": "Period purchase 75",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 18300,
+      "registerOrder": 76,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-76",
+      "transactionId": "jan-76",
+      "description": "Period purchase 76",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 18400,
+      "registerOrder": 77,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-77",
+      "transactionId": "jan-77",
+      "description": "Period purchase 77",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 18500,
+      "registerOrder": 78,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-78",
+      "transactionId": "jan-78",
+      "description": "Period purchase 78",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 18600,
+      "registerOrder": 79,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-79",
+      "transactionId": "jan-79",
+      "description": "Period purchase 79",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 18700,
+      "registerOrder": 80,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-80",
+      "transactionId": "jan-80",
+      "description": "Period purchase 80",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 18800,
+      "registerOrder": 81,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-81",
+      "transactionId": "jan-81",
+      "description": "Period purchase 81",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 18900,
+      "registerOrder": 82,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-82",
+      "transactionId": "jan-82",
+      "description": "Period purchase 82",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 19000,
+      "registerOrder": 83,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-83",
+      "transactionId": "jan-83",
+      "description": "Period purchase 83",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 19100,
+      "registerOrder": 84,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-84",
+      "transactionId": "jan-84",
+      "description": "Period purchase 84",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 19200,
+      "registerOrder": 85,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-85",
+      "transactionId": "jan-85",
+      "description": "Period purchase 85",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 19300,
+      "registerOrder": 86,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-86",
+      "transactionId": "jan-86",
+      "description": "Period purchase 86",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 19400,
+      "registerOrder": 87,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-87",
+      "transactionId": "jan-87",
+      "description": "Period purchase 87",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 19500,
+      "registerOrder": 88,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-88",
+      "transactionId": "jan-88",
+      "description": "Period purchase 88",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 19600,
+      "registerOrder": 89,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-89",
+      "transactionId": "jan-89",
+      "description": "Period purchase 89",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 19700,
+      "registerOrder": 90,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-90",
+      "transactionId": "jan-90",
+      "description": "Period purchase 90",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 19800,
+      "registerOrder": 91,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-91",
+      "transactionId": "jan-91",
+      "description": "Period purchase 91",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 19900,
+      "registerOrder": 92,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-92",
+      "transactionId": "jan-92",
+      "description": "Period purchase 92",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 20000,
+      "registerOrder": 93,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-93",
+      "transactionId": "jan-93",
+      "description": "Period purchase 93",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 20100,
+      "registerOrder": 94,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-94",
+      "transactionId": "jan-94",
+      "description": "Period purchase 94",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 20200,
+      "registerOrder": 95,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-95",
+      "transactionId": "jan-95",
+      "description": "Period purchase 95",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 20300,
+      "registerOrder": 96,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-96",
+      "transactionId": "jan-96",
+      "description": "Period purchase 96",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 20400,
+      "registerOrder": 97,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-97",
+      "transactionId": "jan-97",
+      "description": "Period purchase 97",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 20500,
+      "registerOrder": 98,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-98",
+      "transactionId": "jan-98",
+      "description": "Period purchase 98",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 20600,
+      "registerOrder": 99,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-99",
+      "transactionId": "jan-99",
+      "description": "Period purchase 99",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 20700,
+      "registerOrder": 100,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-100",
+      "transactionId": "jan-100",
+      "description": "Period purchase 100",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 20800,
+      "registerOrder": 101,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-101",
+      "transactionId": "jan-101",
+      "description": "Period purchase 101",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 20900,
+      "registerOrder": 102,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-102",
+      "transactionId": "jan-102",
+      "description": "Period purchase 102",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 21000,
+      "registerOrder": 103,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-103",
+      "transactionId": "jan-103",
+      "description": "Period purchase 103",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 21100,
+      "registerOrder": 104,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "jan-104",
+      "transactionId": "jan-104",
+      "description": "Period purchase 104",
+      "date": "2025-01-15",
+      "amountCents": 100,
+      "runningBalanceCents": 21200,
+      "registerOrder": 105,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "refund",
+      "transactionId": "refund",
+      "description": "Period refund",
+      "date": "2025-01-16",
+      "amountCents": -500,
+      "runningBalanceCents": 20700,
+      "registerOrder": 106,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": -500,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "feb-charge",
+      "transactionId": "feb-charge",
+      "description": "Period charge",
+      "date": "2025-02-01",
+      "amountCents": 2000,
+      "runningBalanceCents": 22700,
+      "registerOrder": 107,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 2000,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "feb-refund",
+      "transactionId": "feb-refund",
+      "description": "Period refund February",
+      "date": "2025-02-02",
+      "amountCents": -2000,
+      "runningBalanceCents": 20700,
+      "registerOrder": 108,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": -2000,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "expense",
+      "id": "future-expense",
+      "transactionId": "future-expense",
+      "description": "Period future",
+      "date": "2099-01-01",
+      "amountCents": 300,
+      "runningBalanceCents": 21000,
+      "registerOrder": 109,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 300,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "child",
+      "id": "child-jan",
+      "transactionId": "child-jan",
+      "description": "Period child",
+      "date": "2025-01-20",
+      "amountCents": 2500,
+      "runningBalanceCents": 12500,
+      "registerOrder": 0,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 2500,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "child",
+      "id": "child-refund",
+      "transactionId": "child-refund",
+      "description": "Period child refund",
+      "date": "2025-02-03",
+      "amountCents": -1000,
+      "runningBalanceCents": 11500,
+      "registerOrder": 1,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": -1000,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "future",
+      "id": "future-only",
+      "transactionId": "future-only",
+      "description": "Future only",
+      "date": "2099-01-01",
+      "amountCents": 900,
+      "runningBalanceCents": 10900,
+      "registerOrder": 0,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 900,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "promoted",
+      "id": "income",
+      "transactionId": "income",
+      "description": "Income",
+      "date": "2025-01-01",
+      "amountCents": 3000,
+      "runningBalanceCents": 13000,
+      "registerOrder": 0,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "bank",
+          "name": "Checking",
+          "amountCents": 3000,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "accountId": "bank",
+      "id": "bank-jan",
+      "transactionId": "jan-0",
+      "description": "Period opposite side",
+      "date": "2025-01-15",
+      "amountCents": -100,
+      "runningBalanceCents": 9900,
+      "registerOrder": 0,
+      "memo": "",
+      "tags": [],
+      "checkNum": "",
+      "clearedStatus": "CLEARED",
+      "allocations": [
+        {
+          "accountId": "expense",
+          "name": "Living",
+          "amountCents": -100,
+          "memo": "",
+          "tags": []
+        }
+      ]
+    }
+  ]
+}

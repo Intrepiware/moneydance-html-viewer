@@ -131,3 +131,9 @@ limited to prior reports and deterministic tests; no new live test is claimed.
 Earlier pending-status statements are historical and superseded by this decision.
 No code change, rebuild, additional test run or quality-checklist modification was
 needed to record acceptance.
+
+## Direct Moneybot maintenance design (2026-09-19)
+
+The standalone entry point gathers optional password and destination on the Swing EDT. Capture/build semantics remain unchanged. Blank password uses the existing atomic JSON writer; nonblank password serializes in memory, encrypts using envelope v1, then writes only ciphertext via atomic replacement. Cancel saves nothing. No fallback or password persistence is added.
+
+To preserve a single runnable exporter file and avoid changing the installed extension's imports, the short existing JVM encryption implementation is included as a standalone-only helper in `export_json.py`. Both helpers run against the same independent known-answer vectors; future envelope changes must keep them synchronized. No new dependency is introduced. The extension still bypasses `main()` through `_EXPORT_LIBRARY_ONLY=True` and uses its existing encryption module, configuration and delivery pipeline. Actual Moneybot and rebuilt-extension validation remain manual gates in M003–M005.

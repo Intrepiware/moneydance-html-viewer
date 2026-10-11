@@ -1,7 +1,9 @@
 import { App } from '/app.js';
 import { createSnapshotClient } from '/src/worker-client.mjs';
 const assert = (value, message) => { if (!value) throw new Error(message); };
-const config = { snapshotUrl: '/tests/browser/missing.json', testSnapshotUrl: '/data/test-snapshot.json' };
+// Fixed expectations require the canonical synthetic fixture, not user-editable demo data.
+const baseline = '/tests/browser/baseline.json';
+const config = { snapshotUrl: '/tests/browser/missing.json', testSnapshotUrl: baseline };
 export async function run(report) {
   async function clientCase(params, cfg, expected) {
     let client;
@@ -18,8 +20,8 @@ export async function run(report) {
   }
   await clientCase('?test=true', config, { type: 'ready' });
   await clientCase('?test=false', config, { type: 'error', code: 'LOAD_FAILED', reason: 'NOT_FOUND' });
-  await clientCase('?test=true', { snapshotUrl: '/data/test-snapshot.json', testSnapshotUrl: '/tests/browser/missing.json' }, { type: 'error', reason: 'NOT_FOUND' });
-  await clientCase('?test=true', { snapshotUrl: '/data/test-snapshot.json', testSnapshotUrl: '/tests/browser/index.html' }, { type: 'error', code: 'INVALID_SNAPSHOT' });
+  await clientCase('?test=true', { snapshotUrl: baseline, testSnapshotUrl: '/tests/browser/missing.json' }, { type: 'error', reason: 'NOT_FOUND' });
+  await clientCase('?test=true', { snapshotUrl: baseline, testSnapshotUrl: '/tests/browser/index.html' }, { type: 'error', code: 'INVALID_SNAPSHOT' });
   report('PASS real worker/client: exact test selection, missing real/test, invalid test, no fallback');
   const frame = document.createElement('iframe');
   frame.style.cssText = 'width:100%;height:750px;border:1px solid #ccc';

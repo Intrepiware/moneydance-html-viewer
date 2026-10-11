@@ -17,10 +17,13 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
     disposed = true; ready = false; worker?.terminate();
     onMessage({ type: 'error', requestId: currentRequest, code: 'WORKER_FAILED', message: 'Snapshot worker failed.' });
   };
-  const send = message => {
-    currentRequest = ++sequence;
-    try { worker.postMessage({ ...message, requestId: currentRequest }); } catch { workerFailed(); }
-    return currentRequest;
+  let currentDetails = 0;
+  const send = (message, details = false) => {
+    const requestId = ++sequence;
+    if (details) currentDetails = requestId;
+    else currentRequest = requestId;
+    try { worker.postMessage({ ...message, requestId }); } catch { workerFailed(); }
+    return requestId;
   };
   return {
     testMode, effectiveDate,
@@ -39,7 +42,7 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
       try {
         worker = workerFactory();
         worker.onmessage = event => {
-          if (!disposed && event.data?.requestId === currentRequest) {
+          if (!disposed && event.data?.requestId === (event.data?.lane === 'details' ? currentDetails : currentRequest)) {
             if (event.data.type === 'ready') { ready = true; locked = false; unlocking = false; }
             if (['locked','unlockError'].includes(event.data.type)) { locked=true; unlocking=false; }
             if (event.data.type === 'error') { ready = false; disposed = true; worker.terminate(); }
@@ -57,10 +60,25 @@ export function createSnapshotClient({ onMessage, pageUrl = globalThis.location.
       return send({type:'unlock',password});
     },
     // Invalidate immediately on input, before the debounced request is sent.
-    invalidatePending() { if (ready && !disposed) currentRequest = ++sequence; },
-    query({ accountId = null, text = '', page = 1, pageSize = 100, includeFuture = false } = {}) {
+    invalidatePending() { if (ready && !disposed) { currentRequest = ++sequence; currentDetails = ++sequence; } },
+    invalidateDetails() { currentDetails = ++sequence; },
+    details({accountId,entryId}) {
       if (!worker || disposed || !ready) throw new Error('Snapshot is not ready.');
-      return send({ type: 'query', accountId, text, page, pageSize, includeFuture });
+      return send({type:'details',accountId,entryId}, true);
+    },
+    locate({mode,accountId,entryId,destinationAccountId,transactionId}) {
+      if (!worker || disposed || !ready) throw new Error('Snapshot is not ready.');
+      currentDetails = ++sequence;
+      return send({type:'locate',mode,accountId,entryId,destinationAccountId,transactionId});
+    },
+    queryLocated(target, locateRequestId, grouping = 'month') {
+      // A later selection, search or navigation invalidates both stages of this intent.
+      if (disposed || !ready || currentRequest !== locateRequestId) return null;
+      return this.query({accountId:target.accountId,page:target.page,includeFuture:target.includeFuture,grouping});
+    },
+    query({ accountId = null, text = '', page = 1, pageSize = 100, includeFuture = false, grouping = 'month' } = {}) {
+      if (!worker || disposed || !ready) throw new Error('Snapshot is not ready.');
+      return send({ type: 'query', accountId, text, page, pageSize, includeFuture, grouping });
     },
     dispose() {
       if (disposed) return;

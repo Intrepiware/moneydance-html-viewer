@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """Snapshot v1 exporter. Run inside Moneydance's Jython 2.7 script facility.
 
-Read-only source capture; no close hook or remote delivery. Save a controlled
-book first and validate the JSON before using the full private book.
+Read-only source capture; no close hook or remote delivery. Direct execution
+prompts for optional encryption; blank saves plaintext JSON. Save a controlled
+book first and validate the export before using the full private book.
 """
 import datetime
 import json
@@ -14,7 +15,7 @@ import threading
 from java.lang import Exception as JavaException
 from java.io import File, FileOutputStream, OutputStreamWriter
 from java.nio.file import Files, StandardCopyOption
-from javax.swing import JFileChooser, SwingUtilities
+from javax.swing import JFileChooser, SwingUtilities, JPanel, JLabel, JPasswordField, JOptionPane
 from com.infinitekind.moneydance.model import TxnSet
 
 LIMIT = 9007199254740991
@@ -95,6 +96,40 @@ def memo(txn):
     return text(txn.getDescription())
 
 
+def entry_tags(txn, parent, deadline=None):
+    """Parent rows include split tags; split rows exclude sibling tags."""
+    def tag_nodes():
+        yield parent
+        if text(txn.getUUID()) != text(parent.getUUID()):
+            yield txn
+        else:
+            for index in range(txn.getOtherTxnCount()):
+                check_deadline(deadline)
+                yield txn.getOtherTxn(index)
+    tags = set()
+    for node in tag_nodes():
+        check_deadline(deadline)
+        for tag in (node.getKeywords() or []):
+            check_deadline(deadline)
+            tags.add(text(tag))
+    return sorted(tags)
+
+
+def capture_allocation(txn, other, split, sign, deadline=None):
+    """Use selected-row monetary units and only the corresponding split's tags."""
+    check_deadline(deadline)
+    source = txn if split else other
+    amount = txn.getValue() if split else other.getParentAmount()
+    tags = set()
+    for tag in (source.getKeywords() or []):
+        check_deadline(deadline)
+        tags.add(text(tag))
+    return {'accountId': text(other.getAccount().getUUID()),
+            'name': text(other.getAccount().getAccountName()),
+            'memo': memo(source), 'tags': sorted(tags),
+            'amountCents': exact(long(amount) * sign)}
+
+
 def capture(book, deadline=None):
     """Copy relevant source data to Python values; never retain mutable Java nodes."""
     check_deadline(deadline)
@@ -160,11 +195,8 @@ def capture(book, deadline=None):
             for i in range(txn.getOtherTxnCount()):
                 check_deadline(deadline)
                 other = txn.getOtherTxn(i)
-                allocations.append({'accountId': text(other.getAccount().getUUID()),
-                                    'name': text(other.getAccount().getAccountName()),
-                                    'memo': memo(txn) if split else memo(other),
-                                    'amountCents': None})
-            tags = sorted(set(text(t) for node in (parent, txn) for t in (node.getKeywords() or [])))
+                allocations.append(capture_allocation(txn, other, split, sign, deadline))
+            tags = entry_tags(txn, parent, deadline)
             record['rows'].append({'id': eid, 'transactionId': text(parent.getUUID()),
                                    'accountId': aid, 'date': date_text(txn.getDateInt()),
                                    'registerOrder': order, 'raw': long(txn.getValue()),
@@ -221,6 +253,12 @@ def build_snapshot(records, instant, source_version, deadline=None):
             if r['included']:
                 entry = dict((k, v) for k, v in row.items() if k not in ('raw', 'sdkBalance', 'sourceStamp'))
                 entry['amountCents'] = exact(row['raw'] * r['sign'])
+                if entry['allocations']:
+                    total = 0
+                    for allocation in entry['allocations']:
+                        check_deadline(deadline)
+                        total = add(total, allocation['amountCents'])
+                    require(total == entry['amountCents'], 'ALLOCATION_SUM_MISMATCH')
                 entry['runningBalanceCents'] = exact(running * r['sign'])
                 emitted_entries.append(entry)
         require(running * r['sign'] == r['sourceClosing'], 'SOURCE_CLOSING_MISMATCH')
@@ -366,27 +404,152 @@ def capture_stable(book, deadline):
     return operation.result
 
 
+# Keep envelope v1 compatible with extension/encryption.py; both run against the same vectors.
+# Inlined to keep Moneybot execution self-contained without changing extension modules.
+def encrypt_direct(plaintext, password, deadline, random=None):
+    from java.lang import String, Byte, System
+    from java.lang.reflect import Array
+    from java.security import SecureRandom
+    from java.util import Arrays
+    from javax.crypto import Cipher, SecretKeyFactory
+    from javax.crypto.spec import PBEKeySpec, SecretKeySpec, GCMParameterSpec
+
+    MAX_PLAINTEXT = 128 * 1024 * 1024
+    deadline.check()
+    if len(plaintext) > MAX_PLAINTEXT: raise ValueError('EXPORT_TOO_LARGE')
+    if not isinstance(password, basestring) or not password.strip():
+        raise ValueError('INVALID_PASSWORD')
+    if any(0xD800 <= ord(c) <= 0xDFFF for c in password):
+        raise ValueError('INVALID_PASSWORD')
+    password.encode('utf-8', 'strict')
+    salt, iv = Array.newInstance(Byte.TYPE,16), Array.newInstance(Byte.TYPE,12)
+    rng = random or SecureRandom()
+    rng.nextBytes(salt); rng.nextBytes(iv)
+    header = Array.newInstance(Byte.TYPE,37)
+    System.arraycopy(String('MDSNAP01').getBytes('US-ASCII'),0,header,0,8)
+    header[8] = 1
+    System.arraycopy(salt,0,header,9,16); System.arraycopy(iv,0,header,25,12)
+    chars = String(password).toCharArray()
+    spec = PBEKeySpec(chars,salt,600000,256)
+    key = None
+    try:
+        key = SecretKeyFactory.getInstance('PBKDF2WithHmacSHA256').generateSecret(spec).getEncoded()
+        deadline.check()
+        cipher = Cipher.getInstance('AES/GCM/NoPadding')
+        cipher.init(Cipher.ENCRYPT_MODE,SecretKeySpec(key,'AES'),GCMParameterSpec(128,iv))
+        cipher.updateAAD(header)
+        output = Array.newInstance(Byte.TYPE,len(plaintext)+53)
+        System.arraycopy(header,0,output,0,37)
+        written = 37
+        for offset in range(0,len(plaintext),65536):
+            deadline.check()
+            written += cipher.update(plaintext,offset,min(65536,len(plaintext)-offset),output,written)
+        written += cipher.doFinal(output,written)
+        deadline.check()
+        if written != len(output): raise ValueError('ENCRYPTION_LENGTH')
+        return output
+    finally:
+        spec.clearPassword()
+        Arrays.fill(chars,u'\x00')
+        if key is not None: Arrays.fill(key,0)
+
+
+class ExportOptions(Runnable):
+    """Standalone-only modal interaction, always on Swing's event thread."""
+    def __init__(self):
+        self.password = None
+        self.target = None
+
+    def run(self):
+        from java.awt import GridLayout
+        from java.lang import String
+        from java.util import Arrays
+        field = JPasswordField(32)
+        panel = JPanel(GridLayout(0, 1))
+        panel.add(JLabel('Encryption password (optional):'))
+        panel.add(field)
+        panel.add(JLabel('Leave blank to save unencrypted plaintext JSON.'))
+        try:
+            while True:
+                choice = JOptionPane.showConfirmDialog(None, panel, 'Export Moneydance Snapshot',
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE)
+                if choice != JOptionPane.OK_OPTION:
+                    return
+                chars = field.getPassword()
+                try:
+                    password = unicode(String(chars))
+                finally:
+                    Arrays.fill(chars, u'\x00')
+                if password and not password.strip():
+                    JOptionPane.showMessageDialog(None, 'Use a nonblank password, or clear the field for plaintext JSON.')
+                    continue
+                self.password = password
+                break
+            chooser = JFileChooser()
+            chooser.setDialogTitle('Save Encrypted Snapshot' if password else 'Save Plaintext JSON Snapshot')
+            chooser.setSelectedFile(File('snapshot.enc' if password else 'snapshot.json'))
+            if chooser.showSaveDialog(None) == JFileChooser.APPROVE_OPTION:
+                self.target = chooser.getSelectedFile().getAbsoluteFile()
+        finally:
+            field.setText('')
+            if self.target is None:
+                self.password = None
+
+
+def save_direct_snapshot(snapshot, target, password):
+    """Never write plaintext to disk when encryption was requested."""
+    if password == u'':
+        atomic_save(snapshot, target)
+        return
+    from java.lang import String
+    from java.util import Arrays
+    plaintext = String(json.dumps(snapshot, ensure_ascii=True, separators=(',', ':'))).getBytes('UTF-8')
+    try:
+        ciphertext = encrypt_direct(plaintext, password, Deadline())
+    finally:
+        Arrays.fill(plaintext, 0)
+    directory = target.getAbsoluteFile().getParentFile()
+    require(directory.isDirectory(), 'OUTPUT_DIRECTORY_MISSING')
+    temporary = File.createTempFile('.snapshot-', '.tmp', directory)
+    try:
+        stream = FileOutputStream(temporary)
+        try:
+            stream.write(ciphertext)
+            stream.getFD().sync()
+        finally:
+            stream.close()
+        Files.move(temporary.toPath(), target.toPath(), StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING)
+    finally:
+        if temporary.exists():
+            temporary.delete()
+
+
 def main():
     require(sys.version_info[:2] == (2, 7) and sys.platform.startswith('java'), 'MONEYDANCE_JYTHON_27_REQUIRED')
     book = moneydance.getCurrentAccountBook()
     require(book is not None, 'OPEN_BOOK_REQUIRED')
-    chooser = JFileChooser()
-    chooser.setDialogTitle('Save Moneydance Snapshot v1 JSON')
-    chooser.setSelectedFile(File('snapshot.json'))
-    if chooser.showSaveDialog(None) != JFileChooser.APPROVE_OPTION:
+    options = ExportOptions()
+    if SwingUtilities.isEventDispatchThread():
+        options.run()
+    else:
+        SwingUtilities.invokeAndWait(options)
+    if options.target is None:
         print('EXPORT_CANCELLED')
         return
-    target = chooser.getSelectedFile().getAbsoluteFile()
-    operation = CaptureOnUIThread(book)
-    if SwingUtilities.isEventDispatchThread():
-        operation.run()
-    else:
-        SwingUtilities.invokeAndWait(operation)
-    if operation.error is not None:
-        raise operation.error
-    require(moneydance.getCurrentAccountBook() == book, 'SOURCE_BOOK_CHANGED')
-    snapshot = build_snapshot(operation.result, datetime.datetime.utcnow(), 'Moneydance build %d' % int(moneydance.getBuild()))
-    atomic_save(snapshot, target)
+    try:
+        require(moneydance.getCurrentAccountBook() == book, 'SOURCE_BOOK_CHANGED')
+        operation = CaptureOnUIThread(book)
+        if SwingUtilities.isEventDispatchThread():
+            operation.run()
+        else:
+            SwingUtilities.invokeAndWait(operation)
+        if operation.error is not None:
+            raise operation.error
+        require(moneydance.getCurrentAccountBook() == book, 'SOURCE_BOOK_CHANGED')
+        snapshot = build_snapshot(operation.result, datetime.datetime.utcnow(), 'Moneydance build %d' % int(moneydance.getBuild()))
+        save_direct_snapshot(snapshot, options.target, options.password)
+    finally:
+        options.password = None
     print('EXPORT_OK: schemaVersion=1 entries=%d' % len(snapshot['entries']))
 
 

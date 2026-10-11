@@ -1,0 +1,9 @@
+## Development and Review — Manual Acceptance Gate
+
+When creating or amending the constitution, integrate this rule once into its Development and Review section, preserving unrelated principles. Treat existing equivalent wording as satisfying this requirement; do not duplicate it. An existing hand-maintained constitution is not replaced merely by installing a preset. Follow its amendment/versioning procedure and explicit user intent.
+
+1. Each user story MUST include explicit manual testing tasks in tasks.md or an explicit justified story-level exception. Cover the main happy path, relevant failures and material edge cases with reproducible setup, actions, expected results and an evidence location. Non-obvious feasible setups require detailed instructions. Avoid redundant tests.
+2. Manual tasks MUST use `- [ ] [Manual Test] <ID> [USn] <description>`. IDs remain stable; story order and dependencies govern execution. `[P]` MUST NOT bypass story gates.
+3. Manual tasks may be checked only after a person executes the steps and reports passing results. Record tester, date, environment, expected/observed outcomes and defects/retests. User reports are valid evidence; automated passes alone are not. Reuse adequate evidence and ask only for material gaps. Never claim unexecuted checks passed.
+4. Implementation of a later story, including tests and fixtures, MUST wait until every required manual task in every preceding story is complete with supporting evidence. Re-evaluate the gate before each story transition. Planning later stories and authorized fixes/retests within the current story may continue.
+5. Justified omissions MUST describe the obstacle, uncovered behavior and alternative evidence or remaining gap; they are not passed tests. Unavailable equipment or an unrun required check remains pending, not an implicit exception. Honor the adopted constitution's existing exception process without inventing additional approval requirements.

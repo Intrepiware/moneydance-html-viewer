@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Split details — design review</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eef2f7;color:#0f172a;font:14px/1.5 system-ui,sans-serif}button,select{font:inherit}button,select{min-height:44px;border:1px solid #cbd5e1;border-radius:8px;background:white;color:#0f172a;padding:8px 12px}button{cursor:pointer}button:focus-visible,select:focus-visible{outline:3px solid #818cf8;outline-offset:3px}.toolbar{padding:24px 28px;background:white;border-bottom:1px solid #cbd5e1}.toolbar h1{font-size:24px;margin:0 0 6px}.toolbar p{margin:0 0 18px;color:#475569}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px}.controls label{display:flex;align-items:center;gap:8px}.boards{padding:28px;display:flex;align-items:flex-start;gap:28px;flex-wrap:wrap}.board h2{font-size:15px;margin:0 0 10px}.board.desktop{flex:1;min-width:min(740px,100%)}.board.phone{max-width:100%}.screen{--surface:#fff;--base:#f8fafc;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--primary:#4f46e5;--tag:#f1f5f9;--negative:#dc2626;position:relative;height:740px;background:var(--base);color:var(--text);border:1px solid var(--border);border-radius:16px;overflow:hidden}.dark .screen{--surface:#1e293b;--base:#0f172a;--text:#f8fafc;--muted:#94a3b8;--border:#334155;--primary:#a5b4fc;--tag:#334155;--negative:#f87171}.phone .screen{width:390px;max-width:100%;height:760px}.background{padding:26px;color:var(--muted)}.background strong{color:var(--primary);font-size:20px}.register{margin-top:30px;padding:20px;background:var(--surface);border-radius:12px}.fake-row{padding:18px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:20px}.veil{position:absolute;inset:0;background:rgba(15,23,42,.42);display:flex;align-items:center;justify-content:center;padding:28px}.popup{width:680px;max-width:100%;max-height:100%;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:0 24px 70px #0004;overflow:hidden}.popup header{padding:22px 24px 18px;border-bottom:1px solid var(--border);position:relative;padding-right:76px;flex:none}.popup h3{font-size:20px;line-height:1.3;margin:0 0 12px}.description{font-weight:600;overflow-wrap:anywhere}.context{color:var(--muted);font-size:13px;margin-top:4px;overflow-wrap:anywhere}.close{position:absolute;right:16px;top:14px;width:44px;height:44px;padding:10px;border:0;background:transparent;color:var(--muted)}.close:hover{background:var(--tag)}.close svg{width:24px;height:24px;fill:currentColor}.body{overflow:auto;overscroll-behavior:contain;min-height:0}.column-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;padding:14px 24px 0}.allocations{list-style:none;padding:0;margin:0}.allocation{padding:18px 24px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:minmax(0,1fr) 118px;gap:6px 20px}.allocation:last-child{border-bottom:0}.path{font-weight:600;overflow-wrap:anywhere;min-width:0}.money{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}.negative{color:var(--negative)}.memo,.tags,.reason{grid-column:1;min-width:0;overflow-wrap:anywhere}.memo{color:var(--text);margin-top:2px}.field{color:var(--muted);font-size:12px;display:block;margin-bottom:3px}.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}.tags .field{width:100%;margin:0}.tag{background:var(--tag);border-radius:5px;padding:2px 7px;font-size:12px;max-width:100%;overflow-wrap:anywhere}.missing,.reason{color:var(--muted);font-size:12px}.reason{margin-top:4px}.transfer{border:0;padding:0;background:transparent;color:var(--primary);text-align:left;font-weight:600;min-height:44px;overflow-wrap:anywhere;width:100%;border-radius:3px}.transfer:hover{text-decoration:underline}.popup footer{flex:none;border-top:1px solid var(--border);padding:18px 24px;background:var(--surface)}.total{display:flex;align-items:baseline;justify-content:space-between;gap:16px;font-weight:700;font-size:16px}.footnote{margin:5px 0 0;color:var(--muted);font-size:12px}.empty{padding:28px 24px}.phone .veil{padding:16px 10px;align-items:flex-end}.phone .popup{border-radius:16px;max-height:100%}.phone .popup header{padding:18px 62px 16px 16px}.phone .popup h3{font-size:19px}.phone .close{right:8px;top:8px}.phone .allocation{padding:16px;grid-template-columns:minmax(0,1fr) 100px;gap:6px 12px}.phone .column-labels{padding:12px 16px 0}.phone .popup footer{padding:16px}.reopen{margin:20px;background:var(--surface);color:var(--primary);border-color:var(--border)}[hidden]{display:none!important}.notes{padding:0 28px 28px;max-width:950px;color:#475569}.notes p{margin:6px 0}.status{min-height:24px;margin-top:10px;color:#475569}@media(max-width:600px){.toolbar,.boards{padding:16px}.desktop{display:none}.phone{width:100%}.phone .screen{width:100%}.notes{padding:0 16px 24px}.controls label{flex-wrap:wrap}}
+.popup header{padding-right:24px}.popup h3{padding-right:52px}.transaction-summary{display:grid;grid-template-columns:minmax(0,1fr) 118px;gap:20px;align-items:baseline}.phone .popup header{padding-right:16px}.phone .transaction-summary{grid-template-columns:minmax(0,1fr) 100px;gap:12px}
+.memo{color:var(--muted);font-size:.85rem}
+</style>
+<div class="toolbar">
+ <h1>Split details</h1>
+ <p>US3 design proposal · synthetic examples · desktop and mobile use the same content</p>
+ <div class="controls">
+  <label>Example <select id="scenario"><option value="expense">Categories, long text & repeated splits</option><option value="paycheck">Paycheck · $2,000 net</option><option value="transfer">Transfer accounts · US4 preview</option><option value="partial">Unavailable amount & excluded account</option><option value="empty">Uncategorized</option><option value="many">Many splits · scroll test</option></select></label>
+  <button id="theme" aria-pressed="false">Dark theme</button>
+  <label>Phone width <select id="width"><option>390</option><option>360</option><option>412</option></select></label>
+ </div>
+ <div class="status" id="status" role="status">Transfer actions are a design preview; they do not open a real register.</div>
+</div>
+<main class="boards">
+ <section class="board desktop"><h2>Desktop · 680px dialog</h2><div class="screen" id="desktop"></div></section>
+ <section class="board phone"><h2>Mobile · <span id="phone-width">390</span>px viewport</h2><div class="screen" id="phone"></div></section>
+</main>
+<div class="notes"><p>Each split keeps its full path, memo and tags on the left, with a dedicated amount column on the right. Only the split list scrolls; the heading, close button and total stay visible.</p><p>The transfer example previews US4's account actions. US3 will show those account names as plain text. Missing allocation data is explicit, and an incomplete breakdown never presents a partial sum as a total.</p><p>This comparison page is not the production dialog and does not simulate its focus trap or register restoration. On a narrow browser, only the mobile preview is shown.</p></div>
+<script>
+const cases={
+ paycheck:{description:'Employer LLC Payroll',account:'Everyday:Checking',amount:200000,rows:[
+  {path:'Salary:Paycheck',memo:'Employer LLC Direct Dep',tags:[],amount:269000},
+  {path:'Tax:Federal Income Tax',memo:'Federal Tax',tags:[],amount:-25000},
+  {path:'Tax:Medicare Tax',memo:'Medicare Taxes',tags:[],amount:-15000},
+  {path:'Insurance:Dental',memo:'Dental Insurance',tags:[],amount:-3000},
+  {path:'Insurance:Health',memo:'Medical Insurance',tags:[],amount:-8000},
+  {path:'Insurance:Vision',memo:'Vision Insurance',tags:[],amount:-500},
+  {path:'Tax:Social Security Tax',memo:'Social Security Tax',tags:[],amount:-17500}]},
+ expense:{description:'Weekend supplies',account:'Everyday:Checking',amount:-24680,rows:[
+  {path:'Personal:Home:Maintenance:Garden supplies',memo:'Replacement fittings and supplies for the raised beds beside the kitchen window.',tags:['Home.Garden','Projects.Spring'],amount:-12500},
+  {path:'Personal:Dining:Dining Out',memo:'Lunch with the volunteers after the garden work.',tags:['Friends','Weekend'],amount:-8430},
+  {path:'Personal:Dining:Dining Out',memo:'Coffee and pastries for the afternoon team. Keep this separate from lunch.',tags:['Weekend','A-very-long-unbroken-tag-to-check-mobile-wrapping-without-hiding-the-amount'],amount:-3750}]},
+ transfer:{description:'Repair funding',account:'Personal:Home:Repairs',amount:500000,rows:[
+  {path:'Savings:Home Savings',memo:'Main contribution to the repair.',tags:['House.Repairs'],amount:400000,link:true},
+  {path:'Savings:Rainy Day Savings',memo:'Remaining contribution. Opening this account will locate its own $1,000 withdrawal.',tags:['Emergency','House.Repairs'],amount:100000,link:true}]},
+ partial:{description:'Older imported purchase',account:'Everyday:Checking',amount:-9200,rows:[
+  {path:'Personal:Home:Supplies',memo:'Amount was not included in this older export.',tags:null,amount:null},
+  {path:'Savings:Archived Reserve',memo:'',tags:[],amount:-4200,reason:'Account unavailable · excluded from this export'}]},
+ empty:{description:'Uncategorized purchase',account:'Everyday:Checking',amount:-1800,rows:[]}
+};
+cases.many={description:'Monthly household purchases',account:'Everyday:Checking',amount:-12000,rows:Array.from({length:12},(_,i)=>({path:'Personal:Home:Supplies',memo:'Separate allocation '+(i+1)+' — repeated destinations remain separate and in source order.',tags:['Household','September'],amount:-1000}))};
+const usd=value=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(value/100);
+function el(tag,className,text){const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
+function render(screen,data){
+ screen.replaceChildren();const background=el('div','background');background.append(el('strong','','Moneydance'),el('h2','',data.account));const register=el('div','register');register.append(el('div','fake-row','Transactions'),el('div','fake-row',data.description),el('div','fake-row','Opening balance'));background.append(register);screen.append(background);
+ const reopen=el('button','reopen','Reopen details');reopen.hidden=true;screen.append(reopen);
+ const veil=el('div','veil'),popup=el('section','popup');popup.setAttribute('aria-label','Split details design preview');veil.append(popup);screen.append(veil);
+ const header=el('header'),summary=el('div','transaction-summary');summary.append(el('div','description',data.description),el('div','money'+(data.amount<0?' negative':''),usd(data.amount)));header.append(el('h3','','Split details'),summary,el('div','context','Sep 12, 2026 · '+data.account));
+ const close=el('button','close');close.setAttribute('aria-label','Close details preview');
+ // Material Symbols Outlined close path, matching the existing local asset.
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 -960 960 960');svg.setAttribute('aria-hidden','true');const path=document.createElementNS(svg.namespaceURI,'path');path.setAttribute('d','m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z');svg.append(path);close.append(svg);header.append(close);popup.append(header);
+ close.onclick=()=>{veil.hidden=true;reopen.hidden=false;reopen.focus()};reopen.onclick=()=>{veil.hidden=false;reopen.hidden=true;close.focus()};popup.onkeydown=e=>{if(e.key==='Escape')close.click()};
+ const body=el('div','body');body.tabIndex=0;body.setAttribute('aria-label','Scrollable allocation details');popup.append(body);
+ if(data.rows.length){const labels=el('div','column-labels');labels.append(el('span','','Category / account'),el('span','','Amount'));body.append(labels);const list=el('ol','allocations');body.append(list);
+ for(const row of data.rows){const item=el('li','allocation');const name=el(row.link?'button':'div',row.link?'transfer':'path',row.path+(row.link?' →':''));if(row.link)name.onclick=()=>{document.getElementById('status').textContent='US4 preview: open '+row.path+', close details and reveal its related transaction row(s). No navigation is implemented here.'};item.append(name,el('div','money'+(row.amount<0?' negative':''),row.amount===null?'Unavailable':usd(row.amount)));
+ if(row.memo)item.append(el('div','memo',row.memo));
+ if(row.tags?.length){const tags=el('div','tags');for(const tag of row.tags)tags.append(el('span','tag',tag));item.append(tags);}if(row.reason)item.append(el('div','reason',row.reason));list.append(item);}
+ }else body.append(el('div','empty','Uncategorized — no allocations are available for this entry.'));
+ const complete=data.rows.length>0&&data.rows.every(row=>row.amount!==null);const footer=el('footer'),total=el('div','total');total.append(el('span','','Total'),el('span','money'+(complete&&data.amount<0?' negative':''),complete?usd(data.rows.reduce((sum,row)=>sum+row.amount,0)):'Unavailable'));footer.append(total,el('p','footnote',complete?data.rows.length+' allocations':data.rows.length?'One or more split amounts are unavailable.':'No allocation total is available.'));popup.append(footer);
+}
+function renderAll(){for(const id of ['desktop','phone'])render(document.getElementById(id),cases[document.getElementById('scenario').value]);}
+document.getElementById('scenario').onchange=renderAll;
+document.getElementById('theme').onclick=event=>{const dark=document.body.classList.toggle('dark');event.currentTarget.textContent=dark?'Light theme':'Dark theme';event.currentTarget.setAttribute('aria-pressed',String(dark));};
+document.getElementById('width').onchange=event=>{document.getElementById('phone').style.width=event.target.value+'px';document.getElementById('phone-width').textContent=event.target.value;};
+renderAll();
+</script>
+</html>

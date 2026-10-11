@@ -8,6 +8,75 @@ import { createSnapshotHandler } from '../../UI/src/snapshot-worker.mjs';
 import { createSnapshotClient } from '../../UI/src/worker-client.mjs';
 const fixture = await readFile(new URL('../fixtures/valid-snapshot-v1.json', import.meta.url), 'utf8');
 const load = { type: 'load', mode: 'test', requestId: 1, url: 'http://localhost/snapshot.json', effectiveDate: '2026-09-06' };
+test('locate supersedes search and malformed/unavailable targets stay nonterminal', async () => {
+  const messages=[];let fetches=0;
+  const handle=createSnapshotHandler({baseUrl:load.url,postMessage:m=>messages.push(m),fetchSnapshot:async()=>{fetches++;return new Response(fixture);}});
+  await handle(load);
+  const pending=handle({type:'query',requestId:2,text:'candy'});
+  const entry=JSON.parse(fixture).entries[0];
+  await handle({type:'locate',requestId:3,mode:'exact',accountId:entry.accountId,entryId:entry.id});await pending;
+  assert.equal(messages.at(-1).type,'located');assert.equal(messages.at(-1).focusEntryId,entry.id);
+  assert.equal(messages.some(m=>m.requestId===2),false);
+  for(const message of [{mode:'guess'}, {mode:'exact',accountId:[],entryId:'bad'}, {mode:'exact',accountId:'missing',entryId:'missing'}]) {
+    await handle({type:'locate',requestId:4,...message});assert.equal(messages.at(-1).type,'navigationUnavailable');
+    assert.equal('rows' in messages.at(-1),false);
+  }
+  await handle({type:'query',requestId:5});assert.equal(messages.at(-1).type,'page');assert.equal(fetches,1);
+});
+test('client navigation rejects stale locate/follow-up pages and pending details', () => {
+  const seen=[],sent=[];let terminated=false;
+  const worker={postMessage:m=>sent.push(m),terminate:()=>{terminated=true;}};
+  const client=createSnapshotClient({pageUrl:'http://localhost/?test=true',workerFactory:()=>worker,onMessage:m=>seen.push(m)});
+  client.load();worker.onmessage({data:{type:'ready',requestId:1}});
+  const details=client.details({accountId:'a',entryId:'b'});
+  const old=client.locate({mode:'exact',accountId:'a',entryId:'old'});
+  const latest=client.locate({mode:'exact',accountId:'a',entryId:'latest'});
+  worker.onmessage({data:{type:'details',lane:'details',requestId:details}});
+  worker.onmessage({data:{type:'located',requestId:old}});
+  assert.equal(client.queryLocated({accountId:'a'},old),null);
+  worker.onmessage({data:{type:'located',requestId:latest}});
+  const page=client.queryLocated({accountId:'a'},latest);
+  client.invalidatePending();worker.onmessage({data:{type:'page',requestId:page}});
+  assert.deepEqual(seen.map(m=>m.type),['ready','located']);
+  assert.equal(client.queryLocated({accountId:'a'},latest),null);
+  const unavailable=client.locate({mode:'exact',accountId:'a',entryId:'missing'});
+  worker.onmessage({data:{type:'navigationUnavailable',requestId:unavailable}});
+  assert.equal(terminated,false);assert.doesNotThrow(()=>client.query());
+  client.locate({mode:'exact',accountId:'a',entryId:'latest'});worker.onerror({preventDefault(){}});
+  assert.equal(terminated,true);assert.equal(seen.at(-1).code,'WORKER_FAILED');
+});
+test('details lane preserves pending pages, drops closed/replaced replies and remains nonterminal', () => {
+  const sent=[],seen=[],worker={postMessage:m=>sent.push(m),terminate(){}};
+  const client=createSnapshotClient({pageUrl:'http://localhost/',workerFactory:()=>worker,onMessage:m=>seen.push(m)});
+  client.load();worker.onmessage({data:{type:'ready',requestId:1}});
+  const page=client.query(),old=client.details({accountId:'a',entryId:'old'});
+  const latest=client.details({accountId:'a',entryId:'new'});
+  worker.onmessage({data:{type:'details',requestId:old,lane:'details'}});
+  worker.onmessage({data:{type:'page',requestId:page}});
+  worker.onmessage({data:{type:'detailsUnavailable',requestId:latest,lane:'details'}});
+  assert.deepEqual(seen.map(m=>m.type),['ready','page','detailsUnavailable']);
+  const closed=client.details({accountId:'a',entryId:'closed'});client.invalidateDetails();
+  worker.onmessage({data:{type:'details',requestId:closed,lane:'details'}});
+  assert.equal(seen.length,3);assert.doesNotThrow(()=>client.query());
+  const changed=client.details({accountId:'a',entryId:'changed'});client.invalidatePending();
+  worker.onmessage({data:{type:'details',requestId:changed,lane:'details'}});assert.equal(seen.length,3);
+  client.dispose();
+});
+
+test('worker details are scoped by identity and do not cancel asynchronous search', async () => {
+  const messages=[],data=JSON.parse(fixture),entry=data.entries[0];let fetches=0;
+  const handler=createSnapshotHandler({baseUrl:load.url,postMessage:m=>messages.push(m),fetchSnapshot:async()=>{fetches++;return{ok:true,text:async()=>fixture}}});
+  await handler(load);
+  const pending=handler({type:'query',requestId:2,text:'candy'});
+  await handler({type:'details',requestId:3,accountId:entry.accountId,entryId:entry.id});await pending;
+  assert.ok(messages.some(m=>m.type==='page'&&m.requestId===2));
+  assert.equal(messages.find(m=>m.type==='details').entryId,entry.id);
+  await handler({type:'details',requestId:4,accountId:'missing',entryId:'missing'});
+  assert.equal(messages.at(-1).type,'detailsUnavailable');
+  await handler({type:'details',requestId:5,accountId:[],entryId:'bad'});
+  assert.equal(messages.at(-1).type,'detailsUnavailable');
+  await handler({type:'query',requestId:6});assert.equal(messages.at(-1).type,'page');assert.equal(fetches,1);
+});
 test('load-once handler reports missing file, blocks retries and cross-origin requests', async () => {
   const messages = []; let fetches = 0;
   const handler = createSnapshotHandler({ baseUrl: load.url, postMessage: m => messages.push(m), fetchSnapshot: async () => { fetches++; return { ok: false, status: 404 }; } });
