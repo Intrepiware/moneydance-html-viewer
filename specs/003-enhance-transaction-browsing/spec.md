@@ -4,11 +4,34 @@
 
 **Created**: 2026-09-11
 
-**Status**: Draft — specification quality reviewed
+**Status**: Implemented; story gates accepted with documented omissions. Phase 8 evidence is recorded in [acceptance.md](acceptance.md).
 
 **Input**: Items 1–5 of Part 1 in [.workspace/future-enhancements.md](../../.workspace/future-enhancements.md), including the referenced desktop layout screenshot. Builds on accepted features 001 and 002.
 
 ## Clarifications
+
+### Session 2026-10-04 — accepted category presentation
+
+- Grouping uses All Time / Year / Month pills, with Month as the initial choice. All Time
+  keeps annual sticky dividers without activity totals and shows Total Balance. Month and
+  Year hide Total Balance and show centered purple period headings, such as
+  `Nov 2024 · $5,100.15`, repeating the complete total on continued pages.
+- Category running balances are hidden in the UI; their source values remain unchanged.
+  Ordinary account running balances remain visible. Category amounts retain their signs
+  with neutral text color. The grouping pills are centered on mobile only.
+- Scope text appears only during category search: “Matches in category + descendants.”
+  Direct browsing has no scope sentence; the future reveal control and disclosed rows show
+  future visibility. Scope and navigation status messages are centered.
+- Category/account badges share check-number badge sizing and theme styling in both bank
+  and category ledgers, preserving 44px mobile tap targets. These accepted refinements
+  supersede earlier requirements to leave every mobile presentation detail unchanged.
+
+### Session 2026-10-10 — acceptance evidence
+
+- Manual test tables and accepted omissions are recorded in `acceptance.md`. In particular,
+  Mike accepted omission of the Pixel 8 production snapshot request-count check; the phone's
+  timings and no-repeat-unlock observations remain valid. This does not change the one-fetch
+  application requirement or establish the omitted measurement as passed.
 
 ### Session 2026-09-20 — split-stored tags
 

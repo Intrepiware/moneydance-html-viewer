@@ -1,5 +1,111 @@
 # Transaction browsing implementation and acceptance
 
+## Phase 8 consolidation — 2026-10-10 / 2026-10-11 UTC
+
+This section summarizes current evidence. Earlier implementation-time “pending” statements
+remain as historical records and are superseded where later results explicitly close them.
+US1–US5 manual gates are complete with their documented omissions. No new private export or
+Moneydance source data was read for this consolidation.
+
+### T033 follow-up — tested export metadata
+
+The production future-transfer timing in the performance table below is an already documented omission:
+the tested book had no future counterpart. Mike confirmed that the export used for the
+historical timings is gone and has been overwritten several times. The following checks
+cannot be performed on that same export. Their blank statuses mean unrun, not passed;
+the missing metadata is accepted as an omission, not inferred from a newer export.
+
+| Step | Action / Instruction | Expected Result | Status | Notes |
+| --- | --- | --- | :---: | --- |
+| T033.1 | Identify the full export used for the October 3 category timing run. Check its file date or saved run record; note if the September 30 details run used a different export. | The file is identified as the October 3 timed snapshot; a later regenerated export is not silently substituted. | ⬜ | Accepted omission: original timed export overwritten; September export identity unknown. |
+| T033.2 | Check that export's file Properties → Size and record the exact byte count. | A nonzero byte count for the identified export is recorded. | ⬜ | Accepted omission: original size unavailable. |
+| T033.3 | If a plaintext JSON copy of that same export exists locally, run `node scripts/validate-snapshot.mjs <path-to-matching-json>` on it. Record only the summary. | The command reports `VALID` and numeric `accounts` and `entries` counts for that same export; no private rows are copied here. | ⬜ | Accepted omission: matching account and entry counts unavailable. |
+
+A new export's counts would describe a different dataset, so they cannot retroactively
+establish the timed export's size or counts. Repeating all performance measurements on a
+current export remains an option if measured metadata is needed later; it was not done here.
+
+### Automated regression (T032)
+
+- Agent, Linux sandbox, Node 22.22.1: `npm test` passed **77/77**, with zero failures or skips.
+  The old canonical/demo equality assertion was removed because the interactive demo is
+  user-editable. Its independent 13-entry financial expectations remain tested; the existing
+  server test verifies that editing the demo does not change the canonical browser route.
+  The synthetic decryption test now uses `tests/fixtures/valid-snapshot-v1.json` rather than
+  `UI/data/test-snapshot.json`. Neither demo data nor financial application behavior changed.
+- Agent browser run, 2026-10-11 UTC: the complete `/tests/browser/` harness finished
+  **ALL PASS** in Chromium 141.0.7390.37 (Playwright 1.56.1). Real-worker balances, hidden
+  hierarchy, register/search, loading failures, persisted lifecycle and encrypted unlock
+  passed. US1/US2 passed at 1280/1440/360/412px; US3/US4/US5 passed at 1280/360/412px,
+  including both themes, badges, grouping, details, plaintext/encrypted navigation and
+  one-fetch assertions. Synthetic search measurements were 101–103ms including debounce.
+  These are synthetic browser results; actual-phone evidence remains the user records below.
+- Browser setup used a temporary runner outside the repository, an ephemeral localhost
+  server and the existing test harness. The CDN was inaccessible, so the runner fulfilled
+  the Handlebars URL with the official npm distribution of the same pinned 4.7.9 version;
+  Google font requests used their existing URLs through curl. CDN availability is not
+  established by this run. The first renderer attempts crashed before the sandbox's missing
+  font libraries were installed; the completed run then passed. Chromium logged rejected
+  speculative `/tests/browser/styles.css` requests while constructing srcdoc frames; the
+  frames resolved their base URL to `/` and the actual stylesheet/layout assertions passed.
+
+### Reused full-history measurements (T033)
+
+All measurements below were recorded by Mike on the production dataset and are reused from
+the completed story gates. This phase changes test inputs/documentation only; it does not
+invalidate those application timings. Initial download/unlock durations are not action timings.
+
+| Action | Desktop | Actual Pixel 8 | Date / browser | Evidence and limits |
+| --- | --- | --- | --- | --- |
+| Open many-allocation paycheck details | <1s | <1s | 2026-09-30, Brave 1.96.59 | T041; no additional download or unlock observed |
+| Navigate to an off-page search result | <1s | <1s | 2026-10-03, Brave 1.96.61 | T044; correct target, no additional download/unlock |
+| Follow a production future-transfer target | Unmeasured | Unmeasured | 2026-10-03, Brave 1.96.61 | T044 documented omission: no future counterpart exists in the source dataset; synthetic future navigation passes are functional evidence only |
+| Open a large category (2,452 transactions) | 0.69s | 0.33s | Recorded 2026-10-03, Brave 1.96.61 | T048; both under two seconds; no additional unlock |
+| Switch Month → Year / Year → Month | 0.47s / 0.48s | 0.37s / 0.34s | Recorded 2026-10-03, Brave 1.96.61 | T048; both under two seconds; no additional unlock |
+
+The October 3 category entries describe the October 4 design; their original recorded dates
+are retained rather than silently corrected. The October 10 follow-up tables establish final
+functional acceptance. Desktop production Network stayed at one `snapshot.enc` request before
+and after category/grouping actions on October 10 (Brave 1.97.56). Mike explicitly accepted
+omitting the corresponding Pixel 8 Network check that day. Zero additional phone category
+requests is unverified, not a pass. The production future-transfer measurement gap remains
+visible; no fabricated source transaction or synthetic performance substitution was used.
+
+Full-export bytes/account/entry counts were not captured with these timing runs. The plan's
+approximately 35,198 KB, 450 accounts and 74,211 entries are historical workload context,
+not measurements of the tested export. The category record supplies its 2,452-entry size.
+SC-006 therefore has four measured action types under two seconds on both devices, with
+the future-transfer and phone Network omissions and dataset-metadata gap explicitly retained.
+T033's consolidation is complete with the original export's size/account/entry metadata
+accepted as an additional omission. The omissions already accepted at the story gates are
+not being reopened, and no repeat timing run was performed.
+
+### Documentation and constitution review (T034)
+
+| Principle | Review evidence |
+| --- | --- |
+| I. Financial fidelity | Independent fixture totals and existing financial tests retained; no monetary application/export changes in Phase 8 |
+| II. Runtime compatibility | Jython 2.7 exporter unchanged; T015/T016/T038 actual Moneydance build 5253 / Jython 2.7.2 and installed-extension comparisons remain the source evidence |
+| III. Privacy | Node tests use canonical synthetic fixtures; no user demo/private export read or overwritten; temporary browser runner blocks `/data/` requests |
+| IV. Simple user experience | Accepted pills, hidden category running balances and search-only scope text reconciled in active docs; no new application features |
+| V. Evidence | Automated, source and actual-device results distinguished; accepted omissions retained; constitution 1.3.0 table statuses count as direct manual evidence |
+| VI. Dependencies | No project runtime/dev package added; existing official icon SVGs and Apache 2.0 provenance retained. Temporary Playwright 1.56.1 outside the repository runs the existing real-browser harness because Node cannot verify DOM/layout; its playwright-core dependency and sandbox OS libraries support Chromium. Temporary Handlebars uses the application's pinned 4.7.9 version because its CDN is inaccessible here. |
+
+Icon source: Google Material Symbols Outlined revision
+`27e9ef1dbeedc13d682fece4a58e1eda4cb0961a`; see `UI/assets/icons/README.md` and LICENSE.
+`scripts/moneydance-preflight.md` now distinguishes the passed feature-003 allocation
+comparisons from the older balance-preflight history. Existing iOS Chrome keyboard/zoom
+behavior with pinch recovery and untested LastPass/iOS Safari autofill are unchanged;
+feature 003 claims no remediation. The existing account-header keyboard/button-semantics
+limitation and the earlier explicitly accepted omitted phone/unused-icon cases remain visible
+in their original story records.
+
+Project setup: `.gitignore` covers dependencies, build outputs, environment files, logs,
+Python/Jython artifacts, private data and tooling. The npm package is private; there are no
+Docker, ESLint, Prettier, Terraform or Helm configurations requiring additional ignore files.
+Spec-Kit requirements checklist: 16/16 checked. `.specify/extensions.yml` has `hooks: {}`.
+T032–T034 are complete with T033's metadata and measurement omissions recorded above.
+
 ## US5 - More Acceptance Tests - 2026-10-10
 
 Tester: Mike

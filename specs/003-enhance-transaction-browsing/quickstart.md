@@ -1,6 +1,8 @@
 # Validation Guide: Transaction and Category Browsing
 
-This is the planned acceptance procedure, not a report of completed implementation. Feature-specific fixtures/harness checks must be added during implementation. Use synthetic source records and shareable fixtures; keep private exports/credentials out of commits and routine logs.
+This guide describes the implemented feature and its regression procedures. US1–US5 story gates are complete with the omissions recorded in [acceptance.md](acceptance.md). Use synthetic source records and shareable fixtures; keep private exports/credentials out of commits and routine logs. Phase 8 results and consolidated device evidence are at the top of the acceptance record.
+
+Manual case format: use the tables in [the manual test plan](../../.workspace/us5-remaining-manual-tests.md) for the completed US5 follow-up cases. ⬜ means not run, ✅ confirms every stated expectation, and ❌ means an unexpected result. Record tester/date/browser/device once per run; Notes are needed only for exceptions, retests or requested measurements. Previously completed walkthroughs below remain valid historical procedures.
 
 ## Baseline and automated checks
 
@@ -12,7 +14,7 @@ Design experiment (2026-10-04): use the All Time / Year / Month pill buttons. Ch
 
 Restart `npm run serve`, then open **http://127.0.0.1:8080/tests/browser/categories.html**. This preview loads only `tests/fixtures/category-periods-v1.json` through `/tests/browser/categories.json`; no configuration changes or private exports are needed. Use your existing ngrok origin with the same path on Pixel 8. Reload the preview to reset the Accounts list and Month preference.
 
-Run **http://127.0.0.1:8080/tests/browser/** for automated regression checks. Expect three `PASS US5` lines at 1280, 360 and 412px and eventual `ALL PASS`. The US4 harness now expects category counterpart links because US5 enables them. Browser execution is pending until a browser-enabled environment runs this harness.
+Run **http://127.0.0.1:8080/tests/browser/** for automated regression checks. Expect three `PASS US5` lines at 1280, 360 and 412px and eventual `ALL PASS`. The US4 harness expects category counterpart links because US5 enables them. T031's user-run harness passed; retain any new run's actual outcome in the acceptance record.
 
 The category fixture has 115 entries, of which 113 are not future-dated. Its accounts start with $100 opening balances. Those opening balances are deliberately excluded from activity totals. Living contains 105 January purchases of $1 and one January refund of -$5: January activity is $100, across two pages. Its February +$20 and -$20 net to zero. Dining is a child category and contributes only during a search of Living. Checking has one -$1 counterpart; it must never be added to Living's activity sum.
 
@@ -33,12 +35,9 @@ Source balance references at the current effective date: Living own running bala
 
 #### T046 — Complete activity totals and empty/future states
 
-1. Select Living with no search, Month grouping and future hidden. Expect 109 transactions over two pages. Page 1 starts with February ($0), followed by January ($100). Page 2 repeats January's **$100** with `(continued)`, then December 2024 ($7). All 106 January entries contribute even when only part of that month is on the page.
-2. Choose Year: 2025 activity is $100 on both pages, with a continued header on page 2; 2024 is $7. Compare with the monthly reference above. Running balances and the $322 sidebar balance do not become activity totals.
-3. Search `Period` in Living: results include Dining, with 111 disclosed entries. Check both Month and Year against the matching reference row. The scope label must say matching category/descendant activity. Clear search: direct totals return.
-4. Reveal future transactions: Living has 110 direct rows and a $3 January 2099 period (or $3 annual 2099 period). With `Period` search it has 112 rows. Scope text says future included. Ordinary account/category selection hides future activity again.
-5. Search `not-present`: no matching rows and no period headers or invented totals. Clear search and select Empty Income: same explicit empty state.
-6. Select Future Only. With future hidden there are no rows/periods, but the reveal bar offers one $9 transaction. Activate it: a $9 period and its row appear. Its $100 sidebar balance still uses the effective date, not future activity.
+The detailed executable tables are B1–B6 in [the manual test plan](../../.workspace/us5-remaining-manual-tests.md). They cover the independent values above, the 106-entry January period across two pages, refunds/zero totals, December/January boundaries, descendant search and clearing it, future reveal/reset, no matches and empty/future-only categories. Their completed results are in `acceptance.md`.
+
+The current scope message is **Matches in category + descendants** during category search only. Direct browsing has no scope sentence. Future visibility is checked through the reveal control, disclosed counts and period headings; no “Future included” sentence is expected.
 
 #### T047 — Navigation, details and regression checks
 
@@ -108,11 +107,11 @@ npm run serve
 
 Open http://127.0.0.1:8080/tests/browser/ and http://127.0.0.1:8080/?test=true. The existing test dataset and harness are baseline checks; new feature assertions are required before they prove this feature. Normal mode uses the existing configured encrypted snapshot and unlock flow.
 
-The harness balance checks load `/tests/browser/baseline.json`, served from the canonical `tests/fixtures/valid-snapshot-v1.json`. Their expected Checking balance is $1,045.00. The interactive `?test=true` viewer continues using its configured demo file; changing that file must not change harness expectations. After a server-route update, stop the server with Ctrl+C, restart `npm run serve`, and reload `/tests/browser/`; tests start automatically. Do not replace your demo data to resolve a harness fixture mismatch.
+The harness balance checks load `/tests/browser/baseline.json`, served from the canonical `tests/fixtures/valid-snapshot-v1.json`. Their expected Checking balance is $1,045.00. The Node fixture/decryption tests also use this canonical synthetic file; `npm test` no longer compares against or reads the editable demo. The interactive `?test=true` viewer continues using its configured demo file; changing that file must not change harness expectations. After a server-route update, stop the server with Ctrl+C, restart `npm run serve`, and reload `/tests/browser/`; tests start automatically. Do not replace your demo data to resolve a harness fixture mismatch.
 
 ## Source validation prerequisite for US3
 
-US3 implementation is blocked until the US2 manual tasks T036 and T037 below pass.
+This prerequisite was satisfied: T036/T037 and the subsequent source correction T053 passed before US3. T015/T016/T038 source and installed-extension results are recorded in `acceptance.md`; the following commands remain available for later exporter regression work.
 
 Extend the existing Moneydance synthetic probe/reference procedure in [moneydance-preflight.md](../../scripts/moneydance-preflight.md). Independently record expected selected-row allocations for:
 
@@ -148,6 +147,10 @@ Rerun existing financial, hidden-hierarchy, search, encryption, test-mode, failu
 With the current full-history dataset on desktop and Pixel 8, measure five representative actions: open a many-allocation detail, navigate to an off-page search row, follow a future transfer target, open a large category, and change month/year grouping. Each must finish within two seconds after activation; no additional snapshot fetch or unlock.
 
 Record browser/version, date, dataset bytes/accounts/entries, all five timings per device, harness results, source comparison evidence and any explicit gaps. Previously accepted iOS limitations remain recorded; this feature does not claim to resolve them. Do not mark unrun source/device checks passed.
+
+Reuse T041/T044/T048 measurements as consolidated in `acceptance.md`; unchanged behavior does not require another manual run. Production future-transfer timing is omitted because the source dataset has no future counterpart. Mike also explicitly accepted omission of the Pixel 8 production Network request-count check on 2026-10-10. Neither omission is an executed pass. Current full-export bytes/accounts/entries were not captured alongside those runs; the plan's approximately 74,211 entries, 450 accounts and 35,198 KB are historical workload context only. The category timing record identifies 2,452 transactions.
+
+Official icon provenance and the Apache 2.0 license are retained in [UI/assets/icons/README.md](../../UI/assets/icons/README.md) and its adjacent LICENSE: Google Material Symbols Outlined revision `27e9ef1dbeedc13d682fece4a58e1eda4cb0961a`. The accepted iOS Chrome keyboard/zoom limitation and untested LastPass/iOS Safari autofill remain as documented for feature 002; no remediation is claimed here.
 
 ## Icon replacement acceptance (US1 addition)
 

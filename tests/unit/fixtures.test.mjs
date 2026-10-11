@@ -28,5 +28,5 @@ test('synthetic budget fixture preserves the requested financial scenario', asyn
   const checking = accounts.find(a => a.name === 'Checking');
   assert.deepEqual(checking.balanceTimeline.points.map(p => p.sidebarBalanceCents), [105000, 104500]);
   assert.deepEqual(checking.children.map(a => a.closingBalanceCents), [0, 65000, 20000, 19500]);
-  assert.deepEqual(await read('../../UI/data/test-snapshot.json'), snapshot);
+  // The editable viewer demo is independent; server.test.mjs verifies route isolation.
 });
