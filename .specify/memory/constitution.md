@@ -1,13 +1,14 @@
 <!--
 Sync Impact Report
-Version: 1.2.0 → 1.3.0 (tabular manual test cases and concise completion evidence)
+Version: 1.3.0 → 1.4.0 (document-writing, acceptance-criteria, and manual-test rules and examples added)
 Principles modified/added: none
-Sections modified: Development and Review — Manual Testing Gate
-Sections added: Development and Review — Manual Test Case Format
+Sections modified: Development and Review
+Sections added: Development and Review — Clear Document Writing; Acceptance Criteria
+Sections replaced: Development and Review — Manual Test Case Format (table → checklist)
 Sections removed: none
 Deferred placeholders: none
 Dependent templates and commands consume this constitution at runtime; no template changes.
-Existing acceptance records remain valid; new or substantively revised manual cases use tables.
+Existing documents remain valid; new or substantively revised documents follow these rules.
 No manual/source/device checks were executed by this documentation update.
 -->
 
@@ -128,59 +129,165 @@ Detailed design remains revisable. Keeping a document internally consistent does
 retaining unnecessary complexity. When actual evidence contradicts a design assumption,
 record the finding and revise the approach while preserving confirmed requirements.
 
+### Rule: Clear Document Writing
+
+All documents, including specifications, plans, and task lists, MUST be clear, crisp, and easy
+for people to understand. Use short, direct sentences and active verbs. Target a twelfth-grade
+reading level. Keep explanations brief, but choose clarity over brevity when the two conflict.
+Each sentence MUST express one idea or instruction. Author-created shorthand MUST be defined
+unless its meaning is obvious.
+
+### Rule: Acceptance Criteria
+
+Specifications MUST use the heading **Acceptance Criteria** instead of **Acceptance Scenarios**.
+Acceptance Criteria MUST contain functional requirements. They MAY also contain separate
+sections for non-functional requirements and regression prevention when those sections are
+relevant.
+
+Functional requirements are the default content beneath **Acceptance Criteria**. They MUST:
+
+- Appear as a bulleted list without a functional-requirements subheading.
+- Describe only the functional changes introduced by the ticket.
+- Follow the Clear Document Writing rule.
+- Avoid repetition and duplication where practical.
+- Exclude filler. Prefer fewer requirements when they fully describe the changes.
+
+Include a non-functional section only when the source requirements contain non-functional
+requirements. It MUST use the bold heading **Non-Functional Requirements**. Its requirements
+MUST appear as a bulleted list and follow the Clear Document Writing rule. Authors MUST NOT
+invent requirements to populate this section. Omit the section when no non-functional
+requirements apply.
+
+Include a regression-prevention section only when the source requirements identify existing
+behavior that the ticket must preserve. It MUST use the bold heading **What Must Not Change**.
+Its items MUST appear as a bulleted list and follow the Clear Document Writing rule. Each item
+MUST state unambiguously that an existing feature must continue to behave in a specified way.
+For example: "The Payment Page MUST continue to send an e-receipt to the payer after completing
+a payment." Authors MUST NOT invent items to populate this section. Omit the section when no
+specific existing behavior needs protection.
+
 ### Rule: Manual Testing Gate
 
-1. **Mandatory Inclusion in tasks.md:** Every user story MUST include at least one explicit manual testing task under its execution tasks, or an explicit story-level exception with justification in `tasks.md`. Cover the main happy path, relevant failure paths and material edge cases, minimizing repetition. A flow may be omitted when setup is impractical; record the specific obstacle, uncovered behavior and alternative evidence (or remaining gap). Non-obvious but feasible setups MUST have detailed, reproducible instructions. Unavailable equipment or an unrun required test remains pending, not an implicit exception.
-2. **Task Formatting:** Manual testing tasks MUST use `- [ ] [Manual Test] <description>`; task IDs and story labels may follow the tag. Include or link setup instructions and test cases following the Manual Test Case Format below.
-3. **Completion Evidence:** Mark a manual task `[x]` only after a person executes its required steps and the expected results pass, or remaining steps have an explicit accepted omission under rule 1. Record tester, date, environment and completed test tables in the feature's acceptance record. A person's ✅ certifies every expected result in that row and is sufficient evidence without a prose restatement. Automated passes alone do not complete manual tasks. Failed or unrun steps remain unchecked unless their omission is explicitly accepted and documented; omitted steps MUST NOT be represented as passed.
-4. **Sequential Blocking Gate:** Follow the user-story order in `tasks.md`. Implementation of the next story MUST NOT begin until all `[Manual Test]` tasks for every preceding story are complete (`[x]`). This includes the next story's implementation tests and fixtures. Documentation/planning for later stories and fixes/retests within the current story may continue. Justified omissions remain visible at the checkpoint and are not reported as passed tests.
+1. **Mandatory Inclusion in tasks.md:** Every user story MUST include at least one explicit
+   manual testing task under its execution tasks. Otherwise, `tasks.md` MUST state and justify
+   a story-level exception. Cover the main happy path, relevant failure paths, and material
+   edge cases without needless repetition. A flow MAY be omitted when setup is impractical.
+   Record the obstacle, uncovered behavior, and alternative evidence or remaining gap.
+   Non-obvious but feasible setups MUST have detailed, reproducible instructions. Unavailable
+   equipment or an unrun required test remains pending. It is not an implicit exception.
+2. **Task Formatting:** Manual testing tasks MUST use
+   `- [ ] [Manual Test] <description>`. Task IDs and story labels MAY follow the tag. Include
+   or link setup instructions and test cases that follow the Manual Test Case Format below.
+3. **Completion Evidence:** Mark a manual task `[x]` only after a person completes a passing
+   run of every required test case. An explicitly accepted omission MAY satisfy this rule when
+   it follows rule 1. Record the tester, date, environment, and completed checklists in the
+   feature's acceptance record. Automated passes alone do not complete manual tasks. Failed,
+   blocked, or unrun cases remain incomplete. Omitted steps MUST NOT be represented as passed.
+4. **Sequential Blocking Gate:** Follow the user-story order in `tasks.md`. Implementation of
+   the next story MUST NOT begin until all `[Manual Test]` tasks for every preceding story are
+   complete (`[x]`). This includes the next story's implementation tests and fixtures.
+   Documentation and planning for later stories MAY continue. Fixes and retests within the
+   current story MAY also continue. Justified omissions remain visible at the checkpoint and
+   MUST NOT be reported as passed tests.
 
 ### Rule: Manual Test Case Format
 
-New manual test cases and substantive revisions to existing cases MUST use Markdown tables
-with these columns, in this order: **Step**, **Action / Instruction**, **Expected Result**,
-**Status**, **Notes**. This applies to manual walkthroughs in test plans, quickstarts and
-acceptance records. Existing completed records remain valid without reformatting. Automated
-test code and the task checkboxes in `tasks.md` retain their own formats.
+New manual test cases and substantive revisions to existing cases MUST use sequential Markdown
+checklists. This rule applies to manual walkthroughs in test plans, quickstarts, and acceptance
+records. Existing completed records remain valid without reformatting. Automated test code and
+the task checkboxes in `tasks.md` retain their own formats.
 
-Each case MUST have a stable identifier linked to its manual task, such as A1 for T045,
-and each row MUST have a unique step identifier such as A1.1. Actions MUST be reproducible;
-expected results MUST state all observations needed to pass the row. Split rows when actions
-or expectations become difficult to scan or can usefully be checked independently. Include
-setup, test data and the required device/environment before the relevant table or by a clear
-link. Keep table text concise to reduce wrapping.
+Each case MUST have a stable identifier linked to its manual task, such as A1 for T045. Its
+heading MUST combine that identifier with a descriptive name. Each step MUST have a unique,
+ordered identifier such as A1.1. Every step MUST contain one reproducible action and its
+expected result. Split a step when its actions or expected results are difficult to scan or
+can be checked independently.
 
-The following status meanings MUST appear in the plan:
+Each run MUST record the tester, actual test date, browser and version, device, and test URL or
+environment. Include the required setup and test data before the checklist or link to them.
+Retests MUST be separate runs beneath the same test case. They MUST preserve each earlier run,
+including its failure or blocker.
 
-- **⬜**: Not run. Initialize every new step with this visible placeholder.
-- **✅**: A person performed the action and observed every stated expected result.
-- **❌**: A person performed the action and observed an unexpected result.
+Steps MUST run in listed order. Use `[x]` only when a person performed the step and observed
+every expected result. Leave all other steps unchecked. A failure or blocker is terminal for
+that run. Stop execution immediately. In a failed or blocked run, the first unchecked step is
+the terminal step. All later unchecked steps were not run.
 
-Blank status cells in existing records MAY be read as not run. A blocked step MUST remain
-⬜ with the obstacle recorded in Notes. An explicitly accepted omission MUST identify the
-affected case or steps, who accepted it, the date, reason and remaining unverified behavior.
-It MAY be recorded as a short exception beside the table; it MUST NOT receive a ✅.
+Every run MUST end with exactly one of these results:
 
-Record tester, actual test date, browser/version, device and test URL/environment once per
-run; repeat only when these change. Notes are required only for unexpected results, blockers,
-retests or measurements explicitly requested in the case. A successful step MUST NOT require
-duplicate narrative evidence or a separate prose result summary. When a measurement is
-needed, name it in advance and provide its entry space, such as a request count in Notes.
+- `**Result:** NOT RUN`
+- `**Result:** PASS`
+- `**Result:** FAIL at <step ID> — <observed problem>`
+- `**Result:** BLOCKED at <step ID> — <obstacle>`
 
-Reviewers MUST assess completed rows against their written expectations and MUST NOT add
-unstated conditions when evaluating a pass. A newly discovered requirement MUST become a
-separate explicit case or a clearly identified revision requiring its own verification.
-Retests MUST retain the original failure and record the later outcome and date.
+A run is `PASS` only when every step is checked. A successful step MUST NOT require duplicate
+narrative evidence. A failure result MUST describe the unexpected observation. A blocked
+result MUST describe the obstacle. When a measurement is required, name it in the expected
+result and provide a clear place to record it.
+
+An explicitly accepted omission MUST identify the affected case or steps, who accepted it,
+the date, the reason, and the remaining unverified behavior. It MUST NOT be checked or reported
+as passed.
+
+Reviewers MUST assess checked steps against their written expected results. They MUST NOT add
+unstated pass conditions. A newly discovered requirement MUST become a separate test case or a
+clearly identified revision that requires its own verification.
 
 Example structure (replace the example content when authoring an actual case):
 
-| Step | Action / Instruction | Expected Result | Status | Notes |
-| --- | --- | --- | :---: | --- |
-| A1.1 | Reload the specified test page. | Accounts is selected. | ⬜ | |
-| A1.2 | Activate Categories. | Categories becomes selected. | ⬜ | |
+```markdown
+## A1 — Switch Account Views
 
-This format keeps actions and acceptance criteria together, makes remaining work visible,
-and avoids requiring testers to rewrite successful observations.
+### Run 1
+
+**Tester:**  
+**Date:**  
+**Browser:**  
+**Device:**  
+**Environment:**
+
+- [ ] A1.1 — Reload the specified test page.
+
+  **Expected:** Accounts is selected.
+
+- [ ] A1.2 — Activate Categories.
+
+  **Expected:** Categories becomes selected.
+
+**Result:** NOT RUN
+```
+
+This format keeps actions and expected results together. It makes the stopping point and
+remaining unrun work visible without a wide table.
+
+Measurement example:
+
+```markdown
+## P1 — Measure Export Requests During Page Load
+
+### Run 1
+
+**Tester:**  
+**Date:**  
+**Browser:**  
+**Device:**  
+**Environment:**
+
+- [ ] P1.1 — Clear the browser's network log, then reload the viewer.
+
+  **Expected:** The viewer makes exactly one request for the configured export file.
+  **Measured:** \_\_\_ requests
+
+- [ ] P1.2 — Wait 30 seconds without interacting with the page.
+
+  **Expected:** The viewer makes no additional requests for the export file.
+  **Measured:** \_\_\_ additional requests
+
+**Result:** NOT RUN
+```
+
+The expected result MUST name the measurement and its unit. The measured field MUST record the
+observed value before the step can be checked.
 
 ## Governance
 
@@ -199,4 +306,4 @@ conflicts. Template examples are not project rules. Constitution updates do not 
 implement features or authorize deployment. Dependent documents MUST be reviewed when an
 amendment affects them, without rewriting unrelated templates or source files as a side effect.
 
-**Version**: 1.3.0 | **Ratified**: 2026-09-06 | **Last Amended**: 2026-10-10
+**Version**: 1.4.0 | **Ratified**: 2026-09-06 | **Last Amended**: 2026-10-19
