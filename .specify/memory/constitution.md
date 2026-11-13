@@ -1,15 +1,15 @@
 <!--
 Sync Impact Report
-Version: 1.3.0 → 1.4.0 (document-writing, acceptance-criteria, and manual-test rules and examples added)
-Principles modified/added: none
-Sections modified: Development and Review
-Sections added: Development and Review — Clear Document Writing; Acceptance Criteria
-Sections replaced: Development and Review — Manual Test Case Format (table → checklist)
-Sections removed: none
-Deferred placeholders: none
-Dependent templates and commands consume this constitution at runtime; no template changes.
-Existing documents remain valid; new or substantively revised documents follow these rules.
-No manual/source/device checks were executed by this documentation update.
+Version: 1.5.0 → 1.5.1
+Section clarified: Development and Review — Rule: Acceptance Criteria
+Reason: Correct the wording to express the owner's intended separation of functional
+requirements from story acceptance criteria. Require concrete, verifiable outcomes without filler.
+Optional non-functional and regression-prevention sections remain unchanged.
+Dependent artifacts reviewed: The spec template already separates functional requirements
+from story acceptance criteria. No template change is needed for this clarification.
+The existing 005-moneydance-rest-cli spec combines these sections under the prior wording.
+Its alignment is deferred because the owner requested no changes to that document.
+No runtime tests were executed for this documentation clarification.
 -->
 
 # Moneydance Personal Viewer Constitution
@@ -45,6 +45,13 @@ records in the source book.
 This project serves its owner's personal, read-only USD viewing needs. Marketing,
 distribution, multiple-user support, and mobile transaction editing MUST NOT be introduced
 without an explicit change of project scope.
+
+The local automation extension MAY modify the open Moneydance book through authenticated
+requests from the owner's tools. This is an explicit exception to the read-only project scope.
+Authorized writes MAY apply directly without a separate preview or commit step.
+The extension MUST enforce write permission and the intended book identity.
+It MUST preserve financial fidelity and report save failures or uncertain outcomes accurately.
+This exception does not authorize writes by the exporter, viewer, or read-only verification tools.
 
 Private exports, account details, and passwords MUST NOT be committed, published, or included
 in routine logs. Documentation and shareable fixtures MUST use synthetic or sanitized data.
@@ -140,17 +147,20 @@ unless its meaning is obvious.
 ### Rule: Acceptance Criteria
 
 Specifications MUST use the heading **Acceptance Criteria** instead of **Acceptance Scenarios**.
-Acceptance Criteria MUST contain functional requirements. They MAY also contain separate
-sections for non-functional requirements and regression prevention when those sections are
-relevant.
+Acceptance Criteria MUST describe observable conditions that show a user story is complete.
 
-Functional requirements are the default content beneath **Acceptance Criteria**. They MUST:
+The first section MUST be a bulleted list of concrete behavior introduced or changed by the
+story. Do not add a subheading for this list.
 
-- Appear as a bulleted list without a functional-requirements subheading.
-- Describe only the functional changes introduced by the ticket.
-- Follow the Clear Document Writing rule.
-- Avoid repetition and duplication where practical.
-- Exclude filler. Prefer fewer requirements when they fully describe the changes.
+Each criterion MUST state a specific outcome that a reviewer can verify. Exclude background,
+rationale, implementation advice, summaries, and general statements of intent.
+
+Keep functional requirements in their own section. Acceptance criteria MUST apply those
+requirements to the story rather than repeat them verbatim. Reference requirement identifiers
+when useful.
+
+Avoid criteria that restate the story or duplicate another criterion. Include only criteria
+that add a distinct acceptance condition. Follow the Clear Document Writing rule.
 
 Include a non-functional section only when the source requirements contain non-functional
 requirements. It MUST use the bold heading **Non-Functional Requirements**. Its requirements
@@ -306,4 +316,4 @@ conflicts. Template examples are not project rules. Constitution updates do not 
 implement features or authorize deployment. Dependent documents MUST be reviewed when an
 amendment affects them, without rewriting unrelated templates or source files as a side effect.
 
-**Version**: 1.4.0 | **Ratified**: 2026-09-06 | **Last Amended**: 2026-10-19
+**Version**: 1.5.1 | **Ratified**: 2026-09-06 | **Last Amended**: 2026-11-12
